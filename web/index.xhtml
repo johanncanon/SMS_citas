@@ -29,23 +29,44 @@
                 </b:navBar>
             </b:row><!-- MENU -->
         </b:container>
-        
+
         <!-- PANEL de la izquierda -->
         <b:container fluid="true">
             <b:row>
-                <b:column col-lg="4" col-md="4" col-xs="5" tooltip-delay-hide="10">
-                    <b:panel look="primary" collapsible="true">
-                        <f:facet name="heading">Dashboard Administrador Principal</f:facet>
-                        <b:listLinks>
-                            <b:navLink value="Reservas" href="#" icon="calendar"></b:navLink>
-                        </b:listLinks>
-                     </b:panel>
-                </b:column>
-            </b:row>            
-        </b:container>
+                <b:column col-lg="3" col-md="3" col-xs="4" tooltip-delay-hide="10">
+                    <b:panel>
+                        <!-- submenu -->
+                        <b:panel collapsible="true">
+                            <f:facet name="heading">Reservaciones</f:facet>  
+                            <b:listLinks>
+                                <b:navLink header="Aciones" ></b:navLink>
+                                <b:navLink value="ejemplo 1" href="#"></b:navLink>
+                                <b:navLink></b:navLink>
+                                <b:navLink value="ejemplo 2" href="#"></b:navLink>
+                                <b:navLink value="ejemplo 3" href="#"></b:navLink>
+                                
+                            </b:listLinks>
+                        </b:panel>
+                                   
+                                 
+                        
+                       
+                       <!-- <b:listLinks> 
+                            <b:dropMenu value="Reservas">
+                                <b:navLink value="submenu 1" href="#" icon="calendar"></b:navLink>
+                                <b:navLink value="submenu 2" href="#" icon="calendar"></b:navLink>
+                                <b:navLink value="submenu 3" href="#" icon="text-bigger"></b:navLink>
+                                <b:navLink value="submenu 4" href="#" icon="message-empty"></b:navLink>
+                            </b:dropMenu> 
+                            <b:navLink value="clientes" href="#" icon="parents"></b:navLink>
+                    </b:listLinks>-->
+                </b:panel>
+            </b:column>
+        </b:row>            
+    </b:container>
 
-       
-        
-    </h:body>
+
+
+</h:body>
 </html>
 
