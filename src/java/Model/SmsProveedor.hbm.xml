@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24-oct-2015 11:24:43 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Model.SmsProveedor" table="sms_proveedor" catalog="bd_sms_citas" optimistic-lock="version">
+        <id name="idProveedor" type="java.lang.Integer">
+            <column name="idProveedor" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="smsUsuario" class="Model.SmsUsuario" fetch="select">
+            <column name="Proveedor_idUsuario" not-null="true" />
+        </many-to-one>
+        <property name="proveedorValorGanancia" type="java.lang.Integer">
+            <column name="Proveedor_ValorGanancia" />
+        </property>
+        <set name="smsVehiculos" table="sms_vehiculo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Veh_idProveedor" not-null="true" />
+            </key>
+            <one-to-many class="Model.SmsVehiculo" />
+        </set>
+    </class>
+</hibernate-mapping>

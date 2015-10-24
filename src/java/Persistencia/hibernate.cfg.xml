@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bd_sms_citas?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.show_sql">true</property>
+    <mapping resource="Model/SmsEmpleado.hbm.xml"/>
+    <mapping resource="Model/SmsPermisos.hbm.xml"/>
+    <mapping resource="Model/SmsCiudad.hbm.xml"/>
+    <mapping resource="Model/SmsCategoria.hbm.xml"/>
+    <mapping resource="Model/SmsMarca.hbm.xml"/>
+    <mapping resource="Model/SmsVehiculo.hbm.xml"/>
+    <mapping resource="Model/SmsHojavida.hbm.xml"/>
+    <mapping resource="Model/SmsPermisosRol.hbm.xml"/>
+    <mapping resource="Model/SmsProveedor.hbm.xml"/>
+    <mapping resource="Model/SmsUsuario.hbm.xml"/>
+    <mapping resource="Model/SmsReferencia.hbm.xml"/>
+    <mapping resource="Model/SmsReservacion.hbm.xml"/>
+    <mapping resource="Model/SmsEstadovehiculo.hbm.xml"/>
+    <mapping resource="Model/SmsUsuarioRol.hbm.xml"/>
+    <mapping resource="Model/SmsRol.hbm.xml"/>
+    <mapping resource="Model/SmsPais.hbm.xml"/>
+    <mapping resource="Model/SmsServicios.hbm.xml"/>
+    <mapping resource="Model/SmsAgenda.hbm.xml"/>
+    <mapping resource="Model/SmsCalificacion.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

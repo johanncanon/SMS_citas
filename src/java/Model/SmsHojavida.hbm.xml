@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24-oct-2015 11:24:43 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Model.SmsHojavida" table="sms_hojavida" catalog="bd_sms_citas" optimistic-lock="version">
+        <id name="idHojaVida" type="java.lang.Integer">
+            <column name="idHojaVida" />
+            <generator class="identity" />
+        </id>
+        <property name="hojaVidaNombre" type="string">
+            <column name="HojaVida_nombre" length="45" />
+        </property>
+        <property name="hojaVidaTipo" type="string">
+            <column name="HojaVida_tipo" length="45" />
+        </property>
+        <property name="hojaVidaContenido" type="binary">
+            <column name="HojaVida_contenido" />
+        </property>
+        <set name="smsEmpleados" table="sms_empleado" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="empleado_hojaVida" />
+            </key>
+            <one-to-many class="Model.SmsEmpleado" />
+        </set>
+    </class>
+</hibernate-mapping>
