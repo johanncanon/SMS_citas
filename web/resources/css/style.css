@@ -1,0 +1,12 @@
+.titulo{
+    text-decoration: none !important;
+    color: #ffffff !important;
+}
+
+.well-1{
+    background-color: #2E83A4 !important;
+    position: relative;
+    bottom: 20px;
+    right: 15px;
+   padding: 12px;
+}
