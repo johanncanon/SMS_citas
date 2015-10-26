@@ -36,9 +36,18 @@
             <b:row>
                 <b:column col-lg="3" col-md="3"  col-sm="5" col-xs="12" tooltip-delay-hide="10">
                     <div class="well-1">
-                        <!-- submenu -->   
+                        <!-- submenu -->   }
+                        <b:thumbnail>
+                            <b:panelGrid colSpans="4,8">
+                                <img src="#"/>
+                                <f:facet name="caption"/>
+                                    <h4>Thumbnail label</h4>
+                                    <p>Nombre: "Nombre Completo."</p>
+                                    <p>Perfil : "tipo de percfil."</p>
+                            </b:panelGrid>
+                        </b:thumbnail>
                         <b:listLinks>
-                            <b:panel collapsible="true" look="primary" title="Reservaciones">
+                            <b:panel look="primary" collapsed="true"  title="Reservaciones">
 
                                 <b:listLinks>
                                     <b:navLink header="Aciones" />
@@ -49,7 +58,7 @@
                                 </b:listLinks>
                             </b:panel>
 
-                            <b:panel collapsible="true" look="primary" title="Clientes" style="bottom: 20px; position: relative">
+                            <b:panel look="primary" collapsed="true" title="Clientes" >
 
                                 <b:listLinks>
                                     <b:navLink header="Aciones" ></b:navLink>
@@ -60,22 +69,33 @@
                                 </b:listLinks>
                             </b:panel>
 
+                            <b:panel look="primary" collapsed="true" title="Vehiculos" >
+                                <b:listLinks>
+                                    <b:navLink header="Admimístra los Vehiculos" id="in-panel"></b:navLink>
+                                    <b:navLink value="Marca" href="#"></b:navLink>
+                                    <b:navLink value="Categoría" href="#"></b:navLink>
+                                </b:listLinks>
+                            </b:panel>
+
+                            <b:panel look="primary" collapsed="true" title="Estadisticas" >
+                                <b:listLinks>
+                                    <b:navLink header="Estadisticas generales SMS" id="in-panel"></b:navLink>
+                                    <b:navLink value="Del vehiculo" href="#"></b:navLink>
+                                    <b:navLink value="Del Conductor" href="#"></b:navLink>
+                                    <b:navLink value="Del Proveedor" href="#"></b:navLink>
+                                </b:listLinks>
+                            </b:panel>
+
+                            <b:panel look="primary" collapsed="true" title="Configuración">
+                                <b:listLinks>
+                                    <b:navLink header="Configuraciones Avanzadas" href="#" id="in-panel"></b:navLink>
+                                    <b:navLink value="Usuarios" href="#"></b:navLink>
+                                    <b:navLink value="Permisos" href="#"></b:navLink>
+                                    <b:navLink value="Permisos" href="#"></b:navLink>
+                                </b:listLinks>
+                            </b:panel>
+
                         </b:listLinks>
-
-
-
-
-
-                        <!-- <b:listLinks> 
-                             <b:dropMenu value="Reservas">
-                                 <b:navLink value="submenu 1" href="#" icon="calendar"></b:navLink>
-                                 <b:navLink value="submenu 2" href="#" icon="calendar"></b:navLink>
-                                 <b:navLink value="submenu 3" href="#" icon="text-bigger"></b:navLink>
-                                 <b:navLink value="submenu 4" href="#" icon="message-empty"></b:navLink>
-                             </b:dropMenu> 
-                             <b:navLink value="clientes" href="#" icon="parents"></b:navLink>
-                     </b:listLinks>-->
-
                     </div>
                 </b:column>
             </b:row>            

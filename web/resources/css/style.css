@@ -4,9 +4,19 @@
 }
 
 .well-1{
-    background-color: #2E83A4 !important;
+    background-color: #2E6DA4 !important;
     position: relative;
     bottom: 20px;
     right: 15px;
-   padding: 12px;
+    padding: 12px;
+    min-height: 100%;
+}
+
+#in-panel{
+    color: rgba(143, 143, 143, 0.81);
+    text-shadow: white 1px 1px 1px;
+    padding: 7px;
+    background-color: #e8e8e8 !important;
+    margin: -15px;
+    margin-bottom: 0px;
 }
