@@ -36,44 +36,64 @@
             <b:row>
                 <b:column col-lg="3" col-md="3"  col-sm="5" col-xs="12" tooltip-delay-hide="10">
                     <div class="well-1">
-                        <!-- submenu -->   }
+                        <!-- submenu -->   
                         <b:thumbnail>
                             <b:panelGrid colSpans="4,8">
                                 <img src="#"/>
                                 <f:facet name="caption"/>
-                                    <h4>Thumbnail label</h4>
-                                    <p>Nombre: "Nombre Completo."</p>
-                                    <p>Perfil : "tipo de percfil."</p>
+                                <h4>Thumbnail label</h4>
+                                <p>Nombre: "Nombre Completo."</p>
+                                <p>Perfil : "tipo de percfil."</p>
                             </b:panelGrid>
                         </b:thumbnail>
                         <b:listLinks>
-                            <b:panel look="primary" collapsed="true"  title="Reservaciones">
+
+                            <b:panel  collapsed="true"  title="Reservaciones">
 
                                 <b:listLinks>
-                                    <b:navLink header="Aciones" />
-                                    <b:navLink value="ejemplo 1" href="#" icon="globe"/>
+                                    <b:navLink header="Reservaciones realizadas por clientes." id="in-panel" />
+                                    <b:navLink value=" Reservacion de Vehiculo" icon="road" href="#" />
+                                    <b:navLink value=" Reservacion de Conductor" icon="user"  href="#" />
                                     <b:navLink><hr></hr></b:navLink>
-                                    <b:navLink value="ejemplo 2" href="#" icon="globe"/>
-                                    <b:navLink value="ejemplo 3" href="#" icon="globe"/>
+                                    <b:navLink header="Reservas y Clientes" id="in-panel" />
+                                    <b:navLink value="Consultar Reservacion" href="#" icon="info-sign"/>
+                                    <b:navLink value="Modificar Reservacion" href="#" icon="pencil"/>
+                                    <b:navLink value="Eliminar Reservacion" href="#" icon="remove"/>
                                 </b:listLinks>
                             </b:panel>
 
                             <b:panel look="primary" collapsed="true" title="Clientes" >
 
                                 <b:listLinks>
-                                    <b:navLink header="Aciones" ></b:navLink>
-                                    <b:navLink value="ejemplo 1" href="#"></b:navLink>
-                                    <b:navLink></b:navLink>
-                                    <b:navLink value="ejemplo 2" href="#"></b:navLink>
-                                    <b:navLink value="ejemplo 3" href="#"></b:navLink>
+                                    <b:navLink header="Informacion y opciones de Clientes." id="in-panel" ></b:navLink>
+                                    <b:navLink value="Registrar Clientes" icon="user" href="#"></b:navLink>
+                                    <b:navLink value="Editar Clientes" icon="pencil" href="#"></b:navLink>
+                                    <b:navLink value="Consultar Clientes" icon="ok" href="#"></b:navLink>
+                                    <b:navLink value="Eliminar Clientes" icon="trash" href="#"></b:navLink>
                                 </b:listLinks>
                             </b:panel>
 
                             <b:panel look="primary" collapsed="true" title="Vehiculos" >
                                 <b:listLinks>
-                                    <b:navLink header="Admimístra los Vehiculos" id="in-panel"></b:navLink>
-                                    <b:navLink value="Marca" href="#"></b:navLink>
-                                    <b:navLink value="Categoría" href="#"></b:navLink>
+                                    <b:navLink header="Marca de Vehiculos SMS" id="in-panel"></b:navLink>
+                                    <b:navLink value="Registrar marca de Vehiculo" href="#" icon="star"></b:navLink>                                   
+                                    <b:navLink value="Consultar marca de Vehiculo" href="#" icon="ok-circle"></b:navLink>                                   
+                                    <b:navLink value="Editar marca de Vehiculo" href="#" icon="pencil"></b:navLink>                                   
+                                    <b:navLink value="Eliminar marca de Vehiculo" href="#" icon="remove-circle"></b:navLink>  
+                                    <b:navLink><hr></hr></b:navLink>
+                                    
+                                    <b:navLink header="Categorias de Vehiculos SMS" id="in-panel"></b:navLink>
+                                    <b:navLink value="Registrar Categorias de Vehiculo" href="#" icon="star"></b:navLink>                                   
+                                    <b:navLink value="Consultar Categorias de Vehiculo" href="#" icon="ok-circle"></b:navLink>                                   
+                                    <b:navLink value="Editar Categorias de Vehiculo" href="#" icon="pencil"></b:navLink>                                   
+                                    <b:navLink value="Eliminar Categorias de Vehiculo" href="#" icon="remove-circle"></b:navLink>  
+                                    <b:navLink><hr></hr></b:navLink>
+                                    
+                                    <b:navLink header="Informacion del Vehiculo" id="in-panel"></b:navLink>                               
+                                    <b:navLink value="Consultar Vehiculo" href="#" icon="ok-circle"></b:navLink>                                   
+                                    <b:navLink value="Editar Vehiculo" href="#" icon="pencil"></b:navLink>                                   
+                                    <b:navLink value="Eliminar Vehiculo" href="#" icon="remove-circle"></b:navLink>  
+                                    
                                 </b:listLinks>
                             </b:panel>
 
