@@ -22,5 +22,7 @@ public interface IUsuarioDao {
     public void modificarUsuario(SmsUsuario usuario);
 
     public void eliminarUsuario(SmsUsuario usuario);
+    
+    public List<SmsUsuario> consultarUsuario(SmsUsuario usuario);
 
 }

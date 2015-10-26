@@ -7,31 +7,87 @@ package DAO;
 
 import Model.SmsPermisos;
 import java.util.List;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
  * @author Desarrollo_Planit
  */
-public class ImpPermisosDao implements IPermisosDao{
+public class ImpPermisosDao implements IPermisosDao {
 
     @Override
     public List<SmsPermisos> mostrarPermisos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = null;
+        List<SmsPermisos> permisos = null;
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsPermisos");
+            permisos = (List<SmsPermisos>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return permisos;
+
     }
 
     @Override
     public void registrarPermiso(SmsPermisos permiso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = null;
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(permiso);
+            session.getTransaction().commit();
+        }catch(HibernateException e){
+            e.getMessage();
+            session.getTransaction().rollback();
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }            
     }
 
     @Override
     public void modificarPermiso(SmsPermisos permiso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = null;
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.update(permiso);
+            session.getTransaction().commit();
+        }catch(HibernateException e){
+            e.getMessage();
+            session.getTransaction().rollback();
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }  
     }
 
     @Override
     public void eliminarPermiso(SmsPermisos permiso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = null;
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.delete(permiso);
+            session.getTransaction().commit();
+        }catch(HibernateException e){
+            e.getMessage();
+            session.getTransaction().rollback();
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }  
     }
-    
+
 }

@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Model.SmsRol;
+import Model.SmsPermisosRol;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -15,35 +15,33 @@ import org.hibernate.Session;
  *
  * @author Desarrollo_Planit
  */
-public class ImpRolDao implements IRolDao{
+public class ImpPermisosRolDao implements IPermisosRolDao {
 
     @Override
-    public List<SmsRol> mostrarRoles() {
-       
+    public List<SmsPermisosRol> mostrarPermisosRol() {
         Session session = null;
-        List<SmsRol> roles = null;
-        
-        try{
+        List<SmsPermisosRol> permisosRol = null;
+        try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsRol");
-            roles = (List<SmsRol>) query.list();
-            
-        }catch(HibernateException e){
+            Query query = session.createQuery("from SmsPermisosRol");
+            permisosRol = (List<SmsPermisosRol>) query.list();
+        } catch (HibernateException e) {
             e.getMessage();
-        }finally{
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
-        }return roles;
+        }
+        return permisosRol;
     }
 
     @Override
-    public void registrarRol(SmsRol Rol) {
+    public void registrarPermisosRol(SmsPermisosRol permisosRol) {
         Session session = null;
         try{
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.save(Rol);
+            session.save(permisosRol);
             session.getTransaction().commit();
         }catch(HibernateException e){
             e.getMessage();
@@ -56,12 +54,12 @@ public class ImpRolDao implements IRolDao{
     }
 
     @Override
-    public void modificarRol(SmsRol Rol) {
-       Session session = null;
+    public void modificarPermisosRol(SmsPermisosRol permisosRol) {
+        Session session = null;
         try{
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.update(Rol);
+            session.update(permisosRol);
             session.getTransaction().commit();
         }catch(HibernateException e){
             e.getMessage();
@@ -74,12 +72,12 @@ public class ImpRolDao implements IRolDao{
     }
 
     @Override
-    public void eliminarRol(SmsRol Rol) {
+    public void eliminarPermisosRol(SmsPermisosRol permisosRol) {
         Session session = null;
         try{
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.delete(Rol);
+            session.delete(permisosRol);
             session.getTransaction().commit();
         }catch(HibernateException e){
             e.getMessage();
@@ -90,5 +88,5 @@ public class ImpRolDao implements IRolDao{
             }
         }
     }
-    
+
 }

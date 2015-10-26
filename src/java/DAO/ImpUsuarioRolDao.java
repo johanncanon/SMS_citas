@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Model.SmsRol;
+import Model.SmsUsuarioRol;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -15,80 +15,81 @@ import org.hibernate.Session;
  *
  * @author Desarrollo_Planit
  */
-public class ImpRolDao implements IRolDao{
+public class ImpUsuarioRolDao implements IUsuarioRolDao {
 
     @Override
-    public List<SmsRol> mostrarRoles() {
-       
+    public List<SmsUsuarioRol> mostrarUsuariosRol() {
         Session session = null;
-        List<SmsRol> roles = null;
+        List<SmsUsuarioRol> usuarioRol = null;
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsUsuarioRol");
+            usuarioRol = (List<SmsUsuarioRol>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return usuarioRol;
+    }
+
+    @Override
+    public void registrarUsuarioRol(SmsUsuarioRol usuarioRol) {
         
-        try{
-            session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsRol");
-            roles = (List<SmsRol>) query.list();
-            
-        }catch(HibernateException e){
-            e.getMessage();
-        }finally{
-            if(session != null){
-                session.close();
-            }
-        }return roles;
-    }
-
-    @Override
-    public void registrarRol(SmsRol Rol) {
         Session session = null;
-        try{
+        try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.save(Rol);
+            session.save(usuarioRol);
             session.getTransaction().commit();
-        }catch(HibernateException e){
+        } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
-        }finally{
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
     }
 
     @Override
-    public void modificarRol(SmsRol Rol) {
-       Session session = null;
-        try{
-            session = NewHibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            session.update(Rol);
-            session.getTransaction().commit();
-        }catch(HibernateException e){
-            e.getMessage();
-            session.getTransaction().rollback();
-        }finally{
-            if(session != null){
-                session.close();
-            }
-        }
-    }
-
-    @Override
-    public void eliminarRol(SmsRol Rol) {
+    public void modificarUsuarioRol(SmsUsuarioRol usuarioRol) {
+        
         Session session = null;
-        try{
+        try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.delete(Rol);
+            session.update(usuarioRol);
             session.getTransaction().commit();
-        }catch(HibernateException e){
+        } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
-        }finally{
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
     }
-    
+
+    @Override
+    public void eliminarUsuarioRol(SmsUsuarioRol usuarioRol) {
+
+        Session session = null;
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.delete(usuarioRol);
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
 }
