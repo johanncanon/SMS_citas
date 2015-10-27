@@ -19,7 +19,7 @@
                     <p:column><p:password value="#{usuarioBean.usuario.usuarioPassword}"/></p:column>
                 </p:row>
                 <p:row>
-                    <p:column colspan="2"><p:commandButton value="Iniciar Sesion" update="messages panelUsuario " action="#{usuarioBean.iniciarSesion()}" oncomplete="#{usuarioBean.usuario.limpiar()}"/></p:column>                    
+                    <p:column colspan="2"><p:commandButton value="Iniciar Sesion" ajax="false" update="messages panelUsuario " action="#{usuarioBean.iniciarSesion()}" oncomplete="#{usuarioBean.usuario.limpiar()}"/></p:column>                    
                 </p:row>
             </p:panelGrid>
         </h:form>

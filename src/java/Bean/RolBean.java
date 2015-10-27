@@ -17,9 +17,7 @@ import java.util.List;
  */
 public class RolBean {
 
-    private List<SmsRol> Roles;
-    
-
+    private List<SmsRol> Roles;  
     private SmsRol rol;
     private SmsPermisos permiso;
 

@@ -16,21 +16,15 @@ import org.hibernate.SessionFactory;
  */
 public class NewHibernateUtil {
 
-    private static final SessionFactory sessionFactory;
-    
-    static {
+    private static final SessionFactory SESSION_FACTORY = buildSessionFactory();
+    private static SessionFactory buildSessionFactory() {
         try {
-            // Create the SessionFactory from standard (hibernate.cfg.xml) 
-            // config file.
-            sessionFactory = new AnnotationConfiguration().configure("/Persistencia/hibernate.cfg.xml").buildSessionFactory();
+            return new AnnotationConfiguration().configure("/Persistencia/hibernate.cfg.xml").buildSessionFactory();
         } catch (Throwable ex) {
-            // Log the exception. 
-            System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
-    
     public static SessionFactory getSessionFactory() {
-        return sessionFactory;
+        return SESSION_FACTORY;
     }
 }

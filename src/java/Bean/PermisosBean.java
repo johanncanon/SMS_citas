@@ -24,6 +24,8 @@ public class PermisosBean {
     }
 
     public List<SmsPermisos> getPermisos() {
+        IPermisosDao permisoDao = new ImpPermisosDao();
+        permisos = permisoDao.mostrarPermisos();
         return permisos;
     }
 
