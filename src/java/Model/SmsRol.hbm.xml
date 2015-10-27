@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 24-oct-2015 11:24:43 by Hibernate Tools 4.3.1 -->
+<!-- Generated 27-oct-2015 12:34:20 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Model.SmsRol" table="sms_rol" catalog="bd_sms_citas" optimistic-lock="version">
         <id name="idRol" type="java.lang.Integer">
@@ -11,17 +11,21 @@
         <property name="rolNombre" type="string">
             <column name="Rol_nombre" length="45" />
         </property>
-        <set name="smsUsuarioRols" table="sms_usuario_rol" inverse="true" lazy="true" fetch="select">
+        <set name="smsPermisoses" table="sms_rol_permisos" inverse="false" lazy="true" fetch="select">
             <key>
-                <column name="UsuRol_idRol" not-null="true" />
+                <column name="SMS_Rol_idRol" not-null="true" />
             </key>
-            <one-to-many class="Model.SmsUsuarioRol" />
+            <many-to-many entity-name="Model.SmsPermisos">
+                <column name="SMS_Permisos_idPermisos" not-null="true" />
+            </many-to-many>
         </set>
-        <set name="smsPermisosRols" table="sms_permisos_rol" inverse="true" lazy="true" fetch="select">
+        <set name="smsUsuarios" table="sms_usuario_rol" inverse="false" lazy="true" fetch="select">
             <key>
-                <column name="idRol" not-null="true" />
+                <column name="SMS_Rol_idRol" not-null="true" />
             </key>
-            <one-to-many class="Model.SmsPermisosRol" />
+            <many-to-many entity-name="Model.SmsUsuario">
+                <column name="SMS_Usuario_idUsuario" not-null="true" />
+            </many-to-many>
         </set>
     </class>
 </hibernate-mapping>

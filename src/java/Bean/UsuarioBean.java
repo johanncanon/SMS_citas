@@ -6,17 +6,14 @@
 package Bean;
 
 import DAO.IUsuarioDao;
-import DAO.IUsuarioRolDao;
 import DAO.ImpUsuarioDao;
-import DAO.ImpUsuarioRolDao;
 import Model.SmsRol;
 import Model.SmsUsuario;
-import Model.SmsUsuarioRol;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -26,21 +23,15 @@ public class UsuarioBean implements Serializable {
 
     //Instanciacion de los objetos
     private SmsUsuario usuario;
-    private List<SmsRol> roles;
-    private SmsUsuarioRol rolUsuario;
+    private List<SmsRol> roles;    
     private List<SmsUsuario> usuarios;
 
     //instaciacion de objetos de sesion
-    private final HttpServletRequest httpServletRequest;
-    private final FacesContext faceContext;
+    private HttpSession httpSession;
     private FacesMessage message;
 
     public UsuarioBean() {
-        usuario = new SmsUsuario();
-        rolUsuario = new SmsUsuarioRol();
-        usuarios = null;
-        faceContext = FacesContext.getCurrentInstance();
-        httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
+        usuario = new SmsUsuario();       
     }
 
     public SmsUsuario getUsuario() {
@@ -57,15 +48,7 @@ public class UsuarioBean implements Serializable {
 
     public void setRoles(List<SmsRol> roles) {
         this.roles = roles;
-    }
-
-    public SmsUsuarioRol getRolUsuario() {
-        return rolUsuario;
-    }
-
-    public void setRolUsuario(SmsUsuarioRol rolUsuario) {
-        this.rolUsuario = rolUsuario;
-    }
+    }    
 
     public List<SmsUsuario> getUsuarios() {
         return usuarios;
@@ -104,7 +87,8 @@ public class UsuarioBean implements Serializable {
             if (user.get(0).getUsuarioEstadoUsuario() == 1) {//Evalua el estado de la cuenta de usuario, si esta activa o inactiva
                 if (user.get(0).getUsuarioLogin().equalsIgnoreCase(usuario.getUsuarioLogin()) && user.get(0).getUsuarioPassword().equalsIgnoreCase(usuario.getUsuarioPassword())) {
                     //evalua el login y el password del usuario para iniciar sesion
-                    httpServletRequest.getSession().setAttribute("Sesion", usuario);
+                    httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                    httpSession.setAttribute("Sesion", usuario);
                     message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Acceso Correcto", "Bienvenid@: " + usuario.getUsuarioNombre());
                     valor = "Principal.xhtml";
                 } else {
@@ -116,11 +100,16 @@ public class UsuarioBean implements Serializable {
         } else {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario no existente", null);
         }
-        faceContext.addMessage(null, message);
+        FacesContext.getCurrentInstance().addMessage(null, message);
         return valor;
     }
 
-    public void cerrarSesion() {
+    public String cerrarSesion() {
+        httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        httpSession.invalidate();
+        usuario.limpiar();
+        String valor = "Login.xhtml";
+        return valor;
     }
 
     public List<SmsUsuario> consultarUsuario() {
@@ -128,7 +117,6 @@ public class UsuarioBean implements Serializable {
         List<SmsUsuario> user = null;
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         user = usuarioDao.consultarUsuario(usuario);
-
         return user;
     }
 
@@ -139,21 +127,15 @@ public class UsuarioBean implements Serializable {
     }
 
     public void asignarRol() {
-        IUsuarioRolDao usuarioRolDao = new ImpUsuarioRolDao();
-        usuarioRolDao.registrarUsuarioRol(rolUsuario);
-        rolUsuario = new SmsUsuarioRol();
+        
     }
 
     public void modificarRol() {
-        IUsuarioRolDao usuarioRolDao = new ImpUsuarioRolDao();
-        usuarioRolDao.modificarUsuarioRol(rolUsuario);
-        rolUsuario = new SmsUsuarioRol();
+        
     }
 
     public void eliminarRol() {
-        IUsuarioRolDao usuarioRolDao = new ImpUsuarioRolDao();
-        usuarioRolDao.eliminarUsuarioRol(rolUsuario);
-        rolUsuario = new SmsUsuarioRol();
+        
     }
 
 }

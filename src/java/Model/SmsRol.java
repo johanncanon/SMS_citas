@@ -1,5 +1,5 @@
 package Model;
-// Generated 24-oct-2015 11:24:40 by Hibernate Tools 4.3.1
+// Generated 27-oct-2015 12:34:17 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -13,16 +13,16 @@ public class SmsRol  implements java.io.Serializable {
 
      private Integer idRol;
      private String rolNombre;
-     private Set<SmsUsuarioRol> smsUsuarioRols = new HashSet<SmsUsuarioRol>(0);
-     private Set<SmsPermisosRol> smsPermisosRols = new HashSet<SmsPermisosRol>(0);
+     private Set<SmsPermisos> smsPermisoses = new HashSet<SmsPermisos>(0);
+     private Set<SmsUsuario> smsUsuarios = new HashSet<SmsUsuario>(0);
 
     public SmsRol() {
     }
 
-    public SmsRol(String rolNombre, Set<SmsUsuarioRol> smsUsuarioRols, Set<SmsPermisosRol> smsPermisosRols) {
+    public SmsRol(String rolNombre, Set<SmsPermisos> smsPermisoses, Set<SmsUsuario> smsUsuarios) {
        this.rolNombre = rolNombre;
-       this.smsUsuarioRols = smsUsuarioRols;
-       this.smsPermisosRols = smsPermisosRols;
+       this.smsPermisoses = smsPermisoses;
+       this.smsUsuarios = smsUsuarios;
     }
    
     public Integer getIdRol() {
@@ -39,19 +39,19 @@ public class SmsRol  implements java.io.Serializable {
     public void setRolNombre(String rolNombre) {
         this.rolNombre = rolNombre;
     }
-    public Set<SmsUsuarioRol> getSmsUsuarioRols() {
-        return this.smsUsuarioRols;
+    public Set<SmsPermisos> getSmsPermisoses() {
+        return this.smsPermisoses;
     }
     
-    public void setSmsUsuarioRols(Set<SmsUsuarioRol> smsUsuarioRols) {
-        this.smsUsuarioRols = smsUsuarioRols;
+    public void setSmsPermisoses(Set<SmsPermisos> smsPermisoses) {
+        this.smsPermisoses = smsPermisoses;
     }
-    public Set<SmsPermisosRol> getSmsPermisosRols() {
-        return this.smsPermisosRols;
+    public Set<SmsUsuario> getSmsUsuarios() {
+        return this.smsUsuarios;
     }
     
-    public void setSmsPermisosRols(Set<SmsPermisosRol> smsPermisosRols) {
-        this.smsPermisosRols = smsPermisosRols;
+    public void setSmsUsuarios(Set<SmsUsuario> smsUsuarios) {
+        this.smsUsuarios = smsUsuarios;
     }
 
 

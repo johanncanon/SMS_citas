@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 24-oct-2015 11:24:43 by Hibernate Tools 4.3.1 -->
+<!-- Generated 27-oct-2015 12:34:20 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Model.SmsVehiculo" table="sms_vehiculo" catalog="bd_sms_citas" optimistic-lock="version">
         <id name="idVehiculo" type="java.lang.Integer">
@@ -35,8 +35,8 @@
         <property name="vehNumMalGrande" type="java.lang.Integer">
             <column name="Veh_num_malGrande" />
         </property>
-        <property name="vehNumMalPequeña" type="java.lang.Integer">
-            <column name="Veh_num_malPequeña" />
+        <property name="vehNumMalPeque&#195;&#177;a" type="java.lang.Integer">
+            <column name="Veh_num_malPeque&#195;&#177;a" />
         </property>
         <set name="smsAgendas" table="sms_agenda" inverse="true" lazy="true" fetch="select">
             <key>

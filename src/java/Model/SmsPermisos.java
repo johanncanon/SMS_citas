@@ -1,5 +1,5 @@
 package Model;
-// Generated 24-oct-2015 11:24:40 by Hibernate Tools 4.3.1
+// Generated 27-oct-2015 12:34:17 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -14,15 +14,15 @@ public class SmsPermisos  implements java.io.Serializable {
      private Integer idPermisos;
      private String permisosNombre;
      private String permisosDescripcion;
-     private Set<SmsPermisosRol> smsPermisosRols = new HashSet<SmsPermisosRol>(0);
+     private Set<SmsRol> smsRols = new HashSet<SmsRol>(0);
 
     public SmsPermisos() {
     }
 
-    public SmsPermisos(String permisosNombre, String permisosDescripcion, Set<SmsPermisosRol> smsPermisosRols) {
+    public SmsPermisos(String permisosNombre, String permisosDescripcion, Set<SmsRol> smsRols) {
        this.permisosNombre = permisosNombre;
        this.permisosDescripcion = permisosDescripcion;
-       this.smsPermisosRols = smsPermisosRols;
+       this.smsRols = smsRols;
     }
    
     public Integer getIdPermisos() {
@@ -46,12 +46,12 @@ public class SmsPermisos  implements java.io.Serializable {
     public void setPermisosDescripcion(String permisosDescripcion) {
         this.permisosDescripcion = permisosDescripcion;
     }
-    public Set<SmsPermisosRol> getSmsPermisosRols() {
-        return this.smsPermisosRols;
+    public Set<SmsRol> getSmsRols() {
+        return this.smsRols;
     }
     
-    public void setSmsPermisosRols(Set<SmsPermisosRol> smsPermisosRols) {
-        this.smsPermisosRols = smsPermisosRols;
+    public void setSmsRols(Set<SmsRol> smsRols) {
+        this.smsRols = smsRols;
     }
 
 

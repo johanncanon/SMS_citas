@@ -5,9 +5,10 @@
  */
 package Bean;
 
+import DAO.IRolDao;
+import DAO.ImpRolDao;
 import Model.SmsPermisos;
 import Model.SmsRol;
-import Model.SmsUsuario;
 import java.util.List;
 
 /**
@@ -16,16 +17,61 @@ import java.util.List;
  */
 public class RolBean {
 
-    /**
-     * Creates a new instance of RolBean
-     */
+    private List<SmsRol> Roles;
     
-    private List<SmsPermisos> permisos;    
+
     private SmsRol rol;
-    
-     public RolBean() {
+    private SmsPermisos permiso;
+
+    public RolBean() {
+        rol = new SmsRol();
     }
-    
-     
-     
+
+    public List<SmsRol> getRoles() {
+        return Roles;
+    }
+
+    public void setRoles(List<SmsRol> Roles) {
+        this.Roles = Roles;
+    }    
+
+    public SmsRol getRol() {
+        return rol;
+    }
+
+    public void setRol(SmsRol rol) {
+        this.rol = rol;
+    }
+
+    public SmsPermisos getPermiso() {
+        return permiso;
+    }
+
+    public void setPermiso(SmsPermisos permiso) {
+        this.permiso = permiso;
+    }
+
+    //Definicion de motodos CRUD    
+    public void registrarRol() {
+        IRolDao rolDao = new ImpRolDao();
+        rolDao.registrarRol(rol);
+        rol = new SmsRol();
+    }
+
+    public void modificarRol() {
+        IRolDao rolDao = new ImpRolDao();
+        rolDao.modificarRol(rol);
+        rol = new SmsRol();
+    }
+
+    public void eliminarRol() {
+        IRolDao rolDao = new ImpRolDao();
+        rolDao.eliminarRol(rol);
+        rol = new SmsRol();
+    }
+
+    //Definicion de metodos para asignacion de permisos a un rol
+    public void asignarPermiso() {
+
+    }
 }
