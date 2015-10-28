@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet library="awesome" name="./css/font-awesome.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Dashboard SMS | Administradot Principal</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <b:container fluid="true">
+                <b:row><!-- MENU -->
+                    <b:navBar brand="SMS Citas" brandHref="#" inverse="true">
+                        <b:navbarLinks pull="right">
+                            <b:dropMenu value="Nomnbre del Usuario" >
+                                <b:navLink value="Perfil" href="#"></b:navLink>
+                                <b:navLink></b:navLink>
+                                <b:navLink header="Sesión"></b:navLink>
+                                <b:button value="Cerrar Seseion" icon="power" iconAlign="right" style="margin-left:5%">
+                                    <f:param name="#" value="11"/>
+                                </b:button>
+
+                            </b:dropMenu>
+                        </b:navbarLinks>
+                    </b:navBar>
+                </b:row><!-- MENU -->
+            </b:container>
+
+        </div>
+
+        <b:container fluid="true">
+            <b:row>
+                <div>
+                    <b:column col-lg="3" col-md="3" col-sm="4" col-xs="12">
+                        <div id="left">
+                            <h:form>
+                                <p:growl autoUpdate="true"/>
+                                <b:thumbnail id="esp1">
+                                    <b:panelGrid colSpans="4,8">
+                                        <img src="#"/>
+                                        <f:facet name="caption"/>
+                                        <h4>Thumbnail label</h4>
+                                        <p>Nombre: "Nombre Completo."</p>
+                                        <p>Perfil : "tipo de perfil."</p>
+                                    </b:panelGrid>
+                                </b:thumbnail>
+                                <p:panelMenu>
+                                    <p:submenu label="Reservaciones" >
+                                        <p:menuitem value="Reservacion de Vehiculo"  icon="icon-minus-circled" actionListener="#{menuView.save}" />
+                                        <p:menuitem value="Reservacion de Conductor" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
+                                        <p:submenu label="reservas Clientes" icon="ui-icon-car">
+                                            <p:menuitem value="Consultar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
+                                            <p:menuitem value="Modificar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
+                                            <p:menuitem value="Eliminar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
+                                        </p:submenu>
+
+
+                                    </p:submenu>
+
+                                    <p:submenu label="Clientes">
+                                        <p:menuitem value="Informacion y opciones de Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                        <p:menuitem value="Registrar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                        <p:menuitem value="Editar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                        <p:menuitem value="Consultar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                        <p:menuitem value="Eliminar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                    </p:submenu>
+
+                                    <p:separator />
+                                    <p:submenu label="Vehiculos" >
+                                        <p:menuitem value="Informacion del Vehiculo" url="#" icon="ui-icon-home"/>
+                                        <p:menuitem value="Consultar Vehiculo" url="#" icon="ui-icon-home"/>
+                                        <p:menuitem value="Editar Vehiculo" url="#" icon="ui-icon-home"/>
+                                        <p:menuitem value="Eliminar Vehiculo" url="#" icon="ui-icon-home"/>
+
+                                        <p:submenu label="Marca de Vehiculos SMS" icon="ui-icon-extlink">
+                                            <p:menuitem value="Registrar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                            <p:menuitem value="Consultar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                            <p:menuitem value="Editar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                            <p:menuitem value="Eliminar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+
+                                        </p:submenu>
+
+                                        <p:submenu label="Categoria de Vehiculos" icon="ui-icon-extlink">
+                                            <p:menuitem value="Registrar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                            <p:menuitem value="Consultar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                            <p:menuitem value="Editar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                            <p:menuitem value="Eliminar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+
+                                        </p:submenu>
+                                        <p:menuitem value="Mobile"  icon="ui-icon-signal" />
+                                    </p:submenu>
+                                </p:panelMenu>
+                            </h:form>
+
+                        </div>
+                    </b:column>
+
+
+
+
+                    <div id="content" class="left_content">
+                        <ui:insert name="content"></ui:insert>    
+                    </div>
+                </div>
+            </b:row>
+        </b:container>
+
+        <div id="bottom">
+            <ui:insert name="bottom">Bottom</ui:insert>
+        </div>
+
+    </h:body>
+
+</html>
