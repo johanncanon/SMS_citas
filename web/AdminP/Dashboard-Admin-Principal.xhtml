@@ -12,11 +12,11 @@
     <ui:composition template="./template-admin-p.xhtml">
 
         <ui:define name="content">
-            <b:container>
+            <b:container fluid="true">
                 <b:row>
-                    
-                    <b:column col-lg="8" col-md="7" col-sm="6" col-xs="12" offset-lg="1" >
-                            <b:well>    
+
+                    <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12"  >
+                        <b:well>    
                             <h:form>
                                 <p:growl id="messages" showDetail="true" />
 
@@ -52,16 +52,129 @@
                                 </p:dialog>    
                             </h:form>
 
+
                             <style type="text/css">
                                 .value {
                                     width: 1000px;
                                 }
                             </style>
-                            </b:well>
-                        </b:column>
-                    
+                        </b:well>
+                    </b:column>
+
+                    <b:container fluid="true">
+                        <b:row>
+                            <b:column col-lg="6" col-md="6" col-sm="8" col-xs="12" >
+                                <b:well>
+                                    <h:form id="form">
+                                        <p:carousel value="#{carouselView.cars}" headerText="Responsive" var="car" itemStyle="text-align:center" >
+                                            <p:panelGrid columns="2" style="width:100%;margin:100px 0px" columnClasses="label,value" 
+                                                         styleClass="ui-panelgrid-blank">
+                                                <f:facet name="header">
+                                                    <p:graphicImage name="demo/images/car/#{car.brand}.gif"/> 
+                                                </f:facet>
+
+                                                <h:outputText value="Id:" />
+                                                <h:outputText value="#{car.id}" />
+
+                                                <h:outputText value="Year" />
+                                                <h:outputText value="#{car.year}" />
+
+                                                <h:outputText value="Color:" />
+                                                <h:outputText value="#{car.color}" style="color:#{car.color}"/>
+
+                                                <h:outputText value="Price" />
+                                                <h:outputText value="$#{car.price}" />
+                                            </p:panelGrid>
+
+                                            <f:facet name="footer">
+                                                In total there are  cars In total there are  carsVIn total there are  carsIn total there are  cars.
+                                            </f:facet>
+                                        </p:carousel>
+                                    </h:form>
+                                </b:well>
+                            </b:column>
+
+                            <b:column col-lg="3" col-md="3" col-sm="4" col-xs="12">
+                                <b:well>
+                                    <h:form>
+                                        <p:dataList value="#{dataListView.cars3}" var="car" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated">
+                                            <f:facet name="header">
+                                                Paginator
+                                            </f:facet>
+                                            <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px">
+                                                <f:setPropertyActionListener value="#{car}" target="#{dataListView.selectedCar}" />
+                                                <h:outputText value="#{car.brand}, #{car.year}" />
+                                            </p:commandLink>
+                                            <h:outputText value="#{car.brand}, #{car.year}" style="display:inline-block"/>
+                                        </p:dataList>
+
+                                        <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
+                                            <p:outputPanel id="carDetail" style="text-align:center;">
+                                                <p:panelGrid  columns="2" rendered="#{not empty dataListView.selectedCar}" columnClasses="label,value">
+                                                    <f:facet name="header">
+                                                        <p:graphicImage name="demo/images/car/#{dataListView.selectedCar.brand}-big.gif"/> 
+                                                    </f:facet>
+
+                                                    <h:outputText value="Id:" />
+                                                    <h:outputText value="#{dataListView.selectedCar.id}" />
+
+                                                    <h:outputText value="Year" />
+                                                    <h:outputText value="#{dataListView.selectedCar.year}" />
+
+                                                    <h:outputText value="Color:" />
+                                                    <h:outputText value="#{dataListView.selectedCar.color}" style="color:#{dataListView.selectedCar.color}"/>
+
+                                                    <h:outputText value="Price" />
+                                                    <h:outputText value="$#{dataListView.selectedCar.price}" />
+                                                </p:panelGrid>
+                                            </p:outputPanel>
+                                        </p:dialog>
+                                    </h:form>
+                                </b:well>                                
+                            </b:column>
+
+                            <p:separator/>
+                            <b:column col-lg="3" col-md="3" col-sm="4" col-xs="12">
+                                <b:well>
+                                    <p:dataTable var="car" value="#{dtBasicView.cars}">
+                                        <p:column headerText="Id">
+                                            <h:outputText value="#{car.id}" />
+                                        </p:column>
+
+                                        <p:column headerText="Year">
+                                            <h:outputText value="#{car.year}" />
+                                        </p:column>
+
+                                        <p:column headerText="Brand">
+                                            <h:outputText value="#{car.brand}" />
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </b:well>                                
+                            </b:column>
+
+                            <b:column col-lg="6" col-md="6" col-sm="8" col-xs="12">
+                                <b:well>
+                                    cuadro de estadisticas
+                                    <h:form>
+                                        <h:panelGrid columns="1" columnClasses="left,right" style="width:100%">
+                                            
+                                        </h:panelGrid>
+                                    </h:form>
+
+                                </b:well>                                
+                            </b:column>
+                        </b:row>
+                    </b:container>
+
+
+
+
                 </b:row>
             </b:container>
+
+
+
         </ui:define>
     </ui:composition>
 
