@@ -10,7 +10,6 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet library="awesome" name="./css/font-awesome.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
         <title>Dashboard SMS | Administradot Principal</title>
     </h:head>
@@ -98,7 +97,7 @@
 
                                         </p:submenu>
                                     </p:submenu>
-                                    
+
                                     <p:submenu label="Conductores SMS">
                                         <p:menuitem value="Registrar Conductores" url="#" icon=""/>
                                         <p:menuitem value="Consultar Conductores" url="#" icon=""/>
@@ -110,34 +109,41 @@
                                         <p:menuitem value="Calificaciones de Conductores" url="#" icon=""/>
                                         <p:menuitem value="Consultar Calificaciones" url="#" icon=""/>
                                     </p:submenu>
-                                    
+
                                     <p:submenu label="Estadisticas">
                                         <p:menuitem value="Del vehiculo" url="#" icon=""/>
                                         <p:menuitem value="Del Conductor" url="#" icon=""/>
                                         <p:menuitem value="Del Proveedor" url="#"/>
                                     </p:submenu>
-                                        
+
                                 </p:panelMenu>
                             </h:form>
 
                         </div>
                     </b:column>
 
-
-
-
                     <div id="content" class="left_content">
                         <ui:insert name="content"></ui:insert>    
                     </div>
-                    
-                    
                 </div>
             </b:row>
-        </b:container>
+            
+            
+            <div id="bottom">
 
-        <div id="bottom">
-            <ui:insert name="bottom">Bottom</ui:insert>
-        </div>
+                <b:row>
+                    <b:column>
+                        <div id="footer">
+                            <p>
+                                <span class="copy-r"> Copyright © 2015 | Realizado por <a href="www.planit.com.co">Planit SAS</a>.</span> Todos los derechos reservados.
+                            </p>
+                        </div>
+                    </b:column>
+                </b:row>
+            </div>
+
+
+        </b:container>
 
     </h:body>
 

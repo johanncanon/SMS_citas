@@ -6,10 +6,10 @@
 }
 
 #bottom {
-    position: relative;
+    /*position: relative;
     background-color: #c2dfef;
     padding: 5px;
-    margin: 10px 0px 0px 0px;
+    margin: 10px 0px 0px 0px;*/
 }
 
 #left {
@@ -18,9 +18,9 @@
     left: -15px;
     top: -20px;
     background-color: #222222;
-    padding: 4%;
+    padding: 8%;
     width: 104.91%;
-    min-height: 1295px;
+    min-height: 1418px;
 }
 
 #right {
@@ -71,4 +71,29 @@
 
 .ui-panelmenu .ui-menuitem{
     padding: 2px !important;
+}
+
+#footer{
+    padding: 12px;
+    padding-left: 7%;
+}
+
+.copy-r{
+    font-weight: bold;    
+}
+
+/* Media Querys
+********************************************************************************/
+
+@media screen and (max-width: 767px){
+    #left {
+        z-index: 100000;
+        position: relative;
+        left: -15px;
+        top: -20px;
+        background-color: #222222;
+        padding: 5%;
+        width: 104.91%;
+        min-height: 100%;
+    }
 }

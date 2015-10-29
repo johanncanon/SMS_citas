@@ -1,6 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
@@ -18,7 +19,23 @@
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Header   <!--este es un comentario fue realizado desde github-->
+                   <b:container fluid="true">
+                <b:row><!-- MENU -->
+                    <b:navBar brand="SMS Citas" brandHref="#" inverse="true">
+                        <b:navbarLinks pull="right">
+                            <b:dropMenu value="Nomnbre del Usuario" >
+                                <b:navLink value="Perfil" href="#"></b:navLink>
+                                <b:navLink></b:navLink>
+                                <b:navLink header="Sesión"></b:navLink>
+                                <b:button value="Cerrar Seseion" icon="power" iconAlign="right" style="margin-left:5%">
+                                    <f:param name="#" value="11"/>
+                                </b:button>
+
+                            </b:dropMenu>
+                        </b:navbarLinks>
+                    </b:navBar>
+                </b:row><!-- MENU -->
+            </b:container>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
@@ -26,120 +43,90 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
-                    <p:menu>
-                        <p:submenu label="Resources">
-                            <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
-                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
-                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
+                    <h:form>
+                        <p:growl autoUpdate="true"/>
+                        <b:thumbnail id="esp1">
+                            <b:panelGrid colSpans="4,8">
+                                <img src="#"/>
+                                <f:facet name="caption"/>
+                                <h4>Thumbnail label</h4>
+                                <p>Nombre: "Nombre Completo."</p>
+                                <p>Perfil : "tipo de perfil."</p>
+                            </b:panelGrid>
+                        </b:thumbnail>
+                        <p:panelMenu>
+                            <p:submenu label="Reservaciones" >
+                                <p:menuitem value="Reservacion de Vehiculo"  icon="icon-minus-circled" actionListener="#{menuView.save}" />
+                                <p:menuitem value="Reservacion de Conductor" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
+                                <p:submenu label="reservas Clientes" icon="ui-icon-car">
+                                    <p:menuitem value="Consultar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
+                                    <p:menuitem value="Modificar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
+                                    <p:menuitem value="Eliminar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
+                                </p:submenu>
 
-                        </p:submenu>
 
-                    </p:menu>
+                            </p:submenu>
+
+                            <p:submenu label="Clientes">
+                                <p:menuitem value="Informacion y opciones de Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                <p:menuitem value="Registrar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                <p:menuitem value="Editar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                <p:menuitem value="Consultar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                <p:menuitem value="Eliminar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                            </p:submenu>
+
+                            <p:separator />
+                            <p:submenu label="Vehiculos" >
+                                <p:menuitem value="Informacion del Vehiculo" url="#" icon="ui-icon-home"/>
+                                <p:menuitem value="Consultar Vehiculo" url="#" icon="ui-icon-home"/>
+                                <p:menuitem value="Editar Vehiculo" url="#" icon="ui-icon-home"/>
+                                <p:menuitem value="Eliminar Vehiculo" url="#" icon="ui-icon-home"/>
+
+                                <p:submenu label="Marca de Vehiculos SMS" icon="ui-icon-extlink">
+                                    <p:menuitem value="Registrar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                    <p:menuitem value="Consultar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                    <p:menuitem value="Editar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                    <p:menuitem value="Eliminar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+
+                                </p:submenu>
+
+                                <p:submenu label="Categoria de Vehiculos" icon="ui-icon-extlink">
+                                    <p:menuitem value="Registrar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                    <p:menuitem value="Consultar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                    <p:menuitem value="Editar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                    <p:menuitem value="Eliminar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+
+                                </p:submenu>
+                            </p:submenu>
+
+                            <p:submenu label="Conductores SMS">
+                                <p:menuitem value="Registrar Conductores" url="#" icon=""/>
+                                <p:menuitem value="Consultar Conductores" url="#" icon=""/>
+                                <p:menuitem value="Editar Conductores" url="#" icon=""/>
+                                <p:menuitem value="Eliminar Conductores" url="#" icon=""/>
+                            </p:submenu>
+                            <p:submenu label="Calificaciones">
+                                <p:menuitem value="Calificaicones SMS" url="#" icon=""/>
+                                <p:menuitem value="Calificaciones de Conductores" url="#" icon=""/>
+                                <p:menuitem value="Consultar Calificaciones" url="#" icon=""/>
+                            </p:submenu>
+
+                            <p:submenu label="Estadisticas">
+                                <p:menuitem value="Del vehiculo" url="#" icon=""/>
+                                <p:menuitem value="Del Conductor" url="#" icon=""/>
+                                <p:menuitem value="Del Proveedor" url="#"/>
+                            </p:submenu>
+
+                        </p:panelMenu>
+                    </h:form>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                    <h:form id="form">
-                        <p:carousel value="#{carouselView.cars}" headerText="Responsive" var="car" itemStyle="text-align:center" >
-                            <p:panelGrid columns="2" style="width:200%;margin:10px 0px" columnClasses="label,value"  styleClass="ui-panelgrid-blank">
-                                <f:facet name="header">
-                                    <p:graphicImage name="demo/images/car/#{car.brand}.gif"/> 
-                                </f:facet>
-
-                                <h:outputText value="Id:" />
-                                <h:outputText value="#{car.id}" />
-
-                                <h:outputText value="Year" />
-                                <h:outputText value="#{car.year}" />
-
-                                <h:outputText value="Color:" />
-                                <h:outputText value="#{car.color}" style="color:#{car.color}"/>
-
-                                <h:outputText value="Price" />
-                                <h:outputText value="$#{car.price}" />
-                            </p:panelGrid>
-
-                            <f:facet name="footer">
-                                In total there are 56 cars In total there are 56 cars.
-                            </f:facet>
-                        </p:carousel>
-
-                        <p:carousel value="#{carouselView.cars}" headerText="Custom" var="car" itemStyle="height:200px;text-align:center" numVisible="1" easing="easeOutBounce" style="width:250px" >
-                            <h:panelGrid columns="2" style="width:100%" columnClasses="label,value">
-                                <f:facet name="header">
-                                    <p:graphicImage name="demo/images/car/#{car.brand}.gif"/> 
-                                </f:facet>
-
-                                <h:outputText value="Id:" />
-                                <h:outputText value="#{car.id}" />
-
-                                <h:outputText value="Year" />
-                                <h:outputText value="#{car.year}" />
-
-                                <h:outputText value="Color:" />
-                                <h:outputText value="#{car.color}" style="color:#{car.color}"/>
-
-                                <h:outputText value="Price" />
-                                <h:outputText value="$#{car.price}" />
-
-                                <f:facet name="footer">
-                                    <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="ui-icon-search">
-                                        <f:setPropertyActionListener value="#{car}" target="#{carouselView.selectedCar}" />
-                                    </p:commandButton>
-                                </f:facet>
-                            </h:panelGrid>
-                        </p:carousel> 
-
-                        <p:carousel numVisible="1" effect="easeInStrong" headerText="Tabs" style="margin-bottom:0">
-                            <p:tab title="Godfather Part I">
-                                <h:panelGrid columns="2" cellpadding="10">
-                                    <p:graphicImage name="demo/images/godfather/godfather1.jpg" />
-                                    <h:outputText
-                                        value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-                                        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-                                        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, 
-                                        but given to ruthless violence whenever anything stands against the good of the family." />
-                                </h:panelGrid>
-                            </p:tab>
-                            <p:tab title="Godfather Part II">
-                                <h:panelGrid columns="2" cellpadding="10">
-                                    <p:graphicImage name="demo/images/godfather/godfather2.jpg" />
-                                    <h:outputText value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. 
-                                                  In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, 
-                                                  killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows." />
-                                </h:panelGrid>
-                            </p:tab>
-                            <p:tab title="Godfather Part III">
-                                <h:panelGrid columns="2" cellpadding="10">
-                                    <p:graphicImage name="demo/images/godfather/godfather3.jpg" />
-                                    <h:outputText value="After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. 
-                                                  Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate." />
-                                </h:panelGrid>
-                            </p:tab>
-                        </p:carousel>
-
-                        <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                            <p:outputPanel id="carDetail" style="text-align:center;">
-                                <p:panelGrid  columns="2" rendered="#{not empty carouselView.selectedCar}" columnClasses="label,value">
-                                    <f:facet name="header">
-                                        <p:graphicImage name="demo/images/car/#{carouselView.selectedCar.brand}-big.gif"/> 
-                                    </f:facet>
-
-                                    <h:outputText value="Id:" />
-                                    <h:outputText value="#{carouselView.selectedCar.id}" />
-
-                                    <h:outputText value="Year" />
-                                    <h:outputText value="#{carouselView.selectedCar.year}" />
-
-                                    <h:outputText value="Color:" />
-                                    <h:outputText value="#{carouselView.selectedCar.color}" style="color:#{carouselView.selectedCar.color}"/>
-
-                                    <h:outputText value="Price" />
-                                    <h:outputText value="$#{carouselView.selectedCar.price}" />
-                                </p:panelGrid>
-                            </p:outputPanel>
-                        </p:dialog>
-                    </h:form>
+                    
+                    
+                    <ui:include src="AdminP/Est-dash.xhtml"></ui:include>
+                    <p:separator/>
+                    <ui:include src="AdminP/horarios.xhtml"></ui:include>
                 </p:layoutUnit>
 
             </p:layout>
