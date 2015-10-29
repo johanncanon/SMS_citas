@@ -6,6 +6,7 @@
 package DAO;
 
 import Model.SmsUsuario;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -90,13 +91,13 @@ public class ImpUsuarioDao implements IUsuarioDao {
         }
     }   
 
-    @Override
+   @Override
     public List<SmsUsuario> consultarUsuario(SmsUsuario usuario) {
         Session session = null;
-        List<SmsUsuario> usuarios = null;
+        List<SmsUsuario> usuarios = new ArrayList<>();
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsUsuario where usuarioLogin = '"+ usuario.getUsuarioLogin() +"'");
+            Query query = session.createQuery("from SmsUsuario as usuario where usuario.usuarioLogin = '"+ usuario.getUsuarioLogin() +"'");
             usuarios = (List<SmsUsuario>) query.list();
         } catch (HibernateException e) {
             e.getMessage();

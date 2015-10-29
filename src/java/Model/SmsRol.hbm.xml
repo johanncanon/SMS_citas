@@ -23,7 +23,7 @@
             <key>
                 <column name="SMS_Rol_idRol" not-null="true" />
             </key>
-            <many-to-many entity-name="Model.SmsUsuario">
+            <many-to-many class="Model.SmsUsuario">
                 <column name="SMS_Usuario_idUsuario" not-null="true" />
             </many-to-many>
         </set>

@@ -10,6 +10,7 @@ import DAO.ImpUsuarioDao;
 import Model.SmsRol;
 import Model.SmsUsuario;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -23,7 +24,7 @@ public class UsuarioBean implements Serializable {
 
     //Instanciacion de los objetos
     private SmsUsuario usuario;
-    private List<SmsRol> roles;    
+    private List<SmsRol> roles;
     private List<SmsUsuario> usuarios;
 
     //instaciacion de objetos de sesion
@@ -31,7 +32,7 @@ public class UsuarioBean implements Serializable {
     private FacesMessage message;
 
     public UsuarioBean() {
-        usuario = new SmsUsuario();       
+        usuario = new SmsUsuario();
     }
 
     public SmsUsuario getUsuario() {
@@ -48,7 +49,7 @@ public class UsuarioBean implements Serializable {
 
     public void setRoles(List<SmsRol> roles) {
         this.roles = roles;
-    }    
+    }
 
     public List<SmsUsuario> getUsuarios() {
         return usuarios;
@@ -81,25 +82,27 @@ public class UsuarioBean implements Serializable {
     //Metodos de la clase
     public String iniciarSesion() {
         String valor = null;
-        List<SmsUsuario> user = consultarUsuario();
-
-        if (!user.isEmpty()) {//valida si el usuario existe en la BD
-            if (user.get(0).getUsuarioEstadoUsuario() == 1) {//Evalua el estado de la cuenta de usuario, si esta activa o inactiva
-                if (user.get(0).getUsuarioLogin().equalsIgnoreCase(usuario.getUsuarioLogin()) && user.get(0).getUsuarioPassword().equalsIgnoreCase(usuario.getUsuarioPassword())) {
-                    //evalua el login y el password del usuario para iniciar sesion
-                    httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-                    httpSession.setAttribute("Sesion", usuario);
-                    message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Acceso Correcto", "Bienvenid@: " + usuario.getUsuarioNombre());
-                    valor = "Principal.xhtml";
-                } else {
-                    message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseña incorrecto", null);
+        List<SmsUsuario> user = new ArrayList<>();
+        
+            user = consultarUsuario();
+            if (!user.isEmpty()) {//valida si el usuario existe en la BD
+                if (user.get(0).getUsuarioEstadoUsuario() == 1) {//Evalua el estado de la cuenta de usuario, si esta activa o inactiva
+                    if (user.get(0).getUsuarioLogin().equalsIgnoreCase(usuario.getUsuarioLogin()) && user.get(0).getUsuarioPassword().equalsIgnoreCase(usuario.getUsuarioPassword())) {
+                        //evalua el login y el password del usuario para iniciar sesion
+                        httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                        httpSession.setAttribute("Sesion", usuario);
+                        message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Acceso Correcto", "Bienvenid@: " + usuario.getUsuarioNombre());
+                        valor = "/pruebas/Principal.xhtml";
+                    } else {
+                        message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseña incorrecto", null);
+                    }
+                } else if (user.get(0).getUsuarioEstadoUsuario() == 0) {
+                    message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario inactivo, imposible iniciar sesion", null);
                 }
-            } else if (user.get(0).getUsuarioEstadoUsuario() == 0) {
-                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario inactivo, imposible iniciar sesion", null);
+            } else {
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario no existente", null);
             }
-        } else {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario no existente", null);
-        }
+        
         FacesContext.getCurrentInstance().addMessage(null, message);
         return valor;
     }
@@ -108,15 +111,14 @@ public class UsuarioBean implements Serializable {
         httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         httpSession.invalidate();
         usuario.limpiar();
-        String valor = "Login.xhtml";
+        String valor = "/pruebas/Login.xhtml";
         return valor;
     }
 
     public List<SmsUsuario> consultarUsuario() {
 
-        List<SmsUsuario> user = null;
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
-        user = usuarioDao.consultarUsuario(usuario);
+        List<SmsUsuario> user = usuarioDao.consultarUsuario(usuario);
         return user;
     }
 
@@ -127,15 +129,16 @@ public class UsuarioBean implements Serializable {
     }
 
     public void asignarRol() {
-        
+
     }
 
     public void modificarRol() {
-        
+
     }
 
     public void eliminarRol() {
-        
+
     }
 
 }
+

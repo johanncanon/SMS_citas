@@ -12,14 +12,15 @@
             <p:panelGrid id="panelUsuario" > 
                 <p:row>
                     <p:column><p:outputLabel value="Login: "/></p:column>
-                    <p:column><p:inputText value="#{usuarioBean.usuario.usuarioLogin}"/></p:column>
+                    <p:column><p:inputText value="#{usuarioBean.usuario.usuarioLogin}" required="true" requiredMessage="Por favor, escriba nombre de usuario"/>
+                    </p:column>
                 </p:row>
                 <p:row>
                     <p:column><p:outputLabel value="Password: "/></p:column>
-                    <p:column><p:password value="#{usuarioBean.usuario.usuarioPassword}"/></p:column>
+                    <p:column><p:password value="#{usuarioBean.usuario.usuarioPassword}" required="true" requiredMessage="Por favor, escriba contraseña"/></p:column>
                 </p:row>
                 <p:row>
-                    <p:column colspan="2"><p:commandButton value="Iniciar Sesion" ajax="false" update="messages panelUsuario " action="#{usuarioBean.iniciarSesion()}" oncomplete="#{usuarioBean.usuario.limpiar()}"/></p:column>                    
+                    <p:column colspan="2"><p:commandButton value="Iniciar Sesion" ajax="false" update="messages" action="#{usuarioBean.iniciarSesion()}" oncomplete="#{usuarioBean.usuario.limpiar()}"/></p:column>                    
                 </p:row>
             </p:panelGrid>
         </h:form>

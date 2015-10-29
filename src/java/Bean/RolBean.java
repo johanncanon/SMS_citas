@@ -5,10 +5,13 @@
  */
 package Bean;
 
+import DAO.IPermisosDao;
 import DAO.IRolDao;
+import DAO.ImpPermisosDao;
 import DAO.ImpRolDao;
 import Model.SmsPermisos;
 import Model.SmsRol;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,12 +20,14 @@ import java.util.List;
  */
 public class RolBean {
 
-    private List<SmsRol> Roles;  
+    private List<SmsRol> Roles;
     private SmsRol rol;
     private SmsPermisos permiso;
+    private List<String> permisosSeleccionados;
 
     public RolBean() {
         rol = new SmsRol();
+        permiso = new SmsPermisos();
     }
 
     public List<SmsRol> getRoles() {
@@ -31,7 +36,7 @@ public class RolBean {
 
     public void setRoles(List<SmsRol> Roles) {
         this.Roles = Roles;
-    }    
+    }
 
     public SmsRol getRol() {
         return rol;
@@ -47,6 +52,14 @@ public class RolBean {
 
     public void setPermiso(SmsPermisos permiso) {
         this.permiso = permiso;
+    }
+
+    public List<String> getPermisosSeleccionados() {
+        return permisosSeleccionados;
+    }
+
+    public void setPermisosSeleccionados(List<String> permisosSeleccionados) {
+        this.permisosSeleccionados = permisosSeleccionados;
     }
 
     //Definicion de motodos CRUD    
@@ -70,6 +83,20 @@ public class RolBean {
 
     //Definicion de metodos para asignacion de permisos a un rol
     public void asignarPermiso() {
+        IPermisosDao permisoDao = new ImpPermisosDao();
 
+        /* Este segmento for, captura el objeto permiso segun un nombre y 
+                los guarda en otro objeto para despues ser asignado a un rol*/
+        
+        for (int i = 0; i < permisosSeleccionados.size(); i++) { //Recorre el array de nombres de permisos
+            permiso = permisoDao.consultarPermiso(permisosSeleccionados.get(i)).get(0);
+            //Realiza la consulta en la base de datos y guarda el objeto resultante en el objeto permiso
+            rol.getSmsPermisoses().add(permiso);//agrega el permiso al rol
+           
+        }        
+        registrarRol();
+        permisosSeleccionados = new ArrayList<>();
+        
     }
 }
+

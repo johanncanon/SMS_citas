@@ -8,7 +8,9 @@ package Bean;
 import DAO.IPermisosDao;
 import DAO.ImpPermisosDao;
 import Model.SmsPermisos;
+import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 
 /**
  *
@@ -18,12 +20,22 @@ public class PermisosBean {
 
     private List<SmsPermisos> permisos;
     private SmsPermisos permiso;
+    private List<String> ListaPermisos;
+    
 
     public PermisosBean() {
         permiso = new SmsPermisos();
+        permisos = new ArrayList<>();
+        ListaPermisos = new ArrayList<>();
+    }
+
+    @PostConstruct
+    public void init() {       
+        
     }
 
     public List<SmsPermisos> getPermisos() {
+        permisos = new ArrayList<>();
         IPermisosDao permisoDao = new ImpPermisosDao();
         permisos = permisoDao.mostrarPermisos();
         return permisos;
@@ -40,6 +52,22 @@ public class PermisosBean {
     public void setPermiso(SmsPermisos permiso) {
         this.permiso = permiso;
     }
+
+    public List getListaPermisos() {
+        //Consulta los permisos en la BD y carga los nombres en un array para mostrarlos en la vista
+        ListaPermisos = new ArrayList<>();
+        IPermisosDao permisoDao = new ImpPermisosDao();
+        permisos = permisoDao.mostrarPermisos();
+        for (int i = 0; i < permisos.size(); i++) {
+            ListaPermisos.add(permisos.get(i).getPermisosNombre());
+        }
+        return ListaPermisos;
+    }
+
+    public void setListaPermisos(List ListaPermisos) {
+        this.ListaPermisos = ListaPermisos;
+    }
+    
 
     //Definicion de metodos CRUD    
     public void registrarPermiso() {
