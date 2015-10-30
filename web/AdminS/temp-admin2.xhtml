@@ -41,7 +41,7 @@
             <b:row>
                 <div>
                     <b:column col-lg="3" col-md="3" col-sm="4" col-xs="12">
-                        <div id="left">
+                        <div id="left-adm2">
                             <h:form>
                                 <p:growl autoUpdate="true"/>
                                 <b:thumbnail id="esp1">
@@ -54,67 +54,44 @@
                                     </b:panelGrid>
                                 </b:thumbnail>
                                 <p:panelMenu>
+
+                                    <p:submenu label="Registro">
+                                        <p:menuitem value="Registro de Usuario" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
+                                    </p:submenu>
+
                                     <p:submenu label="Reservaciones" >
-                                        <p:menuitem value="Reservas" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
-                                        <p:submenu label="reservas Clientes" icon="ui-icon-car">
-                                            <p:menuitem value="Consultar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
-                                            <p:menuitem value="Modificar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
-                                            <p:menuitem value="Eliminar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
-                                        </p:submenu>
-
-
+                                        <p:menuitem value="Reservar Vehiculos" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
+                                        <p:menuitem value="Reservar Conductores" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
+                                        <p:menuitem value="Consultar reservaciones" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
                                     </p:submenu>
 
                                     <p:submenu label="Clientes">
-                                        <p:menuitem value="Informacion y opciones de Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
-                                        <p:menuitem value="Registrar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
-                                        <p:menuitem value="Editar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                        <p:menuitem value="Registro de Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
                                         <p:menuitem value="Consultar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
-                                        <p:menuitem value="Eliminar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
                                     </p:submenu>
 
                                     <p:separator />
                                     <p:submenu label="Vehiculos" >
-                                        <p:menuitem value="Informacion del Vehiculo" url="#" icon="ui-icon-home"/>
                                         <p:menuitem value="Consultar Vehiculo" url="#" icon="ui-icon-home"/>
-                                        <p:menuitem value="Editar Vehiculo" url="#" icon="ui-icon-home"/>
-                                        <p:menuitem value="Eliminar Vehiculo" url="#" icon="ui-icon-home"/>
-
+                                        <p:menuitem value="registrar Vehiculo" url="#" icon="ui-icon-home"/>
                                         <p:submenu label="Marca de Vehiculos SMS" icon="ui-icon-extlink">
-                                            <p:menuitem value="Registrar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
                                             <p:menuitem value="Consultar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
-                                            <p:menuitem value="Editar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
-                                            <p:menuitem value="Eliminar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
-
+                                            <p:menuitem value="registrar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
                                         </p:submenu>
-
-                                        <p:submenu label="Categoria de Vehiculos" icon="ui-icon-extlink">
-                                            <p:menuitem value="Registrar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                        <p:submenu label="Categoria de Vehiculos SMS" icon="ui-icon-extlink">
                                             <p:menuitem value="Consultar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
-                                            <p:menuitem value="Editar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
-                                            <p:menuitem value="Eliminar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
-
+                                            <p:menuitem value="registrar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
                                         </p:submenu>
                                     </p:submenu>
 
                                     <p:submenu label="Conductores SMS">
                                         <p:menuitem value="Registrar Conductores" url="#" icon=""/>
                                         <p:menuitem value="Consultar Conductores" url="#" icon=""/>
-                                        <p:menuitem value="Editar Conductores" url="#" icon=""/>
-                                        <p:menuitem value="Eliminar Conductores" url="#" icon=""/>
+
                                     </p:submenu>
                                     <p:submenu label="Calificaciones">
-                                        <p:menuitem value="Calificaicones SMS" url="#" icon=""/>
-                                        <p:menuitem value="Calificaciones de Conductores" url="#" icon=""/>
                                         <p:menuitem value="Consultar Calificaciones" url="#" icon=""/>
                                     </p:submenu>
-
-                                    <p:submenu label="Estadisticas">
-                                        <p:menuitem value="Del vehiculo" url="#" icon=""/>
-                                        <p:menuitem value="Del Conductor" url="#" icon=""/>
-                                        <p:menuitem value="Del Proveedor" url="#"/>
-                                    </p:submenu>
-
                                 </p:panelMenu>
                             </h:form>
 

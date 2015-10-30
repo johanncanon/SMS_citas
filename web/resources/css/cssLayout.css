@@ -23,6 +23,17 @@
     min-height: 1418px;
 }
 
+#left-adm2{
+    z-index: 100000;
+    position: relative;
+    left: -15px;
+    top: -20px;
+    background-color: rgba(87, 148, 224, 0.98);
+    padding: 8%;
+    width: 104.91%;
+    min-height: 1418px;
+}
+
 #right {
     //float: right;
     // background-color: #ece3a5;

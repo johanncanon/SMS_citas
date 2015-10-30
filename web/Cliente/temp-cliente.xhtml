@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Dashboard SMS | Administradot Secundario</title>
+        <title>Dashboard SMS | Sesion de Cliente</title>
     </h:head>
 
     <h:body>
@@ -54,8 +54,9 @@
                                     </b:panelGrid>
                                 </b:thumbnail>
                                 <p:panelMenu>
-                                    <p:submenu label="Reservaciones" >
-                                        <p:menuitem value="Reservas" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
+                                    <p:submenu label="Reservacion" >
+                                        <p:menuitem value="Reservar Vehiculo" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
+                                        <p:menuitem value="Reservar Conductor" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
                                         <p:submenu label="reservas Clientes" icon="ui-icon-car">
                                             <p:menuitem value="Consultar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
                                             <p:menuitem value="Modificar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
