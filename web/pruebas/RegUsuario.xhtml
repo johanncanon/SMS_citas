@@ -3,50 +3,75 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <h:form>
-            <p:panelGrid columns="2" style="background-color: #084B8A">
-                <p:outputLabel value="Nombre: "/>
-                <p:inputText placeholder="Nombres y apellidos" maxlength="60" value="#{usuarioBean.usuario.usuarioNombre}"></p:inputText>
-                <p:outputLabel value="CC: " /> 
-                <p:inputText placeholder="Cedula de ciudadania"  value="#{usuarioBean.usuario.usuarioCc}"></p:inputText>
-                <p:outputLabel value="Telefono: "/>
-                <p:inputText placeholder="" value="#{usuarioBean.usuario.usuarioTelefono}"></p:inputText>
-                <p:outputLabel value="Email: "/>
-                <p:inputText value="#{usuarioBean.usuario.usuarioEmail}"></p:inputText>
-                <p:outputLabel value="Razon social: "/>
-                <p:inputText placeholder="Nombre de la empresa" value="#{usuarioBean.usuario.usuarioRazonSocial}"></p:inputText>
-                <p:outputLabel value="Nit: "/>
-                <p:inputText value="#{usuarioBean.usuario.usuarioNit}"></p:inputText>
-                <p:outputLabel value="Ciudad: "/>
-                <p:selectOneMenu style="width: 100%">
-                    <f:selectItem itemLabel="Ciudad" itemValue=""/>
-                </p:selectOneMenu>
-                <p:outputLabel/>
-                <p:commandButton  style="width:100%" value="Registrar Usuario" />
-            </p:panelGrid>       
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-            <p:panelGrid columns="2" id="formLogin" rendered="true">
-                <p:outputLabel value="Login: "/>
-                <p:inputText value="#{usuarioBean.usuario.usuarioLogin}"></p:inputText>
-                <p:outputLabel value="Contraseña: "/>
-                <p:password value="#{usuarioBean.usuario.usuarioPassword}"></p:password>
-                <p:outputLabel value="repita contraseña: "/>
-                <p:password value="#{usuarioBean.usuario.usuarioRememberToken}"></p:password>
-                <p:commandButton value="Crear Usuario"></p:commandButton>
-            </p:panelGrid>
+    <ui:composition template="./template-admin-p.xhtml">
+        <ui:define name="content">            
+                <h:form>
+                    <p:panelGrid >
+                        <p:row>
+                            <p:column><h3>Registro de usuario</h3></p:column>
+                            <p:column><h3>Registro datos sesion</h3></p:column>
+                            <p:column><h3>Asignacion de roles a un usuario</h3></p:column>                    
+                        </p:row>
+                        <p:row>
+                            <p:column> 
+                                <p:panelGrid columns="2" id="formularioDatos">
+                                    <p:outputLabel value="Nombre: "/>
+                                    <p:inputText placeholder="Nombres y apellidos" maxlength="60" value="#{usuarioBean.usuario.usuarioNombre}"></p:inputText>
+                                    <p:outputLabel value="CC: " /> 
+                                    <p:inputText placeholder="Cedula de ciudadania"  value="#{usuarioBean.usuario.usuarioCc}"></p:inputText>
+                                    <p:outputLabel value="Telefono: "/>
+                                    <p:inputText placeholder="" value="#{usuarioBean.usuario.usuarioTelefono}"></p:inputText>
+                                    <p:outputLabel value="Email: "/>
+                                    <p:inputText value="#{usuarioBean.usuario.usuarioEmail}"></p:inputText>
+                                    <p:outputLabel value="Razon social: "/>
+                                    <p:inputText placeholder="Nombre de la empresa" value="#{usuarioBean.usuario.usuarioRazonSocial}"></p:inputText>
+                                    <p:outputLabel value="Nit: "/>
+                                    <p:inputText value="#{usuarioBean.usuario.usuarioNit}"></p:inputText>
+                                    <p:outputLabel value="Ciudad: "/>
+                                    <p:selectOneMenu style="width: 100%">
+                                        <f:selectItem itemLabel="Ciudad" itemValue=""/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel/>
+                                    <p:commandButton  style="width:100%" action="#{usuarioBean.registrarUsuario()}" value="Registrar Usuario" />
+                                </p:panelGrid>  
+                            </p:column>
+                            <p:column>
+                                <p:panelGrid columns="2" id="formularioSesion">                    
+                                    <p:outputLabel value="Login: "/>
+                                    <p:inputText value="#{usuarioBean.usuario.usuarioLogin}"></p:inputText>
+                                    <p:outputLabel value="Contraseña: "/>
+                                    <p:password value="#{usuarioBean.usuario.usuarioPassword}"></p:password>
+                                    <p:outputLabel value="repita contraseña: "/>
+                                    <p:password value="#{usuarioBean.usuario.usuarioRememberToken}"></p:password>
+                                    <p:commandButton value="Crear Usuario"></p:commandButton>
+                                </p:panelGrid>
+                            </p:column>
+                            <p:column>
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Usuario:"/>
+                                    <p:inputText/>
+                                </p:panelGrid>                        
+                                <p:panelGrid columns="1" id="formularioRoles">
+                                    <p:selectManyCheckbox layout="grid" columns="2" id="ListaRoles" value="#{rolBean.permisosSeleccionados}">                                                                
+                                        <f:selectItems value="#{rolBean.listaRoles}" />
+                                    </p:selectManyCheckbox>
+                                    <p:commandButton value="Asignar Rol"/>
+                                </p:panelGrid>
+                            </p:column>    
+                        </p:row>
+
+
+
+
+
+
+                    </p:panelGrid>
+                </h:form>
             
-            <p:panelGrid columns="1">
-                <h3>Asignacion de roles a un usuario</h3>
-                 <p:selectManyCheckbox layout="grid" id="permisos" value="#{rolBean.permisosSeleccionados}" columns="2">
-                    <f:selectItems value="#{permisosBean.listaPermisos}" />
-                </p:selectManyCheckbox>
-            </p:panelGrid>
-        </h:form>
-    </h:body>
+        </ui:define>
+    </ui:composition>
 </html>
 

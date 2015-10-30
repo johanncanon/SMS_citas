@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27-oct-2015 12:34:20 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="bd_sms_citas" name="Modelo.SmsVehiculo" optimistic-lock="version" table="sms_vehiculo">
+    <id name="idVehiculo" type="java.lang.Integer">
+      <column name="idVehiculo"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="Modelo.SmsCategoria" fetch="select" name="smsCategoria">
+      <column name="Veh_categoria" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="Modelo.SmsCiudad" fetch="select" name="smsCiudad">
+      <column name="Veh_idCiudad" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="Modelo.SmsProveedor" fetch="select" name="smsProveedor">
+      <column name="Veh_idProveedor" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="Modelo.SmsReferencia" fetch="select" name="smsReferencia">
+      <column name="Veh_idReferencia" not-null="true"/>
+    </many-to-one>
+    <property name="vehPlaca" type="string">
+      <column length="50" name="Veh_placa"/>
+    </property>
+    <property name="vehModelo" type="string">
+      <column length="50" name="Veh_modelo"/>
+    </property>
+    <property name="vehColor" type="string">
+      <column length="50" name="Veh_color"/>
+    </property>
+    <property name="vehNumPersonas" type="java.lang.Integer">
+      <column name="Veh_num_personas"/>
+    </property>
+    <property name="vehNumMalGrande" type="java.lang.Integer">
+      <column name="Veh_num_malGrande"/>
+    </property>
+    <property name="vehNumMalPequeña" type="java.lang.Integer">
+      <column name="Veh_num_malPequeña"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="smsAgendas" table="sms_agenda">
+      <key>
+        <column name="Agenda_idVehiculo" not-null="true"/>
+      </key>
+      <one-to-many class="Modelo.SmsAgenda"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="smsEstadovehiculos" table="sms_estadovehiculo">
+      <key>
+        <column name="EstadoVeh_idVehiculo" not-null="true"/>
+      </key>
+      <one-to-many class="Modelo.SmsEstadovehiculo"/>
+    </set>
+  </class>
+</hibernate-mapping>

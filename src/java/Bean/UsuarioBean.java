@@ -5,10 +5,13 @@
  */
 package Bean;
 
+import DAO.ICiudadDao;
 import DAO.IUsuarioDao;
+import DAO.ImpCiudadDao;
 import DAO.ImpUsuarioDao;
-import Model.SmsRol;
-import Model.SmsUsuario;
+import Modelo.SmsCiudad;
+import Modelo.SmsRol;
+import Modelo.SmsUsuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +26,11 @@ import javax.servlet.http.HttpSession;
 public class UsuarioBean implements Serializable {
 
     //Instanciacion de los objetos
-    private SmsUsuario usuario;
-    private List<SmsRol> roles;
-    private List<SmsUsuario> usuarios;
+    protected SmsUsuario usuario;
+    protected List<SmsRol> roles;
+    protected List<SmsUsuario> usuarios;
+    protected SmsCiudad ciudad;
+    
 
     //instaciacion de objetos de sesion
     private HttpSession httpSession;
@@ -33,6 +38,7 @@ public class UsuarioBean implements Serializable {
 
     public UsuarioBean() {
         usuario = new SmsUsuario();
+        ciudad = new SmsCiudad();
     }
 
     public SmsUsuario getUsuario() {
@@ -59,12 +65,25 @@ public class UsuarioBean implements Serializable {
         this.usuarios = usuarios;
     }
 
+    public SmsCiudad getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(SmsCiudad ciudad) {
+        this.ciudad = ciudad;
+    }
+    
+    
+
     //Declaracion de metodos
     //Metodos CRUD
     public void registrarUsuario() {
+        ICiudadDao ciudadDao = new ImpCiudadDao();
+        ciudad = ciudadDao.consultarCiudad(ciudad).get(0);
+        usuario.setSmsCiudad(ciudad);
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarioDao.registrarUsuario(usuario);
-        usuario = new SmsUsuario();
+        //usuario = new SmsUsuario();
     }
 
     public void modificarUsuario() {
@@ -82,9 +101,10 @@ public class UsuarioBean implements Serializable {
     //Metodos de la clase
     public String iniciarSesion() {
         String valor = null;
-        List<SmsUsuario> user = new ArrayList<>();
-        
-            user = consultarUsuario();
+             
+           IUsuarioDao usuarioDao = new ImpUsuarioDao();
+           List<SmsUsuario> user = usuarioDao.consultarUsuario(usuario);
+           
             if (!user.isEmpty()) {//valida si el usuario existe en la BD
                 if (user.get(0).getUsuarioEstadoUsuario() == 1) {//Evalua el estado de la cuenta de usuario, si esta activa o inactiva
                     if (user.get(0).getUsuarioLogin().equalsIgnoreCase(usuario.getUsuarioLogin()) && user.get(0).getUsuarioPassword().equalsIgnoreCase(usuario.getUsuarioPassword())) {
@@ -101,8 +121,7 @@ public class UsuarioBean implements Serializable {
                 }
             } else {
                 message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario no existente", null);
-            }
-        
+            }        
         FacesContext.getCurrentInstance().addMessage(null, message);
         return valor;
     }
@@ -110,17 +129,10 @@ public class UsuarioBean implements Serializable {
     public String cerrarSesion() {
         httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         httpSession.invalidate();
-        usuario.limpiar();
+        usuario = new SmsUsuario();
         String valor = "/pruebas/Login.xhtml";
         return valor;
-    }
-
-    public List<SmsUsuario> consultarUsuario() {
-
-        IUsuarioDao usuarioDao = new ImpUsuarioDao();
-        List<SmsUsuario> user = usuarioDao.consultarUsuario(usuario);
-        return user;
-    }
+    }    
 
     //Definicion de metodos para la asignacion de roles
     public void addRol(SmsRol rol) {

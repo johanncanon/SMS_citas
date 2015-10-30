@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27-oct-2015 12:34:20 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="bd_sms_citas" name="Modelo.SmsEmpleado" optimistic-lock="version" table="sms_empleado">
+    <id name="idEmpleado" type="java.lang.Integer">
+      <column name="idEmpleado"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="Modelo.SmsHojavida" fetch="select" name="smsHojavida">
+      <column name="empleado_hojaVida"/>
+    </many-to-one>
+    <many-to-one class="Modelo.SmsUsuario" fetch="select" name="smsUsuario">
+      <column name="empleado_idUsuario" not-null="true"/>
+    </many-to-one>
+  </class>
+</hibernate-mapping>

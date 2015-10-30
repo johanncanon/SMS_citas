@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Model.SmsCiudad;
+import Modelo.SmsCiudad;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -57,7 +57,7 @@ public class ImpCiudadDao implements ICiudadDao {
 
     @Override
     public void modificarCiudad(SmsCiudad ciudad) {
-       Session session = null;
+        Session session = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
@@ -89,6 +89,25 @@ public class ImpCiudadDao implements ICiudadDao {
                 session.close();
             }
         }
+    }
+
+    @Override
+    public List<SmsCiudad> consultarCiudad(SmsCiudad ciudad) {
+        Session session = null;
+        List<SmsCiudad> ciudades = new ArrayList<>();
+
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsCiudad as ciudad where ciudad.ciudadNombre='" + ciudad.getCiudadNombre() + "'");
+            ciudades = (List<SmsCiudad>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return ciudades;
     }
 
 }

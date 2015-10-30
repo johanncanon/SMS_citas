@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27-oct-2015 12:34:20 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="bd_sms_citas" name="Modelo.SmsAgenda" optimistic-lock="version" table="sms_agenda">
+    <id name="idAgenda" type="java.lang.Integer">
+      <column name="idAgenda"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="Modelo.SmsVehiculo" fetch="select" name="smsVehiculo">
+      <column name="Agenda_idVehiculo" not-null="true"/>
+    </many-to-one>
+    <property name="agendaIdConductor" type="int">
+      <column name="Agenda_idConductor" not-null="true"/>
+    </property>
+    <property name="agendaFechaInicio" type="date">
+      <column length="0" name="Agenda_fechaInicio"/>
+    </property>
+    <property name="agendaFechaLlegada" type="date">
+      <column length="0" name="Agenda_fechaLlegada"/>
+    </property>
+    <property name="agendaHoraInicio" type="time">
+      <column length="0" name="Agenda_horaInicio"/>
+    </property>
+    <property name="agendaHoraLlegada" type="time">
+      <column length="0" name="Agenda_horaLlegada"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="smsReservacions" table="sms_reservacion">
+      <key>
+        <column name="Reservacion_idAgenda" not-null="true"/>
+      </key>
+      <one-to-many class="Modelo.SmsReservacion"/>
+    </set>
+  </class>
+</hibernate-mapping>

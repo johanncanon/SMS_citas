@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Model.SmsRol;
+import Modelo.SmsRol;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;

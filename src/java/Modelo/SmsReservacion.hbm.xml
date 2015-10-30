@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27-oct-2015 12:34:20 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="bd_sms_citas" name="Modelo.SmsReservacion" optimistic-lock="version" table="sms_reservacion">
+    <id name="idReservacion" type="java.lang.Integer">
+      <column name="idReservacion"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="Modelo.SmsAgenda" fetch="select" name="smsAgenda">
+      <column name="Reservacion_idAgenda" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="Modelo.SmsCiudad" fetch="select" name="smsCiudad">
+      <column name="Reservacion_idCiudad" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="Modelo.SmsServicios" fetch="select" name="smsServicios">
+      <column name="Reservacion_idServicio" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="Modelo.SmsUsuario" fetch="select" name="smsUsuario">
+      <column name="Reservacion_idCliente" not-null="true"/>
+    </many-to-one>
+    <property name="reservacionLugarLlegada" type="string">
+      <column length="100" name="Reservacion_lugar_llegada"/>
+    </property>
+    <property name="reservacionLugarDestino" type="string">
+      <column length="100" name="Reservacion_lugar_destino"/>
+    </property>
+    <property name="reservacionNotas" type="string">
+      <column length="65535" name="Reservacion_notas"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="smsCalificacions" table="sms_calificacion">
+      <key>
+        <column name="Calificacion_idReservacion" not-null="true"/>
+      </key>
+      <one-to-many class="Modelo.SmsCalificacion"/>
+    </set>
+  </class>
+</hibernate-mapping>

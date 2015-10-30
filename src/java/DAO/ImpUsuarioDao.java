@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Model.SmsUsuario;
+import Modelo.SmsUsuario;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;

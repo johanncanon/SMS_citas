@@ -9,8 +9,8 @@ import DAO.IPermisosDao;
 import DAO.IRolDao;
 import DAO.ImpPermisosDao;
 import DAO.ImpRolDao;
-import Model.SmsPermisos;
-import Model.SmsRol;
+import Modelo.SmsPermisos;
+import Modelo.SmsRol;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +23,9 @@ public class RolBean {
     private List<SmsRol> Roles;
     private SmsRol rol;
     private SmsPermisos permiso;
+    
     private List<String> permisosSeleccionados;
+    private List<String> ListaRoles;
 
     public RolBean() {
         rol = new SmsRol();
@@ -61,6 +63,22 @@ public class RolBean {
     public void setPermisosSeleccionados(List<String> permisosSeleccionados) {
         this.permisosSeleccionados = permisosSeleccionados;
     }
+
+    public List<String> getListaRoles() {
+        ListaRoles = new ArrayList<>();
+        IRolDao rolDao = new ImpRolDao();
+        Roles = rolDao.mostrarRoles();
+        for (int i = 0; i < Roles.size(); i++) {
+            ListaRoles.add(Roles.get(i).getRolNombre());
+        }
+        return ListaRoles;
+    }
+
+    public void setListaRoles(List<String> ListaRoles) {
+        this.ListaRoles = ListaRoles;
+    }
+    
+    
 
     //Definicion de motodos CRUD    
     public void registrarRol() {

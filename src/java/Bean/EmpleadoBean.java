@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author Desarrollo_Planit
  */
-public class EmpleadoBean extends UsuarioBean implements Serializable{
+public class EmpleadoBean implements Serializable{
 
     /**
      * Creates a new instance of EmpleadoBean

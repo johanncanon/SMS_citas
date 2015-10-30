@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27-oct-2015 12:34:20 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="bd_sms_citas" name="Modelo.SmsCiudad" optimistic-lock="version" table="sms_ciudad">
+    <id name="idCiudad" type="java.lang.Integer">
+      <column name="idCiudad"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="Modelo.SmsPais" fetch="select" name="smsPais">
+      <column name="Ciudad_pais" not-null="true"/>
+    </many-to-one>
+    <property name="ciudadNombre" type="string">
+      <column length="50" name="Ciudad_nombre"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="smsVehiculos" table="sms_vehiculo">
+      <key>
+        <column name="Veh_idCiudad" not-null="true"/>
+      </key>
+      <one-to-many class="Modelo.SmsVehiculo"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="smsUsuarios" table="sms_usuario">
+      <key>
+        <column name="Usuario_ciudad" not-null="true"/>
+      </key>
+      <one-to-many class="Modelo.SmsUsuario"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="smsReservacions" table="sms_reservacion">
+      <key>
+        <column name="Reservacion_idCiudad" not-null="true"/>
+      </key>
+      <one-to-many class="Modelo.SmsReservacion"/>
+    </set>
+  </class>
+</hibernate-mapping>

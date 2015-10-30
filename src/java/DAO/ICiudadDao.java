@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Model.SmsCiudad;
+import Modelo.SmsCiudad;
 import java.util.List;
 
 /**
@@ -19,4 +19,5 @@ public interface ICiudadDao {
     public void registrarCiudad(SmsCiudad ciudad);
     public void modificarCiudad(SmsCiudad ciudad);
     public void eliminarCiudad(SmsCiudad ciudad);
+    public List<SmsCiudad> consultarCiudad(SmsCiudad ciudad);
 }

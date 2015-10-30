@@ -7,7 +7,8 @@ package Bean;
 
 import DAO.IPermisosDao;
 import DAO.ImpPermisosDao;
-import Model.SmsPermisos;
+import Modelo.SmsPermisos;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -16,7 +17,7 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class PermisosBean {
+public class PermisosBean implements Serializable{
 
     private List<SmsPermisos> permisos;
     private SmsPermisos permiso;

@@ -246,16 +246,5 @@
     }
 }
 
-@media screen and (max-width 938px){
-    .btn-breadcrumb .btn {
-        padding:13px 56px 13px 40px !important;
-        color: #FFFFFF !important;
-        font-size: 1.3em;
-    }
-    .btn-breadcrumb .btn:first-child {
-        padding:13px 13px 13px 16px !important;
-    }
-    .btn-breadcrumb .btn:last-child {
-        padding:15px 57px 15px 63px !important;
-    }
-}
+
+
