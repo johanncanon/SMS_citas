@@ -32,17 +32,17 @@
                                 <f:selectItems value="#{ciudadBean.listaCiudadades}"/>
                             </p:selectOneMenu>
                             <p:outputLabel/>
-                            <p:commandButton  style="width:100%" update="formularioDatos" action="#{usuarioBean.registrarUsuario()}" value="Registrar Usuario" />
+                            <p:commandButton  style="width:100%" ajax="false" update="formularioDatos" action="#{usuarioBean.registrarUsuario()}" value="Registrar Usuario" />
                         </p:panelGrid>                        
                    
                         <h3>Datos de sesion</h3>
                         <p:panelGrid columns="2" id="formularioSesion">                    
                             <p:outputLabel value="Login: "/>
-                            <p:inputText value="#{usuarioBean.usuario.usuarioLogin}"></p:inputText>
+                            <p:inputText value="#{usuarioBean.auxUsuario.usuarioLogin}"></p:inputText>
                             <p:outputLabel value="Contraseña: "/>
-                            <p:password value="#{usuarioBean.usuario.usuarioPassword}"></p:password>
+                            <p:password value="#{usuarioBean.auxUsuario.usuarioPassword}"></p:password>
                             <p:outputLabel value="repita contraseña: "/>
-                            <p:password value="#{usuarioBean.usuario.usuarioRememberToken}"></p:password>
+                            <p:password value="#{usuarioBean.auxUsuario.usuarioRememberToken}"></p:password>
                             <p:outputLabel/>
                             <p:commandButton value="Crear Usuario" action="#{usuarioBean.modificarUsuario()}" style="width: 100%"></p:commandButton>
                         </p:panelGrid>
@@ -52,7 +52,7 @@
                             <p:selectManyCheckbox layout="grid" columns="2" id="ListaRoles" value="#{rolBean.permisosSeleccionados}">                                                                
                                 <f:selectItems value="#{rolBean.listaRoles}" />
                             </p:selectManyCheckbox>
-                            <p:commandButton value="Asignar Rol"/>
+                             <p:commandButton value="Asignar Rol"/>
                         </p:panelGrid>
                     </p:column>                      
                 </p:row>

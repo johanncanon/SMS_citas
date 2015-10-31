@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author Desarrollo_Planit
  */
-public class ProveedorBean implements Serializable{
+public class ProveedorBean extends UsuarioBean implements Serializable{
 
     /**
      * Creates a new instance of ProveedorBean
