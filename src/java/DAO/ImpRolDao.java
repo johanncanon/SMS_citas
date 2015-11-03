@@ -7,6 +7,8 @@ package DAO;
 
 import Modelo.SmsRol;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -16,6 +18,8 @@ import org.hibernate.Session;
  * @author Desarrollo_Planit
  */
 public class ImpRolDao implements IRolDao{
+    
+    private FacesMessage message;
 
     @Override
     public List<SmsRol> mostrarRoles() {
@@ -45,14 +49,17 @@ public class ImpRolDao implements IRolDao{
             session.beginTransaction();
             session.save(Rol);
             session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Rol registrado", "" + Rol.getRolNombre() );
         }catch(HibernateException e){
             e.getMessage();
             session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
         }finally{
             if(session != null){
                 session.close();
             }
         }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
@@ -63,14 +70,17 @@ public class ImpRolDao implements IRolDao{
             session.beginTransaction();
             session.update(Rol);
             session.getTransaction().commit();
+             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Rol modificado", "" + Rol.getRolNombre() );
         }catch(HibernateException e){
             e.getMessage();
             session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
         }finally{
             if(session != null){
                 session.close();
             }
         }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
@@ -81,14 +91,17 @@ public class ImpRolDao implements IRolDao{
             session.beginTransaction();
             session.delete(Rol);
             session.getTransaction().commit();
+             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Rol eliminado", "" + Rol.getRolNombre() );
         }catch(HibernateException e){
             e.getMessage();
             session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
         }finally{
             if(session != null){
                 session.close();
             }
         }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
 }

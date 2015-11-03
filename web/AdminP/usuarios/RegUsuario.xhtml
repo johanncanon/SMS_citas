@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Registro Usuario</title>
+    </h:head>
+    <h:body>            
+        <h:form>
+            <p:growl id="messages" showDetail="true"/>
+            <p:panelGrid id="formularioUsuario">
+                <p:row>
+                    <p:column>
+                        <p:panelGrid id="seccionDatosUsuario" style="width: 100%">
+                            <p:row>
+                                <p:column colspan="4"><h3>Registro de usuario</h3></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1"><p:outputLabel value="Nombre: "/></p:column>
+                                <p:column colspan="3"><p:inputText placeholder="Nombres y apellidos" style="width: 100%" maxlength="60" value="#{usuarioBean.usuario.usuarioNombre}"></p:inputText></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1"><p:outputLabel value="CC: " /></p:column>
+                                <p:column colspan="3"><p:inputText placeholder="Cedula de ciudadania" style="width: 100%" value="#{usuarioBean.usuario.usuarioCc}"></p:inputText></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1"><p:outputLabel value="Telefono: "/></p:column>
+                                <p:column colspan="3"><p:inputText placeholder="Numero de telefono fijo o celular" style="width: 100%" value="#{usuarioBean.usuario.usuarioTelefono}"></p:inputText></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1"><p:outputLabel value="Email: "/></p:column>
+                                <p:column colspan="3"><p:inputText placeholder="Direccion de correo electronico" style="width: 100%" value="#{usuarioBean.usuario.usuarioEmail}"></p:inputText></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="Razon social: "/></p:column>
+                                <p:column><p:inputText placeholder="Nombre de la empresa" style="width: 100%"  value="#{usuarioBean.usuario.usuarioRazonSocial}"></p:inputText></p:column>
+                                <p:column><p:outputLabel value="Nit: "/></p:column>
+                                <p:column><p:inputText placeholder="Nit de la empresa" style="width: 100%" value="#{usuarioBean.usuario.usuarioNit}"></p:inputText></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1"><p:outputLabel value="Ciudad: "/></p:column>
+                                <p:column colspan="3"><p:selectOneMenu style="width: 100%">
+                                        <f:selectItem itemLabel="Seleccione ciudad" value="#{usuarioBean.ciudad.ciudadNombre}" />
+                                        <f:selectItems value="#{ciudadBean.listaCiudadades}"/>
+                                    </p:selectOneMenu></p:column>
+                            </p:row>
+                            <p:row>                                
+                                <p:column colspan="4"><p:commandButton  style="width:100%" update="messages seccionDatosUsuario" action="#{usuarioBean.registrarUsuario()}" value="Registrar Usuario" /></p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column><hr/></p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:panelGrid id="seccionDatosSesion" style="width: 100%">
+                            <p:row>
+                                <p:column colspan="4"><h3>Registro datos sesion</h3></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1"><p:outputLabel value="Login: "/></p:column>
+                                <p:column colspan="3"><p:inputText style="width: 100%" value="#{usuarioBean.usuario.usuarioLogin}"></p:inputText></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1"><p:outputLabel value="Contraseña: "/></p:column>
+                                <p:column colspan="3"><p:password style="width: 100%" value="#{usuarioBean.usuario.usuarioPassword}"></p:password></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1"><p:outputLabel value="repita contraseña: "/></p:column>
+                                <p:column colspan="3"><p:password style="width: 100%" value="#{usuarioBean.usuario.usuarioRememberToken}"></p:password></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1"><p:outputLabel value="Rol:"/></p:column>
+                                <p:column colspan="3"><p:selectOneMenu id="ListaRoles" style="width: 100%" value="#{rolBean.permisosSeleccionados}">                                                                
+                                        <f:selectItem itemLabel="Seleccione rol"/>
+                                        <f:selectItems value="#{rolBean.listaRoles}" />
+                                    </p:selectOneMenu></p:column>
+                            </p:row>                            
+                            <p:row>
+                                <p:column colspan="4"><p:commandButton style="width:100%" value="Crear Usuario"></p:commandButton></p:column>                                
+                            </p:row>
+                        </p:panelGrid>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>             
+        </h:form>
+    </h:body>
+</html>
+

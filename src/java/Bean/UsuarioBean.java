@@ -26,10 +26,12 @@ public class UsuarioBean implements Serializable {
 
     //Instanciacion de los objetos
     protected SmsUsuario usuario;
-    protected SmsUsuario auxUsuario;    
-    protected SmsCiudad ciudad;
-    protected List<SmsRol> roles;
+    protected SmsUsuario auxUsuario;   
     protected List<SmsUsuario> usuarios;
+    
+    //Relaciones con otras clases
+    protected SmsCiudad ciudad;//asociacion
+    protected List<SmsRol> roles; //agregacion
     
     //instaciacion de objetos de sesion
     private HttpSession httpSession;
@@ -87,9 +89,8 @@ public class UsuarioBean implements Serializable {
         auxUsuario = new SmsUsuario();
         ICiudadDao ciudadDao = new ImpCiudadDao();
         ciudad = ciudadDao.consultarCiudad(ciudad).get(0);
-        usuario.setSmsCiudad(ciudad);
-            
-        auxUsuario = usuario;
+        usuario.setSmsCiudad(ciudad);          
+        
         
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarioDao.registrarUsuario(usuario);
@@ -162,6 +163,10 @@ public class UsuarioBean implements Serializable {
 
     public void eliminarRol() {
 
+    }
+    
+    public void consultarRol(){
+    
     }
 
 }

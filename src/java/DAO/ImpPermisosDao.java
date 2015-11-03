@@ -7,6 +7,8 @@ package DAO;
 
 import Modelo.SmsPermisos;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -16,7 +18,9 @@ import org.hibernate.Session;
  * @author Desarrollo_Planit
  */
 public class ImpPermisosDao implements IPermisosDao {
-
+    
+     private FacesMessage message;
+    
     @Override
     public List<SmsPermisos> mostrarPermisos() {
         Session session = null;
@@ -24,9 +28,9 @@ public class ImpPermisosDao implements IPermisosDao {
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsPermisos");
-            permisos = (List<SmsPermisos>) query.list();
+            permisos = (List<SmsPermisos>) query.list();           
         } catch (HibernateException e) {
-            e.getMessage();
+            e.getMessage();           
         } finally {
             if (session != null) {
                 session.close();
@@ -44,14 +48,17 @@ public class ImpPermisosDao implements IPermisosDao {
             session.beginTransaction();
             session.save(permiso);
             session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Permiso registrado", ""+ permiso.getPermisosNombre());
         }catch(HibernateException e){
             e.getMessage();
             session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
         }finally{
             if(session != null){
                 session.close();
-            }
-        }            
+            }        
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
@@ -62,14 +69,17 @@ public class ImpPermisosDao implements IPermisosDao {
             session.beginTransaction();
             session.update(permiso);
             session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Permiso modificado", ""+ permiso.getPermisosNombre());
         }catch(HibernateException e){
             e.getMessage();
             session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
         }finally{
             if(session != null){
                 session.close();
             }
-        }  
+        } 
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
@@ -80,14 +90,17 @@ public class ImpPermisosDao implements IPermisosDao {
             session.beginTransaction();
             session.delete(permiso);
             session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Permiso eliminado", ""+ permiso.getPermisosNombre());
         }catch(HibernateException e){
             e.getMessage();
             session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
         }finally{
             if(session != null){
                 session.close();
             }
-        }  
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
     @Override
