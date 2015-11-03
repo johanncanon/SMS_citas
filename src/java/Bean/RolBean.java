@@ -22,14 +22,13 @@ public class RolBean {
 
     private List<SmsRol> Roles;
     private SmsRol rol;
-    private SmsPermisos permiso;
+    
     
     private List<String> permisosSeleccionados;
     private List<String> ListaRoles;
 
     public RolBean() {
-        rol = new SmsRol();
-        permiso = new SmsPermisos();
+        rol = new SmsRol();        
     }
 
     public List<SmsRol> getRoles() {
@@ -46,15 +45,7 @@ public class RolBean {
 
     public void setRol(SmsRol rol) {
         this.rol = rol;
-    }
-
-    public SmsPermisos getPermiso() {
-        return permiso;
-    }
-
-    public void setPermiso(SmsPermisos permiso) {
-        this.permiso = permiso;
-    }
+    }  
 
     public List<String> getPermisosSeleccionados() {
         return permisosSeleccionados;
@@ -101,6 +92,8 @@ public class RolBean {
 
     //Definicion de metodos para asignacion de permisos a un rol
     public void asignarPermiso() {
+        SmsPermisos permiso;
+        permiso = new SmsPermisos();                
         IPermisosDao permisoDao = new ImpPermisosDao();
 
         /* Este segmento for, captura el objeto permiso segun un nombre y 

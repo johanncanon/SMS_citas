@@ -5,7 +5,9 @@
  */
 package DAO;
 
+import Modelo.SmsPermisos;
 import Modelo.SmsRol;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -102,6 +104,24 @@ public class ImpRolDao implements IRolDao{
             }
         }
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    @Override
+    public List<SmsRol> consultarRol(String rol) {
+        Session session = null;
+        List<SmsRol> roles = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsRol as rol where rol.rolNombre = '" + rol + "'");
+            roles = (List<SmsRol>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return roles;
     }
     
 }

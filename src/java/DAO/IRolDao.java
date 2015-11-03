@@ -22,4 +22,6 @@ public interface IRolDao {
     public void modificarRol(SmsRol Rol);
 
     public void eliminarRol(SmsRol Rol);
+
+    public List<SmsRol> consultarRol(String rol);
 }

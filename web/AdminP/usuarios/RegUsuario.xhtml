@@ -42,13 +42,13 @@
                             </p:row>
                             <p:row>
                                 <p:column colspan="1"><p:outputLabel value="Ciudad: "/></p:column>
-                                <p:column colspan="3"><p:selectOneMenu style="width: 100%">
-                                        <f:selectItem itemLabel="Seleccione ciudad" value="#{usuarioBean.ciudad.ciudadNombre}" />
+                                <p:column colspan="3"><p:selectOneMenu value="#{usuarioBean.ciudad.ciudadNombre}" style="width: 100%">
+                                        <f:selectItem itemLabel="Seleccione ciudad"/>
                                         <f:selectItems value="#{ciudadBean.listaCiudadades}"/>
                                     </p:selectOneMenu></p:column>
                             </p:row>
                             <p:row>                                
-                                <p:column colspan="4"><p:commandButton  style="width:100%" update="messages seccionDatosUsuario" action="#{usuarioBean.registrarUsuario()}" value="Registrar Usuario" /></p:column>
+                                <p:column colspan="4"><p:commandButton style="width:100%" update="messages seccionDatosUsuario" action="#{usuarioBean.registrarUsuario()}" value="Registrar Usuario" /></p:column>
                             </p:row>
                         </p:panelGrid>
                     </p:column>
@@ -64,25 +64,24 @@
                             </p:row>
                             <p:row>
                                 <p:column colspan="1"><p:outputLabel value="Login: "/></p:column>
-                                <p:column colspan="3"><p:inputText style="width: 100%" value="#{usuarioBean.usuario.usuarioLogin}"></p:inputText></p:column>
+                                <p:column colspan="3"><p:inputText style="width: 100%" value="#{usuarioBean.auxUsuario.usuarioLogin}"></p:inputText></p:column>
                             </p:row>
                             <p:row>
                                 <p:column colspan="1"><p:outputLabel value="Contraseña: "/></p:column>
-                                <p:column colspan="3"><p:password style="width: 100%" value="#{usuarioBean.usuario.usuarioPassword}"></p:password></p:column>
+                                <p:column colspan="3"><p:password style="width: 100%" value="#{usuarioBean.auxUsuario.usuarioPassword}"></p:password></p:column>
                             </p:row>
                             <p:row>
                                 <p:column colspan="1"><p:outputLabel value="repita contraseña: "/></p:column>
-                                <p:column colspan="3"><p:password style="width: 100%" value="#{usuarioBean.usuario.usuarioRememberToken}"></p:password></p:column>
+                                <p:column colspan="3"><p:password style="width: 100%" value="#{usuarioBean.auxUsuario.usuarioRememberToken}"></p:password></p:column>
                             </p:row>
                             <p:row>
                                 <p:column colspan="1"><p:outputLabel value="Rol:"/></p:column>
-                                <p:column colspan="3"><p:selectOneMenu id="ListaRoles" style="width: 100%" value="#{rolBean.permisosSeleccionados}">                                                                
-                                        <f:selectItem itemLabel="Seleccione rol"/>
+                                <p:column colspan="3"><p:selectManyCheckbox layout="grid" columns="2" id="menuRoles" style="width: 100%" value="#{usuarioBean.roles}">                                                               
                                         <f:selectItems value="#{rolBean.listaRoles}" />
-                                    </p:selectOneMenu></p:column>
+                                    </p:selectManyCheckbox></p:column>
                             </p:row>                            
                             <p:row>
-                                <p:column colspan="4"><p:commandButton style="width:100%" value="Crear Usuario"></p:commandButton></p:column>                                
+                                <p:column colspan="4"><p:commandButton style="width:100%" value="Crear Usuario" update="messages formularioUsuario" action="#{usuarioBean.asignarRol()}"></p:commandButton></p:column>                                
                             </p:row>
                         </p:panelGrid>
                     </p:column>

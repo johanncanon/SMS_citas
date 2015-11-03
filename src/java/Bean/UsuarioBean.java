@@ -6,13 +6,16 @@
 package Bean;
 
 import DAO.ICiudadDao;
+import DAO.IRolDao;
 import DAO.IUsuarioDao;
 import DAO.ImpCiudadDao;
+import DAO.ImpRolDao;
 import DAO.ImpUsuarioDao;
 import Modelo.SmsCiudad;
 import Modelo.SmsRol;
 import Modelo.SmsUsuario;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -31,7 +34,7 @@ public class UsuarioBean implements Serializable {
     
     //Relaciones con otras clases
     protected SmsCiudad ciudad;//asociacion
-    protected List<SmsRol> roles; //agregacion
+    protected List<String> roles; //agregacion
     
     //instaciacion de objetos de sesion
     private HttpSession httpSession;
@@ -49,15 +52,7 @@ public class UsuarioBean implements Serializable {
 
     public void setUsuario(SmsUsuario usuario) {
         this.usuario = usuario;
-    }
-
-    public List<SmsRol> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<SmsRol> roles) {
-        this.roles = roles;
-    }
+    }    
 
     public List<SmsUsuario> getUsuarios() {
         return usuarios;
@@ -83,17 +78,29 @@ public class UsuarioBean implements Serializable {
         this.auxUsuario = auxUsuario;
     }
 
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+    
+    
+
     //Declaracion de metodos
     //Metodos CRUD
-    public void registrarUsuario() {
-        auxUsuario = new SmsUsuario();
+    public void registrarUsuario() {        
         ICiudadDao ciudadDao = new ImpCiudadDao();
         ciudad = ciudadDao.consultarCiudad(ciudad).get(0);
-        usuario.setSmsCiudad(ciudad);          
+        usuario.setSmsCiudad(ciudad);         
         
         
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarioDao.registrarUsuario(usuario);
+        
+        auxUsuario = new SmsUsuario();
+        auxUsuario= usuario;
         usuario = new SmsUsuario();
         
     }
@@ -147,14 +154,20 @@ public class UsuarioBean implements Serializable {
         return valor;
     }
 
-    //Definicion de metodos para la asignacion de roles
-    public void addRol(SmsRol rol) {
-        //Agrega roles a una lista para asignar posteriormente a un usuario
-        roles.add(rol);
-    }
+    //Definicion de metodos para la asignacion de roles    
 
     public void asignarRol() {
-
+        SmsRol rol = new SmsRol();
+        IRolDao rolDao = new ImpRolDao();
+        
+        for (int i = 0; i < roles.size(); i++) { //Recorre el array de nombres de permisos
+            rol = rolDao.consultarRol(roles.get(i)).get(0);
+            //Realiza la consulta en la base de datos y guarda el objeto resultante en el objeto permiso
+            auxUsuario.getSmsRols().add(rol);//agrega el permiso al rol           
+        }
+        modificarUsuario();
+        roles = new ArrayList<>();
+        auxUsuario = new SmsUsuario();
     }
 
     public void modificarRol() {

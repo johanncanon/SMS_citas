@@ -8,6 +8,8 @@ package DAO;
 import Modelo.SmsUsuario;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,6 +19,8 @@ import org.hibernate.Session;
  * @author Desarrollo_Planit
  */
 public class ImpUsuarioDao implements IUsuarioDao {
+
+    private FacesMessage message;
 
     @Override
     public List<SmsUsuario> mostrarPermisos() {
@@ -45,14 +49,17 @@ public class ImpUsuarioDao implements IUsuarioDao {
             session.beginTransaction();
             session.save(usuario);
             session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario registrado", "" + usuario.getUsuarioNombre());
         } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
         } finally {
             if (session != null) {
                 session.close();
             }
         }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
@@ -63,14 +70,17 @@ public class ImpUsuarioDao implements IUsuarioDao {
             session.beginTransaction();
             session.update(usuario);
             session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "perfil creado", "" + usuario.getUsuarioLogin());
         } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
         } finally {
             if (session != null) {
                 session.close();
             }
         }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
@@ -81,23 +91,25 @@ public class ImpUsuarioDao implements IUsuarioDao {
             session.beginTransaction();
             session.delete(usuario);
             session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario eliminado", "" + usuario.getUsuarioNombre());
         } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
         } finally {
             if (session != null) {
                 session.close();
             }
         }
-    }   
+    }
 
-   @Override
+    @Override
     public List<SmsUsuario> consultarUsuario(SmsUsuario usuario) {
         Session session = null;
         List<SmsUsuario> usuarios = new ArrayList<>();
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsUsuario as usuario where usuario.usuarioLogin = '"+ usuario.getUsuarioLogin() +"'");
+            Query query = session.createQuery("from SmsUsuario as usuario where usuario.usuarioLogin = '" + usuario.getUsuarioLogin() + "'");
             usuarios = (List<SmsUsuario>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
@@ -106,6 +118,7 @@ public class ImpUsuarioDao implements IUsuarioDao {
                 session.close();
             }
         }
+        FacesContext.getCurrentInstance().addMessage(null, message);
         return usuarios;
     }
 
