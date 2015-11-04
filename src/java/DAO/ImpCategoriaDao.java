@@ -8,6 +8,10 @@ package DAO;
 import Modelo.SmsCategoria;
 import java.util.List;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -19,22 +23,83 @@ public class ImpCategoriaDao implements ICategoriaDao{
     
     @Override
     public List<SmsCategoria> mostrarCategorias() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = null;
+        List<SmsCategoria> categorias = null;        
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsCategorias");
+            categorias = (List<SmsCategoria>) query.list();            
+        }catch(HibernateException e){
+            e.getMessage();
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }return categorias;
     }
 
     @Override
     public void registrarCategoria(SmsCategoria categoria) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = null;
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(categoria);
+            session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Categoria registrada", "" + categoria.getCategoriaNombre() );
+        }catch(HibernateException e){
+            e.getMessage();
+            session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
+    
 
     @Override
     public void modificarCategoria(SmsCategoria categoria) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         Session session = null;
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.update(categoria);
+            session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Categoria modificada", "" + categoria.getCategoriaNombre() );
+        }catch(HibernateException e){
+            e.getMessage();
+            session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
     public void eliminarCategoria(SmsCategoria categoria) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         Session session = null;
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.delete(categoria);
+            session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Categoria eliminada", "" + categoria.getCategoriaNombre() );
+        }catch(HibernateException e){
+            e.getMessage();
+            session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
 }

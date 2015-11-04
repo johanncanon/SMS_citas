@@ -6,8 +6,13 @@
 package DAO;
 
 import Modelo.SmsMarca;
+import Modelo.SmsRol;
 import java.util.List;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -19,22 +24,84 @@ public class ImpMarcaDao implements IMarcaDao{
     
     @Override
     public List<SmsMarca> mostrarMarcas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = null;
+        List<SmsMarca> marcas = null;
+        
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsMarca");
+            marcas = (List<SmsMarca>) query.list();
+            
+        }catch(HibernateException e){
+            e.getMessage();
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }return marcas;
     }
 
     @Override
     public void registrarMarca(SmsMarca marca) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = null;
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(marca);
+            session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Marca registrada", "" + marca.getMarcaNombre() );
+        }catch(HibernateException e){
+            e.getMessage();
+            session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
     public void modificarMarca(SmsMarca marca) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = null;
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.update(marca);
+            session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Marca modificada", "" + marca.getMarcaNombre() );
+        }catch(HibernateException e){
+            e.getMessage();
+            session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
     public void eliminarMarca(SmsMarca marca) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = null;
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(marca);
+            session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Marca eliminada", "" + marca.getMarcaNombre() );
+        }catch(HibernateException e){
+            e.getMessage();
+            session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
 }

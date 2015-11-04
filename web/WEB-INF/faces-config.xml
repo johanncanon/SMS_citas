@@ -43,4 +43,19 @@
         <managed-bean-class>Bean.CiudadBean</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>vehiculoBean</managed-bean-name>
+        <managed-bean-class>Bean.VehiculoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>referenciaBean</managed-bean-name>
+        <managed-bean-class>Bean.ReferenciaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>categoriaBean</managed-bean-name>
+        <managed-bean-class>Bean.CategoriaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

@@ -5,9 +5,14 @@
  */
 package DAO;
 
+import Modelo.SmsReferencia;
 import Modelo.SmsVehiculo;
 import java.util.List;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -19,22 +24,84 @@ public class ImpVehiculoDao implements IVehiculoDao{
 
     @Override
     public List<SmsVehiculo> mostrarVehiculo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         Session session = null;
+        List<SmsVehiculo> vehiculos = null;
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsVehiculo");
+            vehiculos = (List<SmsVehiculo>) query.list();
+
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return vehiculos;
     }
 
     @Override
     public void registrarVehiculo(SmsVehiculo vehiculo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = null;
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(vehiculo);
+            session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Vehiculo registrado", "" + vehiculo.getVehPlaca() );
+        }catch(HibernateException e){
+            e.getMessage();
+            session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
     public void modificarVehiculo(SmsVehiculo vehiculo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Session session = null;
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.update(vehiculo);
+            session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Vehiculo modificado", "" + vehiculo.getVehPlaca() );
+        }catch(HibernateException e){
+            e.getMessage();
+            session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
     public void eliminarVehiculo(SmsVehiculo vehiculo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = null;
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.delete(vehiculo);
+            session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Vehiculo eliminado", "" + vehiculo.getVehPlaca() );
+        }catch(HibernateException e){
+            e.getMessage();
+            session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
     
