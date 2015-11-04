@@ -5,8 +5,8 @@
  */
 package DAO;
 
-import Modelo.SmsPermisos;
 import Modelo.SmsRol;
+import Modelo.SmsUsuario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -123,5 +123,7 @@ public class ImpRolDao implements IRolDao{
         }
         return roles;
     }
+
+    
     
 }

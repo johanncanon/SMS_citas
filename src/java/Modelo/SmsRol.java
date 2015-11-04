@@ -51,11 +51,11 @@ public class SmsRol  implements java.io.Serializable {
     }
     
     public void setSmsUsuarios(Set<SmsUsuario> smsUsuarios) {
-        this.smsUsuarios = smsUsuarios;
+        this.smsUsuarios = smsUsuarios;        
     }
 
 
-
+    
 
 }
 

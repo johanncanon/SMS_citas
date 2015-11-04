@@ -100,6 +100,7 @@ public class ImpUsuarioDao implements IUsuarioDao {
             if (session != null) {
                 session.close();
             }
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
 
@@ -117,8 +118,7 @@ public class ImpUsuarioDao implements IUsuarioDao {
             if (session != null) {
                 session.close();
             }
-        }
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        }       
         return usuarios;
     }
 

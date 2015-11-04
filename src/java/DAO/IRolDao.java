@@ -6,6 +6,7 @@
 package DAO;
 
 import Modelo.SmsRol;
+import Modelo.SmsUsuario;
 import java.util.List;
 
 /**
@@ -23,5 +24,6 @@ public interface IRolDao {
 
     public void eliminarRol(SmsRol Rol);
 
-    public List<SmsRol> consultarRol(String rol);
+    public List<SmsRol> consultarRol(String rol);    
+   
 }
