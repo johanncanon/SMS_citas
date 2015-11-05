@@ -7,8 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <body>
-
+   
+    
         <ui:composition template="./../template-admin-p.xhtml">
 
             <ui:define name="content">
@@ -20,23 +20,23 @@
                                 <h:form>
                                     <h3>Consulta de Vehìculos SMS</h3>
                                     <hr/>
-                                    <p:panel id="panel" header="Consulta de Vehiculos" style="margin-bottom:10px;">
+                                    <p:panel id="panel" header="Consulta de Vehiculos">
                                         <p:messages id="messages" />
 
-                                        <h:panelGrid columns="4" cellpadding="5">
-                                            <h:outputLabel for="txt1" value="Text 1: *" />
+                                        <h:panelGrid columns="4" cellpadding="5" >
+                                            <h:outputLabel for="txt1" value="Campo 1: *"  style="padding: 5px 37px;"/>
                                             <p:inputText id="txt1" value="#{selectorView.text1}" required="true" label="Text 1">
                                                 <f:validateLength minimum="2" />
                                             </p:inputText>
                                             <p:message for="txt1" />
                                             <h:outputText value="#{selectorView.text1}" />
 
-                                            <h:outputLabel for="txt2" value="Text 2: *" />
+                                            <h:outputLabel for="txt2" value="Campo 2: *" style="padding: 5px 37px;" />
                                             <p:inputText id="txt2" value="#{selectorView.text2}" required="true" label="Text 2" />
                                             <p:message for="txt2" />
                                             <h:outputText value="#{selectorView.text2}" />
 
-                                            <h:outputLabel for="txt3" value="Text 3: *" />
+                                            <h:outputLabel for="txt3" value="Campo 3: *" style="padding: 5px 37px;" />
                                             <h:selectOneMenu id="txt3" value="#{selectorView.text3}" required="true" label="Text 3">
                                                 <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
                                                 <f:selectItem itemLabel="Option 1" itemValue="1" />
@@ -48,13 +48,7 @@
                                         </h:panelGrid>
                                     </p:panel>
 
-                                    <h:panelGrid columns="5">
-                                        <p:commandButton update="@(form)" value="All Forms" />
-                                        <p:commandButton update="@(form:last)" value="Last Form" />
-                                        <p:commandButton update="@(.ui-panel)" value="All Panels" />
-                                        <p:commandButton process="@(.ui-panel :input)" update="@(.ui-panel)" value="Inputs of Panel" />
-                                        <p:commandButton process="@(.ui-panel :input:not(select))" update="@(.ui-panel)" value="Inputs Except Select" />
-                                    </h:panelGrid>
+                                    
                                 </h:form> 
                             </b:well>
                         </b:column>
@@ -89,5 +83,5 @@
 
         </ui:composition>
 
-    </body>
+   
 </html>

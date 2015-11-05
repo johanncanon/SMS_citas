@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+        <ui:composition template="./../../template-admin-p.xhtml">
+
+            <ui:define name="content">
+
+                <b:container fluid="true">
+                    <b:row>
+                        <b:column col-lg="9">
+                            <b:well>
+                                <h:form>
+                                    <h3>Consulta de Categorias de Vehìculos SMS</h3>
+                                    <hr/>
+                                    <p:messages id="messages" />
+                                    <p:panel id="panel" header="Consulta de Vehiculos">
+                                        
+
+                                        <h:panelGrid columns="2" cellpadding="5" >
+                                            <h:outputLabel for="txt1" value="Nombre: "  style="padding: 5px 37px;"/>
+                                            <p:inputText value="#{categoriaBean.categoria.categoriaNombre}">
+                                            </p:inputText>                                            
+
+                                            <h:outputLabel for="txt2" value="Descripcion: *" style="padding: 5px 37px;" />
+                                            <p:inputTextarea rows="4" id="txt2" value="#{categoriaBean.categoria.categoriaDescripcion}"/>
+                                            
+                                            <p:commandButton ajax="false" value="registrar categorio" action="#{categoriaBean.regCategoria()}"/>                                            
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </h:form> 
+                            </b:well>
+                        </b:column>
+                        <b:column col-lg="9">
+                            <b:well>
+                                <h3>Lista de Categorias de Vehìculos SMS consultados/ocultarse</h3>
+                                <hr/>
+                                <p:dataTable var="car" value="#{dtBasicView.cars}">
+                                    <p:column headerText="Id">
+                                        <h:outputText value="#{categoriaBean.categoria.idCategoria}" />
+                                    </p:column>
+
+                                    <p:column headerText="Descripcion">
+                                        <h:outputText value="#{categoriaBean.categoria.categoriaDescripcion}" />
+                                    </p:column>
+
+                                    <p:column headerText="Nombre">
+                                        <h:outputText value="#{categoriaBean.categoria.categoriaNombre}" />
+                                    </p:column>
+
+                                    <p:column headerText="Vehiculos">
+                                        <h:outputText value="#{categoriaBean.categoria.smsVehiculos}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </b:well>
+                        </b:column>
+                    </b:row>
+
+                </b:container>
+
+            </ui:define>
+
+        </ui:composition>
+
+   
+</html>
