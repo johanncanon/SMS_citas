@@ -7,61 +7,73 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <body>
 
-        <ui:composition template="./../template-admin-p.xhtml">
 
-            <ui:define name="content">
+    <ui:composition template="./../template-admin-p.xhtml">
 
-                <b:container fluid="true">
-                    <b:row>
-                        <b:column col-lg="9">
-                            <b:well>
-                                <h:form>
-                                    <h3>Consulta de Vehìculos SMS</h3>
-                                    <hr/>
-                                    <p:panel id="panel" header="Consulta de Vehiculos" style="margin-bottom:10px;">
-                                        <p:messages id="messages" />
+        <ui:define name="content">
+            <b:container fluid="true">
+                <b:row>
+                    <b:column col-lg="9" col-sm="8" col-xs="12" class="espacio-arriba">
+                        <b:well >
+                            <h:form>
+                                <h3>Vehiculos SMS</h3>
+                                <hr/>
+                                <p:messages id="messages" />
+                                <p:panel id="panel" style="margin-bottom:10px;">                                
+                                    <h4>Registro de Vehiculo</h4>
+                                    <p:panelGrid style="width: 100% !important" columns="2">
+                                        <p:outputLabel value="Placa: "/>
+                                        <p:inputText id="txtPlaca" placeholder="Numero de placa" style="width: 100%; height: 35px"/>
 
-                                        <h:panelGrid columns="4" cellpadding="5">
-                                            <h:outputLabel for="txt1" value="Text 1: *" />
-                                            <p:inputText id="txt1" value="#{selectorView.text1}" required="true" label="Text 1">
-                                                <f:validateLength minimum="2" />
-                                            </p:inputText>
-                                            <p:message for="txt1" />
-                                            <h:outputText value="#{selectorView.text1}" />
+                                        <p:outputLabel value="Modelo: "/>
+                                        <p:inputText id="txtModelo" placeholder="Modelo de fabricacion" style="width: 100%; height: 35px"/>
 
-                                            <h:outputLabel for="txt2" value="Text 2: *" />
-                                            <p:inputText id="txt2" value="#{selectorView.text2}" required="true" label="Text 2" />
-                                            <p:message for="txt2" />
-                                            <h:outputText value="#{selectorView.text2}" />
+                                        <p:outputLabel value="Color: "/>
+                                        <p:inputText id="txtColor" placeholder="Color del vehiculo" style="width: 100%; height: 35px"/>
 
-                                            <h:outputLabel for="txt3" value="Text 3: *" />
-                                            <h:selectOneMenu id="txt3" value="#{selectorView.text3}" required="true" label="Text 3">
-                                                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
-                                                <f:selectItem itemLabel="Option 1" itemValue="1" />
-                                                <f:selectItem itemLabel="Option 2" itemValue="2" />
-                                                <f:selectItem itemLabel="Option 3" itemValue="3" />
-                                            </h:selectOneMenu>
-                                            <p:message for="txt3" />
-                                            <h:outputText value="#{selectorView.text3}" />
-                                        </h:panelGrid>
-                                    </p:panel>
+                                        <p:outputLabel value="Categoria: "/>
+                                        <p:selectOneMenu id="txtCategoria" style="width: 100%">
+                                            <f:selectItem itemLabel="Seleccione categoria"/>
+                                        </p:selectOneMenu>
 
-                                    <h:panelGrid columns="5">
-                                        <p:commandButton update="@(form)" value="All Forms" />
-                                        <p:commandButton update="@(form:last)" value="Last Form" />
-                                        <p:commandButton update="@(.ui-panel)" value="All Panels" />
-                                        <p:commandButton process="@(.ui-panel :input)" update="@(.ui-panel)" value="Inputs of Panel" />
-                                        <p:commandButton process="@(.ui-panel :input:not(select))" update="@(.ui-panel)" value="Inputs Except Select" />
-                                    </h:panelGrid>
-                                </h:form> 
-                            </b:well>
-                        </b:column>
-                        <b:column col-lg="9">
-                            <b:well>
-                                <h3>Lista de Vehìculos SMS consultados/ocultarse</h3>
-                                    <hr/>
+                                        <p:outputLabel value="Referencia: "/>
+                                        <p:selectOneMenu style="width: 100%">
+                                            <f:selectItem itemLabel="Seleccione referencia"/>
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel value="Num. de personas: "/> 
+                                        <p:inputText placeholder="0" style="width: 100%; height: 35px"/>
+
+                                        <p:outputLabel value="Cant. maletas grandes: "/>
+                                        <p:inputText placeholder="0" style="width: 100%; height: 35px"/>
+
+                                        <p:outputLabel value="Cant. maletas pequeñas: "/>
+                                        <p:inputText placeholder="0" style="width: 100%; height: 35px"/>
+
+                                        <p:outputLabel value="Ciudad: "/>
+                                        <p:selectOneMenu style="width: 100%">
+                                            <f:selectItem itemLabel="Seleccione ciudad"/>
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel value="Proveedor: "/>
+                                        <p:selectOneMenu style="width: 100%">
+                                            <f:selectItem itemLabel="Seleccione proveedor"/>
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+                                    <p:commandButton value="Registrar Vehiculo"/>    
+                                </p:panel>    
+                            </h:form> 
+                        </b:well>
+                    </b:column>
+                    <b:column col-lg="9" col-sm="8" col-xs="12">
+                        <b:well>
+                            <h:form>
+                                <h3>Lista de Vehiculos SMS</h3>
+                                <hr/>
+                                <p:outputLabel value="Buscar: " for="search"/>
+                                <p:inputText id="search" style="width: 80%"></p:inputText>
+                                <br/><br/>
                                 <p:dataTable var="car" value="#{dtBasicView.cars}">
                                     <p:column headerText="Id">
                                         <h:outputText value="#{car.id}" />
@@ -79,15 +91,13 @@
                                         <h:outputText value="#{car.color}" />
                                     </p:column>
                                 </p:dataTable>
-                            </b:well>
-                        </b:column>
-                    </b:row>
-                    
-                </b:container>
+                            </h:form>
+                        </b:well>
+                    </b:column>
+                </b:row>
+            </b:container>
+        </ui:define>
+    </ui:composition>
 
-            </ui:define>
 
-        </ui:composition>
-
-    </body>
 </html>
