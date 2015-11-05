@@ -5,16 +5,62 @@
  */
 package Bean;
 
-/**
- *
- * @author Desarrollo_Planit
- */
-public class CategoriaBean {
+import DAO.ICategoriaDao;
+import DAO.ImpCategoriaDao;
+import Modelo.SmsCategoria;
+import java.io.Serializable;
+import java.util.List;
 
-    /**
-     * Creates a new instance of CategoriaBean
-     */
+
+public class CategoriaBean implements Serializable{
+
+     private SmsCategoria categoria;
+     private List<SmsCategoria> categorias;
+    
     public CategoriaBean() {
+        categoria = new SmsCategoria();
     }
+
+    public SmsCategoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(SmsCategoria categoria) {
+        this.categoria = categoria;
+    }
+
+    
+    public List<SmsCategoria> getCategorias() {// *****************  DEVOLVER LISTADO DE CATEGORIAS
+        ICategoriaDao categoriasDao = new ImpCategoriaDao();
+        categorias = categoriasDao.mostrarCategorias();
+        return categorias;
+    }
+
+    public void setCategorias(List<SmsCategoria> categorias) {
+        this.categorias = categorias;
+    }
+    
+    
+    //METODOS QUE DEVUELVEN DATOS PARA VISTAS
+    
+    public void modCategoria (){
+        ICategoriaDao categotiaDao = new ImpCategoriaDao();
+        categotiaDao.modificarCategoria(categoria);
+        categoria = new SmsCategoria();
+    }
+    
+    public void regCategoria(){
+        ICategoriaDao categoriaDao = new ImpCategoriaDao();
+        categoriaDao.registrarCategoria(categoria);
+        categoria = new SmsCategoria();
+    }
+    
+    public void eliCategoria(){
+        ICategoriaDao categoriaDao = new ImpCategoriaDao();
+        categoriaDao.eliminarCategoria(categoria);
+        categoria = new SmsCategoria();
+    }
+    
+    
     
 }

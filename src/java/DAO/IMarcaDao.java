@@ -18,6 +18,7 @@ public interface IMarcaDao {
     public void registrarMarca(SmsMarca marca);
     public void modificarMarca(SmsMarca marca);
     public void eliminarMarca(SmsMarca marca);
+    public List<SmsMarca> consultarMarca(String nombreMarca);
     
     
 }

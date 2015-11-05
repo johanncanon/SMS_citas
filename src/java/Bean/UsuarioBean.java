@@ -44,6 +44,7 @@ public class UsuarioBean implements Serializable {
         usuario = new SmsUsuario();
         ciudad = new SmsCiudad();
         auxUsuario = new SmsUsuario();
+
     }
 
     public SmsUsuario getUsuario() {

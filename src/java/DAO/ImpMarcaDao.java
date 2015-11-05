@@ -103,5 +103,25 @@ public class ImpMarcaDao implements IMarcaDao{
         }
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+
+    @Override
+    public List<SmsMarca> consultarMarca(String nombreMarca) {
+       Session session = null;
+        List<SmsMarca> marcas = null;
+        
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsMarca as marca where marca.marcaNombre = '"+ nombreMarca +"'");
+            marcas = (List<SmsMarca>) query.list();
+            
+        }catch(HibernateException e){
+            e.getMessage();
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }return marcas;
+    }
+    }
     
-}
+

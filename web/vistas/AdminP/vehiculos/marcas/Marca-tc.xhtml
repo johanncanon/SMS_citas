@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="./../../template-admin-p.xhtml">
+
+        <ui:define name="content">
+
+            <b:container fluid="true">
+                <b:row>
+                    <b:column col-lg="9">
+                        <b:well>
+                            <h:form>
+                                <h3>Consulta de Marca de Vehìculos SMS</h3>
+                                <hr/>
+                                <p:messages id="messages" />
+                                <p:panel id="panel" header="Consulta de Vehiculos">
+
+                                    <h:panelGrid columns="4" cellpadding="5" >
+                                        <h:outputLabel value="Nombre de Marca: "  style="padding: 5px 37px;"/>
+                                        <p:inputText id="txt1" value="#{marcaBean.marca.marcaNombre}" required="true" label="Text 1">
+                                            <f:validateLength minimum="2" />
+                                        </p:inputText>                                          
+                                        
+                                    </h:panelGrid>
+                                    <p:commandButton ajax="false" value="registrar categorio" action="#{marcaBean.regMarca()}"/>
+                                </p:panel>
+
+
+                            </h:form> 
+                        </b:well>
+                    </b:column>
+                    <b:column col-lg="9">
+                        <b:well>
+                            <h3>Lista de Marca de Vehìculos SMS consultados/ocultarse</h3>
+                            <hr/>
+                            <p:dataTable var="car" value="#{dtBasicView.cars}">
+                                <p:column headerText="Id">
+                                    <h:outputText value="#{marcaBean.marca.idMarca}" />
+                                </p:column>
+
+                                <p:column headerText="Nombre de la Marca">
+                                    <h:outputText value="#{marcaBean.marca.marcaNombre}" />
+                                </p:column>
+
+                                <p:column headerText="Brand">
+                                    <h:outputText value="#{car.brand}" />
+                                </p:column>
+
+                                <p:column headerText="Color">
+                                    <h:outputText value="#{car.color}" />
+                                </p:column>
+                            </p:dataTable>
+                        </b:well>
+                    </b:column>
+                </b:row>
+
+            </b:container>
+
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>
