@@ -12,6 +12,7 @@
     <ui:composition template="./../template-admin-p.xhtml">
 
         <ui:define name="content">
+            
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="9" col-sm="8" col-xs="12" class="espacio-arriba">
@@ -35,6 +36,7 @@
                                         <p:outputLabel value="Categoria: "/>
                                         <p:selectOneMenu id="txtCategoria" style="width: 100%">
                                             <f:selectItem itemLabel="Seleccione categoria"/>
+                                            <f:selectItems value="#{categoriaBean.listaCategorias}"/>
                                         </p:selectOneMenu>
 
                                         <p:outputLabel value="Referencia: "/>
@@ -54,6 +56,7 @@
                                         <p:outputLabel value="Ciudad: "/>
                                         <p:selectOneMenu style="width: 100%">
                                             <f:selectItem itemLabel="Seleccione ciudad"/>
+                                            <f:selectItems value="#{ciudadBean.listaCiudades}"/>
                                         </p:selectOneMenu>
 
                                         <p:outputLabel value="Proveedor: "/>

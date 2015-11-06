@@ -16,7 +16,9 @@ public class CategoriaBean implements Serializable{
 
      private SmsCategoria categoria;
      private List<SmsCategoria> categorias;
-    
+     private List<String> listaCategorias;
+     
+     
     public CategoriaBean() {
         categoria = new SmsCategoria();
     }
@@ -39,6 +41,16 @@ public class CategoriaBean implements Serializable{
     public void setCategorias(List<SmsCategoria> categorias) {
         this.categorias = categorias;
     }
+
+    public List<String> getListaCategorias() {
+        return listaCategorias;
+    }
+
+    public void setListaCategorias(List<String> listaCategorias) {
+        this.listaCategorias = listaCategorias;
+    }
+    
+    
     
     
     //METODOS QUE DEVUELVEN DATOS PARA VISTAS

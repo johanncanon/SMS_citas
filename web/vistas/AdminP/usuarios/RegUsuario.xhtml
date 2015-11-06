@@ -10,8 +10,8 @@
     <ui:composition template="./../template-admin-p.xhtml">
 
         <ui:define name="content">
+            
             <b:container fluid="true">
-
                 <b:row>
                     <b:column col-lg="9" class="espacio-arriba">
                         <b:well> 
@@ -19,7 +19,7 @@
                                 <p:growl id="messages" showDetail="true"/>
                                 <p:panel id="panel" style="margin-bottom:10px;"> 
                                     <h3>Registro de usuario</h3>
-                                    <h:panelGrid columns="2" id="seccionDatosUsuario" cellpadding="10" style="width: 100%;">
+                                    <h:panelGrid columns="2" id="seccionDatosUsuario" style="width: 100%;">
                                         <p:outputLabel value="Nombre: "/>
                                         <p:inputText placeholder="Nombres y apellidos" style="width: 100px;" maxlength="60" value="#{usuarioBean.usuario.usuarioNombre}"></p:inputText>
 
@@ -40,8 +40,7 @@
 
                                         <p:outputLabel value="Ciudad: "/>
                                         <p:selectOneMenu value="#{usuarioBean.ciudad.ciudadNombre}" style="width: 95%">
-                                            <f:selectItem itemLabel="Seleccione ciudad"/>
-                                            <f:selectItems value="#{ciudadBean.listaCiudadades}"/>
+                                            <f:selectItem itemLabel="Seleccione ciudad"/>                                            
                                         </p:selectOneMenu>                                             
                                     </h:panelGrid>
                                     <p:commandButton style="width:100%" update="messages seccionDatosUsuario" action="#{usuarioBean.registrarUsuario()}" value="Registrar Usuario" />
@@ -49,11 +48,9 @@
                             </h:form>
                         </b:well>
                     </b:column>
-
                     <b:column col-lg="9">
                         <b:well>
-                            <h:form>
-                                <p:panel>
+                            <h:form>                                
                                     <p:panelGrid>
                                         <p:row>
                                             <p:column>
@@ -85,15 +82,12 @@
                                                 </p:panelGrid>
                                             </p:column>
                                         </p:row>
-                                    </p:panelGrid>
-                                </p:panel>
+                                    </p:panelGrid>                               
                             </h:form>
                         </b:well>
                     </b:column>
                 </b:row>
-
             </b:container>
-
         </ui:define>
     </ui:composition>
 </html>

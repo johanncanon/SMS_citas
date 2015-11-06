@@ -19,10 +19,11 @@ public class CiudadBean {
 
     private SmsCiudad ciudad;
     private List<SmsCiudad> ciudades;
-    private List<String> listaCiudadades;
+    private List<String> listaCiudades;
 
     public CiudadBean() {
         ciudad = new SmsCiudad();
+        ciudades = new ArrayList<>();
     }
 
     public SmsCiudad getCiudad() {
@@ -43,18 +44,18 @@ public class CiudadBean {
         this.ciudades = ciudades;
     }
 
-    public List<String> getListaCiudadades() {
-        listaCiudadades = new ArrayList<>();
+    public List<String> getListaCiudades() {
+        listaCiudades = new ArrayList<>();
         ICiudadDao ciudadDao = new ImpCiudadDao();
         ciudades = ciudadDao.mostrarCiudades();
         for (int i = 0; i < ciudades.size(); i++) {
-            listaCiudadades.add(ciudades.get(i).getCiudadNombre());
+            listaCiudades.add(ciudades.get(i).getCiudadNombre());
         }
-        return listaCiudadades;
+        return listaCiudades;
     }
 
-    public void setListaCiudadades(List<String> listaCiudadades) {
-        this.listaCiudadades = listaCiudadades;
+    public void setListaCiudades(List<String> listaCiudades) {
+        this.listaCiudades = listaCiudades;
     }
 
     //Definicion Metodos CRUD

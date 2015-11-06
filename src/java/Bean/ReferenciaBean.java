@@ -23,6 +23,7 @@ public class ReferenciaBean implements Serializable {
     private SmsReferencia referencia;
     private List<SmsReferencia> referencias;
     
+    private List<String> listaReferencia;
     private String marcas;
 
     
@@ -59,6 +60,15 @@ public class ReferenciaBean implements Serializable {
     public void setMarcas(String marca) {
         this.marcas = marca;
     }
+
+    public List<String> getListaReferencia() {
+        return listaReferencia;
+    }
+
+    public void setListaReferencia(List<String> listaReferencia) {
+        this.listaReferencia = listaReferencia;
+    }    
+    
 
 
     /* METODOS DEL BEAN
