@@ -229,13 +229,47 @@
 }
 
 
-/* breadcrums
+.menu-respon1{
+    display: none;
+    visibility: collapse ;
+}
+
+.men-desap{
+    visibility: visible;
+}
+
+.pull-right {
+    float: none !important;
+}
+/*********** MENU RESPONSIVE
+********************************************************************************/
+
+@media screen and (max-width: 767px){
+    .menu-respon1{
+        display: inline-block;
+        visibility: visible;
+        width: 99% !important;
+    }
+
+    .men-desap{
+        display: none;
+        visibility: collapse;
+    }
+
+
+
+    .navbar-nav {
+        margin: 7.5px 4%; 
+        width: 100%;
+        padding: 0px 4% 29px 0px;
+    }
+}
+
+/********* MENU RESPONSIVE
 ********************************************************************************/
 
 
-
-
-/* Media Querys
+/*********** Media Querys
 ********************************************************************************/
 
 @media screen and (max-width: 767px){
