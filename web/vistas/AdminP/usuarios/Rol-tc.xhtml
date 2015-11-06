@@ -18,10 +18,10 @@
                         <b:well>
                             <h:form>
                                 <p:growl id="messages" showDetail="true"/>
-                                <p:panelGrid id="formularioRoles">
+                                <h:panelGrid border="0" id="formularioRoles">
                                     <p:row>
                                         <p:column>
-                                            <p:panelGrid id="seccionRol" style="width: 100%">
+                                            <h:panelGrid id="seccionRol" style="width: 100%">
                                                 <p:row>
                                                     <p:column colspan="2">
                                                         <h3>Registro de roles</h3>
@@ -31,12 +31,12 @@
                                                     <p:column><p:outputLabel value="Nombre del rol: "/></p:column>
                                                     <p:column><p:inputText value="#{rolBean.rol.rolNombre}"></p:inputText></p:column>
                                                 </p:row>
-                                            </p:panelGrid>
+                                            </h:panelGrid>
                                         </p:column>
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:panelGrid id="seccionPermisos" style="width: 100%">
+                                            <h:panelGrid id="seccionPermisos" style="width: 100%">
                                                 <p:row>
                                                     <p:column colspan="2">
                                                         <h4>Permisos</h4>
@@ -52,14 +52,14 @@
                                                     </p:column>
                                                 </p:row>
                                                 <p:row>
-                                                    <p:column colspan="2"><p:commandButton value="Registrar Permiso" action="#{permisosBean.registrarPermiso()}" update="messages seccionPermisos seccionAsignacion"></p:commandButton></p:column>
+                                                    <p:column colspan="2"><p:commandButton value="Registrar Permiso" action="#{permisosBean.registrarPermiso()}" style="width: 100%" update="messages seccionPermisos seccionAsignacion"></p:commandButton></p:column>
                                                 </p:row>
-                                            </p:panelGrid>
+                                            </h:panelGrid>
                                         </p:column>
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:panelGrid id="seccionAsignacion" style="width: 100%">
+                                            <h:panelGrid id="seccionAsignacion" style="width: 100%">
                                                 <p:row>
                                                     <p:column colspan="2">
                                                         <h4>Asignacion de permisos</h4>
@@ -75,10 +75,10 @@
                                                 <p:row>  
                                                     <p:column colspan="2"><p:commandButton value="Registrar rol" update="messages formularioRoles" style="width: 100%" action="#{rolBean.asignarPermiso()}"/></p:column>
                                                 </p:row>
-                                            </p:panelGrid>
+                                            </h:panelGrid>
                                         </p:column>
                                     </p:row>
-                                </p:panelGrid>
+                                </h:panelGrid>
                             </h:form>
                         </b:well>
                     </b:column>
