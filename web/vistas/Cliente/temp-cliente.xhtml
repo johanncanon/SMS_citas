@@ -11,22 +11,73 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <h:outputStylesheet name="./bootstrap-3.3.5/css/bootstrap.css"/>
-        <h:outputStylesheet name="./bootstrap-3.3.5/css/bootstrap.min.css"/>
-        <h:outputStylesheet name="./bootstrap-3.3.5/css/prub.css"/>
-        
-        <h:outputScript library="js" name="bootstrap.js" target="body" />
-        <h:outputScript library="js" name="bootstrap.min.js" target="body" />
-        <h:outputScript library="js" name="npm.js" target="body" />
-        <h:outputScript library="js" name="pru.js" target="body" />
-        <h:outputScript library="js" name="jquery.min.js" target="body" />
-        
-        <!--<script language="javascript" src="#{request.contextPath}/bootstrap-3.3.5/js/bootstrap.js"></script>
-        <script language="javascript" src="#{request.contextPath}/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-        <script language="javascript" src="#{request.contextPath}/bootstrap-3.3.5/js/npm.js"></script>
-        <script language="javascript" src="#{request.contextPath}/bootstrap-3.3.5/js/pru.js"></script>
-        <script language="javascript" src="#{request.contextPath}/bootstrap-3.3.5/js/jquery.min.js"></script>-->
+        <h:outputStylesheet name="./bootstrap/css/bootstrap.css"/>
+        <h:outputStylesheet name="./bootstrap/css/bootstrap.min.css"/>
+        <h:outputStylesheet name="./bootstrap/css/prub.css"/>
+
+        <script>
+            $(document).ready(function () {
+
+                var navListItems = $('div.setup-panel div a'),
+                        allWells = $('.setup-content'),
+                        allNextBtn = $('.nextBtn'),
+                        allPrevBtn = $('.prevBtn');
+
+                allWells.hide();
+
+                navListItems.click(function (e) {
+                    e.preventDefault();
+                    var $target = $($(this).attr('href')),
+                            $item = $(this);
+
+                    if (!$item.hasClass('disabled')) {
+                        navListItems.removeClass('btn-primary').addClass('btn-default');
+                        $item.addClass('btn-primary');
+                        allWells.hide();
+                        $target.show();
+                        $target.find('input:eq(0)').focus();
+                    }
+                });
+
+                allNextBtn.click(function () {
+                    var curStep = $(this).closest(".setup-content"),
+                            curStepBtn = curStep.attr("id"),
+                            nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                            curInputs = curStep.find("input[type='text'],input[type='url']"),
+                            isValid = true;
+
+                    $(".form-group").removeClass("has-error");
                 
+
+                    if (isValid)
+                        nextStepWizard.removeAttr('disabled').trigger('click');
+                });
+
+                allPrevBtn.click(function () {
+                    var curStep = $(this).closest(".setup-content"),
+                            curStepBtn = curStep.attr("id"),
+                            prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+
+                    $(".form-group").removeClass("has-error");
+                    prevStepWizard.removeAttr('disabled').trigger('click');
+                });
+
+                $('div.setup-panel div a.btn-primary').trigger('click');
+            });
+        </script>
+
+        <!--<h:outputScript library="js" name="bootstrap/js/bootstrap.js" target="body" />
+        <h:outputScript library="js" name="bootstrap/js/bootstrap.min.js" target="body" />
+        <h:outputScript library="js" name="bootstrap/js/npm.js" target="body" />
+        <h:outputScript library="js" name="bootstrap/js/pru.js" target="body" />
+       
+               
+        <script language="javascript" src="#{request.contextPath}/bootstrap/js/bootstrap.js"></script>
+        <script language="javascript" src="#{request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+        <script language="javascript" src="#{request.contextPath}/bootstrap/js/npm.js"></script>
+        <script language="javascript" src="#{request.contextPath}/bootstrap/js/pru.js"></script>
+        <script language="javascript" src="#{request.contextPath}/bootstrap/js/jquery.min.js"></script>-->
+
         <title>Dashboard SMS | Sesion de Cliente</title>
     </h:head>
 
@@ -56,87 +107,87 @@
         <b:container fluid="true">
             <b:row>
                 <div>
-                   <!-- <b:column col-lg="3" col-md="3" col-sm="4" col-xs="12">
-                        <div id="left">
-                            <h:form>
-                                <p:growl autoUpdate="true"/>
-                                <b:thumbnail id="esp1">
-                                    <b:panelGrid colSpans="4,8">
-                                        <img src="#"/>
-                                        <f:facet name="caption"/>
-                                        <h4>Thumbnail label</h4>
-                                        <p>Nombre: "Nombre Completo."</p>
-                                        <p>Perfil : "tipo de perfil."</p>
-                                    </b:panelGrid>
-                                </b:thumbnail>
-                                <p:panelMenu>
-                                    <p:submenu label="Reservacion" >
-                                        <p:menuitem value="Reservar Vehiculo" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
-                                        <p:menuitem value="Reservar Conductor" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
-                                        <p:submenu label="reservas Clientes" icon="ui-icon-car">
-                                            <p:menuitem value="Consultar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
-                                            <p:menuitem value="Modificar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
-                                            <p:menuitem value="Eliminar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
-                                        </p:submenu>
-
-
-                                    </p:submenu>
-
-                                    <p:submenu label="Clientes">
-                                        <p:menuitem value="Informacion y opciones de Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
-                                        <p:menuitem value="Registrar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
-                                        <p:menuitem value="Editar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
-                                        <p:menuitem value="Consultar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
-                                        <p:menuitem value="Eliminar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
-                                    </p:submenu>
-
-                                    <p:separator />
-                                    <p:submenu label="Vehiculos" >
-                                        <p:menuitem value="Informacion del Vehiculo" url="#" icon="ui-icon-home"/>
-                                        <p:menuitem value="Consultar Vehiculo" url="#" icon="ui-icon-home"/>
-                                        <p:menuitem value="Editar Vehiculo" url="#" icon="ui-icon-home"/>
-                                        <p:menuitem value="Eliminar Vehiculo" url="#" icon="ui-icon-home"/>
-
-                                        <p:submenu label="Marca de Vehiculos SMS" icon="ui-icon-extlink">
-                                            <p:menuitem value="Registrar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
-                                            <p:menuitem value="Consultar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
-                                            <p:menuitem value="Editar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
-                                            <p:menuitem value="Eliminar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
-
-                                        </p:submenu>
-
-                                        <p:submenu label="Categoria de Vehiculos" icon="ui-icon-extlink">
-                                            <p:menuitem value="Registrar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
-                                            <p:menuitem value="Consultar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
-                                            <p:menuitem value="Editar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
-                                            <p:menuitem value="Eliminar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
-
-                                        </p:submenu>
-                                    </p:submenu>
-
-                                    <p:submenu label="Conductores SMS">
-                                        <p:menuitem value="Registrar Conductores" url="#" icon=""/>
-                                        <p:menuitem value="Consultar Conductores" url="#" icon=""/>
-                                        <p:menuitem value="Editar Conductores" url="#" icon=""/>
-                                        <p:menuitem value="Eliminar Conductores" url="#" icon=""/>
-                                    </p:submenu>
-                                    <p:submenu label="Calificaciones">
-                                        <p:menuitem value="Calificaicones SMS" url="#" icon=""/>
-                                        <p:menuitem value="Calificaciones de Conductores" url="#" icon=""/>
-                                        <p:menuitem value="Consultar Calificaciones" url="#" icon=""/>
-                                    </p:submenu>
-
-                                    <p:submenu label="Estadisticas">
-                                        <p:menuitem value="Del vehiculo" url="#" icon=""/>
-                                        <p:menuitem value="Del Conductor" url="#" icon=""/>
-                                        <p:menuitem value="Del Proveedor" url="#"/>
-                                    </p:submenu>
-
-                                </p:panelMenu>
-                            </h:form>
-
-                        </div>
-                    </b:column>-->
+                    <!-- <b:column col-lg="3" col-md="3" col-sm="4" col-xs="12">
+                         <div id="left">
+                             <h:form>
+                                 <p:growl autoUpdate="true"/>
+                                 <b:thumbnail id="esp1">
+                                     <b:panelGrid colSpans="4,8">
+                                         <img src="#"/>
+                                         <f:facet name="caption"/>
+                                         <h4>Thumbnail label</h4>
+                                         <p>Nombre: "Nombre Completo."</p>
+                                         <p>Perfil : "tipo de perfil."</p>
+                                     </b:panelGrid>
+                                 </b:thumbnail>
+                                 <p:panelMenu>
+                                     <p:submenu label="Reservacion" >
+                                         <p:menuitem value="Reservar Vehiculo" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
+                                         <p:menuitem value="Reservar Conductor" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
+                                         <p:submenu label="reservas Clientes" icon="ui-icon-car">
+                                             <p:menuitem value="Consultar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
+                                             <p:menuitem value="Modificar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
+                                             <p:menuitem value="Eliminar Reservacion de Clientes" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
+                                         </p:submenu>
+ 
+ 
+                                     </p:submenu>
+ 
+                                     <p:submenu label="Clientes">
+                                         <p:menuitem value="Informacion y opciones de Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                         <p:menuitem value="Registrar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                         <p:menuitem value="Editar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                         <p:menuitem value="Consultar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                         <p:menuitem value="Eliminar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                     </p:submenu>
+ 
+                                     <p:separator />
+                                     <p:submenu label="Vehiculos" >
+                                         <p:menuitem value="Informacion del Vehiculo" url="#" icon="ui-icon-home"/>
+                                         <p:menuitem value="Consultar Vehiculo" url="#" icon="ui-icon-home"/>
+                                         <p:menuitem value="Editar Vehiculo" url="#" icon="ui-icon-home"/>
+                                         <p:menuitem value="Eliminar Vehiculo" url="#" icon="ui-icon-home"/>
+ 
+                                         <p:submenu label="Marca de Vehiculos SMS" icon="ui-icon-extlink">
+                                             <p:menuitem value="Registrar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                             <p:menuitem value="Consultar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                             <p:menuitem value="Editar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                             <p:menuitem value="Eliminar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+ 
+                                         </p:submenu>
+ 
+                                         <p:submenu label="Categoria de Vehiculos" icon="ui-icon-extlink">
+                                             <p:menuitem value="Registrar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                             <p:menuitem value="Consultar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                             <p:menuitem value="Editar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                             <p:menuitem value="Eliminar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+ 
+                                         </p:submenu>
+                                     </p:submenu>
+ 
+                                     <p:submenu label="Conductores SMS">
+                                         <p:menuitem value="Registrar Conductores" url="#" icon=""/>
+                                         <p:menuitem value="Consultar Conductores" url="#" icon=""/>
+                                         <p:menuitem value="Editar Conductores" url="#" icon=""/>
+                                         <p:menuitem value="Eliminar Conductores" url="#" icon=""/>
+                                     </p:submenu>
+                                     <p:submenu label="Calificaciones">
+                                         <p:menuitem value="Calificaicones SMS" url="#" icon=""/>
+                                         <p:menuitem value="Calificaciones de Conductores" url="#" icon=""/>
+                                         <p:menuitem value="Consultar Calificaciones" url="#" icon=""/>
+                                     </p:submenu>
+ 
+                                     <p:submenu label="Estadisticas">
+                                         <p:menuitem value="Del vehiculo" url="#" icon=""/>
+                                         <p:menuitem value="Del Conductor" url="#" icon=""/>
+                                         <p:menuitem value="Del Proveedor" url="#"/>
+                                     </p:submenu>
+ 
+                                 </p:panelMenu>
+                             </h:form>
+ 
+                         </div>
+                     </b:column>-->
 
                     <div id="content" class="left_content">
                         <ui:insert name="content2"></ui:insert>    
