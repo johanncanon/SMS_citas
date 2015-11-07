@@ -14,69 +14,33 @@
         <ui:define name="content">
             
             <b:container fluid="true">
-                <b:row>
-                    <b:column col-lg="9" col-sm="8" col-xs="12" class="espacio-arriba">
-                        <b:well >
-                            <h:form>
-                                <h3>Vehiculos SMS</h3>
+                    <b:row>
+                        <b:column col-lg="9">
+                            <b:well>
+                                <h:form>
+                                    <h3>Consulta de Referencias de Vehiculos SMS</h3>
+                                    <hr/>
+                                    <p:panel id="panel" header="Consulta de Vehiculos">
+                                        <p:messages id="messages" />
+
+                                        <h:panelGrid columns="2" cellpadding="5" >
+                                            <p:outputLabel  value="Nombre: "/>
+                                            <p:inputText value="#{referenciaBean.referencia.referenciaNombre}"/>
+                                            
+                                            <p:outputLabel value="Campo 3:"/>
+                                            <p:selectOneMenu value="#{referenciaBean.marcas}">
+                                                <f:selectItems value="#{marcaBean.marcaSt}"/>
+                                            </p:selectOneMenu>                                            
+                                        </h:panelGrid>
+                                        <p:commandButton ajax="false" value="Registrar" action="#{referenciaBean.regReferencia()}"/>
+                                    </p:panel>
+                                </h:form> 
+                            </b:well>
+                        </b:column>
+                        <b:column col-lg="9">
+                            <b:well>
+                                <h3>Lista de referencia de Vehìculos SMS consultados/ocultarse</h3>
                                 <hr/>
-                                <p:messages id="messages" />
-                                <p:panel id="panel" style="margin-bottom:10px;">                                
-                                    <h4>Registro de Vehiculo</h4>
-                                    <p:panelGrid style="width: 100% !important" columns="2">
-                                        <p:outputLabel value="Placa: "/>
-                                        <p:inputText id="txtPlaca" placeholder="Numero de placa" style="width: 100%; height: 35px"/>
-
-                                        <p:outputLabel value="Modelo: "/>
-                                        <p:inputText id="txtModelo" placeholder="Modelo de fabricacion" style="width: 100%; height: 35px"/>
-
-                                        <p:outputLabel value="Color: "/>
-                                        <p:inputText id="txtColor" placeholder="Color del vehiculo" style="width: 100%; height: 35px"/>
-
-                                        <p:outputLabel value="Categoria: "/>
-                                        <p:selectOneMenu id="txtCategoria" style="width: 100%">
-                                            <f:selectItem itemLabel="Seleccione categoria"/>
-                                            <f:selectItems value="#{categoriaBean.listaCategorias}"/>
-                                        </p:selectOneMenu>
-
-                                        <p:outputLabel value="Referencia: "/>
-                                        <p:selectOneMenu style="width: 100%">
-                                            <f:selectItem itemLabel="Seleccione referencia"/>
-                                        </p:selectOneMenu>
-
-                                        <p:outputLabel value="Num. de personas: "/> 
-                                        <p:inputText placeholder="0" style="width: 100%; height: 35px"/>
-
-                                        <p:outputLabel value="Cant. maletas grandes: "/>
-                                        <p:inputText placeholder="0" style="width: 100%; height: 35px"/>
-
-                                        <p:outputLabel value="Cant. maletas pequeñas: "/>
-                                        <p:inputText placeholder="0" style="width: 100%; height: 35px"/>
-
-                                        <p:outputLabel value="Ciudad: "/>
-                                        <p:selectOneMenu style="width: 100%">
-                                            <f:selectItem itemLabel="Seleccione ciudad"/>
-                                            <f:selectItems value="#{ciudadBean.listaCiudades}"/>
-                                        </p:selectOneMenu>
-
-                                        <p:outputLabel value="Proveedor: "/>
-                                        <p:selectOneMenu style="width: 100%">
-                                            <f:selectItem itemLabel="Seleccione proveedor"/>
-                                        </p:selectOneMenu>
-                                    </p:panelGrid>
-                                    <p:commandButton value="Registrar Vehiculo"/>    
-                                </p:panel>    
-                            </h:form> 
-                        </b:well>
-                    </b:column>
-                    <b:column col-lg="9" col-sm="8" col-xs="12">
-                        <b:well>
-                            <h:form>
-                                <h3>Lista de Vehiculos SMS</h3>
-                                <hr/>
-                                <p:outputLabel value="Buscar: " for="search"/>
-                                <p:inputText id="search" style="width: 80%"></p:inputText>
-                                <br/><br/>
                                 <p:dataTable var="car" value="#{dtBasicView.cars}">
                                     <p:column headerText="Id">
                                         <h:outputText value="#{car.id}" />
@@ -94,11 +58,11 @@
                                         <h:outputText value="#{car.color}" />
                                     </p:column>
                                 </p:dataTable>
-                            </h:form>
-                        </b:well>
-                    </b:column>
-                </b:row>
-            </b:container>
+                            </b:well>
+                        </b:column>
+                    </b:row>
+
+                </b:container>
         </ui:define>
     </ui:composition>
 
