@@ -5,10 +5,19 @@
  */
 package DAO;
 
+import Modelo.SmsEstadovehiculo;
+import java.util.List;
+
 /**
  *
  * @author Desarrollo_Planit
  */
 public interface IEstadoVehiculoDao {
+    
+    //Definicion metodos CRUD
+    public List<SmsEstadovehiculo> mostrarEstadoVehiculo();
+    public void registrarEstadoVehiculo(SmsEstadovehiculo estado);
+    public void modificarEstadoVehiculo(SmsEstadovehiculo estado);
+    public void eliminarEstadoVehiculo(SmsEstadovehiculo estado);
     
 }

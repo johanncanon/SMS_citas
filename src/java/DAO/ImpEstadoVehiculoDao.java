@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Modelo.SmsCiudad;
+import Modelo.SmsEstadovehiculo;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -16,16 +16,16 @@ import org.hibernate.Session;
  *
  * @author Desarrollo_Planit
  */
-public class ImpCiudadDao implements ICiudadDao {
+public class ImpEstadoVehiculoDao implements IEstadoVehiculoDao{
 
     @Override
-    public List<SmsCiudad> mostrarCiudades() {
+    public List<SmsEstadovehiculo> mostrarEstadoVehiculo() {
         Session session = null;
-        List<SmsCiudad> ciudades = new ArrayList<>();
+        List<SmsEstadovehiculo> EstadoVehiculos = new ArrayList<>();
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsCiudad");
-            ciudades = (List<SmsCiudad>) query.list();
+            EstadoVehiculos = (List<SmsEstadovehiculo>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
         } finally {
@@ -33,16 +33,16 @@ public class ImpCiudadDao implements ICiudadDao {
                 session.close();
             }
         }
-        return ciudades;
+        return EstadoVehiculos;        
     }
 
     @Override
-    public void registrarCiudad(SmsCiudad ciudad) {
+    public void registrarEstadoVehiculo(SmsEstadovehiculo estado) {
         Session session = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.save(ciudad);
+            session.save(estado);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             e.getMessage();
@@ -55,12 +55,12 @@ public class ImpCiudadDao implements ICiudadDao {
     }
 
     @Override
-    public void modificarCiudad(SmsCiudad ciudad) {
+    public void modificarEstadoVehiculo(SmsEstadovehiculo estado) {
         Session session = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.update(ciudad);
+            session.update(estado);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             e.getMessage();
@@ -73,12 +73,12 @@ public class ImpCiudadDao implements ICiudadDao {
     }
 
     @Override
-    public void eliminarCiudad(SmsCiudad ciudad) {
+    public void eliminarEstadoVehiculo(SmsEstadovehiculo estado) {
         Session session = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.delete(ciudad);
+            session.delete(estado);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             e.getMessage();
@@ -89,23 +89,5 @@ public class ImpCiudadDao implements ICiudadDao {
             }
         }
     }
-
-    @Override
-    public List<SmsCiudad> consultarCiudad(SmsCiudad ciudad) {
-        Session session = null;
-        List<SmsCiudad> ciudades = new ArrayList<>();
-        try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsCiudad as ciudad where ciudad.ciudadNombre='" + ciudad.getCiudadNombre() + "'");
-            ciudades = (List<SmsCiudad>) query.list();
-        } catch (HibernateException e) {
-            e.getMessage();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-        return ciudades;
-    }
-
+    
 }

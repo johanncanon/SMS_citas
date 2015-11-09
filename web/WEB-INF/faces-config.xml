@@ -58,4 +58,19 @@
         <managed-bean-class>Bean.CategoriaBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>agendaBean</managed-bean-name>
+        <managed-bean-class>Bean.AgendaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>calificacionBean</managed-bean-name>
+        <managed-bean-class>Bean.CalificacionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>reservacionBean</managed-bean-name>
+        <managed-bean-class>Bean.ReservacionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

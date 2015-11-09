@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package Clases;
 
 /**
  *
  * @author Desarrollo_Planit
  */
-public interface IClienteDao {
+public class Cliente extends Usuario{
     
 }

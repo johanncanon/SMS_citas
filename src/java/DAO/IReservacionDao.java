@@ -5,10 +5,18 @@
  */
 package DAO;
 
+import Modelo.SmsReservacion;
+import java.util.List;
+
 /**
  *
  * @author Desarrollo_Planit
  */
 public interface IReservacionDao {
     
+    //Definicion de metodos CRUD
+    public List<SmsReservacion> mostrarReservaciones();
+    public void registrarReservacion(SmsReservacion reservacion);
+    public void modificarReservacion(SmsReservacion reservacion);
+    public void eliminarReservacion(SmsReservacion reservacion);    
 }

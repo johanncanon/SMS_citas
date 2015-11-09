@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../template-admin-p.xhtml">
+
+            <ui:define name="content">
+                <b:container fluid="true">
+                    <b:row>
+                        <h:form>
+                            <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12" class="espacio-arriba">
+                                <b:well>
+                                    <h4>REGISTRO DE EMPLEADOS</h4>
+                                    <hr/>
+                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros empleados y podra crear una cuenta de sesion para el ingreso al sistema,
+                                        con la que posteriormente el empleado realizara sus consultas.</p> 
+                                </b:well>
+                            </b:column>
+                            <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
+                                <b:well>
+                                    <h4>DATOS DE USUARIO</h4>
+                                    <hr/>
+                                    <p:growl id="messages" showDetail="true"/>                            
+                                    <p:panelGrid class="table-responsive" id="seccionDatosUsuario" columns="2" style="width: 100%;">
+                                        <p:outputLabel value="Nombre: "/>
+                                        <p:inputText placeholder="Nombres y apellidos" style="width: 100%;" maxlength="60" value="#{usuarioBean.usuario.usuarioNombre}"></p:inputText>                       
+
+                                        <p:outputLabel value="CC: " />
+                                        <p:inputText placeholder="Cedula de ciudadania" style="width: 100%" value="#{usuarioBean.usuario.usuarioCc}"></p:inputText>
+
+                                        <p:outputLabel value="Telefono: "/>
+                                        <p:inputText placeholder="Numero de telefono fijo o celular" style="width: 100%" value="#{usuarioBean.usuario.usuarioTelefono}"></p:inputText> 
+
+                                        <p:outputLabel value="Email: "/>
+                                        <p:inputText placeholder="Direccion de correo electronico" style="width: 100%" value="#{usuarioBean.usuario.usuarioEmail}"></p:inputText>
+
+                                        <p:outputLabel value="Hoja de vida: "/>
+                                        <p:fileUpload value="#{fileUploadView.file}" mode="simple"/>                                     
+
+                                        <p:outputLabel value="Ciudad: "/>
+                                        <p:selectOneMenu value="#{usuarioBean.ciudad.ciudadNombre}" style="width: 60%">
+                                            <f:selectItem itemLabel="Seleccione ciudad"/>
+                                            <f:selectItems value="#{ciudadBean.listaCiudades}"/>
+                                        </p:selectOneMenu> 
+                                    </p:panelGrid>
+                                    <p:commandButton style="width:100%" update="messages seccionDatosUsuario" action="#{usuarioBean.registrarUsuario()}" value="Registrar Usuario" />
+                                </b:well>
+                            </b:column>                            
+                            <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12" class="panelSesion" >
+                                <b:well>
+                                    <h4>DATOS DE SESION</h4>
+                                    <hr/>                                   
+                                    <p:panelGrid columns="2" id="seccionDatosSesion" class="table-responsive"  style="width: 100%">
+
+                                        <p:outputLabel value="Login: "/>
+                                        <p:inputText style="width: 100%" placeholder="Login de sesion" disabled="true" value="#{usuarioBean.auxUsuario.usuarioLogin}"></p:inputText>
+
+                                        <p:outputLabel value="Contraseña: "/>
+                                        <p:password style="width: 100%" disabled="true" placeholder="Contraseña de sesion" value="#{usuarioBean.auxUsuario.usuarioPassword}"></p:password>
+
+                                        <p:outputLabel value="Repita contraseña: "/>
+                                        <p:password style="width: 100%" disabled="true" placeholder="Repita contraseña de sesion" value="#{usuarioBean.auxUsuario.usuarioRememberToken}"></p:password>                               
+
+                                    </p:panelGrid>
+                                    <p:commandButton style="width:100%" value="Crear Usuario" disabled="true" update="messages seccionDatosSesion seccionDatosUsuario" action="#{usuarioBean.asignarRol()}"></p:commandButton>
+
+                                </b:well>
+                            </b:column>
+                        </h:form>
+                    </b:row>
+                </b:container>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

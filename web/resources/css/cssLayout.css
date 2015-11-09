@@ -93,6 +93,8 @@
     font-weight: bold;    
 }
 
+
+
 /* breadcrums
 ********************************************************************************/
 /** The Magic **/
@@ -285,5 +287,9 @@
     }
 }
 
-
+@media screen and (min-width: 992px){
+    .panelSesion {
+        top: -199px;
+    }
+}
 

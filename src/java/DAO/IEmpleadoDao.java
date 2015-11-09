@@ -5,10 +5,18 @@
  */
 package DAO;
 
+import Modelo.SmsEmpleado;
+import java.util.List;
+
 /**
  *
  * @author Desarrollo_Planit
  */
 public interface IEmpleadoDao {
     
+    //Definicion metodos CRUD
+    public List<SmsEmpleado> mostrarEmpleados();
+    public void registrarEmpleado(SmsEmpleado empleado);
+    public void modificarEmpleado(SmsEmpleado empleado);
+    public void eliminarEmpleado(SmsEmpleado empleado);
 }

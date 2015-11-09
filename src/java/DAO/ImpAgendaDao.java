@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Modelo.SmsAgenda;
 import Modelo.SmsCiudad;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +17,17 @@ import org.hibernate.Session;
  *
  * @author Desarrollo_Planit
  */
-public class ImpCiudadDao implements ICiudadDao {
+public class ImpAgendaDao implements IAgendaDao{
 
     @Override
-    public List<SmsCiudad> mostrarCiudades() {
-        Session session = null;
-        List<SmsCiudad> ciudades = new ArrayList<>();
+    public List<SmsAgenda> mostrarAgenda() {
+       Session session = null;
+        List<SmsAgenda> agenda = new ArrayList<>();
+
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsCiudad");
-            ciudades = (List<SmsCiudad>) query.list();
+            Query query = session.createQuery("from SmsAgenda");
+            agenda = (List<SmsAgenda>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
         } finally {
@@ -33,16 +35,16 @@ public class ImpCiudadDao implements ICiudadDao {
                 session.close();
             }
         }
-        return ciudades;
+        return agenda;
     }
 
     @Override
-    public void registrarCiudad(SmsCiudad ciudad) {
+    public void registrarAgenda(SmsAgenda agenda) {
         Session session = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.save(ciudad);
+            session.save(agenda);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             e.getMessage();
@@ -55,12 +57,12 @@ public class ImpCiudadDao implements ICiudadDao {
     }
 
     @Override
-    public void modificarCiudad(SmsCiudad ciudad) {
+    public void modificarAgenda(SmsAgenda agenda) {
         Session session = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.update(ciudad);
+            session.update(agenda);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             e.getMessage();
@@ -73,12 +75,12 @@ public class ImpCiudadDao implements ICiudadDao {
     }
 
     @Override
-    public void eliminarCiudad(SmsCiudad ciudad) {
+    public void eliminarAgenda(SmsAgenda agenda) {
         Session session = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.delete(ciudad);
+            session.delete(agenda);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             e.getMessage();
@@ -89,23 +91,5 @@ public class ImpCiudadDao implements ICiudadDao {
             }
         }
     }
-
-    @Override
-    public List<SmsCiudad> consultarCiudad(SmsCiudad ciudad) {
-        Session session = null;
-        List<SmsCiudad> ciudades = new ArrayList<>();
-        try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsCiudad as ciudad where ciudad.ciudadNombre='" + ciudad.getCiudadNombre() + "'");
-            ciudades = (List<SmsCiudad>) query.list();
-        } catch (HibernateException e) {
-            e.getMessage();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-        return ciudades;
-    }
-
+    
 }
