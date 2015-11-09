@@ -1,0 +1,26 @@
+body{
+    background: url(http://mymaplist.com/img/parallax/back.png);
+    background-color: #444;
+    background: url(http://mymaplist.com/img/parallax/pinlayer2.png),url(http://mymaplist.com/img/parallax/pinlayer1.png),url(http://mymaplist.com/img/parallax/back.png);    
+}
+
+.vertical-offset-100{
+    padding-top:100px;
+}
+
+.centro{
+    padding: 7%;
+    margin-top: 24px;
+}
+
+.cntr-1{
+    margin: 24px 23%;
+    width: 156px;
+}
+
+@media screen and (max-width: 991px){
+    .cntr-1{
+        margin: 24px 32%;
+        width: 204px;
+    }
+}
