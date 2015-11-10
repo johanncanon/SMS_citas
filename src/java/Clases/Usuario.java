@@ -22,13 +22,18 @@ public class Usuario {
     private HttpSession httpSession;
     private FacesMessage message;
 
+    protected Rol rol;
+    
     public Usuario() {
+        rol = new Rol();
     }
 
-    //Metodos de la clase
-    public String iniciarSesion(SmsUsuario usuario) {
-        String valor = null;
-
+    //Metodos de la clase   
+        
+    public String validarSesion(SmsUsuario usuario) {
+        boolean sesion = false;
+        String valor = null;        
+        
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         List<SmsUsuario> user = usuarioDao.consultarUsuario(usuario);
 
@@ -39,7 +44,8 @@ public class Usuario {
                     httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                     httpSession.setAttribute("Sesion", usuario);
                     message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Acceso Correcto", "Bienvenid@: " + usuario.getUsuarioNombre());
-                    valor = "./AdminP/Dashboard-Admin-Principal.xhtml";
+                    sesion = true;                    
+                    valor = rol.validarRol(usuario);
                 } else {
                     message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseña incorrecto", null);
                 }
@@ -51,13 +57,16 @@ public class Usuario {
         }
         FacesContext.getCurrentInstance().addMessage(null, message);
         return valor;
-    }
+    }   
+    
 
     public String cerrarSesion() {
         httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         httpSession.invalidate();
-        String valor = "/pruebas/Login.xhtml";
+        String valor = "/login.xhtml";
         return valor;
     }
+    
+    
 
 }
