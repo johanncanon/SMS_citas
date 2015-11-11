@@ -27,7 +27,7 @@ public class ImpUsuarioDao implements IUsuarioDao {
         Session session = null;
         List<SmsUsuario> usuarios = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             Query query = session.createQuery("from SmsUsuario");
             usuarios = (List<SmsUsuario>) query.list();
         } catch (HibernateException e) {
@@ -45,7 +45,7 @@ public class ImpUsuarioDao implements IUsuarioDao {
     public void registrarUsuario(SmsUsuario usuario) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.save(usuario);
             session.getTransaction().commit();
@@ -66,7 +66,7 @@ public class ImpUsuarioDao implements IUsuarioDao {
     public void modificarUsuario(SmsUsuario usuario) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.update(usuario);
             session.getTransaction().commit();
@@ -87,7 +87,7 @@ public class ImpUsuarioDao implements IUsuarioDao {
     public void eliminarUsuario(SmsUsuario usuario) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.delete(usuario);
             session.getTransaction().commit();
@@ -109,7 +109,7 @@ public class ImpUsuarioDao implements IUsuarioDao {
         Session session = null;
         List<SmsUsuario> usuarios = new ArrayList<>();
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             Query query = session.createQuery("from SmsUsuario as usuario where usuario.usuarioLogin = '" + usuario.getUsuarioLogin() + "'");
             usuarios = (List<SmsUsuario>) query.list();
         } catch (HibernateException e) {

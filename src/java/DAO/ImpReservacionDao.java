@@ -23,7 +23,7 @@ public class ImpReservacionDao implements IReservacionDao{
        Session session = null;
         List<SmsReservacion> reservaciones = new ArrayList<>();
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             Query query = session.createQuery("from SmsCiudad");
             reservaciones = (List<SmsReservacion>) query.list();
         } catch (HibernateException e) {
@@ -40,7 +40,7 @@ public class ImpReservacionDao implements IReservacionDao{
     public void registrarReservacion(SmsReservacion reservacion) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.save(reservacion);
             session.getTransaction().commit();
@@ -58,7 +58,7 @@ public class ImpReservacionDao implements IReservacionDao{
     public void modificarReservacion(SmsReservacion reservacion) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.update(reservacion);
             session.getTransaction().commit();
@@ -76,7 +76,7 @@ public class ImpReservacionDao implements IReservacionDao{
     public void eliminarReservacion(SmsReservacion reservacion) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.delete(reservacion);
             session.getTransaction().commit();

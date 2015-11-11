@@ -45,7 +45,7 @@ public class Usuario {
                     httpSession.setAttribute("Sesion", usuario);
                     message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Acceso Correcto", "Bienvenid@: " + usuario.getUsuarioNombre());
                     sesion = true;                    
-                    valor = rol.validarRol(usuario);
+                    valor = rol.validarRol(user.get(0));
                 } else {
                     message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseña incorrecto", null);
                 }

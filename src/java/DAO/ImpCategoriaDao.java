@@ -26,7 +26,7 @@ public class ImpCategoriaDao implements ICategoriaDao{
         Session session = null;
         List<SmsCategoria> categorias = null;        
         try{
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             Query query = session.createQuery("from SmsCategorias");
             categorias = (List<SmsCategoria>) query.list();            
         }catch(HibernateException e){
@@ -42,7 +42,7 @@ public class ImpCategoriaDao implements ICategoriaDao{
     public void registrarCategoria(SmsCategoria categoria) {
         Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.save(categoria);
             session.getTransaction().commit();
@@ -64,7 +64,7 @@ public class ImpCategoriaDao implements ICategoriaDao{
     public void modificarCategoria(SmsCategoria categoria) {
          Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.update(categoria);
             session.getTransaction().commit();
@@ -85,7 +85,7 @@ public class ImpCategoriaDao implements ICategoriaDao{
     public void eliminarCategoria(SmsCategoria categoria) {
          Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.delete(categoria);
             session.getTransaction().commit();

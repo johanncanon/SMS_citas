@@ -26,7 +26,7 @@ public class ImpPermisosDao implements IPermisosDao {
         Session session = null;
         List<SmsPermisos> permisos = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             Query query = session.createQuery("from SmsPermisos");
             permisos = (List<SmsPermisos>) query.list();           
         } catch (HibernateException e) {
@@ -44,7 +44,7 @@ public class ImpPermisosDao implements IPermisosDao {
     public void registrarPermiso(SmsPermisos permiso) {
         Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.save(permiso);
             session.getTransaction().commit();
@@ -65,7 +65,7 @@ public class ImpPermisosDao implements IPermisosDao {
     public void modificarPermiso(SmsPermisos permiso) {
         Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.update(permiso);
             session.getTransaction().commit();
@@ -86,7 +86,7 @@ public class ImpPermisosDao implements IPermisosDao {
     public void eliminarPermiso(SmsPermisos permiso) {
         Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.delete(permiso);
             session.getTransaction().commit();
@@ -108,7 +108,7 @@ public class ImpPermisosDao implements IPermisosDao {
         Session session = null;
         List<SmsPermisos> permisos = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             Query query = session.createQuery("from SmsPermisos as permiso where permiso.permisosNombre = '" + permiso + "'");
             permisos = (List<SmsPermisos>) query.list();
         } catch (HibernateException e) {

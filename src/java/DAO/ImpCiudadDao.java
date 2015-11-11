@@ -23,7 +23,7 @@ public class ImpCiudadDao implements ICiudadDao {
         Session session = null;
         List<SmsCiudad> ciudades = new ArrayList<>();
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             Query query = session.createQuery("from SmsCiudad");
             ciudades = (List<SmsCiudad>) query.list();
         } catch (HibernateException e) {
@@ -40,7 +40,7 @@ public class ImpCiudadDao implements ICiudadDao {
     public void registrarCiudad(SmsCiudad ciudad) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.save(ciudad);
             session.getTransaction().commit();
@@ -58,7 +58,7 @@ public class ImpCiudadDao implements ICiudadDao {
     public void modificarCiudad(SmsCiudad ciudad) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.update(ciudad);
             session.getTransaction().commit();
@@ -76,7 +76,7 @@ public class ImpCiudadDao implements ICiudadDao {
     public void eliminarCiudad(SmsCiudad ciudad) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.delete(ciudad);
             session.getTransaction().commit();
@@ -95,7 +95,7 @@ public class ImpCiudadDao implements ICiudadDao {
         Session session = null;
         List<SmsCiudad> ciudades = new ArrayList<>();
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             Query query = session.createQuery("from SmsCiudad as ciudad where ciudad.ciudadNombre='" + ciudad.getCiudadNombre() + "'");
             ciudades = (List<SmsCiudad>) query.list();
         } catch (HibernateException e) {

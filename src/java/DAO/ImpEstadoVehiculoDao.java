@@ -23,7 +23,7 @@ public class ImpEstadoVehiculoDao implements IEstadoVehiculoDao{
         Session session = null;
         List<SmsEstadovehiculo> EstadoVehiculos = new ArrayList<>();
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             Query query = session.createQuery("from SmsCiudad");
             EstadoVehiculos = (List<SmsEstadovehiculo>) query.list();
         } catch (HibernateException e) {
@@ -40,7 +40,7 @@ public class ImpEstadoVehiculoDao implements IEstadoVehiculoDao{
     public void registrarEstadoVehiculo(SmsEstadovehiculo estado) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.save(estado);
             session.getTransaction().commit();
@@ -58,7 +58,7 @@ public class ImpEstadoVehiculoDao implements IEstadoVehiculoDao{
     public void modificarEstadoVehiculo(SmsEstadovehiculo estado) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.update(estado);
             session.getTransaction().commit();
@@ -76,7 +76,7 @@ public class ImpEstadoVehiculoDao implements IEstadoVehiculoDao{
     public void eliminarEstadoVehiculo(SmsEstadovehiculo estado) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.delete(estado);
             session.getTransaction().commit();

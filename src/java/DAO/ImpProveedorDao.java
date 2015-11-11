@@ -23,7 +23,7 @@ public class ImpProveedorDao implements IProveedorDao{
         Session session = null;
         List<SmsProveedor> Proveedores = new ArrayList<>();
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             Query query = session.createQuery("from SmsHojaVida");
             Proveedores = (List<SmsProveedor>) query.list();
         } catch (HibernateException e) {
@@ -40,7 +40,7 @@ public class ImpProveedorDao implements IProveedorDao{
     public void registrarProveedor(SmsProveedor proveedor) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.save(proveedor);
             session.getTransaction().commit();
@@ -58,7 +58,7 @@ public class ImpProveedorDao implements IProveedorDao{
     public void modificarProveedor(SmsProveedor proveedor) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.update(proveedor);
             session.getTransaction().commit();
@@ -76,7 +76,7 @@ public class ImpProveedorDao implements IProveedorDao{
     public void eliminarProveedor(SmsProveedor proveedor) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.delete(proveedor);
             session.getTransaction().commit();

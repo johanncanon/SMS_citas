@@ -23,7 +23,7 @@ public class ImpEmpleadoDao implements IEmpleadoDao {
         Session session = null;
         List<SmsEmpleado> empleados = new ArrayList<>();
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             Query query = session.createQuery("from SmsEmpleado");
             empleados = (List<SmsEmpleado>) query.list();
         } catch (HibernateException e) {
@@ -40,7 +40,7 @@ public class ImpEmpleadoDao implements IEmpleadoDao {
     public void registrarEmpleado(SmsEmpleado empleado) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.save(empleado);
             session.getTransaction().commit();
@@ -58,7 +58,7 @@ public class ImpEmpleadoDao implements IEmpleadoDao {
     public void modificarEmpleado(SmsEmpleado empleado) {
        Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.update(empleado);
             session.getTransaction().commit();
@@ -76,7 +76,7 @@ public class ImpEmpleadoDao implements IEmpleadoDao {
     public void eliminarEmpleado(SmsEmpleado empleado) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.delete(empleado);
             session.getTransaction().commit();

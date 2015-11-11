@@ -27,7 +27,7 @@ public class ImpVehiculoDao implements IVehiculoDao{
          Session session = null;
         List<SmsVehiculo> vehiculos = null;
         try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             Query query = session.createQuery("from SmsVehiculo");
             vehiculos = (List<SmsVehiculo>) query.list();
 
@@ -45,7 +45,7 @@ public class ImpVehiculoDao implements IVehiculoDao{
     public void registrarVehiculo(SmsVehiculo vehiculo) {
         Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.save(vehiculo);
             session.getTransaction().commit();
@@ -66,7 +66,7 @@ public class ImpVehiculoDao implements IVehiculoDao{
     public void modificarVehiculo(SmsVehiculo vehiculo) {
        Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.update(vehiculo);
             session.getTransaction().commit();
@@ -87,7 +87,7 @@ public class ImpVehiculoDao implements IVehiculoDao{
     public void eliminarVehiculo(SmsVehiculo vehiculo) {
         Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory();
             session.beginTransaction();
             session.delete(vehiculo);
             session.getTransaction().commit();
