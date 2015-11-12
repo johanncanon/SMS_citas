@@ -28,7 +28,7 @@ public class ImpMarcaDao implements IMarcaDao{
         List<SmsMarca> marcas = null;
         
         try{
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsMarca");
             marcas = (List<SmsMarca>) query.list();
             
@@ -45,7 +45,7 @@ public class ImpMarcaDao implements IMarcaDao{
     public void registrarMarca(SmsMarca marca) {
         Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(marca);
             session.getTransaction().commit();
@@ -66,7 +66,7 @@ public class ImpMarcaDao implements IMarcaDao{
     public void modificarMarca(SmsMarca marca) {
         Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.update(marca);
             session.getTransaction().commit();
@@ -87,7 +87,7 @@ public class ImpMarcaDao implements IMarcaDao{
     public void eliminarMarca(SmsMarca marca) {
         Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(marca);
             session.getTransaction().commit();
@@ -110,7 +110,7 @@ public class ImpMarcaDao implements IMarcaDao{
         List<SmsMarca> marcas = null;
         
         try{
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsMarca as marca where marca.marcaNombre = '"+ nombreMarca +"'");
             marcas = (List<SmsMarca>) query.list();
             

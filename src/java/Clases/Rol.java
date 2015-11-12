@@ -25,19 +25,36 @@ public class Rol {
 
     //Metodos de la clase
     public String validarRol(SmsUsuario usuario) {
-        String ruta = "/login.xhtml";
+        String ruta="";
         IRolDao rolLink = new ImpRolDao();
         List<SmsRol> roles = rolLink.mostrarRoles();
-        
+        SmsRol RolUsuario = new SmsRol();
+
         for (SmsRol role : roles) {
             rol = role;
             for (SmsRol r : usuario.getSmsRols()) {
                 if (r.getRolNombre().equalsIgnoreCase(rol.getRolNombre())) {
-                    ruta = "./vistas/AdminP/Dashboard-Admin-Principal.xhtml";
+                    
+                    switch (r.getRolNombre()) {
+                        case "Administrador principal":
+                            ruta = "./vistas/AdminP/Dashboard-Admin-Principal.xhtml";
+                            break;
+                        case "Administrador secundario":
+                            ruta = "./vistas/AdminS/Dashboard-Admin-Secundario.xhtml";
+                            break;
+                        case "Cliente":
+                            ruta = "./vistas/Cliente/Dashboard-Cliente.xhtml";
+                            break;
+                        case "Empleado":
+                            ruta = "./vistas/Conductor/Dashboard-Conductor.xhtml";
+                            break;
+                        case "Proveedor":
+                            ruta = "./vistas/Proveedor/Dashboard-Proveedor.xhtml";
+                            break;
+                    }
                 }
             }
         }
-        
         return ruta;
     }
 

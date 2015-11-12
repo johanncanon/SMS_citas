@@ -29,7 +29,7 @@ public class ImpRolDao implements IRolDao{
         List<SmsRol> roles = new ArrayList<>();
         
         try{
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsRol");
             roles = (List<SmsRol>) query.list();
             
@@ -46,7 +46,7 @@ public class ImpRolDao implements IRolDao{
     public void registrarRol(SmsRol Rol) {
         Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(Rol);
             session.getTransaction().commit();
@@ -67,7 +67,7 @@ public class ImpRolDao implements IRolDao{
     public void modificarRol(SmsRol Rol) {
        Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.update(Rol);
             session.getTransaction().commit();
@@ -88,7 +88,7 @@ public class ImpRolDao implements IRolDao{
     public void eliminarRol(SmsRol Rol) {
         Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.delete(Rol);
             session.getTransaction().commit();
@@ -110,7 +110,7 @@ public class ImpRolDao implements IRolDao{
         Session session = null;
         List<SmsRol> roles = new ArrayList<>();
         try {
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsRol as rol where rol.rolNombre = '" + rol + "'");
             roles = (List<SmsRol>) query.list();
         } catch (HibernateException e) {

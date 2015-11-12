@@ -26,7 +26,7 @@ public class ImpReferenciaDao implements IReferenciaDao {
         Session session = null;
         List<SmsReferencia> referencias = null;
         try {
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsReferencia");
             referencias = (List<SmsReferencia>) query.list();
 
@@ -44,7 +44,7 @@ public class ImpReferenciaDao implements IReferenciaDao {
     public void registrarReferencia(SmsReferencia referencia) {
         Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(referencia);
             session.getTransaction().commit();
@@ -65,7 +65,7 @@ public class ImpReferenciaDao implements IReferenciaDao {
     public void modificarReferencia(SmsReferencia referencia) {
        Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.update(referencia);
             session.getTransaction().commit();
@@ -86,7 +86,7 @@ public class ImpReferenciaDao implements IReferenciaDao {
     public void eliminarReferencia(SmsReferencia referencia) {
         Session session = null;
         try{
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.delete(referencia);
             session.getTransaction().commit();

@@ -15,7 +15,7 @@ import java.util.List;
 public interface IUsuarioDao {
 
  //Declaracion de metodos CRUD
-    public List<SmsUsuario> mostrarPermisos();
+    public List<SmsUsuario> mostrarUsuario();
 
     public void registrarUsuario(SmsUsuario usuario);
 

@@ -5,15 +5,6 @@
  */
 package DAO;
 
-import java.io.IOException;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
 
@@ -23,7 +14,7 @@ import org.hibernate.SessionFactory;
  *
  * @author Desarrollo_Planit
  */
-public class NewHibernateUtil implements Filter {
+public class NewHibernateUtil{
 
     private static final SessionFactory sessionFactory;
 
@@ -39,27 +30,9 @@ public class NewHibernateUtil implements Filter {
         }
     }
 
-    public static Session getSessionFactory() {
-        return sessionFactory.getCurrentSession();
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void destroy() {
-        try {
-            sessionFactory.close();
-        } catch (HibernateException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
+    
 
 }

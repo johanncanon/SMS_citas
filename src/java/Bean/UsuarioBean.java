@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -36,8 +37,7 @@ public class UsuarioBean implements Serializable {
     protected List<String> roles;//agregacion   
 
     //Relacion con la clase
-    protected Usuario usuario;
-    
+    protected Usuario usuario;    
 
     //Contexto
     private FacesMessage message;
@@ -126,13 +126,30 @@ public class UsuarioBean implements Serializable {
     }  
 
     //Metodos de funcionalidad
-    public String iniciarSesion() {
-        String ruta = "";        
-        ruta = usuario.validarSesion(usuarioBean);     
+    public String login() {
+        String ruta = "/login.xhtml";        
+        IUsuarioDao usuarioDao = new ImpUsuarioDao();
+        List<SmsUsuario> user = usuarioDao.consultarUsuario(usuarioBean);//Trae de la base de datos toda la informacion de usuario
+
+        if (!user.isEmpty()) {//valida si el usuario existe en la BD
+            if (user.get(0).getUsuarioEstadoUsuario() == 1) {//Evalua el estado de la cuenta de usuario, si esta activa o inactiva
+                if (user.get(0).getUsuarioLogin().equalsIgnoreCase(usuarioBean.getUsuarioLogin()) && user.get(0).getUsuarioPassword().equalsIgnoreCase(usuarioBean.getUsuarioPassword())) {
+                    ruta = usuario.iniciarSesion(usuarioBean);
+                    message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Acceso Correcto", "Bienvenid@: " + usuarioBean.getUsuarioNombre());
+                } else {
+                    message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseña incorrecto", null);
+                }
+            } else if (user.get(0).getUsuarioEstadoUsuario() == 0) {
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario inactivo, imposible iniciar sesion", null);
+            }
+        } else {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario no existente", null);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);            
         return ruta;
     }
     
-    public String cerrarSesion(){
+    public String logout(){
         String ruta="";
         ruta = usuario.cerrarSesion();
         return ruta;

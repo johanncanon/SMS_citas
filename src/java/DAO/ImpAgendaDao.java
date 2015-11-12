@@ -25,7 +25,7 @@ public class ImpAgendaDao implements IAgendaDao{
         List<SmsAgenda> agenda = new ArrayList<>();
 
         try {
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsAgenda");
             agenda = (List<SmsAgenda>) query.list();
         } catch (HibernateException e) {
@@ -42,7 +42,7 @@ public class ImpAgendaDao implements IAgendaDao{
     public void registrarAgenda(SmsAgenda agenda) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(agenda);
             session.getTransaction().commit();
@@ -60,7 +60,7 @@ public class ImpAgendaDao implements IAgendaDao{
     public void modificarAgenda(SmsAgenda agenda) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.update(agenda);
             session.getTransaction().commit();
@@ -78,7 +78,7 @@ public class ImpAgendaDao implements IAgendaDao{
     public void eliminarAgenda(SmsAgenda agenda) {
         Session session = null;
         try {
-            session = NewHibernateUtil.getSessionFactory();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.delete(agenda);
             session.getTransaction().commit();

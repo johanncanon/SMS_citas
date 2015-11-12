@@ -40,25 +40,25 @@
     <property name="usuarioEstadoUsuario" type="java.lang.Integer">
       <column name="Usuario_EstadoUsuario"/>
     </property>
-    <set fetch="select" inverse="true" lazy="true" name="smsEmpleados" table="sms_empleado">
+    <set fetch="join" inverse="true" lazy="true" name="smsEmpleados" table="sms_empleado">
       <key>
         <column name="empleado_idUsuario" not-null="true"/>
       </key>
       <one-to-many class="Modelo.SmsEmpleado"/>
     </set>
-    <set fetch="select" inverse="true" lazy="true" name="smsProveedors" table="sms_proveedor">
+    <set fetch="join" inverse="true" lazy="true" name="smsProveedors" table="sms_proveedor">
       <key>
         <column name="Proveedor_idUsuario" not-null="true"/>
       </key>
       <one-to-many class="Modelo.SmsProveedor"/>
     </set>
-    <set fetch="select" inverse="true" lazy="true" name="smsReservacions" table="sms_reservacion">
+    <set fetch="join" inverse="true" lazy="true" name="smsReservacions" table="sms_reservacion">
       <key>
         <column name="Reservacion_idCliente" not-null="true"/>
       </key>
       <one-to-many class="Modelo.SmsReservacion"/>
     </set>
-    <set fetch="select" inverse="false" lazy="true" name="smsRols" table="sms_usuario_rol">
+    <set fetch="join" inverse="false" lazy="true" name="smsRols" table="sms_usuario_rol">
       <key>
         <column name="SMS_Usuario_idUsuario" not-null="true"/>
       </key>
