@@ -9,19 +9,19 @@
 
     <body>
 
-        <ui:composition template="./../template-admin-p.xhtml">
+        <ui:composition template="./../../template-admin-p.xhtml">
 
             <ui:define name="content">
                 <b:container fluid="true">
                 <b:row>
-                    <b:column col-lg="9" col-sm="8" col-xs="12" class="espacio-arriba">
+                    <b:column col-lg="5" col-sm="4" col-xs="12" class="espacio-arriba">
                         <b:well>
                             <h:form>
                                 <p:growl id="messages" showDetail="true"/>
-                                <h:panelGrid border="0" id="formularioRoles">
+                                <p:panelGrid id="formularioRoles">
                                     <p:row>
                                         <p:column>
-                                            <h:panelGrid id="seccionRol" style="width: 100%">
+                                            <p:panelGrid id="seccionRol" style="width: 100%">
                                                 <p:row>
                                                     <p:column colspan="2">
                                                         <h3>Registro de roles</h3>
@@ -31,12 +31,12 @@
                                                     <p:column><p:outputLabel value="Nombre del rol: "/></p:column>
                                                     <p:column><p:inputText value="#{rolBean.rol.rolNombre}"></p:inputText></p:column>
                                                 </p:row>
-                                            </h:panelGrid>
+                                            </p:panelGrid>
                                         </p:column>
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <h:panelGrid id="seccionPermisos" style="width: 100%">
+                                            <p:panelGrid id="seccionPermisos" style="width: 100%">
                                                 <p:row>
                                                     <p:column colspan="2">
                                                         <h4>Permisos</h4>
@@ -52,14 +52,14 @@
                                                     </p:column>
                                                 </p:row>
                                                 <p:row>
-                                                    <p:column colspan="2"><p:commandButton value="Registrar Permiso" action="#{permisosBean.registrarPermiso()}" style="width: 100%" update="messages seccionPermisos seccionAsignacion"></p:commandButton></p:column>
+                                                    <p:column colspan="2"><p:commandButton value="Registrar Permiso" action="#{permisosBean.registrarPermiso()}" update="messages seccionPermisos seccionAsignacion"></p:commandButton></p:column>
                                                 </p:row>
-                                            </h:panelGrid>
+                                            </p:panelGrid>
                                         </p:column>
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <h:panelGrid id="seccionAsignacion" style="width: 100%">
+                                            <p:panelGrid id="seccionAsignacion" style="width: 100%">
                                                 <p:row>
                                                     <p:column colspan="2">
                                                         <h4>Asignacion de permisos</h4>
@@ -75,10 +75,10 @@
                                                 <p:row>  
                                                     <p:column colspan="2"><p:commandButton value="Registrar rol" update="messages formularioRoles" style="width: 100%" action="#{rolBean.asignarPermiso()}"/></p:column>
                                                 </p:row>
-                                            </h:panelGrid>
+                                            </p:panelGrid>
                                         </p:column>
                                     </p:row>
-                                </h:panelGrid>
+                                </p:panelGrid>
                             </h:form>
                         </b:well>
                     </b:column>

@@ -3,23 +3,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../template-admin-p.xhtml">
+
             <ui:define name="content">
                 <b:container fluid="true">
                     <b:row>
                         <h:form>
                             <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12" class="espacio-arriba">
                                 <b:well>
-                                    <h4>REGISTRO DE ADMINISTRADORES</h4>
+                                    <h4>REGISTRO DE CLIENTES</h4>
                                     <hr/>
-                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros usuarios y podra crear una cuenta de sesion para el ingreso al sistema,
-                                        esta cuenta podra ser de tipo administrador principal o secundario.</p> 
+                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros clientes y podra crear una cuenta de sesion para el ingreso al sistema,
+                                        con la que posteriormente el cliente realizara sus reservaciones.</p> 
                                 </b:well>
                             </b:column>
                             <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
@@ -29,37 +30,30 @@
                                     <p:growl id="messages" showDetail="true"/>                            
                                     <p:panelGrid class="table-responsive" id="seccionDatosUsuario" columns="2" style="width: 100%;">
                                         <p:outputLabel value="Nombre: "/>
-                                        <p:inputText placeholder="Nombres y apellidos" value="#{usuarioBean.usuarioBean.usuarioNombre}" style="width: 100%;" maxlength="60"></p:inputText>                       
+                                        <p:inputText placeholder="Nombres y apellidos" style="width: 100%;" maxlength="60"></p:inputText>                       
 
                                         <p:outputLabel value="CC: " />
-                                        <p:inputText placeholder="Cedula de ciudadania" value="#{usuarioBean.usuarioBean.usuarioCc}" style="width: 100%" ></p:inputText>
+                                        <p:inputText placeholder="Cedula de ciudadania" style="width: 100%" ></p:inputText>
 
                                         <p:outputLabel value="Telefono: "/>
-                                        <p:inputText placeholder="Numero de telefono fijo o celular" value="#{usuarioBean.usuarioBean.usuarioTelefono}" style="width: 100%" ></p:inputText> 
+                                        <p:inputText placeholder="Numero de telefono fijo o celular" style="width: 100%" ></p:inputText> 
 
                                         <p:outputLabel value="Email: "/>
-                                        <p:inputText placeholder="Direccion de correo electronico" value="#{usuarioBean.usuarioBean.usuarioEmail}" style="width: 100%" ></p:inputText>
+                                        <p:inputText placeholder="Direccion de correo electronico" style="width: 100%" ></p:inputText>
 
                                         <p:outputLabel value="Razon social: "/>
-                                        <p:inputText placeholder="Nombre de la empresa" value="#{usuarioBean.usuarioBean.usuarioRazonSocial}" style="width: 100%" ></p:inputText>
+                                        <p:inputText placeholder="Nombre de la empresa" style="width: 100%" ></p:inputText>
 
                                         <p:outputLabel value="Nit: "/>
-                                        <p:inputText placeholder="Nit de la empresa" value="#{usuarioBean.usuarioBean.usuarioNit}" style="width: 100%" ></p:inputText>
+                                        <p:inputText placeholder="Nit de la empresa" style="width: 100%" ></p:inputText>
 
                                         <p:outputLabel value="Ciudad: "/>
                                         <p:selectOneMenu value="#{usuarioBean.ciudad.ciudadNombre}" style="width: 60%">
                                             <f:selectItem itemLabel="Seleccione ciudad"/>
                                             <f:selectItems value="#{ciudadBean.listaCiudades}"/>
                                         </p:selectOneMenu> 
-                                        
-                                        <p:outputLabel value="Perfil: "/>
-                                        <p:selectOneMenu  style="width: 60%">
-                                            <f:selectItem itemLabel="Seleccione tipo de perfil"/>
-                                            <f:selectItem  itemLabel="Administrador Principal"/>
-                                            <f:selectItem  itemLabel="Administrador Secundario"/>
-                                        </p:selectOneMenu> 
                                     </p:panelGrid>
-                                    <p:commandButton style="width:100%" update="messages seccionDatosUsuario" action="#{usuarioBean.registrar()}" value="Registrar Usuario" />
+                                    <p:commandButton style="width:100%" update="messages seccionDatosUsuario" action="#{usuarioBean.registrarUsuario()}" value="Registrar Usuario" />
                                 </b:well>
                             </b:column>                            
                             <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12" class="panelSesion" >

@@ -19,11 +19,7 @@ public class ClienteBean extends UsuarioBean implements Serializable{
     public ClienteBean() {
     }
 
-    @Override
-    public void registrarUsuario() {
-        
-        super.registrarUsuario(); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     
     
 

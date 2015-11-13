@@ -23,10 +23,10 @@ public class SmsUsuario  implements java.io.Serializable {
      private String usuarioPassword;
      private String usuarioRememberToken;
      private Integer usuarioEstadoUsuario;
-     private Set<SmsEmpleado> smsEmpleados = new HashSet<SmsEmpleado>(0);
-     private Set<SmsProveedor> smsProveedors = new HashSet<SmsProveedor>(0);
-     private Set<SmsReservacion> smsReservacions = new HashSet<SmsReservacion>(0);
-     private Set<SmsRol> smsRols = new HashSet<SmsRol>(0);
+     private Set<SmsEmpleado> smsEmpleados = new HashSet<>(0);
+     private Set<SmsProveedor> smsProveedors = new HashSet<>(0);
+     private Set<SmsReservacion> smsReservacions = new HashSet<>(0);
+     private Set<SmsRol> smsRols = new HashSet<>(0);
 
     public SmsUsuario() {
     }

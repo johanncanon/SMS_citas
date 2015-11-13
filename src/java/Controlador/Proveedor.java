@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Clases;
+package Controlador;
 
 /**
  *
  * @author Desarrollo_Planit
  */
-public class Pais {
+public class Proveedor extends Usuario{
     
 }
