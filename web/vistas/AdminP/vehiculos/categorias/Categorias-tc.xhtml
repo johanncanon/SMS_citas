@@ -13,55 +13,65 @@
 
             <ui:define name="content">
                 <b:container fluid="true">
-                <b:row>
-                    <b:column col-lg="9">
-                        <b:well>
-                            <h:form>
-                                <h2>Consulta de Categotia de Vehìculos SMS</h2>
+                    <b:row>
+                        <b:column col-lg="6" col-md="6" col-sm="5" col-xs="12" id="EspacioA">
+                            <b:well>
+                                <h:form>
+                                    <h3>Ingreso de Categorias de Vehiculos SMS</h3>
+                                    <hr/>
+                                    <p:panel id="panel" header="Ingreso de Categorias de Vehiculo SMS">
+                                        <div class="registro-vista">
+                                            <p:outputLabel  value="Nombre de Categoria: "/>
+                                            <p:inputText value="#{referenciaBean.referencia.referenciaNombre}"/>
+                                        </div>
+                                        <br/>
+                                        <div class="registro-vista">
+                                            <p:outputLabel  value="Descripción de Categoria: "/>
+                                            <p:inputText value="#{referenciaBean.referencia.referenciaNombre}"/>
+                                        </div>
+                                        <br/>
+                                        <p:commandButton ajax="false" value="Registrar" action="#{referenciaBean.regReferencia()}"/>
+                                    </p:panel>
+                                </h:form> 
+                            </b:well>
+                        </b:column>
+
+                        <b:column col-lg="3" col-md="3" col-sm="3" col-xs="12" id="EspacioB">
+                            <b:well>
+                                <h3>Categorias SMS Renta</h3>
                                 <hr/>
-                                <p:messages id="messages" />
-                                <p:panel id="panel" header="Consulta Categotia de Vehiculos">
+                                <p>En este panel podra ingresar el nombre y la descripcion respecto a las categorias 
+                                    de los Vehiculos de SMS Renta.Un ejemplo de Categoria peude ser Categoria Blindado, Categoriía 
+                                    Business, Categoria VIV, etc.</p>
+                            </b:well>
+                        </b:column>
 
-                                    <h:panelGrid columns="4" cellpadding="5" >
-                                        <h:outputLabel value="Nombre de Marca: "  style="padding: 5px 37px;"/>
-                                        <p:inputText id="txt1" value="#{marcaBean.marca.marcaNombre}" required="true" label="Text 1">
-                                            <f:validateLength minimum="2" />
-                                        </p:inputText>                                          
-                                        
-                                    </h:panelGrid>
-                                    <p:commandButton ajax="false" value="registrar categorio" action="#{marcaBean.regMarca()}"/>
-                                </p:panel>
+                        <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
+                            <b:well>
+                                <h3>Lista de Vehìculos SMS por Categorias</h3>
+                                <hr/>
+                                <p:dataTable var="car" value="#{dtBasicView.cars}">
+                                    <p:column headerText="Id">
+                                        <h:outputText value="#{car.id}" />
+                                    </p:column>
 
+                                    <p:column headerText="Year">
+                                        <h:outputText value="#{car.year}" />
+                                    </p:column>
 
-                            </h:form> 
-                        </b:well>
-                    </b:column>
-                    <b:column col-lg="9">
-                        <b:well>
-                            <h3>Lista de Marca de Vehìculos SMS consultados/ocultarse</h3>
-                            <hr/>
-                            <p:dataTable var="car" value="#{dtBasicView.cars}">
-                                <p:column headerText="Id">
-                                    <h:outputText value="#{marcaBean.marca.idMarca}" />
-                                </p:column>
+                                    <p:column headerText="Brand">
+                                        <h:outputText value="#{car.brand}" />
+                                    </p:column>
 
-                                <p:column headerText="Nombre de la Marca">
-                                    <h:outputText value="#{marcaBean.marca.marcaNombre}" />
-                                </p:column>
+                                    <p:column headerText="Color">
+                                        <h:outputText value="#{car.color}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </b:well>
+                        </b:column>
+                    </b:row>
 
-                                <p:column headerText="Brand">
-                                    <h:outputText value="#{car.brand}" />
-                                </p:column>
-
-                                <p:column headerText="Color">
-                                    <h:outputText value="#{car.color}" />
-                                </p:column>
-                            </p:dataTable>
-                        </b:well>
-                    </b:column>
-                </b:row>
-
-            </b:container>
+                </b:container>
             </ui:define>
 
         </ui:composition>
