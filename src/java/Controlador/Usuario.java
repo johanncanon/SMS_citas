@@ -54,11 +54,16 @@ public class Usuario {
         usuarioDao.registrarUsuario(usuario);        
     }
 
-    public void registrarDatosSesion(SmsUsuario u) {
-        usuario=u;
+    public void registrarDatosSesion(SmsUsuario u, SmsRol r) {
+        usuario=u;SmsRol rol = r;
         //el metodo recibe el atributo usuario, modifica el valor de estado de cuenta del usuario registrado previamente, 
         //y modifica al usuario agregando en la BD los datos de login, pass y rememberpass
         usuario.setUsuarioEstadoUsuario(1);
+        
+        IRolDao rolDao = new ImpRolDao();
+        rol = rolDao.consultarRol(rol).get(0);
+        
+        usuario.getSmsRols().add(rol);
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarioDao.modificarUsuario(usuario);
         

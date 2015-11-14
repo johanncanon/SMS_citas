@@ -106,12 +106,12 @@ public class ImpRolDao implements IRolDao{
     }
 
     @Override
-    public List<SmsRol> consultarRol(String rol) {
+    public List<SmsRol> consultarRol(SmsRol rol) {
         Session session = null;
         List<SmsRol> roles = new ArrayList<>();
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsRol as rol where rol.rolNombre = '" + rol + "'");
+            Query query = session.createQuery("from SmsRol as rol where rol.rolNombre = '" + rol.getRolNombre() + "'");
             roles = (List<SmsRol>) query.list();
         } catch (HibernateException e) {
             e.getMessage();

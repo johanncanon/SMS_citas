@@ -5,10 +5,9 @@
  */
 package Bean;
 
+import Controlador.Rol;
 import DAO.IPermisosDao;
-import DAO.IRolDao;
 import DAO.ImpPermisosDao;
-import DAO.ImpRolDao;
 import Modelo.SmsPermisos;
 import Modelo.SmsRol;
 import java.util.ArrayList;
@@ -20,31 +19,37 @@ import java.util.List;
  */
 public class RolBean {
 
-    private List<SmsRol> Roles;
-    private SmsRol rol;   
+    //Instancia de objetos necesarios
+    private List<SmsRol> roles;
+    private SmsRol rolBean;
     
+    //Relacion con el controlador
+    protected Rol rol;
+
     private List<String> permisosSeleccionados;
     private List<String> ListaRoles;
 
     public RolBean() {
-        rol = new SmsRol();        
+        rolBean = new SmsRol();
+        rol = new Rol();
     }
 
     public List<SmsRol> getRoles() {
-        return Roles;
+        roles = rol.cargarRoles();
+        return roles;
     }
 
-    public void setRoles(List<SmsRol> Roles) {
-        this.Roles = Roles;
+    public void setRoles(List<SmsRol> roles) {
+        this.roles = roles;
+    }    
+    
+    public SmsRol getRolBean() {
+        return rolBean;
     }
 
-    public SmsRol getRol() {
-        return rol;
+    public void setRolBean(SmsRol rolBean) {
+        this.rolBean = rolBean;
     }
-
-    public void setRol(SmsRol rol) {
-        this.rol = rol;
-    }  
 
     public List<String> getPermisosSeleccionados() {
         return permisosSeleccionados;
@@ -55,11 +60,9 @@ public class RolBean {
     }
 
     public List<String> getListaRoles() {
-        ListaRoles = new ArrayList<>();
-        IRolDao rolDao = new ImpRolDao();
-        Roles = rolDao.mostrarRoles();
-        for (int i = 0; i < Roles.size(); i++) {
-            ListaRoles.add(Roles.get(i).getRolNombre());
+        ListaRoles = new ArrayList<>();       
+        for (int i = 0; i < rol.cargarRoles().size(); i++) {
+            ListaRoles.add(rol.cargarRoles().get(i).getRolNombre());
         }
         return ListaRoles;
     }
@@ -67,46 +70,39 @@ public class RolBean {
     public void setListaRoles(List<String> ListaRoles) {
         this.ListaRoles = ListaRoles;
     }
-    
-    
 
     //Definicion de motodos CRUD    
-    public void registrarRol() {
-        IRolDao rolDao = new ImpRolDao();
-        rolDao.registrarRol(rol);
-        rol = new SmsRol();
+    public void registrar() {
+        rol.RegistrarRol(rolBean);
+        rolBean = new SmsRol();
     }
 
-    public void modificarRol() {
-        IRolDao rolDao = new ImpRolDao();
-        rolDao.modificarRol(rol);
-        rol = new SmsRol();
+    public void modificar() {
+        rol.modificarRol(rolBean);
+        rolBean = new SmsRol();
     }
 
-    public void eliminarRol() {
-        IRolDao rolDao = new ImpRolDao();
-        rolDao.eliminarRol(rol);
-        rol = new SmsRol();
+    public void eliminar() {
+        rol.eliminarRol(rolBean);
+        rolBean = new SmsRol();
     }
 
     //Definicion de metodos para asignacion de permisos a un rol
     public void asignarPermiso() {
         SmsPermisos permiso;
-        permiso = new SmsPermisos();                
+        permiso = new SmsPermisos();
         IPermisosDao permisoDao = new ImpPermisosDao();
 
         /* Este segmento for, captura el objeto permiso segun un nombre y 
-                los guarda en otro objeto para despues ser asignado a un rol*/
-        
+         los guarda en otro objeto para despues ser asignado a un rol*/
         for (int i = 0; i < permisosSeleccionados.size(); i++) { //Recorre el array de nombres de permisos
             permiso = permisoDao.consultarPermiso(permisosSeleccionados.get(i)).get(0);
             //Realiza la consulta en la base de datos y guarda el objeto resultante en el objeto permiso
-            rol.getSmsPermisoses().add(permiso);//agrega el permiso al rol
-           
-        }        
-        registrarRol();
+            rolBean.getSmsPermisoses().add(permiso);//agrega el permiso al rol
+
+        }
+        registrar();
         permisosSeleccionados = new ArrayList<>();
-        
+
     }
 }
-

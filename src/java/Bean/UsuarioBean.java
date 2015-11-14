@@ -9,6 +9,7 @@ import Controlador.Usuario;
 import DAO.IUsuarioDao;
 import DAO.ImpUsuarioDao;
 import Modelo.SmsCiudad;
+import Modelo.SmsRol;
 import Modelo.SmsUsuario;
 import java.io.Serializable;
 import java.util.List;
@@ -23,11 +24,15 @@ import javax.faces.context.FacesContext;
 public class UsuarioBean implements Serializable {
 
     //Instanciacion de los objetos    
-    protected SmsUsuario usuarioBean;
-    protected SmsUsuario auxUsuarioBean;
-    protected List<SmsUsuario> usuarios;   
-    protected SmsCiudad ciudad;
-    protected List<String> roles;
+    protected SmsUsuario usuarioView;
+    protected SmsUsuario auxUsuarioView;
+    protected List<SmsUsuario> usuarios;
+
+    protected SmsCiudad ciudadView;
+    protected SmsRol rolView;
+
+    //Controles de componentes
+    boolean habilitado;
 
     //Relacion con el controlador
     protected Usuario usuario;
@@ -36,18 +41,12 @@ public class UsuarioBean implements Serializable {
     private FacesMessage message;
 
     public UsuarioBean() {
-        usuarioBean = new SmsUsuario();
-        auxUsuarioBean = new SmsUsuario();
-        ciudad = new SmsCiudad();
+        usuarioView = new SmsUsuario();
+        auxUsuarioView = new SmsUsuario();
+        ciudadView = new SmsCiudad();
+        rolView = new SmsRol();
         usuario = new Usuario();
-    }
-
-    public SmsUsuario getUsuarioBean() {
-        return usuarioBean;
-    }
-
-    public void setUsuarioBean(SmsUsuario usuarioBean) {
-        this.usuarioBean = usuarioBean;
+        habilitado = true;
     }
 
     public List<SmsUsuario> getUsuarios() {
@@ -59,30 +58,6 @@ public class UsuarioBean implements Serializable {
         this.usuarios = usuarios;
     }
 
-    public SmsCiudad getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(SmsCiudad ciudad) {
-        this.ciudad = ciudad;
-    }
-
-    public SmsUsuario getAuxUsuarioBean() {
-        return auxUsuarioBean;
-    }
-
-    public void setAuxUsuarioBean(SmsUsuario auxUsuarioBean) {
-        this.auxUsuarioBean = auxUsuarioBean;
-    }
-
-    public List<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
@@ -91,41 +66,83 @@ public class UsuarioBean implements Serializable {
         this.usuario = usuario;
     }
 
+    public SmsUsuario getUsuarioView() {
+        return usuarioView;
+    }
+
+    public void setUsuarioView(SmsUsuario usuarioView) {
+        this.usuarioView = usuarioView;
+    }
+
+    public SmsUsuario getAuxUsuarioView() {
+        return auxUsuarioView;
+    }
+
+    public void setAuxUsuarioView(SmsUsuario auxUsuarioView) {
+        this.auxUsuarioView = auxUsuarioView;
+    }
+
+    public SmsCiudad getCiudadView() {
+        return ciudadView;
+    }
+
+    public void setCiudadView(SmsCiudad ciudadView) {
+        this.ciudadView = ciudadView;
+    }
+
+    public SmsRol getRolView() {
+        return rolView;
+    }
+
+    public void setRolView(SmsRol rolView) {
+        this.rolView = rolView;
+    }
+
+    public boolean isHabilitado() {
+        return habilitado;
+    }
+
+    public void setHabilitado(boolean habilitado) {
+        this.habilitado = habilitado;
+    }
+
     //Declaracion de metodos
     //Metodos CRUD
     public void registrar() {
-        usuario.registrarUsuario(usuarioBean, ciudad);
-        auxUsuarioBean = new SmsUsuario();
-        auxUsuarioBean = usuarioBean;
-        usuarioBean = new SmsUsuario();
+        usuario.registrarUsuario(usuarioView, ciudadView);
+        auxUsuarioView = new SmsUsuario();
+        auxUsuarioView = usuarioView;
+        usuarioView = new SmsUsuario();
+        habilitado = false;
     }
-    
-    public void registrarCuenta(){
-        usuario.registrarDatosSesion(auxUsuarioBean);
-        auxUsuarioBean = new SmsUsuario();
+
+    public void registrarCuenta() {
+        usuario.registrarDatosSesion(auxUsuarioView, rolView);
+        auxUsuarioView = new SmsUsuario();
+        habilitado = true;
     }
 
     public void modificar() {
-        usuario.modificarUsuario(usuarioBean);
-        usuarioBean = new SmsUsuario();
+        usuario.modificarUsuario(usuarioView);
+        usuarioView = new SmsUsuario();
     }
 
     public void eliminar() {
-        usuario.eliminarUsuario(usuarioBean);
-        usuarioBean = new SmsUsuario();
+        usuario.eliminarUsuario(usuarioView);
+        usuarioView = new SmsUsuario();
     }
 
     //Metodos de funcionalidad
     public String login() {
         String ruta = "/login.xhtml";
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
-        List<SmsUsuario> user = usuarioDao.consultarUsuario(usuarioBean);//Trae de la base de datos toda la informacion de usuario
+        List<SmsUsuario> user = usuarioDao.consultarUsuario(usuarioView);//Trae de la base de datos toda la informacion de usuario
 
         if (!user.isEmpty()) {//valida si el usuario existe en la BD
             if (user.get(0).getUsuarioEstadoUsuario() == 1) {//Evalua el estado de la cuenta de usuario, si esta activa o inactiva
-                if (user.get(0).getUsuarioLogin().equalsIgnoreCase(usuarioBean.getUsuarioLogin()) && user.get(0).getUsuarioPassword().equalsIgnoreCase(usuarioBean.getUsuarioPassword())) {
-                    ruta = usuario.iniciarSesion(usuarioBean);//envia el objeto usuarioBean al metodo iniciarSesion para tomar este objeto como atributo de sesion
-                    message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Acceso Correcto", "Bienvenid@: " + usuarioBean.getUsuarioNombre());
+                if (user.get(0).getUsuarioLogin().equalsIgnoreCase(usuarioView.getUsuarioLogin()) && user.get(0).getUsuarioPassword().equalsIgnoreCase(usuarioView.getUsuarioPassword())) {
+                    ruta = usuario.iniciarSesion(usuarioView);//envia el objeto usuarioBean al metodo iniciarSesion para tomar este objeto como atributo de sesion
+                    message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Acceso Correcto", "Bienvenid@: " + usuarioView.getUsuarioNombre());
                 } else {
                     message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseña incorrecto", null);
                 }
@@ -144,5 +161,5 @@ public class UsuarioBean implements Serializable {
         usuario.cerrarSesion();
         return ruta;
     }
-     
+
 }

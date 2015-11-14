@@ -3,23 +3,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../template-admin-p.xhtml">
+
             <ui:define name="content">
                 <b:container fluid="true">
                     <b:row>
                         <h:form>
                             <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12" class="espacio-arriba">
                                 <b:well>
-                                    <h4>REGISTRO DE ADMINISTRADORES</h4>
+                                    <h4>REGISTRO DE CLIENTES</h4>
                                     <hr/>
-                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros usuarios y podra crear una cuenta de sesion para el ingreso al sistema,
-                                        esta cuenta podra ser de tipo administrador principal o secundario.</p> 
+                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros clientes y podra crear una cuenta de sesion para el ingreso al sistema,
+                                        con la que posteriormente el cliente realizara sus reservaciones.</p> 
                                 </b:well>
                             </b:column>
                             <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
@@ -32,7 +33,7 @@
                                         <p:inputText placeholder="Nombres y apellidos" value="#{usuarioBean.usuarioBean.usuarioNombre}" style="width: 100%;" maxlength="60"></p:inputText>                       
 
                                         <p:outputLabel value="CC: " />
-                                        <p:inputText placeholder="Cedula de ciudadania" value="#{usuarioBean.usuarioBean.usuarioCc}" style="width: 100%" ></p:inputText>
+                                        <p:inputText placeholder="Cedula de ciudadania" value="#{usuarioBean.usuarioBean.smsCiudad}" style="width: 100%" ></p:inputText>
 
                                         <p:outputLabel value="Telefono: "/>
                                         <p:inputText placeholder="Numero de telefono fijo o celular" value="#{usuarioBean.usuarioBean.usuarioTelefono}" style="width: 100%" ></p:inputText> 
@@ -51,13 +52,6 @@
                                             <f:selectItem itemLabel="Seleccione ciudad"/>
                                             <f:selectItems value="#{ciudadBean.listaCiudades}"/>
                                         </p:selectOneMenu> 
-                                        
-                                        <p:outputLabel value="Perfil: "/>
-                                        <p:selectOneMenu  style="width: 60%">
-                                            <f:selectItem itemLabel="Seleccione tipo de perfil"/>
-                                            <f:selectItem  itemLabel="Administrador Principal"/>
-                                            <f:selectItem  itemLabel="Administrador Secundario"/>
-                                        </p:selectOneMenu> 
                                     </p:panelGrid>
                                     <p:commandButton style="width:100%" update="messages seccionDatosUsuario" action="#{usuarioBean.registrar()}" value="Registrar Usuario" />
                                 </b:well>
@@ -69,13 +63,13 @@
                                     <p:panelGrid columns="2" id="seccionDatosSesion" class="table-responsive"  style="width: 100%">
 
                                         <p:outputLabel value="Login: "/>
-                                        <p:inputText style="width: 100%" value="#{usuarioBean.usuarioBean.usuarioLogin}" placeholder="Login de sesion" disabled="true"></p:inputText>
+                                        <p:inputText style="width: 100%" value="#{usuarioBean.auxUsuarioBean.usuarioLogin}" placeholder="Login de sesion" disabled="true"></p:inputText>
 
                                         <p:outputLabel value="Contraseña: "/>
-                                        <p:password style="width: 100%" disabled="true" value="#{usuarioBean.usuarioBean.usuarioPassword}" placeholder="Contraseña de sesion"></p:password>
+                                        <p:password style="width: 100%" disabled="true" value="#{usuarioBean.auxUsuarioBean.usuarioPassword}" placeholder="Contraseña de sesion"></p:password>
 
                                         <p:outputLabel value="Repita contraseña: "/>
-                                        <p:password style="width: 100%" disabled="true" placeholder="Repita contraseña de sesion" ></p:password>                               
+                                        <p:password style="width: 100%" disabled="true" value="#{usuarioBean.auxUsuarioBean.usuarioRememberToken}" placeholder="Repita contraseña de sesion" ></p:password>                               
 
                                     </p:panelGrid>
                                     <p:commandButton style="width:100%" value="Crear Usuario" disabled="true" update="messages seccionDatosSesion seccionDatosUsuario" action="#{usuarioBean.asignarRol()}"></p:commandButton>
