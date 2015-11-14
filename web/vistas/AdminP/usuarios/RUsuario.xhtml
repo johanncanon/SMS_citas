@@ -53,7 +53,7 @@
                                         </p:selectOneMenu>
                                                                                 
                                     </p:panelGrid>
-                                    <p:commandButton style="width:100%" update="messages seccionDatosUsuario seccionDatosSesion" action="#{usuarioBean.registrar()}" value="Registrar Usuario" />
+                                    <p:commandButton style="width:100%" update="messages BregistroCuenta seccionDatosUsuario seccionDatosSesion" action="#{usuarioBean.registrar()}" value="Registrar Usuario" />
                                 </b:well>
                             </b:column>                            
                             <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12" class="panelSesion" >
@@ -77,7 +77,7 @@
                                             <f:selectItems value="#{rolBean.listaRoles}"/>
                                         </p:selectOneMenu> 
                                     </p:panelGrid>
-                                    <p:commandButton style="width:100%" value="Crear Usuario" disabled="#{usuarioBean.habilitado}" update="messages seccionDatosSesion seccionDatosUsuario" action="#{usuarioBean.registrarCuenta()}"></p:commandButton>
+                                    <p:commandButton style="width:100%" id="BregistroCuenta" value="Crear Usuario" disabled="#{usuarioBean.habilitado}" update="messages BregistroCuenta seccionDatosSesion seccionDatosUsuario" action="#{usuarioBean.registrarCuenta()}"></p:commandButton>
 
                                 </b:well>
                             </b:column>

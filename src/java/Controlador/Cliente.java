@@ -9,6 +9,14 @@ package Controlador;
  *
  * @author Desarrollo_Planit
  */
-public class Cliente extends Usuario{
+public class Cliente extends Usuario{    
+
+    public Cliente() {
+        super();
+    }
+    
+    
+    
+    
     
 }

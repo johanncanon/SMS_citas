@@ -5,10 +5,28 @@
  */
 package Controlador;
 
+import Modelo.SmsProveedor;
+
 /**
  *
  * @author Desarrollo_Planit
  */
 public class Proveedor extends Usuario{
+
+    SmsProveedor proveedor;
+    
+    public Proveedor() {
+        super();
+    }
+
+    public SmsProveedor getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(SmsProveedor proveedor) {
+        this.proveedor = proveedor;
+    }
+    
+    
     
 }

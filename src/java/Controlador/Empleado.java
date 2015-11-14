@@ -5,10 +5,31 @@
  */
 package Controlador;
 
+import Modelo.SmsEmpleado;
+
 /**
  *
  * @author Desarrollo_Planit
  */
 public class Empleado extends Usuario{
+    
+    SmsEmpleado empleado;
+    
+    
+    public Empleado() {
+        super();
+    }
+
+    public SmsEmpleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(SmsEmpleado empleado) {
+        this.empleado = empleado;
+    }
+    
+    
+    
+    
     
 }
