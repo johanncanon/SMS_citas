@@ -22,48 +22,48 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class MarcaBean implements Serializable{
     
-    private SmsMarca marca;
-    private List<SmsMarca> marcas;
-    private List<String> marcaSt;  
+    private SmsMarca marcaView;
+    private List<SmsMarca> marcasView;
+    private List<String> marcaStView;  
     
     
     public MarcaBean() {
-        marca = new SmsMarca();
-        marcaSt = new ArrayList<>();
+        marcaView = new SmsMarca();
+        marcaStView = new ArrayList<>();
     }
     
     
     /* GETTERS Y SETTERS **********************************************************************/
-    public SmsMarca getMarca() {
-        return marca;
+    public SmsMarca getMarcaView() {
+        return marcaView;
     }
 
-    public void setMarca(SmsMarca marca) {
-        this.marca = marca;
+    public void setMarcaView(SmsMarca marcaView) {
+        this.marcaView = marcaView;
     }
 
-    public List<SmsMarca> getMarcas() {
-        IMarcaDao marcaDao = new ImpMarcaDao();
-        marcas = marcaDao.mostrarMarcas();
-        return marcas;
+    public List<SmsMarca> getMarcasView() {
+        /*IMarcaDao marcaDao = new ImpMarcaDao();
+        marcas = marcaDao.mostrarMarcas();*/
+        return marcasView;
     }
 
-    public void setMarcas(List<SmsMarca> marcas) {
-        this.marcas = marcas;
+    public void setMarcasView(List<SmsMarca> marcasView) {
+        this.marcasView = marcasView;
     }
     
-    public List<String> getMarcaSt() {
+    public List<String> getMarcaStView() {
         IMarcaDao marcaDao = new ImpMarcaDao();
-        marcas = marcaDao.mostrarMarcas();
-        for (int i = 0; i < marcas.size(); i++) {
-            marcaSt.add(marcas.get(i).getMarcaNombre());
+        marcasView = marcaDao.mostrarMarcas();
+        for (int i = 0; i < marcasView.size(); i++) {
+            marcaStView.add(marcasView.get(i).getMarcaNombre());
         }
         
-        return marcaSt;
+        return marcaStView;
     }
 
-    public void setMarcaSt(List<String> marcaSt) {
-        this.marcaSt = marcaSt;
+    public void setMarcaStView(List<String> marcaStView) {
+        this.marcaStView = marcaStView;
     }
     
     /*+++++++++++++++++++++++++*****************************************************************
@@ -71,20 +71,20 @@ public class MarcaBean implements Serializable{
     
     public void modMarca(){
         IMarcaDao marcaDao = new ImpMarcaDao();
-        marcaDao.modificarMarca(marca);
-        marca = new SmsMarca();
+        marcaDao.modificarMarca(marcaView);
+        marcaView = new SmsMarca();
     }
     
     public void eliMarca(){
         IMarcaDao marcaDao = new ImpMarcaDao();
-        marcaDao.eliminarMarca(marca);
-        marca = new SmsMarca();
+        marcaDao.eliminarMarca(marcaView);
+        marcaView = new SmsMarca();
     }
     
     public void regMarca(){
         IMarcaDao marcaDao = new ImpMarcaDao();
-        marcaDao.registrarMarca(marca);
-        marca = new SmsMarca();
+        marcaDao.registrarMarca(marcaView);
+        marcaView = new SmsMarca();
     }
     
     

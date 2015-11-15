@@ -5,6 +5,7 @@
  */
 package Bean;
 
+import Controlador.Categoria;
 import DAO.ICategoriaDao;
 import DAO.ImpCategoriaDao;
 import Modelo.SmsCategoria;
@@ -14,40 +15,51 @@ import java.util.List;
 
 public class CategoriaBean implements Serializable{
 
-     private SmsCategoria categoria;
-     private List<SmsCategoria> categorias;
-     private List<String> listaCategorias;
+     private SmsCategoria categoriaView;
+     private List<SmsCategoria> categoriasView;
+     private List<String> listaCategoriasView;
+     private Categoria categoria;//Instancia de la Clase Categoria del Paquete CONTROLADOR
      
      
-    public CategoriaBean() {
-        categoria = new SmsCategoria();
+    public CategoriaBean() {//CONSTRUCTOR
+        
+        categoriaView = new SmsCategoria();
+        categoria = new Categoria();//Instancia de la Clase Categoria del Paquete CONTROLADOR
     }
 
-    public SmsCategoria getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(SmsCategoria categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
+    public SmsCategoria getCategoriaView(){
+        return categoriaView;
+    }
+
+    public void setCategoriaView(SmsCategoria categoriaView) {
+        this.categoriaView = categoriaView;
+    }
+
     
-    public List<SmsCategoria> getCategorias() {// *****************  DEVOLVER LISTADO DE CATEGORIAS
+    public List<SmsCategoria> getCategoriasView() {// *****************  DEVOLVER LISTADO DE CATEGORIAS
         ICategoriaDao categoriasDao = new ImpCategoriaDao();
-        categorias = categoriasDao.mostrarCategorias();
-        return categorias;
+        categoriasView = categoriasDao.mostrarCategorias();
+        return categoriasView;
     }
 
-    public void setCategorias(List<SmsCategoria> categorias) {
-        this.categorias = categorias;
+    public void setCategoriasView(List<SmsCategoria> categoriasView) {
+        this.categoriasView = categoriasView;
     }
 
-    public List<String> getListaCategorias() {
-        return listaCategorias;
+    public List<String> getListaCategoriasView() {
+        return listaCategoriasView;
     }
 
-    public void setListaCategorias(List<String> listaCategorias) {
-        this.listaCategorias = listaCategorias;
+    public void setListaCategoriasView(List<String> listaCategoriasView) {
+        this.listaCategoriasView = listaCategoriasView;
     }
     
     
@@ -56,21 +68,26 @@ public class CategoriaBean implements Serializable{
     //METODOS QUE DEVUELVEN DATOS PARA VISTAS
     
     public void modCategoria (){
-        ICategoriaDao categotiaDao = new ImpCategoriaDao();
-        categotiaDao.modificarCategoria(categoria);
-        categoria = new SmsCategoria();
+        //TRAER LA INFORMACION DE LA VISTA Y PASARLA AL PARAMETRO CORRESPODIENTE 
+        //DE LA CLASE DEL PAQUETE CONTROLADOR
+        categoria.modificarCategoria(categoriaView);
+        categoriaView = new SmsCategoria();
+        
     }
     
     public void regCategoria(){
-        ICategoriaDao categoriaDao = new ImpCategoriaDao();
-        categoriaDao.registrarCategoria(categoria);
-        categoria = new SmsCategoria();
+        //TRAER LA INFORMACION DE LA VISTA Y PASARLA AL PARAMETRO CORRESPODIENTE 
+        //DE LA CLASE DEL PAQUETE CONTROLADOR
+        categoria.registrarrCategoria(categoriaView);
+        categoriaView = new SmsCategoria();
+        
     }
     
     public void eliCategoria(){
-        ICategoriaDao categoriaDao = new ImpCategoriaDao();
-        categoriaDao.eliminarCategoria(categoria);
-        categoria = new SmsCategoria();
+        //TRAER LA INFORMACION DE LA VISTA Y PASARLA AL PARAMETRO CORRESPODIENTE 
+        //DE LA CLASE DEL PAQUETE CONTROLADOR
+        categoria.eliminarCategoria(categoriaView);
+        categoriaView = new SmsCategoria();
     }
     
     

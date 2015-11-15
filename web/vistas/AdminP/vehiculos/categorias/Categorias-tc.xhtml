@@ -22,15 +22,15 @@
                                     <p:panel id="panel" header="Ingreso de Categorias de Vehiculo SMS">
                                         <div class="registro-vista">
                                             <p:outputLabel  value="Nombre de Categoria: "/>
-                                            <p:inputText value="#{referenciaBean.referencia.referenciaNombre}"/>
+                                            <p:inputText value="#{categoriaBean.categoriaView.categoriaNombre}"/>
                                         </div>
                                         <br/>
                                         <div class="registro-vista">
                                             <p:outputLabel  value="Descripción de Categoria: "/>
-                                            <p:inputText value="#{referenciaBean.referencia.referenciaNombre}"/>
+                                            <p:inputText value="#{categoriaBean.categoriaView.categoriaDescripcion}"/>
                                         </div>
                                         <br/>
-                                        <p:commandButton ajax="false" value="Registrar" action="#{referenciaBean.regReferencia()}"/>
+                                        <p:commandButton ajax="false" value="Registrar" action="#{categoriaBean.regCategoria()}"/>
                                     </p:panel>
                                 </h:form> 
                             </b:well>
@@ -50,13 +50,13 @@
                             <b:well>
                                 <h3>Lista de Vehìculos SMS por Categorias</h3>
                                 <hr/>
-                                <p:dataTable var="car" value="#{dtBasicView.cars}">
+                                <p:dataTable var="car" value="#{categoriaBean.categoriasView}">
                                     <p:column headerText="Id">
-                                        <h:outputText value="#{car.id}" />
+                                        <h:outputText value="#{categoriaBean.categoriasView}" />
                                     </p:column>
 
                                     <p:column headerText="Year">
-                                        <h:outputText value="#{car.year}" />
+                                        <h:outputText value="#{csr.asd}" />
                                     </p:column>
 
                                     <p:column headerText="Brand">
