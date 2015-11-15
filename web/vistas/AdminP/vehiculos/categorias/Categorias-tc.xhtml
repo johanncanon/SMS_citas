@@ -27,7 +27,7 @@
                                         <br/>
                                         <div class="registro-vista">
                                             <p:outputLabel  value="Descripción de Categoria: "/>
-                                            <p:inputText value="#{categoriaBean.categoriaView.categoriaDescripcion}"/>
+                                            <p:inputTextarea  value="#{categoriaBean.categoriaView.categoriaDescripcion}"/>
                                         </div>
                                         <br/>
                                         <p:commandButton ajax="false" value="Registrar" action="#{categoriaBean.regCategoria()}"/>
@@ -50,21 +50,21 @@
                             <b:well>
                                 <h3>Lista de Vehìculos SMS por Categorias</h3>
                                 <hr/>
-                                <p:dataTable var="car" value="#{categoriaBean.categoriasView}">
+                                <p:dataTable var="car" >
                                     <p:column headerText="Id">
-                                        <h:outputText value="#{categoriaBean.categoriasView}" />
+                                        <h:outputText  />
                                     </p:column>
 
                                     <p:column headerText="Year">
-                                        <h:outputText value="#{csr.asd}" />
+                                        <h:outputText />
                                     </p:column>
 
                                     <p:column headerText="Brand">
-                                        <h:outputText value="#{car.brand}" />
+                                        <h:outputText  />
                                     </p:column>
 
                                     <p:column headerText="Color">
-                                        <h:outputText value="#{car.color}" />
+                                        <h:outputText />
                                     </p:column>
                                 </p:dataTable>
                             </b:well>
