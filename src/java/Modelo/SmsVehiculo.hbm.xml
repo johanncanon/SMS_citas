@@ -35,8 +35,8 @@
         <property name="vehNumMalGrande" type="java.lang.Integer">
             <column name="Veh_num_malGrande" />
         </property>
-        <property name="vehNumMalPeque&#195;&#177;a" type="java.lang.Integer">
-            <column name="Veh_num_malPeque&#195;&#177;a" />
+        <property name="vehNumMalPequeña" type="java.lang.Integer">
+            <column name="Veh_num_malPequeña" />
         </property>
         <set name="smsAgendas" table="sms_agenda" inverse="true" lazy="true" fetch="select">
             <key>
