@@ -1,26 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 27-oct-2015 12:34:20 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 16-nov-2015 10:24:06 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="bd_sms_citas" name="Modelo.SmsHojavida" optimistic-lock="version" table="sms_hojavida">
-    <id name="idHojaVida" type="java.lang.Integer">
-      <column name="idHojaVida"/>
-      <generator class="identity"/>
-    </id>
-    <property name="hojaVidaNombre" type="string">
-      <column length="45" name="HojaVida_nombre"/>
-    </property>
-    <property name="hojaVidaTipo" type="string">
-      <column length="45" name="HojaVida_tipo"/>
-    </property>
-    <property name="hojaVidaContenido" type="binary">
-      <column name="HojaVida_contenido"/>
-    </property>
-    <set fetch="select" inverse="true" lazy="true" name="smsEmpleados" table="sms_empleado">
-      <key>
-        <column name="empleado_hojaVida"/>
-      </key>
-      <one-to-many class="Modelo.SmsEmpleado"/>
-    </set>
-  </class>
+    <class name="Modelo.SmsHojavida" table="sms_hojavida" catalog="bd_sms_citas" optimistic-lock="version">
+        <id name="idHojaVida" type="java.lang.Integer">
+            <column name="idHojaVida" />
+            <generator class="identity" />
+        </id>
+        <property name="hojaVidaNombre" type="string">
+            <column name="HojaVida_nombre" length="45" />
+        </property>
+        <property name="hojaVidaTipo" type="string">
+            <column name="HojaVida_tipo" length="45" />
+        </property>
+        <property name="hojaVidaContenido" type="binary">
+            <column name="HojaVida_contenido" />
+        </property>
+        <set name="smsEmpleados" table="sms_empleado" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="empleado_hojaVida" />
+            </key>
+            <one-to-many class="Modelo.SmsEmpleado" />
+        </set>
+    </class>
 </hibernate-mapping>

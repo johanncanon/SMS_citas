@@ -1,70 +1,71 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 27-oct-2015 12:34:20 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 16-nov-2015 10:24:06 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="bd_sms_citas" name="Modelo.SmsUsuario" optimistic-lock="version" table="sms_usuario">
-    <id name="idUsuario" type="java.lang.Integer">
-      <column name="idUsuario"/>
-      <generator class="identity"/>
-    </id>
-    <many-to-one class="Modelo.SmsCiudad" fetch="select" name="smsCiudad">
-      <column name="Usuario_ciudad" not-null="true"/>
-    </many-to-one>
-    <property name="usuarioNombre" type="string">
-      <column length="100" name="Usuario_nombre"/>
-    </property>
-    <property name="usuarioCc" type="string">
-      <column length="45" name="Usuario_CC"/>
-    </property>
-    <property name="usuarioTelefono" type="string">
-      <column length="45" name="Usuario_telefono"/>
-    </property>
-    <property name="usuarioEmail" type="string">
-      <column length="100" name="Usuario_email"/>
-    </property>
-    <property name="usuarioRazonSocial" type="string">
-      <column length="100" name="Usuario_razonSocial"/>
-    </property>
-    <property name="usuarioNit" type="string">
-      <column length="45" name="Usuario_nit"/>
-    </property>
-    <property name="usuarioLogin" type="string">
-      <column length="45" name="Usuario_login"/>
-    </property>
-    <property name="usuarioPassword" type="string">
-      <column length="45" name="Usuario_password"/>
-    </property>
-    <property name="usuarioRememberToken" type="string">
-      <column length="45" name="Usuario_remember_token"/>
-    </property>
-    <property name="usuarioEstadoUsuario" type="java.lang.Integer">
-      <column name="Usuario_EstadoUsuario"/>
-    </property>
-    <set fetch="join" inverse="true" lazy="true" name="smsEmpleados" table="sms_empleado">
-      <key>
-        <column name="empleado_idUsuario" not-null="true"/>
-      </key>
-      <one-to-many class="Modelo.SmsEmpleado"/>
-    </set>
-    <set fetch="join" inverse="true" lazy="true" name="smsProveedors" table="sms_proveedor">
-      <key>
-        <column name="Proveedor_idUsuario" not-null="true"/>
-      </key>
-      <one-to-many class="Modelo.SmsProveedor"/>
-    </set>
-    <set fetch="join" inverse="true" lazy="true" name="smsReservacions" table="sms_reservacion">
-      <key>
-        <column name="Reservacion_idCliente" not-null="true"/>
-      </key>
-      <one-to-many class="Modelo.SmsReservacion"/>
-    </set>
-    <set fetch="join" inverse="false" lazy="true" name="smsRols" table="sms_usuario_rol">
-      <key>
-        <column name="SMS_Usuario_idUsuario" not-null="true"/>
-      </key>
-      <many-to-many class="Modelo.SmsRol">
-        <column name="SMS_Rol_idRol" not-null="true"/>
-      </many-to-many>
-    </set>
-  </class>
+    <class name="Modelo.SmsUsuario" table="sms_usuario" catalog="bd_sms_citas" optimistic-lock="version">
+        <id name="idUsuario" type="java.lang.Integer">
+            <column name="idUsuario" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="smsCiudad" class="Modelo.SmsCiudad" fetch="select">
+            <column name="Usuario_ciudad" not-null="true" />
+        </many-to-one>
+        <property name="usuarioNombre" type="string">
+            <column name="Usuario_nombre" length="100" />
+        </property>
+        <property name="usuarioCc" type="string">
+            <column name="Usuario_CC" length="45" />
+        </property>
+        <property name="usuarioTelefono" type="string">
+            <column name="Usuario_telefono" length="45" />
+        </property>
+        <property name="usuarioEmail" type="string">
+            <column name="Usuario_email" length="100" />
+        </property>
+        <property name="usuarioRazonSocial" type="string">
+            <column name="Usuario_razonSocial" length="100" />
+        </property>
+        <property name="usuarioNit" type="string">
+            <column name="Usuario_nit" length="45" />
+        </property>
+        <property name="usuarioLogin" type="string">
+            <column name="Usuario_login" length="45" />
+        </property>
+        <property name="usuarioPassword" type="string">
+            <column name="Usuario_password" length="45" />
+        </property>
+        <property name="usuarioRememberToken" type="string">
+            <column name="Usuario_remember_token" length="45" />
+        </property>
+        <property name="usuarioEstadoUsuario" type="java.lang.Integer">
+            <column name="Usuario_EstadoUsuario" />
+        </property>
+        <set name="smsEmpleados" table="sms_empleado" inverse="true" lazy="true" fetch="join">
+            <key>
+                <column name="empleado_idUsuario" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.SmsEmpleado" />
+        </set>
+        <set name="smsProveedors" table="sms_proveedor" inverse="true" lazy="true" fetch="join">
+            <key>
+                <column name="Proveedor_idUsuario" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.SmsProveedor" />
+        </set>
+        <set name="smsReservacions" table="sms_reservacion" inverse="true" lazy="true" fetch="join">
+            <key>
+                <column name="Reservacion_idCliente" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.SmsReservacion" />
+        </set>
+        <set name="smsRols" table="sms_usuario_rol" inverse="false" lazy="true" fetch="join">
+            <key>
+                <column name="SMS_Usuario_idUsuario" not-null="true" />
+            </key>
+            <many-to-many class="Modelo.SmsRol">
+                <column name="SMS_Rol_idRol" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
 </hibernate-mapping>

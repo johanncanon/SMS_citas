@@ -1,20 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 27-oct-2015 12:34:20 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 16-nov-2015 10:24:06 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="bd_sms_citas" name="Modelo.SmsPais" optimistic-lock="version" table="sms_pais">
-    <id name="idPais" type="java.lang.Integer">
-      <column name="idPais"/>
-      <generator class="identity"/>
-    </id>
-    <property name="paisNombre" type="string">
-      <column length="50" name="Pais_nombre"/>
-    </property>
-    <set fetch="select" inverse="true" lazy="true" name="smsCiudads" table="sms_ciudad">
-      <key>
-        <column name="Ciudad_pais" not-null="true"/>
-      </key>
-      <one-to-many class="Modelo.SmsCiudad"/>
-    </set>
-  </class>
+    <class name="Modelo.SmsPais" table="sms_pais" catalog="bd_sms_citas" optimistic-lock="version">
+        <id name="idPais" type="java.lang.Integer">
+            <column name="idPais" />
+            <generator class="identity" />
+        </id>
+        <property name="paisNombre" type="string">
+            <column name="Pais_nombre" length="50" />
+        </property>
+        <set name="smsCiudads" table="sms_ciudad" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Ciudad_pais" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.SmsCiudad" />
+        </set>
+    </class>
 </hibernate-mapping>

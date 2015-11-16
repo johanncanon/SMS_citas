@@ -1,5 +1,5 @@
 package Modelo;
-// Generated 27-oct-2015 12:34:17 by Hibernate Tools 4.3.1
+// Generated 16-nov-2015 10:24:03 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -51,11 +51,11 @@ public class SmsRol  implements java.io.Serializable {
     }
     
     public void setSmsUsuarios(Set<SmsUsuario> smsUsuarios) {
-        this.smsUsuarios = smsUsuarios;        
+        this.smsUsuarios = smsUsuarios;
     }
 
 
-    
+
 
 }
 

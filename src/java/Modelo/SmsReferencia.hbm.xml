@@ -1,23 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 27-oct-2015 12:34:20 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 16-nov-2015 10:24:06 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="bd_sms_citas" name="Modelo.SmsReferencia" optimistic-lock="version" table="sms_referencia">
-    <id name="idReferencia" type="java.lang.Integer">
-      <column name="idReferencia"/>
-      <generator class="identity"/>
-    </id>
-    <many-to-one class="Modelo.SmsMarca" fetch="select" name="smsMarca">
-      <column name="Referencia_idMarca" not-null="true"/>
-    </many-to-one>
-    <property name="referenciaNombre" type="string">
-      <column length="45" name="Referencia_nombre"/>
-    </property>
-    <set fetch="select" inverse="true" lazy="true" name="smsVehiculos" table="sms_vehiculo">
-      <key>
-        <column name="Veh_idReferencia" not-null="true"/>
-      </key>
-      <one-to-many class="Modelo.SmsVehiculo"/>
-    </set>
-  </class>
+    <class name="Modelo.SmsReferencia" table="sms_referencia" catalog="bd_sms_citas" optimistic-lock="version">
+        <id name="idReferencia" type="java.lang.Integer">
+            <column name="idReferencia" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="smsMarca" class="Modelo.SmsMarca" fetch="select">
+            <column name="Referencia_idMarca" not-null="true" />
+        </many-to-one>
+        <property name="referenciaNombre" type="string">
+            <column name="Referencia_nombre" length="45" />
+        </property>
+        <set name="smsVehiculos" table="sms_vehiculo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Veh_idReferencia" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.SmsVehiculo" />
+        </set>
+    </class>
 </hibernate-mapping>

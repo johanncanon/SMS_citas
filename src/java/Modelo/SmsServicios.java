@@ -1,5 +1,5 @@
 package Modelo;
-// Generated 27-oct-2015 12:34:17 by Hibernate Tools 4.3.1
+// Generated 16-nov-2015 10:24:03 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -14,17 +14,15 @@ public class SmsServicios  implements java.io.Serializable {
      private Integer idServicios;
      private String serviciosNombre;
      private String serviciosDescripcion;
-     private Integer serviciosPrecio;
-     private Set<SmsReservacion> smsReservacions = new HashSet<SmsReservacion>(0);
+     private Set<SmsCostosServicio> smsCostosServicios = new HashSet<SmsCostosServicio>(0);
 
     public SmsServicios() {
     }
 
-    public SmsServicios(String serviciosNombre, String serviciosDescripcion, Integer serviciosPrecio, Set<SmsReservacion> smsReservacions) {
+    public SmsServicios(String serviciosNombre, String serviciosDescripcion, Set<SmsCostosServicio> smsCostosServicios) {
        this.serviciosNombre = serviciosNombre;
        this.serviciosDescripcion = serviciosDescripcion;
-       this.serviciosPrecio = serviciosPrecio;
-       this.smsReservacions = smsReservacions;
+       this.smsCostosServicios = smsCostosServicios;
     }
    
     public Integer getIdServicios() {
@@ -48,19 +46,12 @@ public class SmsServicios  implements java.io.Serializable {
     public void setServiciosDescripcion(String serviciosDescripcion) {
         this.serviciosDescripcion = serviciosDescripcion;
     }
-    public Integer getServiciosPrecio() {
-        return this.serviciosPrecio;
+    public Set<SmsCostosServicio> getSmsCostosServicios() {
+        return this.smsCostosServicios;
     }
     
-    public void setServiciosPrecio(Integer serviciosPrecio) {
-        this.serviciosPrecio = serviciosPrecio;
-    }
-    public Set<SmsReservacion> getSmsReservacions() {
-        return this.smsReservacions;
-    }
-    
-    public void setSmsReservacions(Set<SmsReservacion> smsReservacions) {
-        this.smsReservacions = smsReservacions;
+    public void setSmsCostosServicios(Set<SmsCostosServicio> smsCostosServicios) {
+        this.smsCostosServicios = smsCostosServicios;
     }
 
 

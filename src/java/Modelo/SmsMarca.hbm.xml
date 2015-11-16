@@ -1,20 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 27-oct-2015 12:34:20 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 16-nov-2015 10:24:06 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="bd_sms_citas" name="Modelo.SmsMarca" optimistic-lock="version" table="sms_marca">
-    <id name="idMarca" type="java.lang.Integer">
-      <column name="idMarca"/>
-      <generator class="identity"/>
-    </id>
-    <property name="marcaNombre" type="string">
-      <column length="45" name="Marca_nombre"/>
-    </property>
-    <set fetch="select" inverse="true" lazy="true" name="smsReferencias" table="sms_referencia">
-      <key>
-        <column name="Referencia_idMarca" not-null="true"/>
-      </key>
-      <one-to-many class="Modelo.SmsReferencia"/>
-    </set>
-  </class>
+    <class name="Modelo.SmsMarca" table="sms_marca" catalog="bd_sms_citas" optimistic-lock="version">
+        <id name="idMarca" type="java.lang.Integer">
+            <column name="idMarca" />
+            <generator class="identity" />
+        </id>
+        <property name="marcaNombre" type="string">
+            <column name="Marca_nombre" length="45" />
+        </property>
+        <set name="smsReferencias" table="sms_referencia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Referencia_idMarca" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.SmsReferencia" />
+        </set>
+    </class>
 </hibernate-mapping>

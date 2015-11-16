@@ -1,5 +1,5 @@
 package Modelo;
-// Generated 27-oct-2015 12:34:17 by Hibernate Tools 4.3.1
+// Generated 16-nov-2015 10:24:03 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -14,14 +14,16 @@ public class SmsCategoria  implements java.io.Serializable {
      private Integer idCategoria;
      private String categoriaNombre;
      private String categoriaDescripcion;
+     private Set<SmsCostosServicio> smsCostosServicios = new HashSet<SmsCostosServicio>(0);
      private Set<SmsVehiculo> smsVehiculos = new HashSet<SmsVehiculo>(0);
 
     public SmsCategoria() {
     }
 
-    public SmsCategoria(String categoriaNombre, String categoriaDescripcion, Set<SmsVehiculo> smsVehiculos) {
+    public SmsCategoria(String categoriaNombre, String categoriaDescripcion, Set<SmsCostosServicio> smsCostosServicios, Set<SmsVehiculo> smsVehiculos) {
        this.categoriaNombre = categoriaNombre;
        this.categoriaDescripcion = categoriaDescripcion;
+       this.smsCostosServicios = smsCostosServicios;
        this.smsVehiculos = smsVehiculos;
     }
    
@@ -45,6 +47,13 @@ public class SmsCategoria  implements java.io.Serializable {
     
     public void setCategoriaDescripcion(String categoriaDescripcion) {
         this.categoriaDescripcion = categoriaDescripcion;
+    }
+    public Set<SmsCostosServicio> getSmsCostosServicios() {
+        return this.smsCostosServicios;
+    }
+    
+    public void setSmsCostosServicios(Set<SmsCostosServicio> smsCostosServicios) {
+        this.smsCostosServicios = smsCostosServicios;
     }
     public Set<SmsVehiculo> getSmsVehiculos() {
         return this.smsVehiculos;
