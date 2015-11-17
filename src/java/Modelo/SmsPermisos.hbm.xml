@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 16-nov-2015 10:24:06 by Hibernate Tools 4.3.1 -->
+<!-- Generated 17/11/2015 12:16:59 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="Modelo.SmsPermisos" table="sms_permisos" catalog="bd_sms_citas" optimistic-lock="version">
+    <class name="Modelo.SmsPermisos" table="sms_permisos" catalog="bd_sms_citas">
         <id name="idPermisos" type="java.lang.Integer">
             <column name="idPermisos" />
-            <generator class="identity" />
+            <generator class="identity"></generator>
         </id>
         <property name="permisosNombre" type="string">
             <column name="Permisos_nombre" length="50" />
@@ -18,7 +18,7 @@
             <key>
                 <column name="SMS_Permisos_idPermisos" not-null="true" />
             </key>
-            <many-to-many class="Modelo.SmsRol">
+            <many-to-many entity-name="Modelo.SmsRol">
                 <column name="SMS_Rol_idRol" not-null="true" />
             </many-to-many>
         </set>

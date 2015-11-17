@@ -27,5 +27,23 @@
     <mapping resource="Modelo/SmsAgenda.hbm.xml"/>
     <mapping resource="Modelo/SmsCalificacion.hbm.xml"/>
     <mapping resource="Modelo/SmsCostosServicio.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsReferencia.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsUsuario.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsProveedor.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsCalificacion.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsVehiculo.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsHojavida.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsEstadovehiculo.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsPermisos.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsPais.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsAgenda.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsServicios.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsReservacion.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsMarca.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsCategoria.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsCostosServicio.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsEmpleado.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsRol.hbm.xml"/>
+    <mapping resource="PRUEBA/SmsCiudad.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

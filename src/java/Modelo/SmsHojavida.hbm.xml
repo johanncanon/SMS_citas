@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 16-nov-2015 10:24:06 by Hibernate Tools 4.3.1 -->
+<!-- Generated 17/11/2015 12:16:59 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="Modelo.SmsHojavida" table="sms_hojavida" catalog="bd_sms_citas" optimistic-lock="version">
+    <class name="Modelo.SmsHojavida" table="sms_hojavida" catalog="bd_sms_citas">
         <id name="idHojaVida" type="java.lang.Integer">
             <column name="idHojaVida" />
-            <generator class="identity" />
+            <generator class="identity"></generator>
         </id>
         <property name="hojaVidaNombre" type="string">
             <column name="HojaVida_nombre" length="45" />
