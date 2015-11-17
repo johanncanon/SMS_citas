@@ -5,6 +5,7 @@
  */
 package Bean;
 
+import Controlador.Referencia;
 import DAO.IMarcaDao;
 import DAO.IReferenciaDao;
 import DAO.ImpMarcaDao;
@@ -20,79 +21,87 @@ import java.util.List;
  */
 public class ReferenciaBean implements Serializable {
 
-    private SmsReferencia referencia;
-    private List<SmsReferencia> referencias;
-    
-    private List<String> listaReferencia;
-    private String marcas;
+    private SmsReferencia referenciaView;
+    private List<SmsReferencia> referenciasView;
+    private Referencia referencia;
+    private List<String> listaReferenciaView;
+    private String marcasView;
 
     
    
 
     public ReferenciaBean() {
-        referencia = new SmsReferencia();
+        referenciaView = new SmsReferencia();
+        marcasView = new String();
+        referencia = new Referencia();
+        
     }
-
-    /*  INICIO DE GETTERS Y SETTERS  
-     *********************************************************************************************/
-    public SmsReferencia getReferencia() {
+/********************************************************
+ *********       getters y setters        **************/
+    
+    public Referencia getReferencia() {
         return referencia;
     }
 
-    public void setReferencia(SmsReferencia referencia) {
+    public void setReferencia(Referencia referencia) {
         this.referencia = referencia;
     }
 
-    public List<SmsReferencia> getReferencias() {//CREACION DE LISTA DE REFERENCIAS DESDE EL BEAN
-        IReferenciaDao referenciasDao = new ImpReferenciaDao();
-        referencias = referenciasDao.mostrarReferencia();
-        return referencias;
+    
+    public SmsReferencia getReferenciaView() {
+        return referenciaView;
     }
 
-    public void setReferencias(List<SmsReferencia> referencias) {
-        this.referencias = referencias;
+    public void setReferenciaView(SmsReferencia referenciaView) {
+        this.referenciaView = referenciaView;
+    }
+
+    public List<SmsReferencia> getReferenciasView() {//CREACION DE LISTA DE REFERENCIAS DESDE EL BEAN
+        IReferenciaDao linkDao = new ImpReferenciaDao();
+        referenciasView = linkDao.mostrarReferencias();
+        return referenciasView;
+    }
+
+    public void setReferenciasView(List<SmsReferencia> referenciasView) {
+        this.referenciasView = referenciasView;
     }
     
-    public String getMarcas() {//LISTA DE STRING
-        return marcas;
+    public String getMarcasView() {//LISTA DE STRING
+        return marcasView;
     }
 
-    public void setMarcas(String marca) {
-        this.marcas = marca;
+    public void setMarcasView(String marcaView) {
+        this.marcasView = marcaView;
     }
 
-    public List<String> getListaReferencia() {
-        return listaReferencia;
+    public List<String> getListaReferenciaView() {
+        return listaReferenciaView;
     }
 
-    public void setListaReferencia(List<String> listaReferencia) {
-        this.listaReferencia = listaReferencia;
+    public void setListaReferenciaView(List<String> listaReferenciaView) {
+        this.listaReferenciaView = listaReferenciaView;
     }    
     
 
 
     /* METODOS DEL BEAN
      ********************************************************************************/
-    public void modreferencia() {
-        IReferenciaDao referenciaDao = new ImpReferenciaDao();
-        referenciaDao.modificarReferencia(referencia);
-        referencia = new SmsReferencia();
+    public void modificar() {
+        referencia.modificarReferencia(referenciaView);
+        referenciaView = new SmsReferencia();
     }
 
-    public void eliReferencia() {
-        IReferenciaDao referenciaDao = new ImpReferenciaDao();
-        referenciaDao.eliminarReferencia(referencia);
-        referencia = new SmsReferencia();
+    public void eliminar() {
+        referencia.eliminarReferencia(referenciaView);
+        referenciaView = new SmsReferencia();
     }
 
-    public void regReferencia() {
+    public void registrar() {
         SmsMarca marca = new SmsMarca();
         IMarcaDao marcaDao = new ImpMarcaDao();
-        marca = marcaDao.consultarMarca(marcas).get(0);
+        marca = marcaDao.consultarMarca(marcasView).get(0);
         
-        referencia.setSmsMarca(marca);
-        IReferenciaDao referenciaDao = new ImpReferenciaDao();
-        referenciaDao.registrarReferencia(referencia);
-        referencia = new SmsReferencia();
+        referencia.registrarReferencia(referenciaView);
+        referenciaView = new SmsReferencia();
     }
 }

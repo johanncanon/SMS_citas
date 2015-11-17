@@ -22,7 +22,7 @@ public class ImpReferenciaDao implements IReferenciaDao {
     private FacesMessage message;
 
     @Override
-    public List<SmsReferencia> mostrarReferencia() {
+    public List<SmsReferencia> mostrarReferencias() {
         Session session = null;
         List<SmsReferencia> referencias = null;
         try {
