@@ -16,7 +16,7 @@ import org.hibernate.Session;
  *
  * @author Desarrollo_Planit
  */
-public class ImpProveedorDao implements IProveedorDao{
+public class ImpProveedorDao implements IProveedorDao {
 
     @Override
     public List<SmsProveedor> mostrarProveedores() {
@@ -89,5 +89,27 @@ public class ImpProveedorDao implements IProveedorDao{
             }
         }
     }
-    
+
+    /**
+     * ***************************************************************************
+     ******* DEFINICION DE LISTA UTILIZADA POR CONTROLADOR VEHICULO  ***********
+     */
+    public List<SmsProveedor> consultarProveedores(SmsProveedor proveedor) {
+        Session session = null;
+        List<SmsProveedor> Proveedores = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsProveedor as proveedor where proveedor.getIdProveedor='" + proveedor.getIdProveedor() + "'");
+            Proveedores = (List<SmsProveedor>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return Proveedores;
+    }
+   
+   
 }

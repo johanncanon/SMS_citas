@@ -24,8 +24,10 @@ public class Proveedor extends Usuario{
     }
 
     public void setProveedor(SmsProveedor proveedor) {
+        
         this.proveedor = proveedor;
     }
+    
     
     
     

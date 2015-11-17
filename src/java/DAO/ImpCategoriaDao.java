@@ -6,6 +6,7 @@
 package DAO;
 
 import Modelo.SmsCategoria;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -101,5 +102,23 @@ public class ImpCategoriaDao implements ICategoriaDao{
         }
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+    /********************************************************************************************************************/
+    public List<SmsCategoria> consultarCategorias(SmsCategoria categoria) {
+        Session session = null;
+        List<SmsCategoria> categorias = new ArrayList<>();        
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsCategorias as categoria where categoria.categoriaNombre='" + categoria.getCategoriaNombre() + "'");
+            categorias = (List<SmsCategoria>) query.list();            
+        }catch(HibernateException e){
+            e.getMessage();
+        }finally{
+            if(session != null){
+                session.close();
+            }
+        }return categorias;
+    }
+    
+    
     
 }
