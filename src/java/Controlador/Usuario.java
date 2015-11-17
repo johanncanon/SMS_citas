@@ -114,10 +114,10 @@ public class Usuario {
             rolUsuario = rol.validarRol(usuario, roles.get(i));//Envia el objeto usuario y el objeto rol, para comprobar el rol del usuario que intenta loguearse
             if (rolUsuario) {//valida si el rol es verdadero y consulta segun su valor, a cual dashboard debo direccionar al usuario
                 switch (roles.get(i).getRolNombre()) {
-                    case "Administrador principal":
+                    case "Administrador Principal":
                         ruta = "./vistas/AdminP/Dashboard-Admin-Principal.xhtml";
                         break;
-                    case "Administrador secundario":
+                    case "Administrador Secundario":
                         ruta = "./vistas/AdminS/Dashboard-Admin-Secundario.xhtml";
                         break;
                     case "Cliente":
