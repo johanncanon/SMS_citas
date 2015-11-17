@@ -5,10 +5,68 @@
  */
 package Controlador;
 
+import DAO.IMarcaDao;
+import DAO.ImpMarcaDao;
+import Modelo.SmsMarca;
+import java.util.List;
+
 /**
  *
  * @author Desarrollo_Planit
  */
 public class Marca {
+
+    SmsMarca marca;
+    List<SmsMarca> marcas;
+
+    public Marca() {//Contrusctor
+        marca = new SmsMarca();
+
+    }
+    /* ********************** Setters y Getters *****************************/
+
+    public SmsMarca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(SmsMarca marca) {
+        this.marca = marca;
+    }
+
+    public List<SmsMarca> getmMrcas() {
+        IMarcaDao linkDao = new ImpMarcaDao();
+        marcas = linkDao.mostrarMarcas();
+        return marcas;
+    }
+
+    public void setMarcas(List<SmsMarca> marcas) {
+        this.marcas = marcas;
+    }
+
+    /**
+     * ********************** METODOS QUE SE COMUNICAN CON BEAN-MARCAS ********************************
+     */
+    public void modificarMarca(SmsMarca marc){
+        this.marca = marc;
+        IMarcaDao linkDao = new ImpMarcaDao();
+        linkDao.modificarMarca(marca);
+    }
+
+    public void eliminarMarca(SmsMarca marc) {
+        this.marca = marc;
+        IMarcaDao linkDao = new ImpMarcaDao();
+        linkDao.eliminarMarca(marca);
+    }
+
+    public void registrarMarca(SmsMarca marc) {
+        this.marca = marc;
+        IMarcaDao linkDao = new ImpMarcaDao();
+        linkDao.registrarMarca(marca);
+    }
     
+    public void consultarMarca(SmsMarca marc){
+        this.marca = marc;
+        IMarcaDao linkDao = new ImpMarcaDao();
+        linkDao.consultarMarca(null);
+    }
 }

@@ -7,6 +7,7 @@ package Bean;
 
 import DAO.IMarcaDao;
 import DAO.ImpMarcaDao;
+import Controlador.Marca;
 import Modelo.SmsMarca;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,13 +24,24 @@ import javax.faces.bean.RequestScoped;
 public class MarcaBean implements Serializable{
     
     private SmsMarca marcaView;
+    private Marca marca;
     private List<SmsMarca> marcasView;
-    private List<String> marcaStView;  
-    
+    private List<String> marcaStView;
+   
+     
     
     public MarcaBean() {
         marcaView = new SmsMarca();
         marcaStView = new ArrayList<>();
+        marca = new Marca();
+    }
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
     }
     
     
@@ -69,21 +81,18 @@ public class MarcaBean implements Serializable{
     /*+++++++++++++++++++++++++*****************************************************************
     ****************    CREACION DE METODOS DEL BEAN      *********************************+++++*/
     
-    public void modMarca(){
-        IMarcaDao marcaDao = new ImpMarcaDao();
-        marcaDao.modificarMarca(marcaView);
+    public void modificar(){
+        marca.modificarMarca(marcaView);
         marcaView = new SmsMarca();
     }
     
-    public void eliMarca(){
-        IMarcaDao marcaDao = new ImpMarcaDao();
-        marcaDao.eliminarMarca(marcaView);
+    public void eliminar(){
+        marca.eliminarMarca(marcaView);
         marcaView = new SmsMarca();
     }
     
-    public void regMarca(){
-        IMarcaDao marcaDao = new ImpMarcaDao();
-        marcaDao.registrarMarca(marcaView);
+    public void registrar(){
+        marca.registrarMarca(marcaView);
         marcaView = new SmsMarca();
     }
     

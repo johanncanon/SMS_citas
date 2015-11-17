@@ -23,10 +23,10 @@
                                 <p:panel id="panel" header="Ingreso de Marca de Vehiculo SMS">
                                     <div class="registro-vista">
                                         <p:outputLabel  value="Nombre de Marca: "/>
-                                        <p:inputText value="#{referenciaBean.referencia.referenciaNombre}"/>
+                                        <p:inputText value="#{marcaBean.marcaView.marcaNombre}"/>
                                     </div>
                                     <br/>
-                                    <p:commandButton ajax="false" value="Registrar" action="#{referenciaBean.regReferencia()}"/>
+                                    <p:commandButton ajax="false" value="Registrar" action="#{marcaBean.registrar()}"/>
                                 </p:panel>
                             </h:form> 
                         </b:well>
@@ -45,9 +45,9 @@
                         <b:well>
                             <h3>Lista de Vehìculos SMS por Marcas</h3>
                             <hr/>
-                            <p:dataTable var="car" value="#{dtBasicView.cars}">
+                            <p:dataTable var="car" value="#{lasd.paisdj}">
                                 <p:column headerText="Id">
-                                    <h:outputText value="#{car.id}" />
+                                    <h:outputText value="#{qd}" />
                                 </p:column>
 
                                 <p:column headerText="Year">
