@@ -15,6 +15,7 @@ import java.util.List;
 public interface IReferenciaDao {
     
     public List<SmsReferencia> mostrarReferencias();
+    public List<SmsReferencia> consultarReferencias(SmsReferencia referencia);
     public void registrarReferencia(SmsReferencia referencia);
     public void modificarReferencia(SmsReferencia referencia);
     public void eliminarReferencia(SmsReferencia referencia);

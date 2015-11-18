@@ -1,4 +1,4 @@
-    <?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -13,55 +13,80 @@
 
         <ui:define name="content">            
             <b:container fluid="true">
-                    <b:row>
-                        <b:column col-lg="9">
-                            <b:well>
-                                <h:form>
-                                    <h3>Consulta de Referencias de Vehiculos SMS</h3>
-                                    <hr/>
-                                    <p:panel id="panel" header="Consulta de Vehiculos">
-                                        <p:messages id="messages" />
-
-                                        <h:panelGrid columns="2" cellpadding="5" >
-                                            <p:outputLabel  value="Nombre: "/>
-                                            <p:inputText value="#{referenciaBean.referencia.referenciaNombre}"/>
-                                            
-                                            <p:outputLabel value="Campo 3:"/>
-                                            <p:selectOneMenu value="#{referenciaBean.marcas}">
-                                                <f:selectItems value="#{marcaBean.marcaSt}"/>
-                                            </p:selectOneMenu>                                            
-                                        </h:panelGrid>
-                                        <p:commandButton ajax="false" value="Registrar" action="#{referenciaBean.regReferencia()}"/>
-                                    </p:panel>
-                                </h:form> 
-                            </b:well>
-                        </b:column>
-                        <b:column col-lg="9">
-                            <b:well>
-                                <h3>Lista de referencia de Vehìculos SMS consultados/ocultarse</h3>
+                <b:row>
+                    <b:column col-lg="6" col-md="6" col-sm="5" col-xs="12" id="EspacioA">
+                        <b:well>
+                            <h:form>
+                                <h3>Ingreso de Vehiculos SMS</h3>
                                 <hr/>
-                                <p:dataTable var="car" value="#{dtBasicView.cars}">
-                                    <p:column headerText="Id">
-                                        <h:outputText value="#{car.id}" />
-                                    </p:column>
+                                <p:panel id="panel" header="Ingreso Vehiculo SMS">
+                                    <div class="registro-vista">
+                                        <p:outputLabel  value="Nombre de Marca: "/>
+                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
+                                        
+                                        <p:outputLabel  value="Nombre de Marca: "/>
+                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
+                                        
+                                        <p:outputLabel  value="Nombre de Marca: "/>
+                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
+                                        
+                                        <p:outputLabel  value="Nombre de Marca: "/>
+                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
+                                        
+                                        <p:outputLabel  value="Nombre de Marca: "/>
+                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
+                                        
+                                        <p:outputLabel  value="Nombre de Marca: "/>
+                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
+                                        
+                                        <p:outputLabel  value="Nombre de Marca: "/>
+                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
+                                        
+                                        <p:outputLabel  value="Nombre de Marca: "/>
+                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
+                                    </div>
+                                    <br/>
+                                    <p:commandButton ajax="false" value="Registrar" action="#{marcaBean.registrar()}"/>
+                                </p:panel>
+                            </h:form> 
+                        </b:well>
+                    </b:column>
 
-                                    <p:column headerText="Year">
-                                        <h:outputText value="#{car.year}" />
-                                    </p:column>
+                    <b:column col-lg="3" col-md="3" col-sm="3" col-xs="12" id="EspacioB">
+                        <b:well>
+                            <h3>Vehiculos SMS Renta</h3>
+                            <hr/>
+                            <p>En este panel podra ingresar las Marcas de los vehiculos de SMS renta como 
+                                consultar los vehiculos por sus respectivas Marcas.</p>
+                        </b:well>
+                    </b:column>
 
-                                    <p:column headerText="Brand">
-                                        <h:outputText value="#{car.brand}" />
-                                    </p:column>
+                    <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
+                        <b:well>
+                            <h3>Lista de referencia de Vehìculos SMS consultados/ocultarse</h3>
+                            <hr/>
+                            <p:dataTable var="car" value="#{dtBasicView.cars}">
+                                <p:column headerText="Id">
+                                    <h:outputText value="#{car.id}" />
+                                </p:column>
 
-                                    <p:column headerText="Color">
-                                        <h:outputText value="#{car.color}" />
-                                    </p:column>
-                                </p:dataTable>
-                            </b:well>
-                        </b:column>
-                    </b:row>
+                                <p:column headerText="Year">
+                                    <h:outputText value="#{car.year}" />
+                                </p:column>
 
-                </b:container>
+                                <p:column headerText="Brand">
+                                    <h:outputText value="#{car.brand}" />
+                                </p:column>
+
+                                <p:column headerText="Color">
+                                    <h:outputText value="#{car.color}" />
+                                </p:column>
+                            </p:dataTable>
+                        </b:well>
+                    </b:column>
+                </b:row>
+
+            </b:container>
         </ui:define>
     </ui:composition>
 

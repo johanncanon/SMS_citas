@@ -8,9 +8,13 @@ package Controlador;
 import Modelo.SmsVehiculo;
 import DAO.ICategoriaDao;
 import DAO.ICiudadDao;
+import DAO.IProveedorDao;
+import DAO.IReferenciaDao;
 import DAO.IVehiculoDao;
 import DAO.ImpCategoriaDao;
 import DAO.ImpCiudadDao;
+import DAO.ImpProveedorDao;
+import DAO.ImpReferenciaDao;
 import DAO.ImpVehiculoDao;
 import Modelo.SmsCategoria;
 import Modelo.SmsCiudad;
@@ -98,21 +102,74 @@ public class Vehiculo {
     
  /**********************   METODOS QUE SE CONECTAN CON DAOS   **********************************/   
     
-    public void modficarVehiculo (Categoria cat, Proveedor prov, Ciudad ciu, Referencia ref, SmsVehiculo vehiculo){
-     
-    }
-    
-    public void eliminarVehiculo (Categoria cat, Proveedor prov, Ciudad ciu, Referencia ref, SmsVehiculo vehiculo){
+    public void modficarVehiculo (SmsCategoria cat, SmsProveedor prov, SmsCiudad ciu, SmsReferencia ref, SmsVehiculo veh){
+        caetgoria = cat;
+        proveedor = prov;
+        ciudad = ciu;
+        referencia = ref;
+        vehiculo = veh;
+        
+        /*************************************************************/
+        ICategoriaDao catDao = new ImpCategoriaDao();
+        caetgoria = catDao.consultarCategorias(caetgoria).get(0);
+        vehiculo.setSmsCategoria(caetgoria);
+        /*************************************************************/
+        IProveedorDao provDao = new ImpProveedorDao();
+        proveedor= provDao.consultarProveedores(proveedor).get(0);
+        vehiculo.setSmsProveedor(proveedor);
+        /*************************************************************/
+        ICiudadDao ciuDao = new ImpCiudadDao();
+        ciudad = ciuDao.consultarCiudad(ciudad).get(0);
+        vehiculo.setSmsCiudad(ciudad);
+        /*************************************************************/
+        IReferenciaDao refdao = new ImpReferenciaDao();
+        referencia = refdao.consultarReferencias(referencia).get(0);
+        vehiculo.setSmsReferencia(referencia);
+        /*************************************************************/
+        
+        IVehiculoDao linkDao = new ImpVehiculoDao();
+        linkDao.modificarVehiculo(vehiculo);
         
     }
     
-    public void regisrtarVehiculo (SmsCategoria cat, SmsProveedor prov, SmsCiudad ciu, SmsReferencia ref, SmsVehiculo vehiculo){
-        this.caetgoria=cat;
-        this.proveedor=prov;
-        this.ciudad=ciu;
-        this.referencia=ref;
-        this.vehiculo=vehiculo;
+    public void eliminarVehiculo (SmsCategoria cat, SmsProveedor prov, SmsCiudad ciu, SmsReferencia ref, SmsVehiculo veh){
+        caetgoria = cat;
+        proveedor = prov;
+        ciudad = ciu;
+        referencia = ref;
+        vehiculo = veh;
         
+        /********************************************************************/
+        ICategoriaDao cateDao = new ImpCategoriaDao();
+        caetgoria = cateDao.consultarCategorias(caetgoria).get(0);
+        vehiculo.setSmsCategoria(caetgoria);
+        /********************************************************************/
+        IProveedorDao proDao = new ImpProveedorDao();
+        proveedor = proDao.consultarProveedores(proveedor).get(0);
+        vehiculo.setSmsProveedor(proveedor);
+        /********************************************************************/
+        ICiudadDao ciuDao = new ImpCiudadDao();
+        ciudad = ciuDao.consultarCiudad(ciudad).get(0);
+        vehiculo.setSmsCiudad(ciudad);
+        /********************************************************************/
+        IReferenciaDao refDao = new ImpReferenciaDao();
+        referencia = refDao.consultarReferencias(referencia).get(0);
+        vehiculo.setSmsReferencia(referencia);
+        /********************************************************************/
+        
+        IVehiculoDao linkDao = new ImpVehiculoDao();
+        linkDao.eliminarVehiculo(vehiculo);
+        
+    }
+    
+    public void regisrtarVehiculo (SmsCategoria cat, SmsProveedor prov, SmsCiudad ciu, SmsReferencia ref, SmsVehiculo veh){
+        caetgoria=cat;
+        proveedor=prov;
+        ciudad=ciu;
+        referencia=ref;
+        vehiculo=veh;
+        
+        /*******************  Ciudad  ********************************/
         ICiudadDao ciudadDao = new ImpCiudadDao();
         ciudad = ciudadDao.consultarCiudad(ciudad).get(0);
         vehiculo.setSmsCiudad(ciudad);
@@ -121,10 +178,17 @@ public class Vehiculo {
         caetgoria = categoriaDao.consultarCategorias(caetgoria).get(0);
         vehiculo.setSmsCategoria(caetgoria);
         /*******************  Proveedor  ********************************/
-        /*******************  Categorias  ********************************/
-        /*******************  Categorias  ********************************/
+        IProveedorDao proveedorDao = new ImpProveedorDao();
+        proveedor = proveedorDao.consultarProveedores(proveedor).get(0);
+        vehiculo.setSmsProveedor(proveedor);
+        /*******************  Referencia  ********************************/
+        IReferenciaDao referenciaDao = new ImpReferenciaDao();
+        referencia = referenciaDao.consultarReferencias(referencia).get(0);
+        vehiculo.setSmsReferencia(referencia);
+        /*******************  Vehiculo  ********************************/
         
-        
+        IVehiculoDao linkDao = new ImpVehiculoDao();
+        linkDao.registrarVehiculo(vehiculo);
                 
     }
     

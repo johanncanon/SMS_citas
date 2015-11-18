@@ -6,6 +6,7 @@
 package Bean;
 
 import DAO.IVehiculoDao;
+import Controlador.Vehiculo;
 import DAO.ImpVehiculoDao;
 import Modelo.SmsVehiculo;
 import java.util.List;
@@ -19,36 +20,32 @@ public class VehiculoBean {
     /**
      * Creates a new instance of VehiculoBean
      */
-    
-    protected SmsVehiculo vehiculo;
-    protected List<SmsVehiculo> vehiculos;
-    
-    
+    private Vehiculo vehiculo;
+    protected SmsVehiculo vehiculoView;
+    protected List<SmsVehiculo> vehiculosView;
+
     public VehiculoBean() {
+        vehiculo = new Vehiculo();
+        vehiculoView = new SmsVehiculo();
     }
 
-    public SmsVehiculo getVehiculo() {
-        return vehiculo;
+    public SmsVehiculo getVehiculoView() {
+        return vehiculoView;
     }
 
-    public void setVehiculo(SmsVehiculo vehiculo) {
-        this.vehiculo = vehiculo;
+    public void setVehiculoView(SmsVehiculo veh) {
+        this.vehiculoView = veh;
     }
 
-    public List<SmsVehiculo> getVehiculos() {
+    public List<SmsVehiculo> getVehiculosView() {
         IVehiculoDao vehDao = new ImpVehiculoDao();
-        vehiculos = vehDao.mostrarVehiculo();
-        return vehiculos;
+        vehiculosView = vehDao.mostrarVehiculo();
+        return vehiculosView;
     }
 
-    public void setVehiculos(List<SmsVehiculo> vehiculos) {
-        this.vehiculos = vehiculos;
+    public void setVehiculosView(List<SmsVehiculo> veh) {
+        this.vehiculosView = veh;
     }
 
     //Definicion de metodos
-    
-    
-    
-    
-    
 }

@@ -6,6 +6,7 @@
 package DAO;
 
 import Modelo.SmsReferencia;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -20,6 +21,7 @@ import org.hibernate.Session;
 public class ImpReferenciaDao implements IReferenciaDao {
 
     private FacesMessage message;
+    private List<SmsReferencia> ArrayList;
 
     @Override
     public List<SmsReferencia> mostrarReferencias() {
@@ -103,4 +105,27 @@ public class ImpReferenciaDao implements IReferenciaDao {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
+    /**
+     * @param referencia*
+     * @return ************************************************************************************/
+    @Override
+    public List<SmsReferencia> consultarReferencias(SmsReferencia referencia) {
+        Session session = null;
+        List<SmsReferencia> referencias = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsReferencia as referencia where referencia.referenciaNombre='" + referencia.getReferenciaNombre() + "'");
+            referencias = (List<SmsReferencia>) query.list();
+
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return referencias;
+    }
+    
+    
 }
