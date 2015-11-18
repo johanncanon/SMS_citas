@@ -30,27 +30,27 @@
                                     <p:growl id="messages" showDetail="true"/>                            
                                     <p:panelGrid class="table-responsive" id="seccionDatosUsuario" columns="2" style="width: 100%;">
                                         <p:outputLabel value="Nombre: "/>
-                                        <p:inputText placeholder="Nombres y apellidos" style="width: 100%;" maxlength="60" value="#{usuarioBean.usuario.usuarioNombre}"></p:inputText>                       
+                                        <p:inputText placeholder="Nombres y apellidos" style="width: 100%;" maxlength="60" value="#{empleadoBean.usuarioView.usuarioNombre}"></p:inputText>                       
 
                                         <p:outputLabel value="CC: " />
-                                        <p:inputText placeholder="Cedula de ciudadania" style="width: 100%" value="#{usuarioBean.usuario.usuarioCc}"></p:inputText>
+                                        <p:inputText placeholder="Cedula de ciudadania" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioCc}"></p:inputText>
 
                                         <p:outputLabel value="Telefono: "/>
-                                        <p:inputText placeholder="Numero de telefono fijo o celular" style="width: 100%" value="#{usuarioBean.usuario.usuarioTelefono}"></p:inputText> 
+                                        <p:inputText placeholder="Numero de telefono fijo o celular" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioTelefono}"></p:inputText> 
 
                                         <p:outputLabel value="Email: "/>
-                                        <p:inputText placeholder="Direccion de correo electronico" style="width: 100%" value="#{usuarioBean.usuario.usuarioEmail}"></p:inputText>
+                                        <p:inputText placeholder="Direccion de correo electronico" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioEmail}"></p:inputText>
 
                                         <p:outputLabel value="Hoja de vida: "/>
-                                        <p:fileUpload value="#{fileUploadView.file}" mode="simple"/>                                     
+                                        <p:fileUpload value="#{empleadoBean.archivo}" mode="simple"/>                                     
 
                                         <p:outputLabel value="Ciudad: "/>
-                                        <p:selectOneMenu value="#{usuarioBean.ciudad.ciudadNombre}" style="width: 60%">
+                                        <p:selectOneMenu value="#{empleadoBean.ciudadView.ciudadNombre}" style="width: 60%">
                                             <f:selectItem itemLabel="Seleccione ciudad"/>
                                             <f:selectItems value="#{ciudadBean.listaCiudades}"/>
                                         </p:selectOneMenu> 
                                     </p:panelGrid>
-                                    <p:commandButton style="width:100%" update="messages seccionDatosUsuario" action="#{usuarioBean.registrarUsuario()}" value="Registrar Usuario" />
+                                    <p:commandButton style="width:100%" update="messages seccionDatosUsuario seccionDatosSesion BregistroCuenta" action="#{empleadoBean.prueba()}" value="Registrar Usuario" />
                                 </b:well>
                             </b:column>                            
                             <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12" class="panelSesion" >
@@ -60,16 +60,16 @@
                                     <p:panelGrid columns="2" id="seccionDatosSesion" class="table-responsive"  style="width: 100%">
 
                                         <p:outputLabel value="Login: "/>
-                                        <p:inputText style="width: 100%" placeholder="Login de sesion" disabled="true" value="#{usuarioBean.auxUsuario.usuarioLogin}"></p:inputText>
+                                        <p:inputText style="width: 100%" placeholder="Login de sesion" disabled="true" value="#{empleadoBean.auxUsuarioView.usuarioLogin}"></p:inputText>
 
                                         <p:outputLabel value="Contraseña: "/>
-                                        <p:password style="width: 100%" disabled="true" placeholder="Contraseña de sesion" value="#{usuarioBean.auxUsuario.usuarioPassword}"></p:password>
+                                        <p:password style="width: 100%" disabled="true" placeholder="Contraseña de sesion" value="#{empleadoBean.auxUsuarioView.usuarioPassword}"></p:password>
 
                                         <p:outputLabel value="Repita contraseña: "/>
-                                        <p:password style="width: 100%" disabled="true" placeholder="Repita contraseña de sesion" value="#{usuarioBean.auxUsuario.usuarioRememberToken}"></p:password>                               
+                                        <p:password style="width: 100%" disabled="true" placeholder="Repita contraseña de sesion" value="#{empleadoBean.auxUsuarioView.usuarioRememberToken}"></p:password>                               
 
                                     </p:panelGrid>
-                                    <p:commandButton style="width:100%" value="Crear Usuario" disabled="true" update="messages seccionDatosSesion seccionDatosUsuario" action="#{usuarioBean.asignarRol()}"></p:commandButton>
+                                    <p:commandButton style="width:100%" id="BregistroCuenta" value="Crear Usuario" disabled="true" update="messages seccionDatosSesion seccionDatosUsuario BregistroCuenta" action="#{empleadoBean.registrarCuenta()}"></p:commandButton>
 
                                 </b:well>
                             </b:column>

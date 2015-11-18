@@ -6,12 +6,14 @@
 package Bean;
 
 import Controlador.Empleado;
+import Controlador.HojaVida;
 import Modelo.SmsCiudad;
 import Modelo.SmsEmpleado;
 import Modelo.SmsHojavida;
 import Modelo.SmsRol;
 import Modelo.SmsUsuario;
 import java.io.Serializable;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -26,14 +28,23 @@ public class EmpleadoBean implements Serializable{
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
     protected SmsHojavida hojavida;
+    protected UploadedFile archivo;
     
     //Control de componentes
     protected boolean habilitado;
     
     //Relacion con el controlador
     protected Empleado empleado;
+    protected HojaVida hojaVida;
     
     public EmpleadoBean() {
+        usuarioView = new SmsUsuario();
+        auxUsuarioView = new SmsUsuario();
+        empleadoView = new SmsEmpleado();
+        ciudadView = new SmsCiudad();
+        rolView = new SmsRol();
+        hojavida = new SmsHojavida();
+        hojaVida = new HojaVida();        
     }
     
     //Getters & Setters
@@ -68,12 +79,66 @@ public class EmpleadoBean implements Serializable{
     public void setRolView(SmsRol rolView) {
         this.rolView = rolView;
     }
+
+    public SmsUsuario getAuxUsuarioView() {
+        return auxUsuarioView;
+    }
+
+    public void setAuxUsuarioView(SmsUsuario auxUsuarioView) {
+        this.auxUsuarioView = auxUsuarioView;
+    }
+
+    public SmsHojavida getHojavida() {
+        return hojavida;
+    }
+
+    public void setHojavida(SmsHojavida hojavida) {
+        this.hojavida = hojavida;
+    }
+
+    public boolean isHabilitado() {
+        return habilitado;
+    }
+
+    public void setHabilitado(boolean habilitado) {
+        this.habilitado = habilitado;
+    }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }   
+
+    public UploadedFile getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(UploadedFile archivo) {
+        this.archivo = archivo;
+    }
+
+    public HojaVida getHojaVida() {
+        return hojaVida;
+    }
+
+    public void setHojaVida(HojaVida hojaVida) {
+        this.hojaVida = hojaVida;
+    }
+    
+    
+    
     
     //Metodos que se comunican con el controlador    
     public void registrar(){
+        usuarioView.setUsuarioRazonSocial("Planit SAS");
+        usuarioView.setUsuarioNit("");
         empleado.registrarUsuario(usuarioView, ciudadView);
         empleado.registrarEmpleado(usuarioView, hojavida, empleadoView);
         auxUsuarioView = usuarioView;
+       
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         hojavida = new SmsHojavida();
@@ -91,6 +156,10 @@ public class EmpleadoBean implements Serializable{
     }
     
     public void eliminar(){        
+    }
+    
+    public void prueba(){
+    hojaVida.registrarHojaVida(archivo);
     }
     
     

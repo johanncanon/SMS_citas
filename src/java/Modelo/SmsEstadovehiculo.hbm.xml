@@ -8,9 +8,9 @@
             <column name="idEstadoVeh" />
             <generator class="identity"></generator>
         </id>
-        <one-to-one name="smsVehiculo" class="Modelo.SmsVehiculo" fetch="select">
+        <many-to-one name="smsVehiculo" class="Modelo.SmsVehiculo" fetch="select">
             <column name="EstadoVeh_idVehiculo" not-null="true" />
-        </one-to-one>
+        </many-to-one>
         <property name="estadoVehFrenos" type="string">
             <column name="EstadoVeh_frenos" length="45" />
         </property>

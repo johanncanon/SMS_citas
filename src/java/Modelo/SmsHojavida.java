@@ -47,6 +47,7 @@ public class SmsHojavida  implements java.io.Serializable {
     public void setHojaVidaContenido(byte[] hojaVidaContenido) {
         this.hojaVidaContenido = hojaVidaContenido;
     }
+    
     public Set<SmsEmpleado> getSmsEmpleados() {
         return this.smsEmpleados;
     }

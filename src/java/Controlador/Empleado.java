@@ -5,6 +5,8 @@
  */
 package Controlador;
 
+import DAO.IEmpleadoDao;
+import DAO.ImpEmpleadoDao;
 import Modelo.SmsEmpleado;
 import Modelo.SmsHojavida;
 import Modelo.SmsUsuario;
@@ -47,7 +49,10 @@ public class Empleado extends Usuario {
     //CRUD    
     public void registrarEmpleado(SmsUsuario u, SmsHojavida h, SmsEmpleado e){
     usuario = u; hojaVida = h; empleado = e;
-    
+    empleado.setSmsUsuario(usuario);
+    empleado.setSmsHojavida(hojaVida);
+    IEmpleadoDao empleadoDao = new ImpEmpleadoDao();
+    empleadoDao.registrarEmpleado(empleado);
     }
     
     public void modificarEmpleado(SmsUsuario u, SmsHojavida h, SmsEmpleado e){
