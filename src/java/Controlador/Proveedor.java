@@ -5,7 +5,10 @@
  */
 package Controlador;
 
+import DAO.IProveedorDao;
+import DAO.ImpProveedorDao;
 import Modelo.SmsProveedor;
+import Modelo.SmsUsuario;
 
 /**
  *
@@ -17,6 +20,7 @@ public class Proveedor extends Usuario{
     
     public Proveedor() {
         super();
+        proveedor = new SmsProveedor();
     }
 
     public SmsProveedor getProveedor() {
@@ -26,6 +30,27 @@ public class Proveedor extends Usuario{
     public void setProveedor(SmsProveedor proveedor) {
         
         this.proveedor = proveedor;
+    }
+    
+    //Metodos de la clase
+    public void registrarProveedor(SmsProveedor p, SmsUsuario u){
+    usuario = u; proveedor = p;
+    proveedor.setSmsUsuario(usuario);
+    IProveedorDao provedorDao= new  ImpProveedorDao();
+    provedorDao.registrarProveedor(proveedor);
+    }
+    
+    public void modificarProveedor(SmsProveedor p, SmsUsuario u){
+    usuario = u; proveedor = p;
+    proveedor.setSmsUsuario(usuario);
+    IProveedorDao provedorDao= new  ImpProveedorDao();
+    provedorDao.registrarProveedor(proveedor);
+    }
+    
+    public void eliminarProveedor(SmsProveedor p){
+    proveedor = p;
+    IProveedorDao provedorDao= new  ImpProveedorDao();
+    provedorDao.eliminarProveedor(proveedor);    
     }
     
     

@@ -69,9 +69,12 @@ public class Usuario {
         
     }
     
-    public void modificarUsuario(SmsUsuario u) {
-        usuario=u;        
+    public void modificarUsuario(SmsUsuario u, SmsCiudad c) {
+        usuario=u;ciudad=c;        
         //el metodo recibe el objeto usuario, con sus atributos modificados y lo persiste en la BD
+        ICiudadDao ciudadDao = new ImpCiudadDao();
+        ciudad = ciudadDao.consultarCiudad(ciudad).get(0);
+        usuario.setSmsCiudad(ciudad);
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarioDao.modificarUsuario(usuario);
         

@@ -15,6 +15,7 @@ import java.util.List;
  * @author Desarrollo_Planit
  */
 public class Referencia {
+    
     private SmsReferencia referencia;
     private List<SmsReferencia> referencias;
 

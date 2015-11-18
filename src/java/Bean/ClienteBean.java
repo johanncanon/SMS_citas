@@ -16,26 +16,31 @@ import java.util.List;
  *
  * @author Desarrollo_Planit
  */
-public class ClienteBean implements Serializable{
+public class ClienteBean implements Serializable {
 
     //Objetos necesario para vista
     protected SmsUsuario clienteView;
+    protected SmsUsuario auxClienteview;
     protected List<SmsUsuario> clientes;
-    
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
-    
-    
+
+    //Control de componentes
+    protected boolean habilitado;
+
     //Relacion con el controlador
     protected Cliente cliente;
-    
+
     public ClienteBean() {
         clienteView = new SmsUsuario();
+        auxClienteview = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
-                
+        habilitado = true;
+        cliente = new Cliente();
     }
 
+    //Getters & Setters
     public SmsUsuario getClienteView() {
         return clienteView;
     }
@@ -60,15 +65,64 @@ public class ClienteBean implements Serializable{
         this.cliente = cliente;
     }
 
-    
-    
-    
-    
-    
+    public SmsUsuario getAuxClienteview() {
+        return auxClienteview;
+    }
+
+    public void setAuxClienteview(SmsUsuario auxClienteview) {
+        this.auxClienteview = auxClienteview;
+    }
+
+    public SmsCiudad getCiudadView() {
+        return ciudadView;
+    }
+
+    public void setCiudadView(SmsCiudad ciudadView) {
+        this.ciudadView = ciudadView;
+    }
+
+    public SmsRol getRolView() {
+        return rolView;
+    }
+
+    public void setRolView(SmsRol rolView) {
+        this.rolView = rolView;
+    }
+
+    public boolean isHabilitado() {
+        return habilitado;
+    }
+
+    public void setHabilitado(boolean habilitado) {
+        this.habilitado = habilitado;
+    }    
     
 
-   
-    
-    
-    
+    //Metodos     
+    public void registrar() {
+        cliente.registrarUsuario(clienteView, ciudadView);
+        auxClienteview = clienteView;
+        clienteView = new SmsUsuario();
+        ciudadView = new SmsCiudad();
+        habilitado = false;
+    }
+
+    public void registrarCuenta() {
+        rolView.setRolNombre("Cliente");
+        cliente.registrarDatosSesion(auxClienteview, rolView);
+        auxClienteview = new SmsUsuario();
+        rolView = new SmsRol();
+        habilitado = true;
+    }
+
+    public void modificar() {
+        cliente.modificarUsuario(clienteView, ciudadView);
+        clienteView = new SmsUsuario();
+    }
+
+    public void eliminar() {
+        cliente.eliminarUsuario(clienteView);
+        clienteView = new SmsUsuario();
+    }
+
 }

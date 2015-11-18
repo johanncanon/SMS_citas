@@ -123,7 +123,7 @@ public class UsuarioBean implements Serializable {
     }
 
     public void modificar() {
-        usuario.modificarUsuario(usuarioView);
+        usuario.modificarUsuario(usuarioView, ciudadView);
         usuarioView = new SmsUsuario();
     }
 
