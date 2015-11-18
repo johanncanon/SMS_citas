@@ -12,17 +12,15 @@ public class SmsHojavida  implements java.io.Serializable {
 
 
      private Integer idHojaVida;
-     private String hojaVidaNombre;
-     private String hojaVidaTipo;
+     private String hojaVidaNombre;    
      private byte[] hojaVidaContenido;
      private Set<SmsEmpleado> smsEmpleados = new HashSet<SmsEmpleado>(0);
 
     public SmsHojavida() {
     }
 
-    public SmsHojavida(String hojaVidaNombre, String hojaVidaTipo, byte[] hojaVidaContenido, Set<SmsEmpleado> smsEmpleados) {
-       this.hojaVidaNombre = hojaVidaNombre;
-       this.hojaVidaTipo = hojaVidaTipo;
+    public SmsHojavida(String hojaVidaNombre, byte[] hojaVidaContenido, Set<SmsEmpleado> smsEmpleados) {
+       this.hojaVidaNombre = hojaVidaNombre;       
        this.hojaVidaContenido = hojaVidaContenido;
        this.smsEmpleados = smsEmpleados;
     }
@@ -41,13 +39,7 @@ public class SmsHojavida  implements java.io.Serializable {
     public void setHojaVidaNombre(String hojaVidaNombre) {
         this.hojaVidaNombre = hojaVidaNombre;
     }
-    public String getHojaVidaTipo() {
-        return this.hojaVidaTipo;
-    }
     
-    public void setHojaVidaTipo(String hojaVidaTipo) {
-        this.hojaVidaTipo = hojaVidaTipo;
-    }
     public byte[] getHojaVidaContenido() {
         return this.hojaVidaContenido;
     }

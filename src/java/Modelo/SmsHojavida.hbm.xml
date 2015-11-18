@@ -9,11 +9,8 @@
             <generator class="identity"></generator>
         </id>
         <property name="hojaVidaNombre" type="string">
-            <column name="HojaVida_nombre" length="45" />
-        </property>
-        <property name="hojaVidaTipo" type="string">
-            <column name="HojaVida_tipo" length="45" />
-        </property>
+            <column name="HojaVida_nombre" length="150" />
+        </property>        
         <property name="hojaVidaContenido" type="binary">
             <column name="HojaVida_contenido" />
         </property>
