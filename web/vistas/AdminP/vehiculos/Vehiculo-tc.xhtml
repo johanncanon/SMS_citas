@@ -11,82 +11,157 @@
 
     <ui:composition template="./../template-admin-p.xhtml">
 
-        <ui:define name="content">            
-            <b:container fluid="true">
-                <b:row>
-                    <b:column col-lg="6" col-md="6" col-sm="5" col-xs="12" id="EspacioA">
-                        <b:well>
-                            <h:form>
-                                <h3>Ingreso de Vehiculos SMS</h3>
-                                <hr/>
-                                <p:panel id="panel" header="Ingreso Vehiculo SMS">
-                                    <div class="registro-vista">
-                                        <p:outputLabel  value="Nombre de Marca: "/>
-                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
-                                        
-                                        <p:outputLabel  value="Nombre de Marca: "/>
-                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
-                                        
-                                        <p:outputLabel  value="Nombre de Marca: "/>
-                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
-                                        
-                                        <p:outputLabel  value="Nombre de Marca: "/>
-                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
-                                        
-                                        <p:outputLabel  value="Nombre de Marca: "/>
-                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
-                                        
-                                        <p:outputLabel  value="Nombre de Marca: "/>
-                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
-                                        
-                                        <p:outputLabel  value="Nombre de Marca: "/>
-                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
-                                        
-                                        <p:outputLabel  value="Nombre de Marca: "/>
-                                        <p:inputText  value="#{marcaBean.marcaView.marcaNombre}"/>
+        <ui:define name="content">     
+
+            <h:form><b:container fluid="true">
+                    <b:row>
+                        <div id="EspacioA">
+
+
+                            <b:column col-lg="6" col-md="6" col-sm="5" col-xs="12" >
+                                <b:well>
+                                    <p:growl id="msgs" showDetail="true" />
+                                    <div class="table-responsive">
+                                        <p:panel header="Ingreso de Datos de Vehiculos SMS" style="margin-bottom:10px;">
+                                            <!-- ************ / Listas de Seleccion  / ********** -->
+
+
+
+                                            <h:panelGrid columns="4" style="padding: 12px">                                     
+                                                <p:outputLabel for="referencia" value="Referencia: " />
+                                                <p:selectOneMenu id="referencia" value="#{vehiculoBean.refeView.referenciaNombre}" style="width:150px; margin-right: 12px">
+                                                    <f:selectItem itemLabel="Seleccionar Referencia" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItems value="#{vehiculoBean.referenciasView}" />
+                                                </p:selectOneMenu>
+
+                                                <p:outputLabel for="ciudad" value="Ciudad:" />
+                                                <p:selectOneMenu id="ciudad" value="#{dropdownView.otro}" style="width:150px; margin-right: 12px">
+                                                    <f:selectItem itemLabel="Select Ciudad" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItems value="#{dropdownView.otros}" />
+                                                </p:selectOneMenu>
+
+                                                <p:outputLabel for="categoria" value="Categoria:" />
+                                                <p:selectOneMenu id="categoria" value="#{dropdownView.otro1}" style="width:150px; margin-right: 12px">
+                                                    <f:selectItem itemLabel="Select Categoria" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItems value="#{dropdownView.otros1}" />
+                                                </p:selectOneMenu>
+
+                                                <p:outputLabel for="id-prov" value="Proveedor ID:" />
+                                                <p:selectOneMenu id="id-prov" value="#{dropdownView.otro2}" style="width:150px; margin-right: 12px">
+                                                    <f:selectItem itemLabel="Select id-prov" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItems value="#{dropdownView.otros}" />
+                                                </p:selectOneMenu>
+
+                                                <p:outputLabel value="Color: "/>
+                                                <p:inputText value=""/>
+
+                                                <p:outputLabel value="# de Maletas P: "/>
+                                                <p:inputText value=""/>
+
+                                                <p:outputLabel value="# de Maletas G: "/>
+                                                <p:inputText value=""/>
+
+                                                <p:outputLabel value="# de Personas: "/>
+                                                <p:inputText value=""/>
+
+                                                <p:outputLabel value="# de Placa: "/>
+                                                <p:inputText value=""/>
+
+                                                <p:outputLabel value="Modelo: "/>
+                                                <p:inputText value=""/>
+
+                                            </h:panelGrid>
+                                        </p:panel>
                                     </div>
-                                    <br/>
-                                    <p:commandButton ajax="false" value="Registrar" action="#{marcaBean.registrar()}"/>
-                                </p:panel>
-                            </h:form> 
-                        </b:well>
-                    </b:column>
 
-                    <b:column col-lg="3" col-md="3" col-sm="3" col-xs="12" id="EspacioB">
-                        <b:well>
-                            <h3>Vehiculos SMS Renta</h3>
-                            <hr/>
-                            <p>En este panel podra ingresar las Marcas de los vehiculos de SMS renta como 
-                                consultar los vehiculos por sus respectivas Marcas.</p>
-                        </b:well>
-                    </b:column>
+                                    <div class="table-responsive">
+                                        <p:panel header="Estado del Vehiculo">
+                                            <!-- *************** / FIN DE Listas de Seleccion  / ****************** -->
+                                            <p:panelGrid columns="4" >
+                                                <p:outputLabel for="est-frenos" value="Frenos:" />
+                                                <p:selectOneMenu id="est-frenos" value="#{dropdownView.a1}" style="width:150px; margin-right: 12px">
+                                                    <f:selectItem itemLabel="Excelente" itemValue="Excelente" />
+                                                    <f:selectItem itemLabel="Bueno" itemValue="Bueno" />
+                                                    <f:selectItem itemLabel="Regular" itemValue="Regular" />
+                                                    <f:selectItem itemLabel="Malo" itemValue="Malo" />
 
-                    <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
-                        <b:well>
-                            <h3>Lista de referencia de Vehìculos SMS consultados/ocultarse</h3>
-                            <hr/>
-                            <p:dataTable var="car" value="#{dtBasicView.cars}">
-                                <p:column headerText="Id">
-                                    <h:outputText value="#{car.id}" />
-                                </p:column>
+                                                </p:selectOneMenu>
 
-                                <p:column headerText="Year">
-                                    <h:outputText value="#{car.year}" />
-                                </p:column>
+                                                <p:outputLabel for="est-motor" value="Motor:" />
+                                                <p:selectOneMenu id="est-motor" value="#{dropdownView.a2}" style="width:150px; margin-right: 12px">
+                                                    <f:selectItem itemLabel="Excelente" itemValue="Excelente" />
+                                                    <f:selectItem itemLabel="Bueno" itemValue="Bueno" />
+                                                    <f:selectItem itemLabel="Regular" itemValue="Regular" />
+                                                    <f:selectItem itemLabel="Malo" itemValue="Malo" />
+                                                </p:selectOneMenu>
 
-                                <p:column headerText="Brand">
-                                    <h:outputText value="#{car.brand}" />
-                                </p:column>
+                                                <p:outputLabel for="est-sillas" value="Silleteria:" />
+                                                <p:selectOneMenu id="est-sillas" value="#{dropdownView.a3}" style="width:150px; margin-right: 12px">
+                                                    <f:selectItem itemLabel="Excelente" itemValue="Excelente" />
+                                                    <f:selectItem itemLabel="Bueno" itemValue="Bueno" />
+                                                    <f:selectItem itemLabel="Regular" itemValue="Regular" />
+                                                    <f:selectItem itemLabel="Malo" itemValue="Malo" />
+                                                </p:selectOneMenu>
 
-                                <p:column headerText="Color">
-                                    <h:outputText value="#{car.color}" />
-                                </p:column>
-                            </p:dataTable>
-                        </b:well>
-                    </b:column>
-                </b:row>
+                                                <p:outputLabel for="est-pintu" value="Pintura:" />
+                                                <p:selectOneMenu id="est-pintu" value="#{dropdownView.a4}" style="width:150px; margin-right: 12px">
+                                                    <f:selectItem itemLabel="Excelente" itemValue="Excelente" />
+                                                    <f:selectItem itemLabel="Bueno" itemValue="Bueno" />
+                                                    <f:selectItem itemLabel="Regular" itemValue="Regular" />
+                                                    <f:selectItem itemLabel="Malo" itemValue="Malo" />
+                                                </p:selectOneMenu>
 
-            </b:container>
+                                                <p:outputLabel value="Kilometraje:" />
+                                                <p:inputText value=""/>
+                                            </p:panelGrid>
+                                        </p:panel>
+                                    </div>
+
+                                    <p:commandButton value="Submit" update="msgs" actionListener="#{dropdownView.displayLocation}" icon="ui-icon-check" />
+
+
+                                </b:well>
+                            </b:column>
+                        </div>
+
+                        <div id="EspacioB">
+                            <b:column col-lg="3" col-md="3" col-sm="3" col-xs="12" >
+                                <b:well>
+                                    <h3>Vehiculos SMS Renta</h3>
+                                    <hr/>
+                                    <p>En este panel podra ingresar las Marcas de los vehiculos de SMS renta como 
+                                        consultar los vehiculos por sus respectivas Marcas.</p>
+                                </b:well>
+                            </b:column>
+                        </div>
+
+                        <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
+                            <b:well>
+                                <h3>Lista de referencia de Vehìculos SMS consultados/ocultarse</h3>
+                                <hr/>
+                                <p:dataTable var="car" value="">
+                                    <p:column headerText="Id">
+                                        <h:outputText value="" />
+                                    </p:column>
+
+                                    <p:column headerText="Year">
+                                        <h:outputText value="" />
+                                    </p:column>
+
+                                    <p:column headerText="Brand">
+                                        <h:outputText value="" />
+                                    </p:column>
+
+                                    <p:column headerText="Color">
+                                        <h:outputText value="" />
+                                    </p:column>
+                                </p:dataTable>
+                            </b:well>
+                        </b:column>
+                    </b:row>
+
+                </b:container> </h:form> 
+
         </ui:define>
     </ui:composition>
 

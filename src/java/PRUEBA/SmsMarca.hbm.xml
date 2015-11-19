@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/11/2015 12:16:59 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PRUEBA.SmsMarca" table="sms_marca" catalog="bd_sms_citas" optimistic-lock="version">
+        <id name="idMarca" type="java.lang.Integer">
+            <column name="idMarca" />
+            <generator class="identity" />
+        </id>
+        <property name="marcaNombre" type="string">
+            <column name="Marca_nombre" length="45" />
+        </property>
+        <set name="smsReferencias" table="sms_referencia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Referencia_idMarca" not-null="true" />
+            </key>
+            <one-to-many class="PRUEBA.SmsReferencia" />
+        </set>
+    </class>
+</hibernate-mapping>

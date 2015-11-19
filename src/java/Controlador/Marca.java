@@ -45,6 +45,7 @@ public class Marca {
 
     /**
      * ********************** METODOS QUE SE COMUNICAN CON BEAN-MARCAS ********************************
+     * @param marc
      */
     public void modificarMarca(SmsMarca marc){
         this.marca = marc;

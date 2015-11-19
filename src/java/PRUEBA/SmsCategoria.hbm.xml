@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/11/2015 12:16:59 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PRUEBA.SmsCategoria" table="sms_categoria" catalog="bd_sms_citas" optimistic-lock="version">
+        <id name="idCategoria" type="java.lang.Integer">
+            <column name="idCategoria" />
+            <generator class="identity" />
+        </id>
+        <property name="categoriaNombre" type="string">
+            <column name="Categoria_nombre" length="100" />
+        </property>
+        <property name="categoriaDescripcion" type="string">
+            <column name="Categoria_descripcion" length="65535" />
+        </property>
+        <set name="smsCostosServicios" table="sms_costos_servicio" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="SMS_Categoria_idCategoria" not-null="true" />
+            </key>
+            <one-to-many class="PRUEBA.SmsCostosServicio" />
+        </set>
+        <set name="smsVehiculos" table="sms_vehiculo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Veh_categoria" not-null="true" />
+            </key>
+            <one-to-many class="PRUEBA.SmsVehiculo" />
+        </set>
+    </class>
+</hibernate-mapping>

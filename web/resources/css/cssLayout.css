@@ -314,3 +314,7 @@
 .registro-vista{
     margin: 9px;
 }
+
+td, th {
+    padding: 2px !important;
+}

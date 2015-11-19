@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/11/2015 12:16:59 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="PRUEBA.SmsCostosServicio" table="sms_costos_servicio" catalog="bd_sms_citas" optimistic-lock="version">
+        <id name="idSmsCostosServicio" type="int">
+            <column name="idSMS_Costos_servicio" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="smsCategoria" class="PRUEBA.SmsCategoria" fetch="select">
+            <column name="SMS_Categoria_idCategoria" not-null="true" />
+        </many-to-one>
+        <many-to-one name="smsServicios" class="PRUEBA.SmsServicios" fetch="select">
+            <column name="SMS_Servicios_idServicios" not-null="true" />
+        </many-to-one>
+        <property name="smsPrecio" type="string">
+            <column name="SMS_Precio" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
