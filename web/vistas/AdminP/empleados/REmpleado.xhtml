@@ -42,7 +42,7 @@
                                         <p:inputText placeholder="Direccion de correo electronico" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioEmail}"></p:inputText>
 
                                         <p:outputLabel value="Hoja de vida: "/>
-                                        <p:fileUpload fileUploadListener="#{empleadoBean.prueba}" auto="true" mode="advanced" allowTypes="/(\.|\/)(pdf|docx|doc)$/"/>
+                                        <p:fileUpload fileUploadListener="#{empleadoBean.uploadFile}" auto="true" mode="advanced" allowTypes="/(\.|\/)(pdf|docx|doc)$/"/>
                                            
                                         <p:outputLabel value="Ciudad: "/>
                                         <p:selectOneMenu value="#{empleadoBean.ciudadView.ciudadNombre}" style="width: 60%">
@@ -50,7 +50,7 @@
                                             <f:selectItems value="#{ciudadBean.listaCiudades}"/>
                                         </p:selectOneMenu> 
                                     </p:panelGrid>
-                                    <p:commandButton id="BregistroUsuario" update="messages seccionDatosUsuario seccionDatosSesion BregistroCuenta" style="width:100%" class="btn btn-block btn-primary btn-lg" value="Registrar Usuario" />
+                                    <p:commandButton id="BregistroUsuario" ajax="false" update="messages seccionDatosUsuario seccionDatosSesion BregistroCuenta" action="#{empleadoBean.registrar()}" style="width:100%" class="btn btn-block btn-primary btn-lg" value="Registrar Usuario" />
                                 </b:well>
                             </b:column>                            
                             <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12" class="panelSesion" >
@@ -60,16 +60,16 @@
                                     <p:panelGrid columns="2" id="seccionDatosSesion" class="table-responsive"  style="width: 100%">
 
                                         <p:outputLabel value="Login: "/>
-                                        <p:inputText style="width: 100%" placeholder="Login de sesion" disabled="true" value="#{empleadoBean.auxUsuarioView.usuarioLogin}"></p:inputText>
+                                        <p:inputText style="width: 100%" placeholder="Login de sesion" disabled="#{empleadoBean.habilitado}" value="#{empleadoBean.auxUsuarioView.usuarioLogin}"></p:inputText>
 
                                         <p:outputLabel value="Contraseña: "/>
-                                        <p:password style="width: 100%" disabled="true" placeholder="Contraseña de sesion" value="#{empleadoBean.auxUsuarioView.usuarioPassword}"></p:password>
+                                        <p:password style="width: 100%" disabled="#{empleadoBean.habilitado}" placeholder="Contraseña de sesion" value="#{empleadoBean.auxUsuarioView.usuarioPassword}"></p:password>
 
                                         <p:outputLabel value="Repita contraseña: "/>
-                                        <p:password style="width: 100%" disabled="true" placeholder="Repita contraseña de sesion" value="#{empleadoBean.auxUsuarioView.usuarioRememberToken}"></p:password>                               
+                                        <p:password style="width: 100%" disabled="#{empleadoBean.habilitado}" placeholder="Repita contraseña de sesion" value="#{empleadoBean.auxUsuarioView.usuarioRememberToken}"></p:password>                               
 
                                     </p:panelGrid>
-                                    <p:commandButton style="width:100%" id="BregistroCuenta" value="Crear Usuario" disabled="true" update="messages seccionDatosSesion seccionDatosUsuario BregistroCuenta" action="#{empleadoBean.registrarCuenta()}"></p:commandButton>
+                                    <p:commandButton style="width:100%" id="BregistroCuenta" ajax="false" value="Crear Usuario" disabled="#{empleadoBean.habilitado}" update="messages seccionDatosSesion seccionDatosUsuario BregistroCuenta" action="#{empleadoBean.registrarCuenta()}"></p:commandButton>
 
                                 </b:well>
                             </b:column>

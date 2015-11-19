@@ -16,17 +16,14 @@ import org.primefaces.model.UploadedFile;
  * @author Desarrollo_Planit
  */
 public class Archivos {
-    
+
     UploadedFile archivo;
-    
-    
-    public void UploadFile(UploadedFile file) throws IOException{
-        archivo = file;
-        String filePath = "c:/prueba/";
-        byte[] bytes = null;
-        if (null != archivo) {
-            bytes = archivo.getContents();
-            String filename = archivo.getFileName();
+    String filePath = "c:/prueba/";
+
+    public void UploadFile(byte[] b, String nombre) throws IOException {
+        byte[] bytes = b;
+        if (null != b) {
+            String filename = nombre;
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath + filename)));
             stream.write(bytes);
             stream.close();

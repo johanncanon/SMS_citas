@@ -10,10 +10,7 @@
         </id>
         <property name="hojaVidaNombre" type="string">
             <column name="HojaVida_nombre" length="150" />
-        </property>        
-        <property name="hojaVidaContenido" type="binary">
-            <column name="HojaVida_contenido" />
-        </property>
+        </property>     
         <set name="smsEmpleados" table="sms_empleado" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="empleado_hojaVida" />

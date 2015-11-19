@@ -8,7 +8,6 @@ package Bean;
 import Modelo.SmsEstadovehiculo;
 import java.util.List;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import Controlador.EstadoVehiculo;
 import DAO.IEstadoVehiculoDao;
 import DAO.ImpEstadoVehiculoDao;
@@ -18,7 +17,7 @@ import DAO.ImpEstadoVehiculoDao;
  * @author SISTEMAS
  */
 @Named(value = "estadoVehiculoBean")
-@Dependent
+
 public class EstadoVehiculoBean {
 
     private SmsEstadovehiculo estVehView;

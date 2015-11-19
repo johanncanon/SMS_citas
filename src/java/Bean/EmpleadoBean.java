@@ -37,8 +37,7 @@ public class EmpleadoBean implements Serializable {
     protected UploadedFile archivo;
 
     //Control de componentes
-    protected boolean habilitado;
-    protected boolean registro;
+    protected boolean habilitado;   
 
     //Relacion con el controlador
     protected Empleado empleado;
@@ -53,9 +52,9 @@ public class EmpleadoBean implements Serializable {
         rolView = new SmsRol();
         hojavida = new SmsHojavida();
         hojaVida = new HojaVida();
-
-        habilitado = true;
-        registro = true;
+        file = new Archivos();
+        habilitado = true;       
+        empleado = new Empleado();
     }
 
     //Getters & Setters
@@ -138,34 +137,33 @@ public class EmpleadoBean implements Serializable {
     public void setHojaVida(HojaVida hojaVida) {
         this.hojaVida = hojaVida;
     }
-
-    public boolean isRegistro() {
-        return registro;
-    }
-
-    public void setRegistro(boolean registro) {
-        this.registro = registro;
-    }
+    
 
     //Metodos que se comunican con el controlador    
-    public void registrar() {
-        usuarioView.setUsuarioRazonSocial("Planit SAS");
+    public void registrar() {      
+        
+        usuarioView.setUsuarioRazonSocial("SMS Renta");
         usuarioView.setUsuarioNit("");
+        
         empleado.registrarUsuario(usuarioView, ciudadView);
-        empleado.registrarEmpleado(usuarioView, hojavida, empleadoView);
+        hojaVida.registrarHojaVida(hojavida);
+        empleado.registrarEmpleado(usuarioView, hojavida);
         auxUsuarioView = usuarioView;
 
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         hojavida = new SmsHojavida();
         empleadoView = new SmsEmpleado();
+        
+        habilitado = false;
     }
 
     public void registrarCuenta() {
         rolView.setRolNombre("Empleado");
-        empleado.registrarDatosSesion(usuarioView, rolView);
-        usuarioView = new SmsUsuario();
-        rolView = new SmsRol();
+        empleado.registrarDatosSesion(auxUsuarioView, rolView);
+        auxUsuarioView = new SmsUsuario();
+        rolView = new SmsRol();        
+        habilitado = true;
     }
 
     public void modificar() {
@@ -173,22 +171,22 @@ public class EmpleadoBean implements Serializable {
 
     public void eliminar() {
     }
+    
 
-    public void activar() {
-        registro = false;
-    }
-
-    public void prueba(FileUploadEvent e) throws IOException {        
-        archivo = e.getFile();
+    public void uploadFile(FileUploadEvent e) throws IOException { 
+        hojavida.setHojaVidaNombre(e.getFile().getFileName());
         String filePath = "c:/prueba/";
-        byte[] bytes = null;
-        if (null != archivo) {
-            bytes = archivo.getContents();
-            String filename = archivo.getFileName();
+        byte[] bytes = e.getFile().getContents();
+        if (null != e.getFile()) {
+            String filename = e.getFile().getFileName();
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath + filename)));
             stream.write(bytes);
             stream.close();
         }
+    }
+    
+    public void downloadFile(){
+        String filePath = "c:/prueba/";
     }
 
 }

@@ -47,8 +47,8 @@ public class Empleado extends Usuario {
     
     //Metodos de la clase
     //CRUD    
-    public void registrarEmpleado(SmsUsuario u, SmsHojavida h, SmsEmpleado e){
-    usuario = u; hojaVida = h; empleado = e;
+    public void registrarEmpleado(SmsUsuario u, SmsHojavida h){
+    usuario = u; hojaVida = h;
     empleado.setSmsUsuario(usuario);
     empleado.setSmsHojavida(hojaVida);
     IEmpleadoDao empleadoDao = new ImpEmpleadoDao();

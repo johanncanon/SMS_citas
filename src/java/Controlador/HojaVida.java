@@ -5,11 +5,10 @@
  */
 package Controlador;
 
+import DAO.IHojaVidaDao;
+import DAO.ImpHojaVidaDao;
 import Modelo.SmsHojavida;
 import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Blob;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -23,10 +22,10 @@ public class HojaVida {
         hojaVida = new SmsHojavida();
     }
 
-    public void registrarHojaVida(UploadedFile archivo) throws IOException {
-
-        InputStream in = archivo.getInputstream();
-        Blob b;              
+    public void registrarHojaVida(SmsHojavida h){
+        hojaVida = h;
+        IHojaVidaDao hojaDao = new ImpHojaVidaDao();
+        hojaDao.registrarHojaVida(hojaVida);
     }
 
     
