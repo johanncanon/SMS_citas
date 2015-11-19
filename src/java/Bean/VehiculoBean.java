@@ -39,16 +39,11 @@ public class VehiculoBean {
     private SmsProveedor provView;
     private SmsReferencia refeView;
     private SmsVehiculo vehiculoView;
-    //instancia de Estado Vehiculo
-    private SmsEstadovehiculo estVehiView;
+    private SmsEstadovehiculo estVehiView;//instancia de Estado Vehiculo
     private List<SmsVehiculo> vehiculosView;
     private List<String> vehiculosViewS;
-    //LISTA DE OBJETOS DE LAS RELACIONES CON VEHICULO
-    private List<SmsCiudad> ciudadesView;
-    private List<SmsCategoria> categoriasview;
-    private List<SmsReferencia> referenciasView;
-    private List<SmsProveedor> proveedoresView;
 
+    
     public VehiculoBean() {
         vehiculo = new Vehiculo();
         vehiculoView = new SmsVehiculo();
@@ -57,7 +52,7 @@ public class VehiculoBean {
         provView = new SmsProveedor();
         refeView = new SmsReferencia();
         estVehiView = new SmsEstadovehiculo();
-        //LISTADOS DE LAS RELACIONES CON CONTROLADOR VEHICULO
+        
     }
 
     /**
@@ -127,46 +122,7 @@ public class VehiculoBean {
         this.vehiculoView = veh;
     }
     /*  ********  LISTAS DE OBJETOS DE RELACIONES CON VEHICULO  ********************************************************/
-
-    public List<SmsCiudad> getCiudadesView() {
-        ICiudadDao linkDao = new ImpCiudadDao();
-        ciudadesView = linkDao.mostrarCiudades();
-        return ciudadesView;
-    }
-
-    public void setCiudadesView(List<SmsCiudad> ciudadesView) {
-        this.ciudadesView = ciudadesView;
-    }
-
-    public List<SmsCategoria> getCategoriasview() {
-        ICategoriaDao linkDao = new ImpCategoriaDao();
-        categoriasview = linkDao.mostrarCategorias();
-        return categoriasview;
-    }
-
-    public void setCategoriasview(List<SmsCategoria> categoriasview) {
-        this.categoriasview = categoriasview;
-    }
-
-    public List<SmsReferencia> getReferenciasView() {
-        IReferenciaDao linkDao = new ImpReferenciaDao();
-        referenciasView = linkDao.mostrarReferencias();
-        return referenciasView;
-    }
-
-    public void setReferenciasView(List<SmsReferencia> referenciasView) {
-        this.referenciasView = referenciasView;
-    }
-
-    public List<SmsProveedor> getProveedoresView() {
-        IProveedorDao linkDao = new ImpProveedorDao();
-        proveedoresView = linkDao.mostrarProveedores();
-        return proveedoresView;
-    }
-
-    public void setProveedoresView(List<SmsProveedor> proveedoresView) {
-        this.proveedoresView = proveedoresView;
-    }
+    /*  *****************************************************************************************************************/
 
     public List<SmsVehiculo> getVehiculosView() {
         IVehiculoDao vehDao = new ImpVehiculoDao();
@@ -183,17 +139,30 @@ public class VehiculoBean {
     public void registrar() {
         vehiculo.regisrtarVehiculo(catView, provView, ciuView, refeView, vehiculoView);
         estVehiView.setSmsVehiculo(vehiculoView);
-
+        refeView = new SmsReferencia();
+        catView = new SmsCategoria();
+        provView = new SmsProveedor();
+        ciuView = new SmsCiudad();
         vehiculoView = new SmsVehiculo();
     }
 
     public void modificar() {
         vehiculo.modficarVehiculo(catView, provView, ciuView, refeView, vehiculoView);
+        estVehiView.setSmsVehiculo(vehiculoView);
+        refeView = new SmsReferencia();
+        catView = new SmsCategoria();
+        provView = new SmsProveedor();
+        ciuView = new SmsCiudad();
         vehiculoView = new SmsVehiculo();
     }
 
     public void eliminar() {
         vehiculo.eliminarVehiculo(catView, provView, ciuView, refeView, vehiculoView);
+        estVehiView.setSmsVehiculo(vehiculoView);
+        refeView = new SmsReferencia();
+        catView = new SmsCategoria();
+        provView = new SmsProveedor();
+        ciuView = new SmsCiudad();
         vehiculoView = new SmsVehiculo();
     }
 

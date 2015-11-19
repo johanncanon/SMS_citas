@@ -13,6 +13,7 @@ import DAO.ImpReferenciaDao;
 import Modelo.SmsMarca;
 import Modelo.SmsReferencia;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,6 +76,14 @@ public class ReferenciaBean implements Serializable {
     }
 
     public List<String> getListaReferenciaView() {
+        listaReferenciaView = new ArrayList<>();
+        IReferenciaDao linkDao = new ImpReferenciaDao();
+        referenciasView = linkDao.mostrarReferencias();
+        for (int i = 0; i < referenciasView.size(); i++) {
+            listaReferenciaView.add(referenciasView.get(i).getReferenciaNombre());
+            
+        }
+        
         return listaReferenciaView;
     }
 

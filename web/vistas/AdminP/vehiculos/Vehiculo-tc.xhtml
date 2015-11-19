@@ -31,25 +31,25 @@
                                                 <p:outputLabel for="referencia" value="Referencia: " />
                                                 <p:selectOneMenu id="referencia" value="#{vehiculoBean.refeView.referenciaNombre}" style="width:150px; margin-right: 12px">
                                                     <f:selectItem itemLabel="Seleccionar Referencia" itemValue="" noSelectionOption="true" />
-                                                    <f:selectItems value="#{vehiculoBean.referenciasView}" />
+                                                    <f:selectItems value="#{referenciaBean.listaReferenciaView}" />
                                                 </p:selectOneMenu>
 
                                                 <p:outputLabel for="ciudad" value="Ciudad:" />
-                                                <p:selectOneMenu id="ciudad" value="#{dropdownView.otro}" style="width:150px; margin-right: 12px">
-                                                    <f:selectItem itemLabel="Select Ciudad" itemValue="" noSelectionOption="true" />
-                                                    <f:selectItems value="#{dropdownView.otros}" />
+                                                <p:selectOneMenu id="ciudad" value="#{vehiculoBean.ciuView.ciudadNombre}" style="width:150px; margin-right: 12px">
+                                                    <f:selectItem itemLabel="Selecionar Ciudad" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItems value="#{ciudadBean.listaCiudades}" />
                                                 </p:selectOneMenu>
 
                                                 <p:outputLabel for="categoria" value="Categoria:" />
-                                                <p:selectOneMenu id="categoria" value="#{dropdownView.otro1}" style="width:150px; margin-right: 12px">
+                                                <p:selectOneMenu id="categoria" value="#{vehiculoBean.catView.categoriaNombre}" style="width:150px; margin-right: 12px">
                                                     <f:selectItem itemLabel="Select Categoria" itemValue="" noSelectionOption="true" />
-                                                    <f:selectItems value="#{dropdownView.otros1}" />
+                                                    <f:selectItems value="#{categoriaBean.categoriasView}" />
                                                 </p:selectOneMenu>
 
                                                 <p:outputLabel for="id-prov" value="Proveedor ID:" />
-                                                <p:selectOneMenu id="id-prov" value="#{dropdownView.otro2}" style="width:150px; margin-right: 12px">
+                                                <p:selectOneMenu id="id-prov" value="#{vehiculoBean.provView.idProveedor}" style="width:150px; margin-right: 12px">
                                                     <f:selectItem itemLabel="Select id-prov" itemValue="" noSelectionOption="true" />
-                                                    <f:selectItems value="#{dropdownView.otros}" />
+                                                    <f:selectItems  />
                                                 </p:selectOneMenu>
 
                                                 <p:outputLabel value="Color: "/>
