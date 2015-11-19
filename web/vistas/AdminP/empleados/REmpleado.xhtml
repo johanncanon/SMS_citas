@@ -14,7 +14,7 @@
             <ui:define name="content">
                 <b:container fluid="true">
                     <b:row>
-                        <h:form>
+                        <h:form enctype="multipart/form-data">
                             <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12" class="espacio-arriba">
                                 <b:well>
                                     <h4>REGISTRO DE EMPLEADOS</h4>
@@ -42,15 +42,15 @@
                                         <p:inputText placeholder="Direccion de correo electronico" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioEmail}"></p:inputText>
 
                                         <p:outputLabel value="Hoja de vida: "/>
-                                        <p:fileUpload value="#{empleadoBean.archivo}" mode="simple"/>                                     
-
+                                        <p:fileUpload fileUploadListener="#{empleadoBean.prueba}" auto="true" mode="advanced" allowTypes="/(\.|\/)(pdf|docx|doc)$/"/>
+                                           
                                         <p:outputLabel value="Ciudad: "/>
                                         <p:selectOneMenu value="#{empleadoBean.ciudadView.ciudadNombre}" style="width: 60%">
                                             <f:selectItem itemLabel="Seleccione ciudad"/>
                                             <f:selectItems value="#{ciudadBean.listaCiudades}"/>
                                         </p:selectOneMenu> 
                                     </p:panelGrid>
-                                    <p:commandButton style="width:100%" update="messages seccionDatosUsuario seccionDatosSesion BregistroCuenta" action="#{empleadoBean.prueba()}" value="Registrar Usuario" />
+                                    <p:commandButton id="BregistroUsuario" update="messages seccionDatosUsuario seccionDatosSesion BregistroCuenta" style="width:100%" class="btn btn-block btn-primary btn-lg" value="Registrar Usuario" />
                                 </b:well>
                             </b:column>                            
                             <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12" class="panelSesion" >
