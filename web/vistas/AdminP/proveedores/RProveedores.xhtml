@@ -12,73 +12,85 @@
         <ui:composition template="./../template-admin-p.xhtml">
 
             <ui:define name="content">
-               <b:container fluid="true">
+                <b:container fluid="true">
                     <b:row>
                         <h:form>
-                            <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12" class="espacio-arriba">
-                                <b:well>
-                                    <h4>REGISTRO DE PROVEEDORES</h4>
-                                    <hr/>
-                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros proveedores, asignar una valor
-                                    de ganancias y ademas podra crear una cuenta de sesion para el ingreso al sistema.</p> 
-                                </b:well>
-                            </b:column>
+                            <div class="espacio-arriba">
+                                <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12" >
+                                    <b:well>
+                                        <h4>REGISTRO DE PROVEEDORES</h4>
+                                        <hr/>
+                                        <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros proveedores, asignar una valor
+                                            de ganancias y ademas podra crear una cuenta de sesion para el ingreso al sistema.</p> 
+                                    </b:well>
+                                </b:column>
+                            </div>
                             <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
                                 <b:well>
-                                    <h4>DATOS DE USUARIO</h4>
+                                    <h4>DATOS DE PROVEEDOR</h4>
                                     <hr/>
-                                    <p:growl id="messages" showDetail="true"/>                            
-                                    <p:panelGrid class="table-responsive" id="seccionDatosUsuario" columns="2" style="width: 100%;">
-                                        <p:outputLabel value="Nombre: "/>
-                                        <p:inputText placeholder="Nombres y apellidos" style="width: 100%;" maxlength="60" value="#{proveedorBean.usuarioView.usuarioNombre}"></p:inputText>                       
+                                    <p:growl id="messages" showDetail="true"/>  
+                                    <div class="espacio-arriba">
 
-                                        <p:outputLabel value="CC: " />
-                                        <p:inputText placeholder="Cedula de ciudadania" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioCc}"></p:inputText>
+                                        <p:panelGrid  id="seccionDatosUsuario" columns="2" style="width: 100%;">
+                                            <p:outputLabel value="Nombre: "/>
+                                            <p:inputText placeholder="Nombres y apellidos" style="width: 100%;" maxlength="60" value="#{proveedorBean.usuarioView.usuarioNombre}"></p:inputText>                       
 
-                                        <p:outputLabel value="Telefono: "/>
-                                        <p:inputText placeholder="Numero de telefono fijo o celular" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioTelefono}"></p:inputText> 
+                                            <p:outputLabel value="CC: " />
+                                            <p:inputText placeholder="Cedula de ciudadania" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioCc}"></p:inputText>
 
-                                        <p:outputLabel value="Email: "/>
-                                        <p:inputText placeholder="Direccion de correo electronico" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioEmail}"></p:inputText>
+                                            <p:outputLabel value="Telefono: "/>
+                                            <p:inputText placeholder="Numero de telefono fijo o celular" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioTelefono}"></p:inputText> 
 
-                                        <p:outputLabel value="Razon social: "/>
-                                        <p:inputText placeholder="Nombre de la empresa" style="width: 100%"  value="#{proveedorBean.usuarioView.usuarioRazonSocial}"></p:inputText>
+                                            <p:outputLabel value="Email: "/>
+                                            <p:inputText placeholder="Direccion de correo electronico" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioEmail}"></p:inputText>
 
-                                        <p:outputLabel value="Nit: "/>
-                                        <p:inputText placeholder="Nit de la empresa" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioNit}"></p:inputText>
+                                            <p:outputLabel value="Razon social: "/>
+                                            <p:inputText placeholder="Nombre de la empresa" style="width: 100%"  value="#{proveedorBean.usuarioView.usuarioRazonSocial}"></p:inputText>
 
-                                        <p:outputLabel value="Valor Ganancia: "/>
-                                        <p:inputText placeholder="Valor de ganancia" style="width: 100%" value="#{proveedorBean.proveedorView.proveedorValorGanancia}"></p:inputText>
+                                            <p:outputLabel value="Nit: "/>
+                                            <p:inputText placeholder="Nit de la empresa" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioNit}"></p:inputText>
 
-                                        <p:outputLabel value="Ciudad: "/>
-                                        <p:selectOneMenu value="#{proveedorBean.ciudadView.ciudadNombre}" style="width: 60%">
-                                            <f:selectItem itemLabel="Seleccione ciudad"/>
-                                            <f:selectItems value="#{ciudadBean.listaCiudades}"/>
-                                        </p:selectOneMenu> 
-                                    </p:panelGrid>
+                                            <p:outputLabel value="Valor Ganancia: "/>
+                                            <p:inputText placeholder="Valor de ganancia" style="width: 100%" value="#{proveedorBean.proveedorView.proveedorValorGanancia}"></p:inputText>
+
+                                            <p:outputLabel value="Ciudad: "/>
+                                            <p:selectOneMenu value="#{proveedorBean.ciudadView.ciudadNombre}" style="width: 60%">
+                                                <f:selectItem itemLabel="Seleccione ciudad"/>
+                                                <f:selectItems value="#{ciudadBean.listaCiudades}"/>
+                                            </p:selectOneMenu> 
+                                        </p:panelGrid>
+                                    </div>
                                     <p:commandButton style="width:100%" update="messages seccionDatosUsuario seccionDatosSesion BregistroCuenta" action="#{proveedorBean.registrar()}" value="Registrar Usuario" />
                                 </b:well>
-                            </b:column>                            
-                            <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12" class="panelSesion" >
-                                <b:well>
-                                    <h4>DATOS DE SESION</h4>
-                                    <hr/>                                   
-                                    <p:panelGrid columns="2" id="seccionDatosSesion" class="table-responsive"  style="width: 100%">
+                            </b:column>         
 
-                                        <p:outputLabel value="Login: "/>
-                                        <p:inputText style="width: 100%" placeholder="Login de sesion" disabled="#{proveedorBean.habilitado}" value="#{proveedorBean.auxUsuarioView.usuarioLogin}"></p:inputText>
+                            <div class="panelSesion">
 
-                                        <p:outputLabel value="Contraseña: "/>
-                                        <p:password style="width: 100%" disabled="#{proveedorBean.habilitado}" placeholder="Contraseña de sesion" value="#{proveedorBean.auxUsuarioView.usuarioPassword}"></p:password>
 
-                                        <p:outputLabel value="Repita contraseña: "/>
-                                        <p:password style="width: 100%" disabled="#{proveedorBean.habilitado}" placeholder="Repita contraseña de sesion" value="#{proveedorBean.auxUsuarioView.usuarioRememberToken}"></p:password>                               
+                                <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12"  >
+                                    <b:well>
+                                        <h4>DATOS DE SESION</h4>
+                                        <hr/>      
+                                        <div class="table-responsive"> 
+                                            <p:panelGrid columns="2" id="seccionDatosSesion"   style="width: 100%">
 
-                                    </p:panelGrid>
-                                    <p:commandButton style="width:100%" id="BregistroCuenta" value="Crear Usuario" disabled="#{proveedorBean.habilitado}" update="messages seccionDatosSesion seccionDatosUsuario" action="#{proveedorBean.registrarCuenta()}"></p:commandButton>
+                                                <p:outputLabel value="Login: "/>
+                                                <p:inputText style="width: 100%" placeholder="Login de sesion" disabled="#{proveedorBean.habilitado}" value="#{proveedorBean.auxUsuarioView.usuarioLogin}"></p:inputText>
 
-                                </b:well>
-                            </b:column>
+                                                <p:outputLabel value="Contraseña: "/>
+                                                <p:password style="width: 100%" disabled="#{proveedorBean.habilitado}" placeholder="Contraseña de sesion" value="#{proveedorBean.auxUsuarioView.usuarioPassword}"></p:password>
+
+                                                <p:outputLabel value="Repita contraseña: "/>
+                                                <p:password style="width: 100%" disabled="#{proveedorBean.habilitado}" placeholder="Repita contraseña de sesion" value="#{proveedorBean.auxUsuarioView.usuarioRememberToken}"></p:password>                               
+
+                                            </p:panelGrid>
+                                        </div>
+                                        <p:commandButton style="width:100%" id="BregistroCuenta" value="Crear Usuario" disabled="#{proveedorBean.habilitado}" update="messages seccionDatosSesion seccionDatosUsuario" action="#{proveedorBean.registrarCuenta()}"></p:commandButton>
+
+                                    </b:well>
+                                </b:column>
+                            </div>
                         </h:form>
                     </b:row>
                 </b:container>

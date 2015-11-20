@@ -7,6 +7,7 @@ package Bean;
 
 import DAO.ICiudadDao;
 import DAO.ImpCiudadDao;
+import Controlador.Ciudad;
 import Modelo.SmsCiudad;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,40 +17,40 @@ import java.util.List;
  * @author Desarrollo_Planit
  */
 public class CiudadBean {
-
-    private SmsCiudad ciudad;
-    private List<SmsCiudad> ciudades;
+    
+    private Ciudad ciudad;
+    private SmsCiudad ciudadView;
+    private List<SmsCiudad> ciudadesView;
     private List<String> listaCiudades;
 
     public CiudadBean() {
-        ciudad = new SmsCiudad();
-        ciudades = new ArrayList<>();
+        ciudadView = new SmsCiudad();
+        ciudadesView = new ArrayList<>();
     }
 
-    public SmsCiudad getCiudad() {
-        return ciudad;
+    public SmsCiudad getCiudadView() {
+        return ciudadView;
     }
 
-    public void setCiudad(SmsCiudad ciudad) {
-        this.ciudad = ciudad;
+    public void setCiudadView(SmsCiudad ciu) {
+        this.ciudadView = ciu;
     }
 
-    public List<SmsCiudad> getCiudades() {
-        ICiudadDao ciudadDao = new ImpCiudadDao();
-        ciudades = ciudadDao.mostrarCiudades();
-        return ciudades;
+    public List<SmsCiudad> getCiudadesView() {
+        ciudadesView = ciudad.getCiudades();
+        return ciudadesView;
     }
 
-    public void setCiudades(List<SmsCiudad> ciudades) {
-        this.ciudades = ciudades;
+    public void setCiudadesView(List<SmsCiudad> ciudades) {
+        this.ciudadesView = ciudades;
     }
 
     public List<String> getListaCiudades() {
         listaCiudades = new ArrayList<>();
         ICiudadDao ciudadDao = new ImpCiudadDao();
-        ciudades = ciudadDao.mostrarCiudades();
-        for (int i = 0; i < ciudades.size(); i++) {
-            listaCiudades.add(ciudades.get(i).getCiudadNombre());
+        ciudadesView = ciudadDao.mostrarCiudades();
+        for (int i = 0; i < ciudadesView.size(); i++) {
+            listaCiudades.add(ciudadesView.get(i).getCiudadNombre());
         }
         return listaCiudades;
     }
@@ -59,21 +60,18 @@ public class CiudadBean {
     }
 
     //Definicion Metodos CRUD
-    public void registrarCiudad() {
-        ICiudadDao ciudadDao = new ImpCiudadDao();
-        ciudadDao.registrarCiudad(ciudad);
-        ciudad = new SmsCiudad();
+    public void registrar() {
+        ciudad.registrarCiudad(ciudadView);
+        ciudadView = new SmsCiudad();
     }
 
     public void modificarCiudad() {
-        ICiudadDao ciudadDao = new ImpCiudadDao();
-        ciudadDao.modificarCiudad(ciudad);
-        ciudad = new SmsCiudad();
+        ciudad.modificarCiudad(ciudadView);
+        ciudadView = new SmsCiudad();
     }
 
     public void eliminarCiudad() {
-        ICiudadDao ciudadDao = new ImpCiudadDao();
-        ciudadDao.eliminarCiudad(ciudad);
-        ciudad = new SmsCiudad();
+        ciudad.eliminarCiudad(ciudadView);
+        ciudadView = new SmsCiudad();
     }
 }
