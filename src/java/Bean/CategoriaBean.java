@@ -10,6 +10,7 @@ import DAO.ICategoriaDao;
 import DAO.ImpCategoriaDao;
 import Modelo.SmsCategoria;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -55,6 +56,12 @@ public class CategoriaBean implements Serializable{
     }
 
     public List<String> getListaCategoriasView() {
+        listaCategoriasView = new ArrayList<>();
+        ICategoriaDao linkDao = new ImpCategoriaDao();
+        categoriasView = linkDao.mostrarCategorias();
+        for (int i = 0; i < categoriasView.size(); i++){
+            listaCategoriasView.add(categoriasView.get(i).getCategoriaNombre());
+        }
         return listaCategoriasView;
     }
 

@@ -6,39 +6,47 @@
 package Bean;
 
 import Controlador.Proveedor;
+import DAO.IProveedorDao;
+import DAO.ImpProveedorDao;
 import Modelo.SmsCiudad;
 import Modelo.SmsProveedor;
 import Modelo.SmsRol;
 import Modelo.SmsUsuario;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Desarrollo_Planit
  */
-public class ProveedorBean implements Serializable{
+public class ProveedorBean implements Serializable {
 
     //Objetos necesarios para vista
     protected SmsUsuario usuarioView;
     protected SmsUsuario auxUsuarioView;
-    protected SmsProveedor proveedorView;    
+    protected SmsProveedor proveedorView;
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
-    
+
     //Relacion con el controlador
     protected Proveedor proveedor;
-    
+
     //Control de componentes
     protected boolean habilitado;
-    
+
+    //lista de Id de proveedor
+    private List<SmsProveedor> proveedoresView;
+    private List<Integer> listaProveedoresView;
+
     public ProveedorBean() {
-    usuarioView = new SmsUsuario();
-    auxUsuarioView = new SmsUsuario();
-    proveedorView = new SmsProveedor();
-    ciudadView = new SmsCiudad();
-    rolView = new SmsRol();
-    proveedor = new Proveedor();
-    habilitado = true;
+        usuarioView = new SmsUsuario();
+        auxUsuarioView = new SmsUsuario();
+        proveedorView = new SmsProveedor();
+        ciudadView = new SmsCiudad();
+        rolView = new SmsRol();
+        proveedor = new Proveedor();
+        habilitado = true;
     }
 
     //Getters & Setters
@@ -88,7 +96,7 @@ public class ProveedorBean implements Serializable{
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
-    }   
+    }
 
     public boolean isHabilitado() {
         return habilitado;
@@ -97,41 +105,71 @@ public class ProveedorBean implements Serializable{
     public void setHabilitado(boolean habilitado) {
         this.habilitado = habilitado;
     }
+
+    /**
+     * ********************* Lista de Strings    ******************************
+     */
+    public List<SmsProveedor> getProveedoresView() {
+        IProveedorDao linkDao = new ImpProveedorDao();
+        proveedoresView = linkDao.mostrarProveedores();
+        return proveedoresView;
+    }
+
+    public void setProveedoresView(List<SmsProveedor> proveedoresView) {
+        this.proveedoresView = proveedoresView;
+    }
+
+    public List<Integer> getListaProveedoresView() {
+        listaProveedoresView = new ArrayList<>();
+        IProveedorDao linkDao = new ImpProveedorDao();
+        proveedoresView = linkDao.mostrarProveedores();
+        
+        for (int i = 0; i < proveedoresView.size();i++){
+            listaProveedoresView.add(proveedoresView.get(i).getIdProveedor());
+        }
+        return listaProveedoresView;
+    }
+
+    public void setListaProveedoresView(List<Integer> listaProveedoresView) {
+        this.listaProveedoresView = listaProveedoresView;
+    }
+
+    /**
+     * ********************* Lista de Strings    ******************************
+     */
     
     //Metodos    
-    public void registrar(){        
-    proveedor.registrarUsuario(usuarioView, ciudadView);
-    proveedor.registrarProveedor(proveedorView, usuarioView);
-    auxUsuarioView = usuarioView;
-    usuarioView = new SmsUsuario();
-    ciudadView = new SmsCiudad();
-    proveedorView = new SmsProveedor();
-    habilitado = false;
+    public void registrar() {
+        proveedor.registrarUsuario(usuarioView, ciudadView);
+        proveedor.registrarProveedor(proveedorView, usuarioView);
+        auxUsuarioView = usuarioView;
+        usuarioView = new SmsUsuario();
+        ciudadView = new SmsCiudad();
+        proveedorView = new SmsProveedor();
+        habilitado = false;
     }
-    
-    public void registrarCuenta(){
-    rolView.setRolNombre("Proveedor");
-    proveedor.registrarDatosSesion(usuarioView, rolView);
-    usuarioView = new SmsUsuario();
-    rolView = new SmsRol();
-    habilitado = true;
+
+    public void registrarCuenta() {
+        rolView.setRolNombre("Proveedor");
+        proveedor.registrarDatosSesion(usuarioView, rolView);
+        usuarioView = new SmsUsuario();
+        rolView = new SmsRol();
+        habilitado = true;
     }
-    
-    public void modificar(){
-    proveedor.modificarUsuario(usuarioView, ciudadView);
-    proveedor.modificarProveedor(proveedorView, usuarioView);
-    proveedorView = new SmsProveedor();
-    usuarioView = new SmsUsuario();
-    ciudadView = new SmsCiudad();            
+
+    public void modificar() {
+        proveedor.modificarUsuario(usuarioView, ciudadView);
+        proveedor.modificarProveedor(proveedorView, usuarioView);
+        proveedorView = new SmsProveedor();
+        usuarioView = new SmsUsuario();
+        ciudadView = new SmsCiudad();
     }
-    
-    public void eliminar(){
-    proveedor.eliminarProveedor(proveedorView);
-    proveedor.eliminarUsuario(usuarioView);
-    proveedorView = new SmsProveedor();
-    usuarioView = new SmsUsuario();    
+
+    public void eliminar() {
+        proveedor.eliminarProveedor(proveedorView);
+        proveedor.eliminarUsuario(usuarioView);
+        proveedorView = new SmsProveedor();
+        usuarioView = new SmsUsuario();
     }
-    
-    
-    
+
 }

@@ -28,18 +28,18 @@ public class ReferenciaBean implements Serializable {
     private List<String> listaReferenciaView;
     private String marcasView;
 
-    
-   
-
     public ReferenciaBean() {
         referenciaView = new SmsReferencia();
         marcasView = new String();
         referencia = new Referencia();
-        
+
     }
-/********************************************************
- *********       getters y setters        **************/
-    
+
+    /**
+     * ******************************************************
+     ********* getters y setters        *************
+     */
+
     public Referencia getReferencia() {
         return referencia;
     }
@@ -48,7 +48,6 @@ public class ReferenciaBean implements Serializable {
         this.referencia = referencia;
     }
 
-    
     public SmsReferencia getReferenciaView() {
         return referenciaView;
     }
@@ -66,7 +65,7 @@ public class ReferenciaBean implements Serializable {
     public void setReferenciasView(List<SmsReferencia> referenciasView) {
         this.referenciasView = referenciasView;
     }
-    
+
     public String getMarcasView() {//LISTA DE STRING
         return marcasView;
     }
@@ -81,17 +80,13 @@ public class ReferenciaBean implements Serializable {
         referenciasView = linkDao.mostrarReferencias();
         for (int i = 0; i < referenciasView.size(); i++) {
             listaReferenciaView.add(referenciasView.get(i).getReferenciaNombre());
-            
         }
-        
         return listaReferenciaView;
     }
 
     public void setListaReferenciaView(List<String> listaReferenciaView) {
         this.listaReferenciaView = listaReferenciaView;
-    }    
-    
-
+    }
 
     /* METODOS DEL BEAN
      ********************************************************************************/
@@ -109,7 +104,7 @@ public class ReferenciaBean implements Serializable {
         SmsMarca marca = new SmsMarca();
         IMarcaDao marcaDao = new ImpMarcaDao();
         marca = marcaDao.consultarMarca(marcasView).get(0);
-        
+
         referencia.registrarReferencia(referenciaView);
         referenciaView = new SmsReferencia();
     }
