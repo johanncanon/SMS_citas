@@ -15,7 +15,7 @@
                 <b:container fluid="true">
                     <b:row>
                         <h:form enctype="multipart/form-data">
-                            <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12" class="espacio-arriba">
+                            <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12" class="espacio-arriba">
                                 <b:well>
                                     <h4>REGISTRO DE EMPLEADOS</h4>
                                     <hr/>
@@ -25,9 +25,10 @@
                             </b:column>
                             <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
                                 <b:well>
-                                    <h4>DATOS DE USUARIO</h4>
+                                    <h4>DATOS DE EMPLEADO</h4><hr/>
+                                    <h4>Datos personales</h4>
                                     <hr/>
-                                    <p:growl id="messages" showDetail="true"/>                            
+                                    <p:growl id="messages" showDetail="true" autoUpdate="true"/>                            
                                     <p:panelGrid class="table-responsive" id="seccionDatosUsuario" columns="2" style="width: 100%;">
                                         <p:outputLabel value="Nombre: "/>
                                         <p:inputText placeholder="Nombres y apellidos" style="width: 100%;" maxlength="60" value="#{empleadoBean.usuarioView.usuarioNombre}"></p:inputText>                       
@@ -41,36 +42,40 @@
                                         <p:outputLabel value="Email: "/>
                                         <p:inputText placeholder="Direccion de correo electronico" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioEmail}"></p:inputText>
 
-                                        <p:outputLabel value="Hoja de vida: "/>
-                                        <p:fileUpload fileUploadListener="#{empleadoBean.uploadFile}" auto="true" mode="advanced" allowTypes="/(\.|\/)(pdf|docx|doc)$/"/>
-                                           
                                         <p:outputLabel value="Ciudad: "/>
                                         <p:selectOneMenu value="#{empleadoBean.ciudadView.ciudadNombre}" style="width: 60%">
                                             <f:selectItem itemLabel="Seleccione ciudad"/>
                                             <f:selectItems value="#{ciudadBean.listaCiudades}"/>
                                         </p:selectOneMenu> 
                                     </p:panelGrid>
-                                    <p:commandButton id="BregistroUsuario" ajax="false" update="messages seccionDatosUsuario seccionDatosSesion BregistroCuenta" action="#{empleadoBean.registrar()}" style="width:100%" class="btn btn-block btn-primary btn-lg" value="Registrar Usuario" />
-                                </b:well>
-                            </b:column>                            
-                            <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12" class="panelSesion" >
-                                <b:well>
-                                    <h4>DATOS DE SESION</h4>
+                                    <hr/>
+                                    <h4>Datos de sesion</h4>
                                     <hr/>                                   
                                     <p:panelGrid columns="2" id="seccionDatosSesion" class="table-responsive"  style="width: 100%">
-
                                         <p:outputLabel value="Login: "/>
-                                        <p:inputText style="width: 100%" placeholder="Login de sesion" disabled="#{empleadoBean.habilitado}" value="#{empleadoBean.auxUsuarioView.usuarioLogin}"></p:inputText>
+                                        <p:inputText style="width: 100%" placeholder="Login de sesion"  value="#{empleadoBean.usuarioView.usuarioLogin}"></p:inputText>
 
                                         <p:outputLabel value="Contraseña: "/>
-                                        <p:password style="width: 100%" disabled="#{empleadoBean.habilitado}" placeholder="Contraseña de sesion" value="#{empleadoBean.auxUsuarioView.usuarioPassword}"></p:password>
+                                        <p:password style="width: 100%"  placeholder="Contraseña de sesion" value="#{empleadoBean.usuarioView.usuarioPassword}"></p:password>
 
                                         <p:outputLabel value="Repita contraseña: "/>
-                                        <p:password style="width: 100%" disabled="#{empleadoBean.habilitado}" placeholder="Repita contraseña de sesion" value="#{empleadoBean.auxUsuarioView.usuarioRememberToken}"></p:password>                               
+                                        <p:password style="width: 100%"  placeholder="Repita contraseña de sesion" value="#{empleadoBean.usuarioView.usuarioRememberToken}"></p:password>      
+                                    </p:panelGrid><hr/>
+                                    <p:commandButton id="BregistroUsuario" ajax="false" action="#{empleadoBean.registrar()}" style="width:100%" class="btn btn-block btn-primary btn-lg" value="Registrar Empleado" />
+                                </b:well>
+                            </b:column>                          
 
+                            <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
+                                <b:well>                                    
+                                    <h4>INGRESO HOJA DE VIDA</h4>
+                                    <hr/>                                   
+                                    <p:panelGrid columns="2" id="seccionHojaVida" class="table-responsive"  style="width: 80%">
+
+                                        <p:outputLabel value="Hoja de vida: "/>
+                                        <p:fileUpload mode="simple" value="#{empleadoBean.archivo}"/>                                       
+                                                 
                                     </p:panelGrid>
-                                    <p:commandButton style="width:100%" id="BregistroCuenta" ajax="false" value="Crear Usuario" disabled="#{empleadoBean.habilitado}" update="messages seccionDatosSesion seccionDatosUsuario BregistroCuenta" action="#{empleadoBean.registrarCuenta()}"></p:commandButton>
-
+                                    <p:commandButton value="subir" style="width: 80%" class="btn btn-block btn-primary btn-lg" ajax="false" action="#{empleadoBean.registrarHojaVida()}"/>
                                 </b:well>
                             </b:column>
                         </h:form>

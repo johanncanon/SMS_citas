@@ -95,25 +95,17 @@ public class ClienteBean implements Serializable {
 
     public void setHabilitado(boolean habilitado) {
         this.habilitado = habilitado;
-    }    
-    
+    }
 
     //Metodos     
     public void registrar() {
-        cliente.registrarUsuario(clienteView, ciudadView);
-        auxClienteview = clienteView;
+        rolView.setRolNombre("Cliente");
+        cliente.registrarUsuario(clienteView, ciudadView, rolView);
+        
         clienteView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         habilitado = false;
-    }
-
-    public void registrarCuenta() {
-        rolView.setRolNombre("Cliente");
-        cliente.registrarDatosSesion(auxClienteview, rolView);
-        auxClienteview = new SmsUsuario();
-        rolView = new SmsRol();
-        habilitado = true;
-    }
+    }    
 
     public void modificar() {
         cliente.modificarUsuario(clienteView, ciudadView);

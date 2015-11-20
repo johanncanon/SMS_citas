@@ -13,12 +13,9 @@ import Modelo.SmsEmpleado;
 import Modelo.SmsHojavida;
 import Modelo.SmsRol;
 import Modelo.SmsUsuario;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
-import org.primefaces.event.FileUploadEvent;
+import org.apache.commons.io.IOUtils;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -34,10 +31,8 @@ public class EmpleadoBean implements Serializable {
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
     protected SmsHojavida hojavida;
-    protected UploadedFile archivo;
-
-    //Control de componentes
-    protected boolean habilitado;   
+    private UploadedFile archivo; 
+          
 
     //Relacion con el controlador
     protected Empleado empleado;
@@ -52,8 +47,7 @@ public class EmpleadoBean implements Serializable {
         rolView = new SmsRol();
         hojavida = new SmsHojavida();
         hojaVida = new HojaVida();
-        file = new Archivos();
-        habilitado = true;       
+        file = new Archivos();        
         empleado = new Empleado();
     }
 
@@ -106,14 +100,6 @@ public class EmpleadoBean implements Serializable {
         this.hojavida = hojavida;
     }
 
-    public boolean isHabilitado() {
-        return habilitado;
-    }
-
-    public void setHabilitado(boolean habilitado) {
-        this.habilitado = habilitado;
-    }
-
     public Empleado getEmpleado() {
         return empleado;
     }
@@ -137,33 +123,28 @@ public class EmpleadoBean implements Serializable {
     public void setHojaVida(HojaVida hojaVida) {
         this.hojaVida = hojaVida;
     }
+
+    public Archivos getFile() {
+        return file;
+    }
+
+    public void setFile(Archivos file) {
+        this.file = file;
+    }
     
 
     //Metodos que se comunican con el controlador    
-    public void registrar() {      
-        
+    public void registrar() {
+
         usuarioView.setUsuarioRazonSocial("SMS Renta");
         usuarioView.setUsuarioNit("");
-        
-        empleado.registrarUsuario(usuarioView, ciudadView);
-        hojaVida.registrarHojaVida(hojavida);
-        empleado.registrarEmpleado(usuarioView, hojavida);
-        auxUsuarioView = usuarioView;
+        rolView.setRolNombre("Empleado");
+        empleado.registrarUsuario(usuarioView, ciudadView, rolView);
 
+        auxUsuarioView = usuarioView;
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
-        hojavida = new SmsHojavida();
-        empleadoView = new SmsEmpleado();
-        
-        habilitado = false;
-    }
-
-    public void registrarCuenta() {
-        rolView.setRolNombre("Empleado");
-        empleado.registrarDatosSesion(auxUsuarioView, rolView);
-        auxUsuarioView = new SmsUsuario();
-        rolView = new SmsRol();        
-        habilitado = true;
+        rolView = new SmsRol();      
     }
 
     public void modificar() {
@@ -171,22 +152,21 @@ public class EmpleadoBean implements Serializable {
 
     public void eliminar() {
     }
-    
 
-    public void uploadFile(FileUploadEvent e) throws IOException { 
-        hojavida.setHojaVidaNombre(e.getFile().getFileName());
-        String filePath = "c:/prueba/";
-        byte[] bytes = e.getFile().getContents();
-        if (null != e.getFile()) {
-            String filename = e.getFile().getFileName();
-            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath + filename)));
-            stream.write(bytes);
-            stream.close();
+    public void registrarHojaVida() throws IOException {
+
+        if (null != getArchivo()) {
+            file.UploadFile(IOUtils.toByteArray(getArchivo().getInputstream()), getArchivo().getFileName());
         }
-    }
-    
-    public void downloadFile(){
-        String filePath = "c:/prueba/";
+
+        hojavida.setHojaVidaNombre(getArchivo().getFileName());
+        hojaVida.registrarHojaVida(hojavida);
+        empleado.registrarEmpleado(auxUsuarioView, hojavida);
+
+        hojavida = new SmsHojavida();
+        auxUsuarioView = new SmsUsuario();
+        empleadoView = new SmsEmpleado();        
+
     }
 
 }

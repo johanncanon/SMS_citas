@@ -20,13 +20,17 @@ public class Archivos {
     UploadedFile archivo;
     String filePath = "c:/prueba/";
 
-    public void UploadFile(byte[] b, String nombre) throws IOException {
-        byte[] bytes = b;
+    public void UploadFile(byte[] b, String nombre) throws IOException {        
+        
         if (null != b) {
+            byte[] bytes = b;
             String filename = nombre;
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath + filename)));
             stream.write(bytes);
             stream.close();
         }
+    }
+    
+    public void DownloadFile(){
     }
 }

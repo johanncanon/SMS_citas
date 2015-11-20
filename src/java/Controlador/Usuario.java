@@ -42,32 +42,25 @@ public class Usuario {
     }
 
     //Metodos CRUD 
-    public void registrarUsuario(SmsUsuario u, SmsCiudad c) {        
-        usuario=u;ciudad=c;
+    public void registrarUsuario(SmsUsuario u, SmsCiudad c, SmsRol r) {        
+        usuario=u;ciudad=c;SmsRol rol = r;
         //el metodo recibe los atributos, agrega al atributo ciudad del objeto usuario un objeto correspondiente, 
         //y persiste el usuario en la base de datos
         ICiudadDao ciudadDao = new ImpCiudadDao();
         ciudad = ciudadDao.consultarCiudad(ciudad).get(0);
         usuario.setSmsCiudad(ciudad);
         
-        IUsuarioDao usuarioDao = new ImpUsuarioDao();
-        usuarioDao.registrarUsuario(usuario);        
-    }
-
-    public void registrarDatosSesion(SmsUsuario u, SmsRol r) {
-        usuario=u;SmsRol rol = r;
-        //el metodo recibe el atributo usuario, modifica el valor de estado de cuenta del usuario registrado previamente, 
-        //y modifica al usuario agregando en la BD los datos de login, pass y rememberpass
         usuario.setUsuarioEstadoUsuario(1);
         
         IRolDao rolDao = new ImpRolDao();
         rol = rolDao.consultarRol(rol).get(0);
         
-        usuario.getSmsRols().add(rol);
-        IUsuarioDao usuarioDao = new ImpUsuarioDao();
-        usuarioDao.modificarUsuario(usuario);
+        usuario.getSmsRols().add(rol);       
         
+        IUsuarioDao usuarioDao = new ImpUsuarioDao();
+        usuarioDao.registrarUsuario(usuario);        
     }
+   
     
     public void modificarUsuario(SmsUsuario u, SmsCiudad c) {
         usuario=u;ciudad=c;        

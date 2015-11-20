@@ -109,18 +109,10 @@ public class UsuarioBean implements Serializable {
     //Declaracion de metodos
     //Metodos CRUD
     public void registrar() {
-        usuario.registrarUsuario(usuarioView, ciudadView);
-        auxUsuarioView = new SmsUsuario();
-        auxUsuarioView = usuarioView;
+        usuario.registrarUsuario(usuarioView, ciudadView, rolView);        
         usuarioView = new SmsUsuario();
         habilitado = false;
-    }
-
-    public void registrarCuenta() {
-        usuario.registrarDatosSesion(auxUsuarioView, rolView);
-        auxUsuarioView = new SmsUsuario();
-        habilitado = true;
-    }
+    }    
 
     public void modificar() {
         usuario.modificarUsuario(usuarioView, ciudadView);
