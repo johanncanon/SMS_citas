@@ -1,24 +1,14 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
+    <body>
 
+        <ui:composition template="./template-admin-p.xhtml">
 
-    <ui:composition template="./templatePRUEBA.xhtml">
-
-        <ui:define name="top">
-            HOla que hace1
-        </ui:define>
-
-        <ui:define name="left">
-            
-
-            <div class="hold-transition skin-blue sidebar-mini">
+            <ui:define name="menu-left">
+                <body class="hold-transition skin-blue sidebar-mini">
 
                 <aside class="main-sidebar">
                     <!-- sidebar: style can be found in sidebar.less -->
@@ -185,20 +175,10 @@
                     <!-- /.sidebar -->
                 </aside>
 
-            </div>
+            </body>
+            </ui:define>
 
+        </ui:composition>
 
-        </ui:define>
-
-        <ui:define name="content">
-            HOla que hace3
-        </ui:define>
-
-        <ui:define name="bottom">
-            HOla que hace4
-        </ui:define>
-
-    </ui:composition>
-
-
+    </body>
 </html>
