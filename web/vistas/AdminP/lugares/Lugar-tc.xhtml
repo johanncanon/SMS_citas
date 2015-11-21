@@ -24,20 +24,18 @@
 
                                         <h:panelGrid columns="4" cellpadding="5" >
                                             <h:outputLabel value="Nombre de Pais: "  style="padding: 5px 37px;"/>
-                                            <p:inputText id="txt1" value="#{marcaBean.marca.marcaNombre}" required="true" label="Text 1">
+                                            <p:inputText id="txt1" required="true" label="Text 1">
                                                 <f:validateLength minimum="2" />
                                             </p:inputText>
                                             
                                             <h:outputLabel value="Nombre de Ciudad: "  style="padding: 5px 37px;"/>
-                                            <p:inputText id="txt2" value="#{marcaBean.marca.marcaNombre}" required="true" label="Text 1">
+                                            <p:inputText id="txt2" required="true" label="Text 1">
                                                 <f:validateLength minimum="2" />
                                             </p:inputText>
 
                                         </h:panelGrid>
-                                        <p:commandButton ajax="false" value="registrar categorio" action="#{marcaBean.regMarca()}"/>
+                                        <p:commandButton ajax="false" value="registrar categorio"/>
                                     </p:panel>
-
-
                                 </h:form> 
                             </b:well>
                         </b:column>
@@ -45,30 +43,28 @@
                             <b:well>
                                 <h3>Lista Lugares de Servico SMS</h3>
                                 <hr/>
-                                <p:dataTable var="car" value="#{dtBasicView.cars}">
+                                <p:dataTable var="car">
                                     <p:column headerText="Id">
-                                        <h:outputText value="#{marcaBean.marca.idMarca}" />
+                                        <h:outputText/>
                                     </p:column>
 
                                     <p:column headerText="Nombre de la Marca">
-                                        <h:outputText value="#{marcaBean.marca.marcaNombre}" />
+                                        <h:outputText/>
                                     </p:column>
 
                                     <p:column headerText="Brand">
-                                        <h:outputText value="#{car.brand}" />
+                                        <h:outputText/>
                                     </p:column>
 
                                     <p:column headerText="Color">
-                                        <h:outputText value="#{car.color}" />
+                                        <h:outputText/>
                                     </p:column>
                                 </p:dataTable>
                             </b:well>
                         </b:column>
                     </b:row>
-
                 </b:container>
             </ui:define>
-
         </ui:composition>
 
     </body>

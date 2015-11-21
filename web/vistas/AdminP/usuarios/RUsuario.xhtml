@@ -8,7 +8,6 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-
         <ui:composition template="./../template-admin-p.xhtml">
             <ui:define name="content">
                 <b:container fluid="true">
@@ -16,7 +15,7 @@
                         <h:form>
                             <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12" class="espacio-arriba">
                                 <b:well>
-                                    <h4>REGISTRO DE ADMINISTRADORES</h4>
+                                    <h4>REGISTRO DE ADMINISTRADOR</h4>                                    
                                     <hr/>
                                     <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros usuarios y podra crear una cuenta de sesion para el ingreso al sistema,
                                         esta cuenta podra ser de tipo administrador principal o secundario.</p> 
@@ -24,69 +23,66 @@
                             </b:column>
                             <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
                                 <b:well>
-                                    <h4>DATOS DE USUARIO</h4>
+                                    <h4>DATOS DE ADMINISTRADOR</h4>
+                                    <h4>Datos de usuario</h4>
                                     <hr/>
                                     <p:growl id="messages" showDetail="true"/>                            
-                                    <p:panelGrid class="table-responsive" id="seccionDatosUsuario" columns="2" style="width: 100%;">
-                                        <p:outputLabel value="Nombre: "/>
-                                        <p:inputText placeholder="Nombres y apellidos" value="#{usuarioBean.usuarioView.usuarioNombre}" style="width: 100%;" maxlength="60"></p:inputText>                       
+                                    <div class="table-responsive">
+                                        <p:panelGrid id="seccionDatosUsuario" columns="2" style="width: 100%;">
+                                            <p:outputLabel value="Nombre: "/>
+                                            <p:inputText placeholder="Nombres y apellidos" value="#{usuarioBean.usuarioView.usuarioNombre}" style="width: 100%;" maxlength="60"></p:inputText>                       
 
-                                        <p:outputLabel value="CC: " />
-                                        <p:inputText placeholder="Cedula de ciudadania" value="#{usuarioBean.usuarioView.usuarioCc}" style="width: 100%" ></p:inputText>
+                                            <p:outputLabel value="CC: " />
+                                            <p:inputText placeholder="Cedula de ciudadania" value="#{usuarioBean.usuarioView.usuarioCc}" style="width: 100%" ></p:inputText>
 
-                                        <p:outputLabel value="Telefono: "/>
-                                        <p:inputText placeholder="Numero de telefono fijo o celular" value="#{usuarioBean.usuarioView.usuarioTelefono}" style="width: 100%" ></p:inputText> 
+                                            <p:outputLabel value="Telefono: "/>
+                                            <p:inputText placeholder="Numero de telefono fijo o celular" value="#{usuarioBean.usuarioView.usuarioTelefono}" style="width: 100%" ></p:inputText> 
 
-                                        <p:outputLabel value="Email: "/>
-                                        <p:inputText placeholder="Direccion de correo electronico" value="#{usuarioBean.usuarioView.usuarioEmail}" style="width: 100%" ></p:inputText>
+                                            <p:outputLabel value="Email: "/>
+                                            <p:inputText placeholder="Direccion de correo electronico" value="#{usuarioBean.usuarioView.usuarioEmail}" style="width: 100%" ></p:inputText>
 
-                                        <p:outputLabel value="Razon social: "/>
-                                        <p:inputText placeholder="Nombre de la empresa" value="#{usuarioBean.usuarioView.usuarioRazonSocial}" style="width: 100%" ></p:inputText>
+                                            <p:outputLabel value="Razon social: "/>
+                                            <p:inputText placeholder="Nombre de la empresa" value="#{usuarioBean.usuarioView.usuarioRazonSocial}" style="width: 100%" ></p:inputText>
 
-                                        <p:outputLabel value="Nit: "/>
-                                        <p:inputText placeholder="Nit de la empresa" value="#{usuarioBean.usuarioView.usuarioNit}" style="width: 100%" ></p:inputText>
+                                            <p:outputLabel value="Nit: "/>
+                                            <p:inputText placeholder="Nit de la empresa" value="#{usuarioBean.usuarioView.usuarioNit}" style="width: 100%" ></p:inputText>
 
-                                        <p:outputLabel value="Ciudad: "/>
-                                        <p:selectOneMenu value="#{usuarioBean.ciudadView.ciudadNombre}" style="width: 60%">
-                                            <f:selectItem itemLabel="Seleccione ciudad"/>
-                                            <f:selectItems value="#{ciudadBean.listaCiudades}"/>
-                                        </p:selectOneMenu>
-                                                                                
-                                    </p:panelGrid>
-                                    <p:commandButton style="width:100%" update="messages BregistroCuenta seccionDatosUsuario seccionDatosSesion" action="#{usuarioBean.registrar()}" value="Registrar Usuario" />
+                                            <p:outputLabel value="Ciudad: "/>
+                                            <p:selectOneMenu value="#{usuarioBean.ciudadView.ciudadNombre}" style="width: 60%">
+                                                <f:selectItem itemLabel="Seleccione ciudad"/>
+                                                <f:selectItems value="#{ciudadBean.listaCiudades}"/>
+                                            </p:selectOneMenu>                                                                                
+                                        </p:panelGrid>
+                                    </div><hr/>
+                                    <h4>Datos de sesion</h4>
+                                    <hr/>
+                                    <div class="table-responsive">
+                                        <p:panelGrid columns="2" id="seccionDatosSesion" style="width: 100%">
+
+                                            <p:outputLabel value="Login: "/>
+                                            <p:inputText style="width: 100%" value="#{usuarioBean.usuarioView.usuarioLogin}" placeholder="Login de sesion"></p:inputText>
+
+                                            <p:outputLabel value="Contraseña: "/>
+                                            <p:password style="width: 100%" value="#{usuarioBean.usuarioView.usuarioPassword}" placeholder="Contraseña de sesion"></p:password>
+
+                                            <p:outputLabel value="Repita contraseña: "/>
+                                            <p:password style="width: 100%" value="#{usuarioBean.usuarioView.usuarioRememberToken}" placeholder="Repita contraseña de sesion" ></p:password>                               
+
+                                            <p:outputLabel value="Perfil: "/>
+                                            <p:selectOneMenu  style="width: 60%" value="#{usuarioBean.rolView.rolNombre}">
+                                                <f:selectItem itemLabel="Seleccione tipo de perfil"/>
+                                                <f:selectItem itemLabel="Administrador Principal" itemValue="Administrador Principal"/>
+                                                <f:selectItem itemLabel="Administrador Secundario" itemValue="Administrador Secundario"/>
+                                            </p:selectOneMenu> 
+                                        </p:panelGrid>
+                                    </div><hr/>
+                                    <p:commandButton style="width:100%" class="btn btn-block btn-primary btn-lg" update="messages seccionDatosUsuario seccionDatosSesion" action="#{usuarioBean.registrar()}" value="Registrar Usuario" />
                                 </b:well>
-                            </b:column>                            
-                            <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12" class="panelSesion" >
-                                <b:well>
-                                    <h4>DATOS DE SESION</h4>
-                                    <hr/>                                   
-                                    <p:panelGrid columns="2" id="seccionDatosSesion" class="table-responsive"  style="width: 100%">
-
-                                        <p:outputLabel value="Login: "/>
-                                        <p:inputText style="width: 100%" value="#{usuarioBean.auxUsuarioView.usuarioLogin}" placeholder="Login de sesion" disabled="#{usuarioBean.habilitado}"></p:inputText>
-
-                                        <p:outputLabel value="Contraseña: "/>
-                                        <p:password style="width: 100%" disabled="#{usuarioBean.habilitado}" value="#{usuarioBean.auxUsuarioView.usuarioPassword}" placeholder="Contraseña de sesion"></p:password>
-
-                                        <p:outputLabel value="Repita contraseña: "/>
-                                        <p:password style="width: 100%" disabled="#{usuarioBean.habilitado}" value="#{usuarioBean.auxUsuarioView.usuarioRememberToken}" placeholder="Repita contraseña de sesion" ></p:password>                               
-                                        
-                                        <p:outputLabel value="Perfil: "/>
-                                        <p:selectOneMenu  style="width: 60%" value="#{usuarioBean.rolView.rolNombre}">
-                                            <f:selectItem itemLabel="Seleccione tipo de perfil"/>
-                                            <f:selectItems value="#{rolBean.listaRoles}"/>
-                                        </p:selectOneMenu> 
-                                    </p:panelGrid>
-                                    <p:commandButton style="width:100%" id="BregistroCuenta" value="Crear Usuario" disabled="#{usuarioBean.habilitado}" update="messages BregistroCuenta seccionDatosSesion seccionDatosUsuario" action="#{usuarioBean.registrarCuenta()}"></p:commandButton>
-
-                                </b:well>
-                            </b:column>
+                            </b:column>                          
                         </h:form>
                     </b:row>
                 </b:container>
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>

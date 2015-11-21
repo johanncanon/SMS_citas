@@ -30,10 +30,7 @@ public class ProveedorBean implements Serializable {
     protected SmsRol rolView;
 
     //Relacion con el controlador
-    protected Proveedor proveedor;
-
-    //Control de componentes
-    protected boolean habilitado;
+    protected Proveedor proveedor;   
 
     //lista de Id de proveedor
     private List<SmsProveedor> proveedoresView;
@@ -45,8 +42,7 @@ public class ProveedorBean implements Serializable {
         proveedorView = new SmsProveedor();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
-        proveedor = new Proveedor();
-        habilitado = true;
+        proveedor = new Proveedor();       
     }
 
     //Getters & Setters
@@ -97,17 +93,10 @@ public class ProveedorBean implements Serializable {
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
-
-    public boolean isHabilitado() {
-        return habilitado;
-    }
-
-    public void setHabilitado(boolean habilitado) {
-        this.habilitado = habilitado;
-    }
-
+    
     /**
      * ********************* Lista de Strings    ******************************
+     * @return 
      */
     public List<SmsProveedor> getProveedoresView() {
         IProveedorDao linkDao = new ImpProveedorDao();
@@ -140,22 +129,15 @@ public class ProveedorBean implements Serializable {
     
     //Metodos    
     public void registrar() {
-        proveedor.registrarUsuario(usuarioView, ciudadView);
+        rolView.setRolNombre("Proveedor");
+        proveedor.registrarUsuario(usuarioView, ciudadView, rolView);
         proveedor.registrarProveedor(proveedorView, usuarioView);
-        auxUsuarioView = usuarioView;
+       
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
-        proveedorView = new SmsProveedor();
-        habilitado = false;
+        proveedorView = new SmsProveedor();        
     }
-
-    public void registrarCuenta() {
-        rolView.setRolNombre("Proveedor");
-        proveedor.registrarDatosSesion(usuarioView, rolView);
-        usuarioView = new SmsUsuario();
-        rolView = new SmsRol();
-        habilitado = true;
-    }
+    
 
     public void modificar() {
         proveedor.modificarUsuario(usuarioView, ciudadView);

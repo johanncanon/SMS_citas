@@ -31,13 +31,17 @@ public class EmpleadoBean implements Serializable {
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
     protected SmsHojavida hojavida;
-    private UploadedFile archivo; 
-          
+    private UploadedFile archivo;
 
     //Relacion con el controlador
     protected Empleado empleado;
     protected HojaVida hojaVida;
     protected Archivos file;
+
+    //Controles de componentes
+    private boolean registro;
+    private boolean hoja;
+    private boolean nuevo;
 
     public EmpleadoBean() {
         usuarioView = new SmsUsuario();
@@ -47,8 +51,12 @@ public class EmpleadoBean implements Serializable {
         rolView = new SmsRol();
         hojavida = new SmsHojavida();
         hojaVida = new HojaVida();
-        file = new Archivos();        
+        file = new Archivos();
         empleado = new Empleado();
+
+        registro = false;
+        hoja = true;
+        nuevo = true;
     }
 
     //Getters & Setters
@@ -131,7 +139,30 @@ public class EmpleadoBean implements Serializable {
     public void setFile(Archivos file) {
         this.file = file;
     }
-    
+
+    public boolean isRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(boolean registro) {
+        this.registro = registro;
+    }
+
+    public boolean isHoja() {
+        return hoja;
+    }
+
+    public void setHoja(boolean hoja) {
+        this.hoja = hoja;
+    }
+
+    public boolean isNuevo() {
+        return nuevo;
+    }
+
+    public void setNuevo(boolean nuevo) {
+        this.nuevo = nuevo;
+    }
 
     //Metodos que se comunican con el controlador    
     public void registrar() {
@@ -141,10 +172,11 @@ public class EmpleadoBean implements Serializable {
         rolView.setRolNombre("Empleado");
         empleado.registrarUsuario(usuarioView, ciudadView, rolView);
 
-        auxUsuarioView = usuarioView;
-        usuarioView = new SmsUsuario();
-        ciudadView = new SmsCiudad();
-        rolView = new SmsRol();      
+        auxUsuarioView = usuarioView;       
+
+        registro = true;
+        hoja = false;
+        nuevo = false;
     }
 
     public void modificar() {
@@ -165,8 +197,25 @@ public class EmpleadoBean implements Serializable {
 
         hojavida = new SmsHojavida();
         auxUsuarioView = new SmsUsuario();
-        empleadoView = new SmsEmpleado();        
+        empleadoView = new SmsEmpleado();
+        usuarioView = new SmsUsuario();
+        ciudadView = new SmsCiudad();
+        rolView = new SmsRol();
+        
+        registro = false;
+        hoja = true;
+        nuevo = true;
 
+    }
+
+    //Otros
+    public void registraNuevo() {
+        registro = false;
+        hoja = true;
+        nuevo = true;
+        usuarioView = new SmsUsuario();
+        ciudadView = new SmsCiudad();
+        rolView = new SmsRol();
     }
 
 }

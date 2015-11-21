@@ -29,53 +29,71 @@
                                     <h4>Datos personales</h4>
                                     <hr/>
                                     <p:growl id="messages" showDetail="true" autoUpdate="true"/>                            
-                                    <p:panelGrid class="table-responsive" id="seccionDatosUsuario" columns="2" style="width: 100%;">
-                                        <p:outputLabel value="Nombre: "/>
-                                        <p:inputText placeholder="Nombres y apellidos" style="width: 100%;" maxlength="60" value="#{empleadoBean.usuarioView.usuarioNombre}"></p:inputText>                       
+                                    <div class="table-responsive">
+                                        <p:panelGrid id="seccionDatosUsuario" columns="2" style="width: 100%;">
+                                            <p:outputLabel value="Nombre: "/>
+                                            <p:inputText placeholder="Nombres y apellidos" style="width: 100%;" maxlength="60" value="#{empleadoBean.usuarioView.usuarioNombre}"></p:inputText>                       
 
-                                        <p:outputLabel value="CC: " />
-                                        <p:inputText placeholder="Cedula de ciudadania" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioCc}"></p:inputText>
+                                            <p:outputLabel value="CC: " />
+                                            <p:inputText placeholder="Cedula de ciudadania" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioCc}"></p:inputText>
 
-                                        <p:outputLabel value="Telefono: "/>
-                                        <p:inputText placeholder="Numero de telefono fijo o celular" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioTelefono}"></p:inputText> 
+                                            <p:outputLabel value="Telefono: "/>
+                                            <p:inputText placeholder="Numero de telefono fijo o celular" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioTelefono}"></p:inputText> 
 
-                                        <p:outputLabel value="Email: "/>
-                                        <p:inputText placeholder="Direccion de correo electronico" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioEmail}"></p:inputText>
+                                            <p:outputLabel value="Email: "/>
+                                            <p:inputText placeholder="Direccion de correo electronico" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioEmail}"></p:inputText>
 
-                                        <p:outputLabel value="Ciudad: "/>
-                                        <p:selectOneMenu value="#{empleadoBean.ciudadView.ciudadNombre}" style="width: 60%">
-                                            <f:selectItem itemLabel="Seleccione ciudad"/>
-                                            <f:selectItems value="#{ciudadBean.listaCiudades}"/>
-                                        </p:selectOneMenu> 
-                                    </p:panelGrid>
+                                            <p:outputLabel value="Ciudad: "/>
+                                            <p:selectOneMenu required="true" requiredMessage="Por favor, seleccione ciudad" value="#{empleadoBean.ciudadView.ciudadNombre}" style="width: 60%">
+                                                <f:selectItem itemLabel="Seleccione ciudad"/>
+                                                <f:selectItems value="#{ciudadBean.listaCiudades}"/>
+                                            </p:selectOneMenu> 
+                                        </p:panelGrid>
+                                    </div>
                                     <hr/>
                                     <h4>Datos de sesion</h4>
-                                    <hr/>                                   
-                                    <p:panelGrid columns="2" id="seccionDatosSesion" class="table-responsive"  style="width: 100%">
-                                        <p:outputLabel value="Login: "/>
-                                        <p:inputText style="width: 100%" placeholder="Login de sesion"  value="#{empleadoBean.usuarioView.usuarioLogin}"></p:inputText>
+                                    <hr/>
+                                    <div class="table-responsive">                                   
+                                        <p:panelGrid columns="2" id="seccionDatosSesion" style="width: 100%">
+                                            <p:outputLabel value="Login: "/>
+                                            <p:inputText style="width: 100%" placeholder="Login de sesion"  value="#{empleadoBean.usuarioView.usuarioLogin}"></p:inputText>
 
-                                        <p:outputLabel value="Contraseña: "/>
-                                        <p:password style="width: 100%"  placeholder="Contraseña de sesion" value="#{empleadoBean.usuarioView.usuarioPassword}"></p:password>
+                                            <p:outputLabel value="Contraseña: "/>
+                                            <p:password style="width: 100%"  placeholder="Contraseña de sesion" value="#{empleadoBean.usuarioView.usuarioPassword}"></p:password>
 
-                                        <p:outputLabel value="Repita contraseña: "/>
-                                        <p:password style="width: 100%"  placeholder="Repita contraseña de sesion" value="#{empleadoBean.usuarioView.usuarioRememberToken}"></p:password>      
-                                    </p:panelGrid><hr/>
-                                    <p:commandButton id="BregistroUsuario" ajax="false" action="#{empleadoBean.registrar()}" style="width:100%" class="btn btn-block btn-primary btn-lg" value="Registrar Empleado" />
+                                            <p:outputLabel value="Repita contraseña: "/>
+                                            <p:password style="width: 100%"  placeholder="Repita contraseña de sesion" value="#{empleadoBean.usuarioView.usuarioRememberToken}"></p:password>      
+                                        </p:panelGrid>
+                                    </div><hr/>
+                                    <div class="table-responsive">
+                                        <table width="100%">
+                                            <tr>
+                                                <td>
+                                                    <p:commandButton id="BregistroUsuario" disabled="#{empleadoBean.registro}" ajax="false" action="#{empleadoBean.registrar()}" style="width:100%" class="btn btn-block btn-primary btn-lg" value="Registrar Empleado" />
+                                                </td>
+                                                <td>
+                                                    <p:commandButton ajax="false" disabled="#{empleadoBean.nuevo}" action="#{empleadoBean.registraNuevo()}" style="width:100%" class="btn btn-block btn-primary btn-lg" value="Nuevo Empleado" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
                                 </b:well>
                             </b:column>                          
 
                             <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
                                 <b:well>                                    
                                     <h4>INGRESO HOJA DE VIDA</h4>
-                                    <hr/>                                   
-                                    <p:panelGrid columns="2" id="seccionHojaVida" class="table-responsive"  style="width: 80%">
+                                    <hr/>
+                                    <div class="table-responsive">
+                                        <p:panelGrid columns="2" id="seccionHojaVida" style="width: 80%">
 
-                                        <p:outputLabel value="Hoja de vida: "/>
-                                        <p:fileUpload mode="simple" value="#{empleadoBean.archivo}"/>                                       
-                                                 
-                                    </p:panelGrid>
-                                    <p:commandButton value="subir" style="width: 80%" class="btn btn-block btn-primary btn-lg" ajax="false" action="#{empleadoBean.registrarHojaVida()}"/>
+                                            <p:outputLabel value="Hoja de vida: "/>
+                                            <p:fileUpload mode="simple" value="#{empleadoBean.archivo}"/>                                      
+
+                                        </p:panelGrid>
+                                    </div>
+                                    <p:commandButton value="subir" disabled="#{empleadoBean.hoja}" style="width: 50%" class="btn btn-block btn-primary btn-lg" ajax="false" action="#{empleadoBean.registrarHojaVida()}"/>                                    
                                 </b:well>
                             </b:column>
                         </h:form>

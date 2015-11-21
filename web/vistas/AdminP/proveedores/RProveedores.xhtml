@@ -8,9 +8,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-
         <ui:composition template="./../template-admin-p.xhtml">
-
             <ui:define name="content">
                 <b:container fluid="true">
                     <b:row>
@@ -28,10 +26,10 @@
                             <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
                                 <b:well>
                                     <h4>DATOS DE PROVEEDOR</h4>
+                                    <h4>Datos de usuario</h4>
                                     <hr/>
                                     <p:growl id="messages" showDetail="true"/>  
-                                    <div class="espacio-arriba">
-
+                                    <div class="table-responsive">
                                         <p:panelGrid  id="seccionDatosUsuario" columns="2" style="width: 100%;">
                                             <p:outputLabel value="Nombre: "/>
                                             <p:inputText placeholder="Nombres y apellidos" style="width: 100%;" maxlength="60" value="#{proveedorBean.usuarioView.usuarioNombre}"></p:inputText>                       
@@ -52,51 +50,38 @@
                                             <p:inputText placeholder="Nit de la empresa" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioNit}"></p:inputText>
 
                                             <p:outputLabel value="Valor Ganancia: "/>
-                                            <p:inputText placeholder="Valor de ganancia" style="width: 100%" value="#{proveedorBean.proveedorView.proveedorValorGanancia}"></p:inputText>
+                                            <p:inputText placeholder="Valor de ganancia" required="true" requiredMessage="Indique valor de ganancia acordado con el proveedor" style="width: 100%" value="#{proveedorBean.proveedorView.proveedorValorGanancia}"></p:inputText>
 
                                             <p:outputLabel value="Ciudad: "/>
-                                            <p:selectOneMenu value="#{proveedorBean.ciudadView.ciudadNombre}" style="width: 60%">
+                                            <p:selectOneMenu required="true" requiredMessage="Por favor, seleccione ciudad" value="#{proveedorBean.ciudadView.ciudadNombre}" style="width: 60%">
                                                 <f:selectItem itemLabel="Seleccione ciudad"/>
                                                 <f:selectItems value="#{ciudadBean.listaCiudades}"/>
                                             </p:selectOneMenu> 
                                         </p:panelGrid>
-                                    </div>
-                                    <p:commandButton style="width:100%" update="messages seccionDatosUsuario seccionDatosSesion BregistroCuenta" action="#{proveedorBean.registrar()}" value="Registrar Usuario" />
+                                    </div><hr/>
+                                    <h4>Datos de sesion</h4>
+                                    <hr/>      
+                                    <div class="table-responsive"> 
+                                        <p:panelGrid columns="2" id="seccionDatosSesion"   style="width: 100%">
+
+                                            <p:outputLabel value="Login: "/>
+                                            <p:inputText style="width: 100%" placeholder="Login de sesion" value="#{proveedorBean.usuarioView.usuarioLogin}"></p:inputText>
+
+                                            <p:outputLabel value="Contraseña: "/>
+                                            <p:password style="width: 100%" placeholder="Contraseña de sesion" value="#{proveedorBean.usuarioView.usuarioPassword}"></p:password>
+
+                                            <p:outputLabel value="Repita contraseña: "/>
+                                            <p:password style="width: 100%" placeholder="Repita contraseña de sesion" value="#{proveedorBean.usuarioView.usuarioRememberToken}"></p:password>                               
+
+                                        </p:panelGrid>                                        
+                                    </div><hr/>                                    
+                                    <p:commandButton style="width:100%" class="btn btn-block btn-primary btn-lg" update="messages seccionDatosUsuario seccionDatosSesion" action="#{proveedorBean.registrar()}" value="Registrar Proveedor" />
                                 </b:well>
-                            </b:column>         
-
-                            <div class="panelSesion">
-
-
-                                <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12"  >
-                                    <b:well>
-                                        <h4>DATOS DE SESION</h4>
-                                        <hr/>      
-                                        <div class="table-responsive"> 
-                                            <p:panelGrid columns="2" id="seccionDatosSesion"   style="width: 100%">
-
-                                                <p:outputLabel value="Login: "/>
-                                                <p:inputText style="width: 100%" placeholder="Login de sesion" disabled="#{proveedorBean.habilitado}" value="#{proveedorBean.auxUsuarioView.usuarioLogin}"></p:inputText>
-
-                                                <p:outputLabel value="Contraseña: "/>
-                                                <p:password style="width: 100%" disabled="#{proveedorBean.habilitado}" placeholder="Contraseña de sesion" value="#{proveedorBean.auxUsuarioView.usuarioPassword}"></p:password>
-
-                                                <p:outputLabel value="Repita contraseña: "/>
-                                                <p:password style="width: 100%" disabled="#{proveedorBean.habilitado}" placeholder="Repita contraseña de sesion" value="#{proveedorBean.auxUsuarioView.usuarioRememberToken}"></p:password>                               
-
-                                            </p:panelGrid>
-                                        </div>
-                                        <p:commandButton style="width:100%" id="BregistroCuenta" value="Crear Usuario" disabled="#{proveedorBean.habilitado}" update="messages seccionDatosSesion seccionDatosUsuario" action="#{proveedorBean.registrarCuenta()}"></p:commandButton>
-
-                                    </b:well>
-                                </b:column>
-                            </div>
+                            </b:column>       
                         </h:form>
                     </b:row>
                 </b:container>
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>
