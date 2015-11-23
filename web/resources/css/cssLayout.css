@@ -17,10 +17,14 @@
     position: relative;
     left: -15px;
     top: -20px;
-    background-color: #222222;
-    padding: 8%;
+    background-color: #222D32;
+    padding: 5px;
     width: 104.91%;
     min-height: 1418px;
+}
+
+#arreglo{
+
 }
 
 #left-adm2{
@@ -81,7 +85,7 @@
 }
 
 .ui-panelmenu .ui-menuitem{
-    padding: 2px !important;
+    padding: 10px !important;
 }
 
 #footer{
@@ -317,4 +321,70 @@
 
 td, th {
     padding: 2px !important;
+}
+
+/* AREGLOS DEL MENU
+*************************************************************/
+.ui-corner-all{
+    -webkit-border-radius: 0px;
+    border-radius: 0px !important;
+}
+
+.ui-corner-top {
+    -moz-border-radius-topleft: 0 !important;
+    -webkit-border-top-left-radius: 0!important;
+    border-top-left-radius: 0!important;
+    -moz-border-radius-topright: 0!important;
+    -webkit-border-top-right-radius: 0!important;
+    border-top-right-radius: 0!important;
+}
+
+.ui-panelmenu .ui-panelmenu-header a {
+    color: #FFFFFF!important;
+    background-color: #222D32;
+}
+
+.ui-state-active{
+    background-color: #131A21 !important;
+}
+
+.color-menu-1{
+    background-color: #354248 !important;
+    /*border: 0px !important;*/
+}
+
+.ui-panelmenu .ui-panelmenu-header a:hover {
+    color: #fff!important;
+    background: rgba(220, 117, 10, 0.88)!important;
+    border-left-color: #3c8dbc!important;
+    border: 3px !important;
+}
+
+.ui-state-default{
+    border-color: rgb(58, 58, 58)!important;
+}
+
+.ui-menuitem-link {
+    line-height: 16px;
+}
+
+/************************ Diseño de Thumberl noseque  *****************/
+
+.thumbnail {
+    display: block;
+    padding: 15px;
+    margin: 14px;
+    line-height: 1.428571429;
+    background-color: #181F23!important;
+    border: 1px solid rgba(221, 221, 221, 0)!important;
+    border-radius: 4px;
+    -webkit-transition: border .2s ease-in-out;
+    -o-transition: border .2s ease-in-out;
+    transition: border .2s ease-in-out;
+    color: #fff;
+    border-left-color: #FF9001!important;
+}
+
+.navbar {
+    border-radius: 0px!important;
 }
