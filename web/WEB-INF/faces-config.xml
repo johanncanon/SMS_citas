@@ -73,4 +73,14 @@
         <managed-bean-class>Bean.ReservacionBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>serviciosBean</managed-bean-name>
+        <managed-bean-class>Bean.ServiciosBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>paisBean</managed-bean-name>
+        <managed-bean-class>Bean.PaisBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
 </faces-config>

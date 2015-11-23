@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template-admin-p.xhtml">
+
+            <ui:define name="content">
+                <b:container fluid="true">
+                    <b:row>
+                        <h:form>
+                            <p:messages id="messages" />
+                            <div class="espacio-arriba">
+                                <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
+                                    <b:well>
+                                        <h4>REGISTRO DE CIUDADES Y PAISES</h4>
+                                        <hr/>
+                                        <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a los paises y ciudades en donde
+                                            SMS Renta presta sus servicios.</p> 
+                                    </b:well>
+                                </b:column>
+                            </div>
+                                <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
+                                    <b:well>
+                                        <h4>Datos de ciudad</h4><hr/>
+                                        <div class="table-responsive">
+                                            <h:panelGrid columns="2" style="width: 100%">
+                                                <p:outputLabel value="Pais:"/>
+                                                <p:selectOneMenu value="#{ciudadBean.pais.paisNombre}">
+                                                    <f:selectItem itemLabel="Seleccione pais"/>
+                                                    <f:selectItems value="#{ciudadPaisBean.nombrePaisesListView}"/>
+                                                </p:selectOneMenu>
+                                                <p:outputLabel value="Nombre de la ciudad:"/>
+                                                <p:inputText placeholder="Nombre de la ciudad"  value="#{ciudadBean.ciudadView.ciudadNombre}" style="width: 100%" required="true" label="Text 1">
+                                                    <f:validateLength minimum="2" /></p:inputText>
+                                            </h:panelGrid>
+                                        </div><hr/>
+                                        <p:commandButton style="width: 100%" class="btn btn-block btn-primary" ajax="false" value="Registrar Ciudad"/>                                       
+                                        </b:well>
+                                </b:column>
+                                <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
+                                    <b:well>
+                                        <h4>Lista de ciudades</h4>
+                                        <hr/>                                    
+                                        <p:inputText placeholder="Buscar" id="SearchCiudad" style="width: 100%"></p:inputText>
+                                        <hr/>
+                                        <p:dataTable emptyMessage="Ciudades no registradas" var="ciudades" value="#{ciudadBean.ciudadesListView}" 
+                                                     rows="5"
+                                                     paginator="true"
+                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="5,10,15">
+                                            <p:column headerText="Nombre">
+                                                <h:outputText value="#{ciudades.ciudadNombre}"/>
+                                            </p:column>
+
+                                            <p:column style="width: 35px">
+                                                <p:commandButton value="Modificar"></p:commandButton>
+                                            </p:column>
+
+                                            <p:column style="width: 35px">
+                                                <p:commandButton value="Eliminar"></p:commandButton>
+                                            </p:column>
+                                        </p:dataTable> 
+                                    </b:well>
+                                </b:column>
+                        </h:form> 
+                    </b:row>
+                </b:container>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
