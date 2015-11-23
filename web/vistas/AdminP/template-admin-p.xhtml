@@ -16,8 +16,10 @@
         <h:outputStylesheet name="./adminLT/css/skins/_all-skins.min.css"/>
 
 
+
         <title>Dashboard SMS | Administradot Principal</title>
     </h:head>
+
 
     <h:body>
 
@@ -44,15 +46,71 @@
 
         <b:container fluid="true">
             <b:row>
-                <div>
-                    <div class="men-desap">
-                        <ui:include src="general/menu-left.xhtml"></ui:include>
-                    </div>
-                    
-                    <div id="content" class="left_content">
-                        <ui:insert name="content"></ui:insert>    
-                    </div>
+                <div class="men-desap">
+
+                    <b:column col-lg="3" col-md="3" col-sm="4" col-xs="12">
+                        <div id="left">
+                            <h:form>
+                                <p:growl autoUpdate="true"/>
+                                <b:thumbnail id="esp1">
+                                    <b:panelGrid colSpans="4,8">
+                                        <img src="#"/>
+                                        <f:facet name="caption"/>
+                                        <h4>Thumbnail label</h4>
+                                        <p>Nombre: "Nombre Completo."</p>
+                                        <p>Perfil : "tipo de perfil."</p>
+                                    </b:panelGrid>
+                                </b:thumbnail>
+                                <p:panelMenu>
+
+                                    <p:submenu label="Registro">
+                                        <p:menuitem value="Registro de Usuario" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
+                                    </p:submenu>
+
+                                    <p:submenu label="Reservaciones" >
+                                        <p:menuitem value="Reservar Vehiculos" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
+                                        <p:menuitem value="Reservar Conductores" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
+                                        <p:menuitem value="Consultar reservaciones" url="reservas/reservadmin.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
+                                    </p:submenu>
+
+                                    <p:submenu label="Clientes">
+                                        <p:menuitem value="Registro de Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                        <p:menuitem value="Consultar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                    </p:submenu>
+
+                                    <p:separator />
+                                    <p:submenu label="Vehiculos" >
+                                        <p:menuitem value="Consultar Vehiculo" url="#" icon="ui-icon-home"/>
+                                        <p:menuitem value="registrar Vehiculo" url="#" icon="ui-icon-home"/>
+                                        <p:submenu label="Marca de Vehiculos SMS" icon="ui-icon-extlink">
+                                            <p:menuitem value="Consultar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                            <p:menuitem value="registrar marca de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                        </p:submenu>
+                                        <p:submenu label="Categoria de Vehiculos SMS" icon="ui-icon-extlink">
+                                            <p:menuitem value="Consultar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                            <p:menuitem value="registrar Categorias de Vehiculo" url="http://www.primefaces.org" icon="ui-icon-home" />
+                                        </p:submenu>
+                                    </p:submenu>
+
+                                    <p:submenu label="Conductores SMS">
+                                        <p:menuitem value="Registrar Conductores" url="#" icon=""/>
+                                        <p:menuitem value="Consultar Conductores" url="#" icon=""/>
+
+                                    </p:submenu>
+                                    <p:submenu label="Calificaciones">
+                                        <p:menuitem value="Consultar Calificaciones" url="#" icon=""/>
+                                    </p:submenu>
+                                </p:panelMenu>
+                            </h:form>
+                        </div>
+                    </b:column>
+
                 </div>
+
+                <div id="content" class="left_content">
+                    <ui:insert name="content"></ui:insert>    
+                </div>
+
             </b:row>
 
 
