@@ -18,15 +18,15 @@
                     <b:column col-lg="6" col-md="6" col-sm="5" col-xs="12" id="EspacioA">
                         <b:well>
                             <h:form>
-                                <h3>Ingreso de referencias de Vehiculos SMS</h3>
+                                <h3>Registro de referencias de vehiculos</h3>
                                 <hr/>
                                 <p:panel id="panel" header="Consulta de Vehiculos">
-
                                     <div class="registro-vista">
                                         <p:messages id="messages" />
                                         <h:panelGrid columns="2" cellpadding="5" >
                                             <p:outputLabel value="Marca de Vehiculo: "/>
                                             <p:selectOneMenu value="#{referenciaBean.marcasView.marcaNombre}" >
+                                                <f:selectItem value="Seleccione marca"/>
                                                 <f:selectItems value="#{marcaBean.marcaStView}" />
                                             </p:selectOneMenu>                                            
                                         </h:panelGrid>

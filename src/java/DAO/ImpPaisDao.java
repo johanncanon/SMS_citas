@@ -9,6 +9,7 @@ import Modelo.SmsPais;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -56,7 +57,7 @@ public class ImpPaisDao implements IPaisDao{
             if (session != null) {
                 session.close();
             }
-        }
+        }FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
@@ -76,7 +77,7 @@ public class ImpPaisDao implements IPaisDao{
             if (session != null) {
                 session.close();
             }
-        }
+        }FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
@@ -96,7 +97,7 @@ public class ImpPaisDao implements IPaisDao{
             if (session != null) {
                 session.close();
             }
-        }
+        }FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override

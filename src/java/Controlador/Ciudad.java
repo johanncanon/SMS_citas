@@ -47,28 +47,32 @@ public class Ciudad {
 
     //Metodos CRUD
     public void registrarCiudad(SmsCiudad c, SmsPais p) {
-        ciudad = c;SmsPais pais = p;
+        ciudad = c;
+        SmsPais pais = p;
         IPaisDao paisDao = new ImpPaisDao();
         pais = paisDao.consultarPais(pais).get(0);
         ciudad.setSmsPais(pais);
         ICiudadDao linkDao = new ImpCiudadDao();
         linkDao.registrarCiudad(ciudad);
     }
-    
-    public void modificarCiudad(SmsCiudad c, SmsPais p){
-        ciudad = c;SmsPais pais = p;
+
+    public void modificarCiudad(SmsCiudad c, SmsPais p) {
+        ciudad = c;
+        SmsPais pais = p;
+        IPaisDao paisDao = new ImpPaisDao();
+        pais = paisDao.consultarPais(pais).get(0);
         ciudad.setSmsPais(pais);
         ICiudadDao linkDao = new ImpCiudadDao();
         linkDao.modificarCiudad(ciudad);
     }
-    
-    public void eliminarCiudad(SmsCiudad c){
+
+    public void eliminarCiudad(SmsCiudad c) {
         ciudad = c;
         ICiudadDao linkDao = new ImpCiudadDao();
         linkDao.eliminarCiudad(ciudad);
     }
-    
-    public List<SmsCiudad> cargarCiudades(){
+
+    public List<SmsCiudad> cargarCiudades() {
         ciudades = new ArrayList<>();
         ICiudadDao linkDao = new ImpCiudadDao();
         ciudades = linkDao.mostrarCiudades();

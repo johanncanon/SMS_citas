@@ -4,8 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
 
     <body>
         <ui:composition template="./../template-admin-p.xhtml">
@@ -17,54 +17,49 @@
                             <div class="espacio-arriba">
                                 <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
                                     <b:well>
-                                        <h4>REGISTRO DE CIUDADES</h4>
+                                        <h4>REGISTRO DE PAISES</h4>
                                         <hr/>
-                                        <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a las ciudades en donde
+                                        <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a los paises en donde
                                             SMS Renta presta sus servicios.</p> 
                                     </b:well>
                                 </b:column>
                             </div>
                             <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
                                 <b:well>
-                                    <h4>Datos de ciudad</h4><hr/>
+                                    <h4>Datos de pais</h4><hr/>
                                     <div class="table-responsive">
-                                        <h:panelGrid id="PCiudad" columns="2" style="width: 100%">
-                                            <p:outputLabel value="Pais:"/>
-                                            <p:selectOneMenu value="#{ciudadBean.paisView.paisNombre}">
-                                                <f:selectItem itemLabel="Seleccione pais"/>
-                                                <f:selectItems value="#{paisBean.nombrePaisesListView}"/>
-                                            </p:selectOneMenu>
-                                            <p:outputLabel value="Nombre de la ciudad:"/>
-                                            <p:inputText placeholder="Nombre de la ciudad"  value="#{ciudadBean.ciudadView.ciudadNombre}" style="width: 100%"></p:inputText>                                            
+                                        <h:panelGrid id="PPais" columns="2" style="width: 100%">                                            
+                                            <p:outputLabel value="Nombre del pais:"/>
+                                            <p:inputText placeholder="Nombre del pais"  value="#{paisBean.paisView.paisNombre}" style="width: 100%"></p:inputText>                                            
                                         </h:panelGrid>
                                     </div><hr/>
-                                    <p:commandButton style="width: 100%" id="BTCiudad" action="#{ciudadBean.metodo()}" class="btn btn-block btn-primary" update="messages PCiudad BTCiudad DTCiudades" value="#{ciudadBean.nombre}"/>                                       
+                                    <p:commandButton style="width: 100%" id="BTPais" action="#{paisBean.metodo()}" class="btn btn-block btn-primary" update="messages PPais BTPais DTPaises" value="#{paisBean.nombre}"/>                                       
                                 </b:well>
                             </b:column>
                             <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
                                 <b:well>
                                     <h4>Lista de ciudades</h4>
                                     <hr/>                                    
-                                    <p:inputText placeholder="Buscar" id="SearchCiudad" style="width: 100%"></p:inputText>
+                                    <p:inputText placeholder="Buscar" id="SearchPais" style="width: 100%"></p:inputText>
                                     <hr/>
-                                    <p:dataTable id="DTCiudades" emptyMessage="Ciudades no registradas" var="ciudades" value="#{ciudadBean.ciudadesListView}" 
+                                    <p:dataTable id="DTPaises" emptyMessage="Ciudades no registradas" var="paises" value="#{paisBean.paisesListView}" 
                                                  rows="5"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
                                         <p:column headerText="Nombre">
-                                            <h:outputText value="#{ciudades.ciudadNombre}"/>
+                                            <h:outputText value="#{paises.paisNombre}"/>
                                         </p:column>
 
                                         <p:column style="width: 35px">
-                                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{ciudadBean.seleccionarCrud(1)}" title="Modificar">
-                                                <f:setPropertyActionListener value="#{ciudades}" target="#{ciudadBean.ciudadView}"/>
+                                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{paisBean.seleccionarCrud(1)}" title="Modificar">
+                                                <f:setPropertyActionListener value="#{paises}" target="#{paisBean.paisView}"/>
                                             </p:commandButton>
                                         </p:column>
 
                                         <p:column style="width: 35px"> 
-                                            <p:commandButton ajax="false" icon="ui-icon-close" action="#{ciudadBean.seleccionarCrud(2)}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{ciudades}" target="#{ciudadBean.ciudadView}"/>
+                                            <p:commandButton ajax="false" icon="ui-icon-close" action="#{paisBean.seleccionarCrud(2)}" title="Eliminar">
+                                                <f:setPropertyActionListener value="#{paises}" target="#{paisBean.paisView}"/>
                                             </p:commandButton>
                                         </p:column>
                                     </p:dataTable> 

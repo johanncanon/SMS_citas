@@ -12,27 +12,26 @@ import Modelo.SmsMarca;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 
 /**
  *
  * @author Desarrollo_Planit
  */
-@ManagedBean
-@RequestScoped
+
 public class MarcaBean implements Serializable{
     
-    private SmsMarca marcaView;
-    private Marca marca;
-    private List<SmsMarca> marcasView;
-    private List<String> marcaStView;
+    //Objetos de vista
+    private SmsMarca marcaView;   
+    private List<SmsMarca> marcasListView;
+    private List<String> nombresMarcaView;
    
+    //Relacion con el controlador 
+    private Marca marca;
      
-    
     public MarcaBean() {
         marcaView = new SmsMarca();
-        marcaStView = new ArrayList<>();
+        marcasListView = new ArrayList<>();
+        nombresMarcaView = new ArrayList<>();
         marca = new Marca();
     }
 
@@ -54,29 +53,30 @@ public class MarcaBean implements Serializable{
         this.marcaView = marcaView;
     }
 
-    public List<SmsMarca> getMarcasView() {
-        /*IMarcaDao marcaDao = new ImpMarcaDao();
-        marcas = marcaDao.mostrarMarcas();*/
-        return marcasView;
+    public List<SmsMarca> getMarcasListView() {
+        return marcasListView;
     }
 
-    public void setMarcasView(List<SmsMarca> marcasView) {
-        this.marcasView = marcasView;
+    public void setMarcasListView(List<SmsMarca> marcasListView) {
+        this.marcasListView = marcasListView;
     }
-    
-    public List<String> getMarcaStView() {
+
+    public List<String> getNombresMarcaView() {
+        nombresMarcaView = new ArrayList<>();
         IMarcaDao marcaDao = new ImpMarcaDao();
-        marcasView = marcaDao.mostrarMarcas();
-        for (int i = 0; i < marcasView.size(); i++) {
-            marcaStView.add(marcasView.get(i).getMarcaNombre());
+        marcasListView = marcaDao.mostrarMarcas();
+        for (int i = 0; i < marcasListView.size(); i++) {
+            nombresMarcaView.add(marcasListView.get(i).getMarcaNombre());
         }
-        
-        return marcaStView;
+        return nombresMarcaView;
     }
 
-    public void setMarcaStView(List<String> marcaStView) {
-        this.marcaStView = marcaStView;
-    }
+    public void setNombresMarcaView(List<String> nombresMarcaView) {
+        this.nombresMarcaView = nombresMarcaView;
+    } 
+    
+
+    
     
     /*+++++++++++++++++++++++++*****************************************************************
     ****************    CREACION DE METODOS DEL BEAN      *********************************+++++*/

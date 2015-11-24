@@ -111,14 +111,12 @@ public class CiudadBean {
     //Metodos propios
     public void seleccionarCrud(int i) {
         estado = i;
-        Pais pais = new Pais();
         if (estado == 1) {
-            paisView = pais.validarPais(ciudadView);
+            paisView.setPaisNombre(ciudadView.getSmsPais().getPaisNombre());
             nombre = "Modificar Ciudad";
         } else if (estado == 2) {
+            paisView.setPaisNombre(ciudadView.getSmsPais().getPaisNombre());
             nombre = "Eliminar Ciudad";
-            paisView = pais.validarPais(ciudadView);
-            nombre = "Modificar Ciudad";
         }
     }
 
