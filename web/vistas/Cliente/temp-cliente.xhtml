@@ -31,8 +31,8 @@
                             $item = $(this);
 
                     if (!$item.hasClass('disabled')) {
-                        navListItems.removeClass('btn-primary').addClass('btn-default');
-                        $item.addClass('btn-primary');
+                        navListItems.removeClass('btn-primary-sms').addClass('btn-default');
+                        $item.addClass('btn-primary-sms');
                         allWells.hide();
                         $target.show();
                         $target.find('input:eq(0)').focus();
@@ -74,13 +74,15 @@
         <div id="top">
             <b:container fluid="true">
                 <b:row><!-- MENU -->
-                    <b:navBar brand="SMS Citas" brandHref="#" inverse="true">
+                    <b:navBar  brandImg="../../resources/images/logo-DASH.png"   brandHref="#"  inverse="true">
                         <b:navbarLinks pull="right">
-                            <b:dropMenu value="Nomnbre del Usuario" >
+
+                            <ui:include src="general/men-respn-c.xhtml"></ui:include>
+                            <b:dropMenu value="Nombre del Usuario">
                                 <b:navLink value="Perfil" href="#"></b:navLink>
                                 <b:navLink></b:navLink>
                                 <b:navLink header="Sesión"></b:navLink>
-                                <h:form><p:commandButton value="Cerrar Sesion" action="#{usuarioBean.logout()}" icon="power"  style="margin-left:5%"/></h:form>
+                                <h:form><p:commandButton value="Cerrar Sesion" action="#{usuarioBean.logout()}" icon="power"  style="margin-left:5%"/></h:form>                                   
 
                             </b:dropMenu>
                         </b:navbarLinks>
@@ -89,6 +91,7 @@
             </b:container>
 
         </div>
+
 
         <b:container fluid="true">
             <b:row>
