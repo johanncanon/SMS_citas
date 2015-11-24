@@ -8,6 +8,7 @@ package DAO;
 import Modelo.SmsCiudad;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,6 +18,8 @@ import org.hibernate.Session;
  * @author Desarrollo_Planit
  */
 public class ImpCiudadDao implements ICiudadDao {
+
+    private FacesMessage message;
 
     @Override
     public List<SmsCiudad> mostrarCiudades() {
@@ -44,9 +47,11 @@ public class ImpCiudadDao implements ICiudadDao {
             session.beginTransaction();
             session.save(ciudad);
             session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Ciudad registrado", "" + ciudad.getCiudadNombre());
         } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
         } finally {
             if (session != null) {
                 session.close();
@@ -62,9 +67,11 @@ public class ImpCiudadDao implements ICiudadDao {
             session.beginTransaction();
             session.update(ciudad);
             session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Ciudad modificada", "" + ciudad.getCiudadNombre());
         } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
         } finally {
             if (session != null) {
                 session.close();
@@ -80,9 +87,11 @@ public class ImpCiudadDao implements ICiudadDao {
             session.beginTransaction();
             session.delete(ciudad);
             session.getTransaction().commit();
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Ciudad eliminada", "" + ciudad.getCiudadNombre());
         } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
         } finally {
             if (session != null) {
                 session.close();

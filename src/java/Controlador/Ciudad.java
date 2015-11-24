@@ -8,6 +8,8 @@ package Controlador;
 import DAO.ICiudadDao;
 import DAO.ImpCiudadDao;
 import Modelo.SmsCiudad;
+import Modelo.SmsPais;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,24 +43,31 @@ public class Ciudad {
         this.ciudades = ciudades;
     }
 
-    /**
-     * **************** METODOS DE CRUD  ****************
-     */
-    public void registrarCiudad(SmsCiudad ciu) {
-        ciudad = ciu;
+    //Metodos CRUD
+    public void registrarCiudad(SmsCiudad c, SmsPais p) {
+        ciudad = c;SmsPais pais = p;
+        ciudad.setSmsPais(pais);
         ICiudadDao linkDao = new ImpCiudadDao();
         linkDao.registrarCiudad(ciudad);
     }
     
-    public void modificarCiudad(SmsCiudad ciu){
-        ciudad = ciu;
+    public void modificarCiudad(SmsCiudad c, SmsPais p){
+        ciudad = c;SmsPais pais = p;
+        ciudad.setSmsPais(pais);
         ICiudadDao linkDao = new ImpCiudadDao();
         linkDao.modificarCiudad(ciudad);
     }
     
-    public void eliminarCiudad(SmsCiudad ciu){
-        ciudad = ciu;
+    public void eliminarCiudad(SmsCiudad c){
+        ciudad = c;
         ICiudadDao linkDao = new ImpCiudadDao();
         linkDao.eliminarCiudad(ciudad);
+    }
+    
+    public List<SmsCiudad> cargarCiudades(){
+        ciudades = new ArrayList<>();
+        ICiudadDao linkDao = new ImpCiudadDao();
+        ciudades = linkDao.mostrarCiudades();
+        return ciudades;
     }
 }

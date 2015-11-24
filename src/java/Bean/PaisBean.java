@@ -7,36 +7,37 @@ package Bean;
 
 import Controlador.Pais;
 import Modelo.SmsPais;
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Desarrollo_Planit
- */
 public class PaisBean {
 
     //Objetos de vista
     private SmsPais paisView;
     private List<SmsPais> paisesListView;
     private List<String> nombrePaisesListView;
-    
+
     //Relacion con el controlador
     private Pais paisController;
-    
-    public PaisBean() {
-    }
-    
-    //Getters & Setters
 
+    public PaisBean() {
+        paisView = new SmsPais();
+        paisesListView = new ArrayList<>();
+        nombrePaisesListView = new ArrayList<>();
+    }
+
+    //Getters & Setters
     public SmsPais getPaisView() {
         return paisView;
     }
 
     public void setPaisView(SmsPais paisView) {
         this.paisView = paisView;
-    }    
+    }
 
     public List<SmsPais> getPaisesListView() {
+        paisesListView = new ArrayList<>();
+        paisesListView = paisController.cargarPaises();
         return paisesListView;
     }
 
@@ -45,6 +46,11 @@ public class PaisBean {
     }
 
     public List<String> getNombrePaisesListView() {
+        nombrePaisesListView = new ArrayList<>();
+        paisesListView = paisController.cargarPaises();
+        for (int i = 0; i < paisesListView.size(); i++) {
+            nombrePaisesListView.add(paisesListView.get(i).getPaisNombre());
+        }
         return nombrePaisesListView;
     }
 
@@ -59,5 +65,5 @@ public class PaisBean {
     public void setPaisController(Pais paisController) {
         this.paisController = paisController;
     }
-    
+
 }

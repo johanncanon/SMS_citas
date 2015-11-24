@@ -18,23 +18,32 @@ import java.util.List;
  * @author Desarrollo_Planit
  */
 public class CiudadBean {
-    
+
     //Objetos de vista
-    private SmsCiudad ciudadView;   
+    private SmsCiudad ciudadView;
     private List<SmsCiudad> ciudadesListView;
     private List<String> nombresCiudadesListView;
-    protected SmsPais pais;
-    
+    protected SmsPais paisView;
+
     //Relacion con el controlador
     private Ciudad ciudadController;
 
+    //Variables
+    private int estado; //Controla la operacion a realizar
+    private String nombre;
+
     public CiudadBean() {
         ciudadView = new SmsCiudad();
-        ciudadesListView= new ArrayList<>();
-        pais = new SmsPais();
-        
+        ciudadesListView = new ArrayList<>();
+        nombresCiudadesListView = new ArrayList<>();
+        ciudadController = new Ciudad();
+        paisView = new SmsPais();
+
+        estado = 0;
+        nombre = "Registrar Ciudad";
     }
 
+    //Getters & Setters    
     public SmsCiudad getCiudadView() {
         return ciudadView;
     }
@@ -44,6 +53,7 @@ public class CiudadBean {
     }
 
     public List<SmsCiudad> getCiudadesListView() {
+        ciudadesListView = new ArrayList<>();
         ciudadesListView = ciudadController.getCiudades();
         return ciudadesListView;
     }
@@ -58,21 +68,19 @@ public class CiudadBean {
 
     public void setCiudadController(Ciudad ciudadController) {
         this.ciudadController = ciudadController;
-    }   
-
-    public SmsPais getPais() {
-        return pais;
     }
 
-    public void setPais(SmsPais pais) {
-        this.pais = pais;
-    } 
-      
+    public SmsPais getPaisView() {
+        return paisView;
+    }
+
+    public void setPaisView(SmsPais paisView) {
+        this.paisView = paisView;
+    }
 
     public List<String> getNombresCiudadesListView() {
         nombresCiudadesListView = new ArrayList<>();
-        ICiudadDao ciudadDao = new ImpCiudadDao();
-        ciudadesListView = ciudadDao.mostrarCiudades();
+        ciudadesListView = ciudadController.cargarCiudades();
         for (int i = 0; i < ciudadesListView.size(); i++) {
             nombresCiudadesListView.add(ciudadesListView.get(i).getCiudadNombre());
         }
@@ -81,22 +89,62 @@ public class CiudadBean {
 
     public void setNombresCiudadesListView(List<String> nombresCiudadesListView) {
         this.nombresCiudadesListView = nombresCiudadesListView;
-    }  
-    
+    }
 
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    //Metodos propios
+    public void seleccionarCrud(int i) {
+        estado = i;
+        if (estado == 1) {
+            nombre = "Modificar Ciudad";
+        } else if (estado == 2) {
+            nombre = "Eliminar Ciudad";
+        }
+    }
+
+    public void metodo() {
+        if (estado == 0) {
+            registrar();
+        } else if (estado == 1) {
+            modificar();
+            estado = 0;
+            nombre = "Registrar Ciudad";
+        } else if (estado == 2) {
+            eliminar();
+            estado = 0;
+            nombre = "Registrar Ciudad";
+        }
+    }
 
     //Definicion Metodos CRUD
     public void registrar() {
-        ciudadController.registrarCiudad(ciudadView);
+        ciudadController.registrarCiudad(ciudadView, paisView);
         ciudadView = new SmsCiudad();
+        paisView = new SmsPais();
     }
 
-    public void modificarCiudad() {
-        ciudadController.modificarCiudad(ciudadView);
+    public void modificar() {
+        ciudadController.modificarCiudad(ciudadView, paisView);
         ciudadView = new SmsCiudad();
+        paisView = new SmsPais();
     }
 
-    public void eliminarCiudad() {
+    public void eliminar() {
         ciudadController.eliminarCiudad(ciudadView);
         ciudadView = new SmsCiudad();
     }
