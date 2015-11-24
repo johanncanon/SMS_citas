@@ -8,7 +8,7 @@
             <column name="idCiudad" />
             <generator class="identity"></generator>
         </id>
-        <many-to-one name="smsPais" class="Modelo.SmsPais" fetch="select">
+        <many-to-one name="smsPais" class="Modelo.SmsPais" fetch="join">
             <column name="Ciudad_pais" not-null="true" />
         </many-to-one>
         <property name="ciudadNombre" type="string">

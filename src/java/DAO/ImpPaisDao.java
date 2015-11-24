@@ -98,5 +98,23 @@ public class ImpPaisDao implements IPaisDao{
             }
         }
     }
+
+    @Override
+    public List<SmsPais> consultarPais(SmsPais pais) {
+         Session session = null;
+        List<SmsPais> paises = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsPais as pais where pais.paisNombre='" + pais.getPaisNombre() + "'");
+            paises = (List<SmsPais>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return paises;
+    }
     
 }

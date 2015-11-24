@@ -8,6 +8,7 @@ package Bean;
 import DAO.ICiudadDao;
 import DAO.ImpCiudadDao;
 import Controlador.Ciudad;
+import Controlador.Pais;
 import Modelo.SmsCiudad;
 import Modelo.SmsPais;
 import java.util.ArrayList;
@@ -110,10 +111,14 @@ public class CiudadBean {
     //Metodos propios
     public void seleccionarCrud(int i) {
         estado = i;
+        Pais pais = new Pais();
         if (estado == 1) {
+            paisView = pais.validarPais(ciudadView);
             nombre = "Modificar Ciudad";
         } else if (estado == 2) {
             nombre = "Eliminar Ciudad";
+            paisView = pais.validarPais(ciudadView);
+            nombre = "Modificar Ciudad";
         }
     }
 
@@ -147,5 +152,6 @@ public class CiudadBean {
     public void eliminar() {
         ciudadController.eliminarCiudad(ciudadView);
         ciudadView = new SmsCiudad();
+        paisView = new SmsPais();
     }
 }

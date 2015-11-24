@@ -13,17 +13,18 @@ import java.util.List;
 public class PaisBean {
 
     //Objetos de vista
-    private SmsPais paisView;
-    private List<SmsPais> paisesListView;
-    private List<String> nombrePaisesListView;
+    protected SmsPais paisView;
+    protected List<SmsPais> paisesListView;
+    protected List<String> nombrePaisesListView;
 
     //Relacion con el controlador
-    private Pais paisController;
+    protected Pais paisController;
 
     public PaisBean() {
         paisView = new SmsPais();
         paisesListView = new ArrayList<>();
         nombrePaisesListView = new ArrayList<>();
+        paisController = new Pais();
     }
 
     //Getters & Setters

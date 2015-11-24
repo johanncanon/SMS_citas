@@ -5,8 +5,11 @@
  */
 package Controlador;
 
+import DAO.ICiudadDao;
 import DAO.IPaisDao;
+import DAO.ImpCiudadDao;
 import DAO.ImpPaisDao;
+import Modelo.SmsCiudad;
 import Modelo.SmsPais;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +45,6 @@ public class Pais {
     public void setPaises(List<SmsPais> paises) {
         this.paises = paises;
     }
-    
 
     //Metodos CRUD
     public void registrarPais(SmsPais p) {
@@ -70,4 +72,16 @@ public class Pais {
         return paises;
     }
 
+    //Metodos
+    public SmsPais validarPais(SmsCiudad ciudad) {
+        SmsPais p = ciudad.getSmsPais();
+        paises = cargarPaises();
+        for (int i = 0; i < paises.size(); i++) {
+            if (p.equals(paises.get(i))) {
+                pais = paises.get(i);
+            }
+        }
+
+        return pais;
+    }
 }

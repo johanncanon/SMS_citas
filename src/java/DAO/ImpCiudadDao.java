@@ -9,6 +9,7 @@ import Modelo.SmsCiudad;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -27,7 +28,7 @@ public class ImpCiudadDao implements ICiudadDao {
         List<SmsCiudad> ciudades = new ArrayList<>();
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsCiudad");
+            Query query = session.createQuery("from SmsCiudad as ciudad left join fetch ciudad.smsPais");
             ciudades = (List<SmsCiudad>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
@@ -56,7 +57,7 @@ public class ImpCiudadDao implements ICiudadDao {
             if (session != null) {
                 session.close();
             }
-        }
+        } FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
@@ -76,7 +77,7 @@ public class ImpCiudadDao implements ICiudadDao {
             if (session != null) {
                 session.close();
             }
-        }
+        } FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
@@ -96,7 +97,7 @@ public class ImpCiudadDao implements ICiudadDao {
             if (session != null) {
                 session.close();
             }
-        }
+        } FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
