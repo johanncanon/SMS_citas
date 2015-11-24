@@ -26,18 +26,18 @@
                                         <p:messages id="messages" />
                                         <h:panelGrid columns="2" cellpadding="5" >
                                             <p:outputLabel value="Marca de Vehiculo: "/>
-                                            <p:selectOneMenu value="#{referenciaBean.marcas}">
-                                                <f:selectItems value="#{marsfasd}"/>
+                                            <p:selectOneMenu value="#{referenciaBean.marcasView.marcaNombre}" >
+                                                <f:selectItems value="#{marcaBean.marcaStView}" />
                                             </p:selectOneMenu>                                            
                                         </h:panelGrid>
                                     </div>
 
                                     <div class="registro-vista">
                                         <p:outputLabel  value="Nombre de Referencia: "/>
-                                        <p:inputText value="#{referenciaBean.referencia.referenciaNombre}"/>
+                                        <p:inputText value="#{referenciaBean.referenciaView.referenciaNombre}" />
                                     </div>
                                     <br/>
-                                    <p:commandButton ajax="false" value="Registrar" action="#{referenciaBean.regReferencia()}"/>
+                                    <p:commandButton ajax="false" value="Registrar" action="#{referenciaBean.registrar()}"/>
                                 </p:panel>
                             </h:form> 
                         </b:well>
@@ -56,21 +56,21 @@
                         <b:well>
                             <h3>Lista de referencia de Vehìculos SMS </h3>
                             <hr/>
-                            <p:dataTable var="car" value="#{dtBasicView.cars}">
+                            <p:dataTable var="car" >
                                 <p:column headerText="Id">
-                                    <h:outputText value="#{car.id}" />
+                                    <h:outputText  />
                                 </p:column>
 
                                 <p:column headerText="Year">
-                                    <h:outputText value="#{car.year}" />
+                                    <h:outputText  />
                                 </p:column>
 
                                 <p:column headerText="Brand">
-                                    <h:outputText value="#{car.brand}" />
+                                    <h:outputText />
                                 </p:column>
 
                                 <p:column headerText="Color">
-                                    <h:outputText value="#{car.color}" />
+                                    <h:outputText />
                                 </p:column>
                             </p:dataTable>
                         </b:well>

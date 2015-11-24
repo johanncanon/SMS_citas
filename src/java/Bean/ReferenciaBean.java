@@ -26,20 +26,19 @@ public class ReferenciaBean implements Serializable {
     private List<SmsReferencia> referenciasView;
     private Referencia referencia;
     private List<String> listaReferenciaView;
-    private String marcasView;
+    private SmsMarca marcaView;
 
     public ReferenciaBean() {
         referenciaView = new SmsReferencia();
-        marcasView = new String();
+        marcaView = new SmsMarca();
         referencia = new Referencia();
 
     }
 
     /**
      * ******************************************************
-     ********* getters y setters        *************
+     ********* getters y setters *************
      */
-
     public Referencia getReferencia() {
         return referencia;
     }
@@ -66,12 +65,12 @@ public class ReferenciaBean implements Serializable {
         this.referenciasView = referenciasView;
     }
 
-    public String getMarcasView() {//LISTA DE STRING
-        return marcasView;
+    public SmsMarca getMarcasView() {//LISTA DE STRING
+        return marcaView;
     }
 
-    public void setMarcasView(String marcaView) {
-        this.marcasView = marcaView;
+    public void setMarcasView(SmsMarca marcaView) {
+        this.marcaView = marcaView;
     }
 
     public List<String> getListaReferenciaView() {
@@ -91,21 +90,20 @@ public class ReferenciaBean implements Serializable {
     /* METODOS DEL BEAN
      ********************************************************************************/
     public void modificar() {
-        referencia.modificarReferencia(referenciaView);
+        referencia.modificarReferencia(referenciaView, marcaView);
         referenciaView = new SmsReferencia();
+        marcaView = new SmsMarca();
     }
 
     public void eliminar() {
-        referencia.eliminarReferencia(referenciaView);
+        referencia.eliminarReferencia(referenciaView, marcaView);
         referenciaView = new SmsReferencia();
+        marcaView = new SmsMarca();
     }
 
     public void registrar() {
-        SmsMarca marca = new SmsMarca();
-        IMarcaDao marcaDao = new ImpMarcaDao();
-        marca = marcaDao.consultarMarca(marcasView).get(0);
-
-        referencia.registrarReferencia(referenciaView);
+        referencia.registrarReferencia(referenciaView, marcaView);
         referenciaView = new SmsReferencia();
+        marcaView = new SmsMarca();
     }
 }

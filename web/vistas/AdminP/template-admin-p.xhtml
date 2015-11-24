@@ -24,11 +24,11 @@
         <div id="top">
             <b:container fluid="true">
                 <b:row><!-- MENU -->
-                    <b:navBar brand="SMS Citas" brandHref="#" inverse="true">
+                    <b:navBar  brandImg="../../resources/images/logo-DASH.png"   brandHref="#"  inverse="true">
                         <b:navbarLinks pull="right">
+                            
                             <ui:include src="general/menu-responsive.xhtml"></ui:include>
-
-                            <b:dropMenu value="Nombre del Usuario" >
+                            <b:dropMenu value="Nombre del Usuario">
                                 <b:navLink value="Perfil" href="#"></b:navLink>
                                 <b:navLink></b:navLink>
                                 <b:navLink header="Sesión"></b:navLink>
@@ -52,45 +52,45 @@
                                 <p:growl autoUpdate="true"/>
                                 <b:thumbnail id="esp1">
                                     <b:panelGrid colSpans="4,8">
-                                        <img src="#"/>
+                                        <img src="../../resources/images/col-band.png" style="width: 113%; margin-left: 9px; margin-top: 16px;"/>
                                         <f:facet name="caption"/>
                                         <h4>Thumbnail label</h4>
                                         <p>Nombre: "Nombre Completo."</p>
                                         <p>Perfil : "tipo de perfil."</p>
                                     </b:panelGrid>
                                 </b:thumbnail>
-                                <p:panelMenu>
+                                <p:panelMenu styleClass="ui-state-default-menu">
 
                                     <p:submenu label="Registro" styleClass="color-menu-1" icon="ui-icon-pencil">
-                                        <p:menuitem value="Registro de Usuario" icon="ui-icon-pencil" url="reservas/reservadmin.xhtml"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Registro de Usuario" icon="ui-icon-pencil" url="reservas/reservadmin.xhtml"/>
                                     </p:submenu>
 
                                     <p:submenu label="Reservaciones" >
-                                        <p:menuitem value="Reservar Vehiculos" url="reservas/reservadmin.xhtml"  icon="ui-icon-star" />
-                                        <p:menuitem value="Reservar Conductores" url="reservas/reservadmin.xhtml"  icon="ui-icon-plusthick" />
-                                        <p:menuitem value="Consultar reservaciones" url="reservas/reservadmin.xhtml"  icon="ui-icon-circle-zoomin" />
+                                        <p:menuitem style="font-size: 1.2em" value="Reservar Vehiculos" url="reservas/reservadmin.xhtml"  icon="ui-icon-star" />
+                                        <p:menuitem style="font-size: 1.2em" value="Reservar Conductores" url="reservas/reservadmin.xhtml"  icon="ui-icon-plusthick" />
+                                        <p:menuitem style="font-size: 1.2em" value="Consultar reservaciones" url="reservas/reservadmin.xhtml"  icon="ui-icon-circle-zoomin" />
                                     </p:submenu>
 
                                     <p:submenu label="Clientes">
-                                        <p:menuitem value="Registro de Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-check"/>
-                                        <p:menuitem value="Consultar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-circle-zoomin"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Registro de Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-check"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Consultar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-circle-zoomin"/>
                                     </p:submenu>
 
                                     <p:separator />
                                     <p:submenu label="Vehiculos" >
-                                        <p:menuitem value="Marcas SMS Renta" url="#" icon="ui-icon-home"/>
-                                        <p:menuitem value="Categorias SMS Renta" url="#" icon="ui-icon-contact"/>
-                                        <p:menuitem value="Referencias SMS Renta" url="http://www.primefaces.org" icon="ui-icon-folder-collapsed" />
-                                        <p:menuitem value="Vehiculo SMS Renta" url="http://www.primefaces.org" icon="ui-icon-person" />
+                                        <p:menuitem style="font-size: 1.2em" value="Marcas SMS Renta" url="#" icon="ui-icon-home"/>
+                                        <p:menuitem style="font-size: 1.2em"  value="Categorias SMS Renta" url="#" icon="ui-icon-contact"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Referencias SMS Renta" url="http://www.primefaces.org" icon="ui-icon-folder-collapsed" />
+                                        <p:menuitem style="font-size: 1.2em" value="Vehiculo SMS Renta" url="http://www.primefaces.org" icon="ui-icon-person" />
                                     </p:submenu>
 
                                     <p:submenu label="Conductores SMS">
-                                        <p:menuitem value="Registrar Conductores" url="#" icon="ui-icon-arrowstop-1-s"/>
-                                        <p:menuitem value="Consultar Conductores" url="#" icon="ui-icon-calculator"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Registrar Conductores" url="#" icon="ui-icon-arrowstop-1-s"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Consultar Conductores" url="#" icon="ui-icon-calculator"/>
 
                                     </p:submenu>
                                     <p:submenu label="Calificaciones">
-                                        <p:menuitem value="Consultar Calificaciones" url="#" icon="ui-icon-star"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Consultar Calificaciones" url="#" icon="ui-icon-star"/>
                                     </p:submenu>
                                 </p:panelMenu>
                             </h:form>
