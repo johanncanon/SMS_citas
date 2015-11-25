@@ -47,6 +47,7 @@ public class ServiciosBean {
     }
 
     public List<SmsServicios> getServiciosListView() {
+        serviciosListView = new ArrayList<>();
         serviciosListView = servicioController.cargarServicio();
         return serviciosListView;
     }

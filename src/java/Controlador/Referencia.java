@@ -9,6 +9,7 @@ import DAO.IReferenciaDao;
 import DAO.ImpReferenciaDao;
 import Modelo.SmsMarca;
 import Modelo.SmsReferencia;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,12 +75,23 @@ public class Referencia {
     }
 
     public void registrarReferencia(SmsReferencia ref, SmsMarca marc) {
-        this.referencia = ref;
-        marca = marc;
-        referencia.setSmsMarca(marca);
+        this.referencia = ref;marca = marc;
         
+        Marca marcaController = new Marca();        
+        marca = marcaController.consultarMarca(marca).get(0);
+        
+        referencia.setSmsMarca(marca);
         IReferenciaDao linkDao = new ImpReferenciaDao();
         linkDao.registrarReferencia(referencia);
     }
+
+    public List<SmsReferencia> cargarReferencias() {
+        referencias = new ArrayList<>();
+        IReferenciaDao linkDao = new ImpReferenciaDao();
+        referencias = linkDao.mostrarReferencias();
+        return referencias;
+    }
+    
+    
 
 }

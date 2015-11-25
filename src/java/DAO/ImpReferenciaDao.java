@@ -29,7 +29,7 @@ public class ImpReferenciaDao implements IReferenciaDao {
         List<SmsReferencia> referencias = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsReferencia");
+            Query query = session.createQuery("from SmsReferencia as referencia left join fetch referencia.smsMarca");
             referencias = (List<SmsReferencia>) query.list();
 
         } catch (HibernateException e) {

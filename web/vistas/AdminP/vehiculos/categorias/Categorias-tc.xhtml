@@ -4,77 +4,81 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-
         <ui:composition template="./../../template-admin-p.xhtml">
-
             <ui:define name="content">
                 <b:container fluid="true">
                     <b:row>
-                        <b:column col-lg="6" col-md="6" col-sm="5" col-xs="12" id="EspacioA">
-                            <b:well>
-                                <h:form>
-                                    <h3>Ingreso de Categorias de Vehiculos SMS</h3>
+                        <h:form>
+                            <div class="espacio-arriba">
+                                <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
+                                    <b:well>
+                                        <h3>Categorias SMS Renta</h3>
+                                        <hr/>
+                                        <p>En este panel podra ingresar el nombre y la descripcion respecto a las categorias 
+                                            de los Vehiculos de SMS Renta.Un ejemplo de Categoria puede ser Categoria Blindado, Categorisa 
+                                            Business, Categoria VIV, etc.</p>
+                                    </b:well>
+                                </b:column>
+                            </div>
+
+                            <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
+                                <b:well>
+                                    <h4>Ingreso de Categorias de Vehiculos SMS</h4>
                                     <hr/>
-                                    <p:panel id="panel" header="Ingreso de Categorias de Vehiculo SMS">
-                                        <div class="registro-vista">
-                                            <p:outputLabel  value="Nombre de Categoria: "/>
-                                            <p:inputText value="#{categoriaBean.categoriaView.categoriaNombre}"/>
+                                    <p:panel>
+                                        <div class="table-responsive">
+                                            <h:panelGrid columns="3" style="width: 100%" cellpadding="5">
+
+                                                <p:outputLabel  value="Nombre de Categoria: "/>
+                                                <b:inputText id="TNombreCat" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre de categoria" value="#{categoriaBean.categoriaView.categoriaNombre}"/>
+                                                <p:message for="TNombreCat"/>
+
+                                                <p:outputLabel value="Descripción de Categoria: "/>
+                                                <p:inputTextarea value="#{categoriaBean.categoriaView.categoriaDescripcion}"/>
+                                                <p:message/>
+                                            </h:panelGrid>
+                                            <p:commandButton style="width: 100%" update="@(.ui-panel)" value="#{categoriaBean.nombre}" action="#{categoriaBean.metodo()}"/>
                                         </div>
-                                        <br/>
-                                        <div class="registro-vista">
-                                            <p:outputLabel  value="Descripción de Categoria: "/>
-                                            <p:inputTextarea   value="#{categoriaBean.categoriaView.categoriaDescripcion}"/>
-                                        </div>
-                                        <br/>
-                                        <p:commandButton ajax="false" value="Registrar" action="#{categoriaBean.regCategoria()}"/>
                                     </p:panel>
-                                </h:form> 
-                            </b:well>
-                        </b:column>
+                                </b:well>
+                            </b:column>
 
-                        <b:column col-lg="3" col-md="3" col-sm="3" col-xs="12" id="EspacioB">
-                            <b:well>
-                                <h3>Categorias SMS Renta</h3>
-                                <hr/>
-                                <p>En este panel podra ingresar el nombre y la descripcion respecto a las categorias 
-                                    de los Vehiculos de SMS Renta.Un ejemplo de Categoria peude ser Categoria Blindado, Categoriía 
-                                    Business, Categoria VIV, etc.</p>
-                            </b:well>
-                        </b:column>
+                            <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
+                                <b:well>
+                                    <h4>Lista de Vehìculos SMS por Categorias</h4>
+                                    <hr/>
+                                    <p:fragment>
+                                        <p:panel>
+                                            <b:inputText placeholder="Buscar" style="width: 100%"/>
+                                            <p:dataTable var="Categorias" value="#{categoriaBean.categoriasListView}" >
+                                                <p:column headerText="Nombre">
+                                                    <h:outputText value="#{Categorias.categoriaNombre}" />
+                                                </p:column>
 
-                        <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
-                            <b:well>
-                                <h3>Lista de Vehìculos SMS por Categorias</h3>
-                                <hr/>
-                                <p:dataTable var="car" >
-                                    <p:column headerText="Id">
-                                        <h:outputText  />
-                                    </p:column>
+                                                <p:column style="width: 35px">
+                                                    <p:commandButton icon="ui-icon-pencil" update="@(.ui-panel)" action="#{categoriaBean.seleccionarCRUD(1)}" title="Modificar">
+                                                        <f:setPropertyActionListener value="#{Categorias}" target="#{categoriaBean.categoriaView}"/>
+                                                    </p:commandButton>
+                                                </p:column>
 
-                                    <p:column headerText="Year">
-                                        <h:outputText />
-                                    </p:column>
-
-                                     <p:column headerText="Brand">
-                                        <h:outputText  />
-                                    </p:column>
-
-                                    <p:column headerText="Color">
-                                        <h:outputText />
-                                    </p:column>
-                                </p:dataTable>
-                            </b:well>
-                        </b:column>
+                                                <p:column style="width: 35px">
+                                                    <p:commandButton icon="ui-icon-close" update="@(.ui-panel)" action="#{categoriaBean.seleccionarCRUD(2)}" title="Eliminar">
+                                                        <f:setPropertyActionListener value="#{Categorias}" target="#{categoriaBean.categoriaView}"/>
+                                                    </p:commandButton>
+                                                </p:column>                                      
+                                            </p:dataTable>
+                                        </p:panel>
+                                    </p:fragment>
+                                </b:well>
+                            </b:column>
+                        </h:form> 
                     </b:row>
-
                 </b:container>
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>

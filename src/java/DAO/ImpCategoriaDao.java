@@ -103,7 +103,8 @@ public class ImpCategoriaDao implements ICategoriaDao{
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
     /********************************************************************************************************************/
-    public List<SmsCategoria> consultarCategorias(SmsCategoria categoria) {
+    @Override
+    public List<SmsCategoria> consultarCategoria(SmsCategoria categoria) {
         Session session = null;
         List<SmsCategoria> categorias = new ArrayList<>();        
         try{

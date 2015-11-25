@@ -15,7 +15,7 @@ import java.util.List;
 public interface ICategoriaDao {
     
     public List<SmsCategoria> mostrarCategorias();
-    public List<SmsCategoria> consultarCategorias(SmsCategoria categoria);
+    public List<SmsCategoria> consultarCategoria(SmsCategoria categoria);
     public void registrarCategoria(SmsCategoria categoria);
     public void modificarCategoria(SmsCategoria categoria);
     public void eliminarCategoria(SmsCategoria categoria);    

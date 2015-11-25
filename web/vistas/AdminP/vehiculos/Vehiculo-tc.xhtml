@@ -13,8 +13,9 @@
 
         <ui:define name="content">     
 
-            <h:form><b:container fluid="true">
-                    <b:row>
+            <b:container fluid="true">
+                <b:row>
+                    <h:form>
                         <div id="EspacioA">
 
 
@@ -24,8 +25,6 @@
                                     <div class="table-responsive">
                                         <p:panel header="Ingreso de Datos de Vehiculos SMS" style="margin-bottom:10px;">
                                             <!-- ************ / Listas de Seleccion  / ********** -->
-
-
 
                                             <h:panelGrid columns="4" style="padding: 12px">                                     
                                                 <p:outputLabel for="referencia" value="Referencia: " />
@@ -155,38 +154,39 @@
                                     <p:column headerText="Ccategoria">
                                         <h:outputText value="#{veh.smsCategoria}" />
                                     </p:column>
-                                    
+
                                     <p:column headerText="Proveedor">
                                         <h:outputText value="#{veh.smsProveedor}" />
                                     </p:column>
-                                    
+
                                     <p:column headerText="Color">
                                         <h:outputText value="#{veh.vehColor}" />
                                     </p:column>
-                                    
+
                                     <p:column headerText="MOdelo">
                                         <h:outputText value="#{veh.vehModelo}" />
                                     </p:column>
-                                    
+
                                     <p:column headerText="# de Maletas Grandes">
                                         <h:outputText value="#{veh.vehNumMalGrande}" />
                                     </p:column>
-                                    
+
                                     <p:column headerText="# de Personas">
                                         <h:outputText value="#{veh.vehNumPersonas}" />
                                     </p:column>
-                                    
+
                                     <p:column headerText="Placa">
                                         <h:outputText value="#{veh.vehPlaca}" />
                                     </p:column>
-                                    
-                                    
+
+
                                 </p:dataTable>
                             </b:well>
                         </b:column>
-                    </b:row>
+                    </h:form> 
+                </b:row>
 
-                </b:container> </h:form> 
+            </b:container>
 
         </ui:define>
     </ui:composition>

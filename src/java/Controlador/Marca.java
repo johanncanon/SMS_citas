@@ -8,6 +8,7 @@ package Controlador;
 import DAO.IMarcaDao;
 import DAO.ImpMarcaDao;
 import Modelo.SmsMarca;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ public class Marca {
 
     public Marca() {//Contrusctor
         marca = new SmsMarca();
+        marcas = new ArrayList<>();
 
     }
     /* ********************** Setters y Getters *****************************/
@@ -64,10 +66,19 @@ public class Marca {
         IMarcaDao linkDao = new ImpMarcaDao();
         linkDao.registrarMarca(marca);
     }
-    
-    public void consultarMarca(SmsMarca marc){
+        
+    public List<SmsMarca> consultarMarca(SmsMarca marc){
         this.marca = marc;
         IMarcaDao linkDao = new ImpMarcaDao();
-        linkDao.consultarMarca(null);
+        marcas = linkDao.consultarMarca(marca);
+        return marcas;
     }
+    
+    public List<SmsMarca> cargarMarcas(){
+       marcas = new ArrayList<>();
+       IMarcaDao linkDao = new ImpMarcaDao();
+       marcas = linkDao.mostrarMarcas();
+       return marcas;
+    }
+    
 }

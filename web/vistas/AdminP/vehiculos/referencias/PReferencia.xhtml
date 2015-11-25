@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <body>
+        <ui:composition template="./../../template-admin-p.xhtml">
+            <ui:define name="content">
+                <b:container fluid="true">
+                    <b:row>
+                        <h:form>                            
+                            <div class="espacio-arriba">
+                                <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12" id="EspacioB">
+                                    <b:well>
+                                        <h3>Referencias SMS Renta</h3>
+                                        <hr/>
+                                        <p>En este panel podra registrar las referencias de los vehiculos a manejar en SMS Renta, 
+                                            relacionando esta referencia con su respectiva marca.</p>
+                                    </b:well>
+                                </b:column>                               
+                            </div>
+                            <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
+                                <b:well>
+                                    <h3>Registro de referencias de vehiculos SMS</h3>
+                                    <hr/>
+                                    <p:panel id="PanelDatosReferencias">
+                                        <div class="table-responsive">                                        
+                                            <h:panelGrid id="PReferencias" columns="3" cellpadding="5" style="width: 100%">
+                                                <p:outputLabel value="Marca"/>
+                                                <b:selectOneMenu value="#{referenciaBean.marcaView.marcaNombre}">
+                                                    <f:selectItem id="SMarcas" itemLabel="Seleccione Marca"/>
+                                                    <f:selectItems value="#{marcaBean.nombresMarcaView}"/>
+                                                </b:selectOneMenu>
+                                                <p:message for="SMarcas" />
+
+                                                <p:outputLabel  value="Referencia: "/>
+                                                <b:inputText id="TNombreRef" placeholder="Referencia del vehiculo" required="true" requiredMessage="Ingrese referencia" style="width: 100%" value="#{referenciaBean.referenciaView.referenciaNombre}"/>
+                                                <p:message for="TNombreRef" />
+                                            </h:panelGrid>
+                                        </div>
+                                        <hr/>
+                                        <p:commandButton id="BTReferencia" ajax="true" update="@(.ui-panel)" style="width: 100%" value="#{referenciaBean.nombre}" action="#{referenciaBean.metodo()}"/>
+                                    </p:panel>
+                                </b:well>
+                            </b:column>
+                            <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
+                                <b:well>
+                                    <h4>Referencias SMS Renta</h4><hr/>
+                                    <p:panel>
+                                        <p:fragment>
+                                            <b:inputText placeholder="Buscar" style="width: 100%"></b:inputText><hr/>
+                                            <p:dataTable id="DTReferencias" var="Referencias" value="#{referenciaBean.referenciasListView}"
+                                                         rows="5"
+                                                         paginator="true"
+                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="5,10,15" emptyMessage="Referencias no registradas">
+                                                <p:column headerText="Referencia">
+                                                    <p:outputLabel value="#{Referencias.referenciaNombre}"/>
+                                                </p:column>
+
+                                                <p:column headerText="Marca">
+                                                    <p:outputLabel value="#{Referencias.smsMarca.marcaNombre}"/>
+                                                </p:column>
+
+                                                <p:column style="width: 35px">
+                                                    <p:commandButton icon="ui-icon-pencil"  update="@(.ui-panel)" action="#{referenciaBean.seleccionarCRUD(1)}" title="Modificar">
+                                                        <f:setPropertyActionListener value="#{Referencias}" target="#{referenciaBean.referenciaView}"/>
+                                                    </p:commandButton>
+                                                </p:column>
+
+                                                <p:column style="width: 35px">                                                    
+                                                    <p:commandButton icon="ui-icon-close" update="@(.ui-panel)" action="#{referenciaBean.seleccionarCRUD(2)}" title="Eliminar">
+                                                        <f:setPropertyActionListener value="#{Referencias}" target="#{referenciaBean.referenciaView}"/>
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:dataTable>                                        
+                                        </p:fragment>
+                                    </p:panel>
+                                </b:well>
+                            </b:column>
+
+                        </h:form> 
+                    </b:row>
+                </b:container>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

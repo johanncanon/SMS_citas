@@ -110,7 +110,7 @@ public class Vehiculo {
          * **********************************************************
          */
         ICategoriaDao catDao = new ImpCategoriaDao();
-        caetgoria = catDao.consultarCategorias(caetgoria).get(0);
+        caetgoria = catDao.consultarCategoria(caetgoria).get(0);
         vehiculo.setSmsCategoria(caetgoria);
         /**
          * **********************************************************
@@ -150,7 +150,7 @@ public class Vehiculo {
          * *****************************************************************
          */
         ICategoriaDao cateDao = new ImpCategoriaDao();
-        caetgoria = cateDao.consultarCategorias(caetgoria).get(0);
+        caetgoria = cateDao.consultarCategoria(caetgoria).get(0);
         vehiculo.setSmsCategoria(caetgoria);
         /**
          * *****************************************************************
@@ -196,7 +196,7 @@ public class Vehiculo {
          * ***************** Categorias  *******************************
          */
         ICategoriaDao categoriaDao = new ImpCategoriaDao();
-        caetgoria = categoriaDao.consultarCategorias(caetgoria).get(0);
+        caetgoria = categoriaDao.consultarCategoria(caetgoria).get(0);
         vehiculo.setSmsCategoria(caetgoria);
         /**
          * ***************** Proveedor  ********************************

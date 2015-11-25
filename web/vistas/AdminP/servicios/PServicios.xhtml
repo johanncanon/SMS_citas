@@ -11,8 +11,7 @@
         <ui:define name="content">
             <b:container fluid="true">
                 <b:row>
-                    <h:form>
-                        <p:messages id="messages" showDetail="true"/>
+                    <h:form>                        
                         <div class="espacio-arriba">
                             <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
                                 <b:well>
@@ -24,52 +23,62 @@
                             </b:column>
                         </div>                        
                         <b:column col-lg="3" col-md="3" col-sm="8" col-xs="12">
-                            <b:well>                               
-                                <div class="table-responsive">
-                                    <h4><b>DATOS DE SERVICIOS</b></h4>
+                            <b:well>                              
+                                <h4><b>DATOS DE SERVICIOS</b></h4>
+                                <hr/>
+                                <p:panel>
+                                    <div class="table-responsive">
+                                        <h:panelGrid id="PServicios" columns="3" cellpadding="5" style="width: 100%">
+                                            <p:outputLabel value="Nombre:"/>
+                                            <b:inputText id="TNombreServ" style="width: 100%" required="true" requiredMessage="Ingrese nombre del servicio" value="#{serviciosBean.servicioView.serviciosNombre}" placeholder="Nombre del servicio">                                            
+                                            </b:inputText>
+                                            <p:message for="TNombreServ"/>
+
+                                            <p:outputLabel value="Descripcion: "/>
+                                            <p:inputTextarea id="TDescServ" placeholder="Descripcion del servicio" value="#{serviciosBean.servicioView.serviciosDescripcion}" style="width: 100%" rows="3"></p:inputTextarea>
+                                            <p:message for="TDescServ"/>
+                                        </h:panelGrid>
+                                    </div>
                                     <hr/>
-                                    <h:panelGrid id="PServicios" columns="2" style="width: 100%">
-                                        <p:outputLabel value="Nombre:"/>
-                                        <p:inputText style="width: 100%" value="#{serviciosBean.servicioView.serviciosNombre}" placeholder="Nombre del servicio">                                            
-                                        </p:inputText>
-                                        <p:outputLabel value="Descripcion: "/>
-                                        <p:inputTextarea placeholder="Descripcion del servicio" value="#{serviciosBean.servicioView.serviciosDescripcion}" style="width: 100%" rows="3"></p:inputTextarea>
-                                    </h:panelGrid>
-                                </div>
-                                <p:commandButton id="BTServicio" ajax="false" class="btn btn-block btn-primary" update="messages PServicios BTServicio DTservicios" action="#{serviciosBean.metodo()}" style="width: 100%" value="#{serviciosBean.nombre}"/>                            
+                                    <p:commandButton id="BTServicio" update="@(.ui-panel)" action="#{serviciosBean.metodo()}" style="width: 100%" value="#{serviciosBean.nombre}"/>                            
+                                </p:panel>
                             </b:well>
                         </b:column>
                         <b:column col-lg="6" col-md="6" col-sm="8" col-xs="12">
                             <b:well>
                                 <h4><b>SERVICIOS SMS</b></h4>
-                                <hr/>                                
-                                <p:inputText placeholder="Buscar" style="width: 50%"/><hr/>
-                                <p:dataTable id="DTservicios" var="servicio" value="#{serviciosBean.serviciosListView}" 
-                                             rows="5"
-                                             paginator="true"
-                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="5,10,15" emptyMessage="Servicios no registrados">
+                                <hr/>
+                                <p:panel>
+                                    <p:fragment>
+                                        <b:inputText placeholder="Buscar" style="width: 100%"/><hr/>
+                                        <p:dataTable id="DTservicios" var="servicio" value="#{serviciosBean.serviciosListView}" 
+                                                     rows="5"
+                                                     paginator="true"
+                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="5,10,15" emptyMessage="Servicios no registrados">
 
-                                    <p:column headerText="Nombre">
-                                        <h:outputText value="#{servicio.serviciosNombre}"/>
-                                    </p:column>
+                                            <p:column headerText="Nombre">
+                                                <h:outputText value="#{servicio.serviciosNombre}"/>
+                                            </p:column>
 
-                                    <p:column headerText="Descripcion del servicio">
-                                        <h:outputText value="#{servicio.serviciosDescripcion}"/>
-                                    </p:column>
+                                            <p:column headerText="Descripcion del servicio">
+                                                <h:outputText value="#{servicio.serviciosDescripcion}"/>
+                                            </p:column>
 
-                                    <p:column style="width: 35px">
-                                        <p:commandButton icon="ui-icon-pencil" ajax="false" action="#{serviciosBean.seleccionarCRUD(1)}" title="Modificar">
-                                            <f:setPropertyActionListener value="#{servicio}" target="#{serviciosBean.servicioView}"/>
-                                        </p:commandButton>
-                                    </p:column>
+                                            <p:column style="width: 35px">
+                                                <p:commandButton icon="ui-icon-pencil" update="@(.ui-panel)" action="#{serviciosBean.seleccionarCRUD(1)}" title="Modificar">
+                                                    <f:setPropertyActionListener value="#{servicio}" target="#{serviciosBean.servicioView}"/>
+                                                </p:commandButton>
+                                            </p:column>
 
-                                    <p:column style="width: 35px">
-                                        <p:commandButton icon="ui-icon-close" ajax="false" action="#{serviciosBean.seleccionarCRUD(2)}" title="Eliminar">
-                                            <f:setPropertyActionListener value="#{servicio}" target="#{serviciosBean.servicioView}"/>
-                                        </p:commandButton>
-                                    </p:column>
-                                </p:dataTable>                                
+                                            <p:column style="width: 35px">
+                                                <p:commandButton icon="ui-icon-close" update="@(.ui-panel)"  action="#{serviciosBean.seleccionarCRUD(2)}" title="Eliminar">
+                                                    <f:setPropertyActionListener value="#{servicio}" target="#{serviciosBean.servicioView}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </p:fragment>
+                                </p:panel>
                             </b:well>
                         </b:column>
                     </h:form> 

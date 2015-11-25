@@ -6,37 +6,38 @@
 package Bean;
 
 import Controlador.Categoria;
-import DAO.ICategoriaDao;
-import DAO.ImpCategoriaDao;
 import Modelo.SmsCategoria;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+public class CategoriaBean implements Serializable {
 
-public class CategoriaBean implements Serializable{
+    //Objeto de vista
+    private SmsCategoria categoriaView;
+    private List<SmsCategoria> categoriasListView;
+    private List<String> nombresCategoriasListView;
 
-     private SmsCategoria categoriaView;
-     private List<SmsCategoria> categoriasView;
-     private List<String> listaCategoriasView;
-     private Categoria categoria;//Instancia de la Clase Categoria del Paquete CONTROLADOR
-     
-     
+    //Relacion con el controlador
+    private Categoria categoriaController;
+    
+    //Variables
+    private int estado; //Controla la operacion a realizar
+    private String nombre;
+    
+    
     public CategoriaBean() {//CONSTRUCTOR
-        
         categoriaView = new SmsCategoria();
-        categoria = new Categoria();//Instancia de la Clase Categoria del Paquete CONTROLADOR
+        categoriasListView = new ArrayList<>();
+        nombresCategoriasListView = new ArrayList<>();
+        categoriaController = new Categoria();
+
+        estado = 0;
+        nombre = "Registrar Categoria";
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    public SmsCategoria getCategoriaView(){
+    //Getters & Setters
+    public SmsCategoria getCategoriaView() {
         return categoriaView;
     }
 
@@ -44,59 +45,101 @@ public class CategoriaBean implements Serializable{
         this.categoriaView = categoriaView;
     }
 
-    
-    public List<SmsCategoria> getCategoriasView() {// *****************  DEVOLVER LISTADO DE CATEGORIAS
-        ICategoriaDao categoriasDao = new ImpCategoriaDao();
-        categoriasView = categoriasDao.mostrarCategorias();
-        return categoriasView;
+    public List<SmsCategoria> getCategoriasListView() {
+        categoriasListView = new ArrayList<>();
+        categoriasListView = categoriaController.cargarCategorias();
+        return categoriasListView;
     }
 
-    public void setCategoriasView(List<SmsCategoria> categoriasView) {
-        this.categoriasView = categoriasView;
+    public void setCategoriasListView(List<SmsCategoria> categoriasListView) {
+        this.categoriasListView = categoriasListView;
     }
 
-    public List<String> getListaCategoriasView() {
-        listaCategoriasView = new ArrayList<>();
-        ICategoriaDao linkDao = new ImpCategoriaDao();
-        categoriasView = linkDao.mostrarCategorias();
-        for (int i = 0; i < categoriasView.size(); i++){
-            listaCategoriasView.add(categoriasView.get(i).getCategoriaNombre());
+    public List<String> getNombresCategoriasListView() {
+        nombresCategoriasListView = new ArrayList<>();
+        categoriasListView = categoriaController.cargarCategorias();
+        for (int i = 0; i < categoriasListView.size(); i++) {
+            nombresCategoriasListView.add(categoriasListView.get(i).getCategoriaNombre());
         }
-        return listaCategoriasView;
+        return nombresCategoriasListView;
     }
 
-    public void setListaCategoriasView(List<String> listaCategoriasView) {
-        this.listaCategoriasView = listaCategoriasView;
+    public void setNombresCategoriasListView(List<String> nombresCategoriasListView) {
+        this.nombresCategoriasListView = nombresCategoriasListView;
+    }
+
+    public Categoria getCategoriaController() {
+        return categoriaController;
+    }
+
+    public void setCategoriaController(Categoria categoriaController) {
+        this.categoriaController = categoriaController;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
     
-    
-    
+
     //METODOS QUE DEVUELVEN DATOS PARA VISTAS
-    
-    public void modCategoria (){
+    public void modificar() {
         //TRAER LA INFORMACION DE LA VISTA Y PASARLA AL PARAMETRO CORRESPODIENTE 
         //DE LA CLASE DEL PAQUETE CONTROLADOR
-        categoria.modificarCategoria(categoriaView);
+        categoriaController.modificarCategoria(categoriaView);
         categoriaView = new SmsCategoria();
-        
+
     }
-    
-    public void regCategoria(){
+
+    public void registrar() {
         //TRAER LA INFORMACION DE LA VISTA Y PASARLA AL PARAMETRO CORRESPODIENTE 
         //DE LA CLASE DEL PAQUETE CONTROLADOR
-        categoria.registrarrCategoria(categoriaView);
+        categoriaController.registrarCategoria(categoriaView);
         categoriaView = new SmsCategoria();
-        
+
     }
-    
-    public void eliCategoria(){
+
+    public void eliminar() {
         //TRAER LA INFORMACION DE LA VISTA Y PASARLA AL PARAMETRO CORRESPODIENTE 
         //DE LA CLASE DEL PAQUETE CONTROLADOR
-        categoria.eliminarCategoria(categoriaView);
+        categoriaController.eliminarCategoria(categoriaView);
         categoriaView = new SmsCategoria();
     }
-    
-    
-    
+
+    //Metodos Propios
+    public void metodo() {
+        if (estado == 0) {
+            registrar();
+        } else if (estado == 1) {
+            modificar();
+            estado = 0;
+            nombre = "Registrar Categoria";
+        } else if (estado == 2) {
+            eliminar();
+            estado = 0;
+            nombre = "Registrar Categoria";
+        }
+    }
+
+    public void seleccionarCRUD(int i) {
+        estado = i;
+        if (estado == 1) {
+            nombre = "Modificar Categoria";
+        } else if (estado == 2) {
+            nombre = "Eliminar Categoria";
+        }
+    }
+
 }

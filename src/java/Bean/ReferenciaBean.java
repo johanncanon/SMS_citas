@@ -6,10 +6,6 @@
 package Bean;
 
 import Controlador.Referencia;
-import DAO.IMarcaDao;
-import DAO.IReferenciaDao;
-import DAO.ImpMarcaDao;
-import DAO.ImpReferenciaDao;
 import Modelo.SmsMarca;
 import Modelo.SmsReferencia;
 import java.io.Serializable;
@@ -22,30 +18,48 @@ import java.util.List;
  */
 public class ReferenciaBean implements Serializable {
 
+    //Objetos de vista
     private SmsReferencia referenciaView;
-    private List<SmsReferencia> referenciasView;
-    private Referencia referencia;
-    private List<String> listaReferenciaView;
+    private List<SmsReferencia> referenciasListView;    
+    private List<String> nombresReferenciaListView;
     private SmsMarca marcaView;
 
+    //Relacion con el controlador
+    private Referencia referenciaController;
+    
+     //Variables
+    private int estado; //Controla la operacion a realizar
+    private String nombre;
+    
     public ReferenciaBean() {
-        referenciaView = new SmsReferencia();
-        marcaView = new SmsMarca();
-        referencia = new Referencia();
-
-    }
-
+        referenciaView = new SmsReferencia();        
+        referenciaController = new Referencia();
+        referenciasListView = new ArrayList<>();
+        nombresReferenciaListView = new ArrayList<>();
+        marcaView = new SmsMarca();   
+        
+        estado = 0;
+        nombre = "Registrar Referencia";
+    }    
     /**
      * ******************************************************
      ********* getters y setters *************
      */
-    public Referencia getReferencia() {
-        return referencia;
+    public SmsMarca getMarcaView() {
+        return marcaView;
     }
 
-    public void setReferencia(Referencia referencia) {
-        this.referencia = referencia;
+    public void setMarcaView(SmsMarca marcaView) {
+        this.marcaView = marcaView;
     }
+
+    public Referencia getReferenciaController() {
+        return referenciaController;
+    }
+
+    public void setReferenciaController(Referencia referenciaController) {
+        this.referenciaController = referenciaController;
+    }   
 
     public SmsReferencia getReferenciaView() {
         return referenciaView;
@@ -55,17 +69,30 @@ public class ReferenciaBean implements Serializable {
         this.referenciaView = referenciaView;
     }
 
-    public List<SmsReferencia> getReferenciasView() {//CREACION DE LISTA DE REFERENCIAS DESDE EL BEAN
-        IReferenciaDao linkDao = new ImpReferenciaDao();
-        referenciasView = linkDao.mostrarReferencias();
-        return referenciasView;
+    public List<SmsReferencia> getReferenciasListView() {
+        referenciasListView = new ArrayList<>();
+        referenciasListView = referenciaController.cargarReferencias();
+        return referenciasListView;
     }
 
-    public void setReferenciasView(List<SmsReferencia> referenciasView) {
-        this.referenciasView = referenciasView;
+    public void setReferenciasListView(List<SmsReferencia> referenciasListView) {
+        this.referenciasListView = referenciasListView;
     }
 
-    public SmsMarca getMarcasView() {//LISTA DE STRING
+    public List<String> getNombresReferenciaListView() {
+        nombresReferenciaListView = new ArrayList<>();        
+        referenciasListView = referenciaController.cargarReferencias();
+        for (int i = 0; i < referenciasListView.size(); i++) {
+            nombresReferenciaListView.add(referenciasListView.get(i).getReferenciaNombre());
+        }
+        return nombresReferenciaListView;
+    }
+
+    public void setNombresReferenciaListView(List<String> nombresReferenciaListView) {
+        this.nombresReferenciaListView = nombresReferenciaListView;
+    }   
+
+    public SmsMarca getMarcasView() {
         return marcaView;
     }
 
@@ -73,37 +100,67 @@ public class ReferenciaBean implements Serializable {
         this.marcaView = marcaView;
     }
 
-    public List<String> getListaReferenciaView() {
-        listaReferenciaView = new ArrayList<>();
-        IReferenciaDao linkDao = new ImpReferenciaDao();
-        referenciasView = linkDao.mostrarReferencias();
-        for (int i = 0; i < referenciasView.size(); i++) {
-            listaReferenciaView.add(referenciasView.get(i).getReferenciaNombre());
-        }
-        return listaReferenciaView;
+    public int getEstado() {
+        return estado;
     }
 
-    public void setListaReferenciaView(List<String> listaReferenciaView) {
-        this.listaReferenciaView = listaReferenciaView;
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    
 
     /* METODOS DEL BEAN
      ********************************************************************************/
     public void modificar() {
-        referencia.modificarReferencia(referenciaView, marcaView);
+        referenciaController.modificarReferencia(referenciaView, marcaView);
         referenciaView = new SmsReferencia();
         marcaView = new SmsMarca();
     }
 
     public void eliminar() {
-        referencia.eliminarReferencia(referenciaView, marcaView);
+        referenciaController.eliminarReferencia(referenciaView, marcaView);
         referenciaView = new SmsReferencia();
         marcaView = new SmsMarca();
     }
 
     public void registrar() {
-        referencia.registrarReferencia(referenciaView, marcaView);
+        referenciaController.registrarReferencia(referenciaView, marcaView);
         referenciaView = new SmsReferencia();
         marcaView = new SmsMarca();
+    }
+    
+    //Metodos Propios
+    public void metodo() {
+        if (estado == 0) {
+            registrar();
+        } else if (estado == 1) {
+            modificar();
+            estado = 0;
+            nombre = "Registrar Referencia";
+        } else if (estado == 2) {
+            eliminar();
+            estado = 0;
+            nombre = "Registrar Referencia";
+        }
+    }
+
+    public void seleccionarCRUD(int i) {
+        estado = i;
+        if (estado == 1) {
+            marcaView = referenciaView.getSmsMarca();
+            nombre = "Modificar Referencia";
+        } else if (estado == 2) {
+            marcaView = referenciaView.getSmsMarca();
+            nombre = "Eliminar Referencia";
+        }
     }
 }

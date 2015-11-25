@@ -6,7 +6,6 @@
 package DAO;
 
 import Modelo.SmsMarca;
-import Modelo.SmsRol;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -89,7 +88,7 @@ public class ImpMarcaDao implements IMarcaDao{
         try{
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.save(marca);
+            session.delete(marca);
             session.getTransaction().commit();
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Marca eliminada", "" + marca.getMarcaNombre() );
         }catch(HibernateException e){
@@ -105,13 +104,13 @@ public class ImpMarcaDao implements IMarcaDao{
     }
 
     @Override
-    public List<SmsMarca> consultarMarca(String nombreMarca) {
+    public List<SmsMarca> consultarMarca(SmsMarca marca) {
        Session session = null;
         List<SmsMarca> marcas = null;
         
         try{
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsMarca as marca where marca.marcaNombre = '"+ nombreMarca +"'");
+            Query query = session.createQuery("from SmsMarca as marca where marca.marcaNombre = '"+ marca.getMarcaNombre() +"'");
             marcas = (List<SmsMarca>) query.list();
             
         }catch(HibernateException e){

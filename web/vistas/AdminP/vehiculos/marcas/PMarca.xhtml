@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./../../template-admin-p.xhtml">
+            <ui:define name="content">
+                <b:container fluid="true">
+                    <b:row>
+                        <h:form>                            
+                            <div class="espacio-arriba">
+                                <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12" >
+                                    <b:well>
+                                        <h3>Marcas SMS Renta</h3>
+                                        <hr/>
+                                        <p>En este panel podra ingresar las Marcas de los vehiculos de SMS renta como 
+                                            consultar los vehiculos por sus respectivas Marcas.</p>
+                                    </b:well>
+                                </b:column>
+                            </div>
+
+                            <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
+                                <b:well>
+                                    <h4>Ingreso de Marcas de Vehiculos SMS</h4>
+                                    <hr/>
+                                    <p:panel>
+                                        <div class="table-responsive">
+                                            <h:panelGrid cellpadding="5" columns="3" id="PMarca" style="width: 100%">
+                                                <p:outputLabel  value="Nombre de Marca: "/>
+                                                <b:inputText placeholder="Nombre de marca" id="TNombreMrc" required="true" requiredMessage="Ingrese nombre" style="width: 100%" value="#{marcaBean.marcaView.marcaNombre}"/>
+                                                <p:message for="TNombreMrc"/>
+                                            </h:panelGrid>
+                                        </div><hr/>                                
+                                        <p:commandButton id="BTMarca" style="width: 100%" update="@(.ui-panel)" value="#{marcaBean.nombre}" action="#{marcaBean.metodo()}"/>
+                                    </p:panel>
+                                </b:well>
+                            </b:column>
+
+                            <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
+                                <b:well>
+                                    <h4>Lista de Vehìculos SMS por Marcas</h4>
+                                    <hr/>
+                                    <p:panel>
+                                        <p:fragment>
+                                            <b:inputText placeholder="Buscar" style="width: 100%"/>
+                                            <hr/>
+                                            <p:dataTable id="DTMarcas" var="Marca" value="#{marcaBean.marcasListView}"
+                                                         rows="5"
+                                                         paginator="true"
+                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="5,10,15" emptyMessage="Marcas no registrados">
+                                                <p:column headerText="Nombre">
+                                                    <h:outputText value="#{Marca.marcaNombre}" />
+                                                </p:column>
+
+                                                <p:column style="width: 35px">
+                                                    <p:commandButton icon="ui-icon-pencil" update="@(.ui-panel)" action="#{marcaBean.seleccionarCRUD(1)}" title="Modificar">
+                                                        <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
+                                                    </p:commandButton>
+                                                </p:column>
+
+                                                <p:column style="width: 35px">
+                                                    <p:commandButton icon="ui-icon-close" update="@(.ui-panel)" action="#{marcaBean.seleccionarCRUD(2)}" title="Eliminar">
+                                                        <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </p:fragment>
+                                    </p:panel>
+                                </b:well>
+                            </b:column>
+                        </h:form> 
+                    </b:row>
+                </b:container>
+            </ui:define>
+        </ui:composition>
+    </body>    
+</html>

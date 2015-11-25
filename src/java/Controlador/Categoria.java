@@ -8,6 +8,7 @@ package Controlador;
 import DAO.ICategoriaDao;
 import DAO.ImpCategoriaDao;
 import Modelo.SmsCategoria;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,9 +34,7 @@ public class Categoria {
         this.categoria = categoria;
     }
 
-    public List<SmsCategoria> getCategorias() {
-        ICategoriaDao linkDao = new ImpCategoriaDao();
-        categorias = linkDao.mostrarCategorias();
+    public List<SmsCategoria> getCategorias() {       
         return categorias;
     }
 
@@ -54,15 +53,28 @@ public class Categoria {
     public void eliminarCategoria(SmsCategoria cat){
         categoria = cat;
         ICategoriaDao linkDao = new ImpCategoriaDao();
-        linkDao.eliminarCategoria(categoria);
-        
+        linkDao.eliminarCategoria(categoria);        
     }
     
-    public void registrarrCategoria(SmsCategoria cat){
+    public void registrarCategoria(SmsCategoria cat){
         categoria = cat;
         ICategoriaDao linkDao = new ImpCategoriaDao();
-        linkDao.registrarCategoria(categoria);
-        
+        linkDao.registrarCategoria(categoria);        
+    }
+    
+    public List<SmsCategoria> cargarCategorias(){
+        categorias = new ArrayList<>();
+        ICategoriaDao linkDao = new ImpCategoriaDao();
+        categorias = linkDao.mostrarCategorias();
+        return categorias;
+    }
+    
+    public List<SmsCategoria> consultarCategoria(SmsCategoria cat){
+        categoria = cat;
+        categorias = new ArrayList<>();
+        ICategoriaDao linkDao = new ImpCategoriaDao();
+        categorias = linkDao.consultarCategoria(categoria);
+        return categorias;
     }
     
 /* ------------------- Metodos con la Logica de CAtegoriaBean ------------------------*/
