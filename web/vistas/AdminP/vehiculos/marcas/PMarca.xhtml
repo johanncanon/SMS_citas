@@ -27,17 +27,15 @@
                             <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
                                 <b:well>
                                     <h4>Ingreso de Marcas de Vehiculos SMS</h4>
-                                    <hr/>
-                                    <p:panel>
-                                        <div class="table-responsive">
-                                            <h:panelGrid cellpadding="5" columns="3" id="PMarca" style="width: 100%">
-                                                <p:outputLabel  value="Nombre de Marca: "/>
-                                                <b:inputText placeholder="Nombre de marca" id="TNombreMrc" required="true" requiredMessage="Ingrese nombre" style="width: 100%" value="#{marcaBean.marcaView.marcaNombre}"/>
-                                                <p:message for="TNombreMrc"/>
-                                            </h:panelGrid>
-                                        </div><hr/>                                
-                                        <p:commandButton id="BTMarca" style="width: 100%" update="@(.ui-panel)" value="#{marcaBean.nombre}" action="#{marcaBean.metodo()}"/>
-                                    </p:panel>
+                                    <hr/>                                    
+                                    <div class="table-responsive">
+                                        <h:panelGrid cellpadding="5" columns="3" id="PMarca" style="width: 100%">
+                                            <p:outputLabel  value="Nombre de Marca: "/>
+                                            <b:inputText placeholder="Nombre de marca" id="TNombreMrc" required="true" requiredMessage="Ingrese nombre" style="width: 100%" value="#{marcaBean.marcaView.marcaNombre}"/>
+                                            <p:message for="TNombreMrc"/>
+                                        </h:panelGrid>
+                                    </div><hr/>                                
+                                    <p:commandButton id="BTMarca" style="width: 100%" update="@form" value="#{marcaBean.nombre}" action="#{marcaBean.metodo()}"/>
                                 </b:well>
                             </b:column>
 
@@ -45,33 +43,32 @@
                                 <b:well>
                                     <h4>Lista de Vehìculos SMS por Marcas</h4>
                                     <hr/>
-                                    <p:panel>
-                                        <p:fragment>
-                                            <b:inputText placeholder="Buscar" style="width: 100%"/>
-                                            <hr/>
-                                            <p:dataTable id="DTMarcas" var="Marca" value="#{marcaBean.marcasListView}"
-                                                         rows="5"
-                                                         paginator="true"
-                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                         rowsPerPageTemplate="5,10,15" emptyMessage="Marcas no registrados">
-                                                <p:column headerText="Nombre">
-                                                    <h:outputText value="#{Marca.marcaNombre}" />
-                                                </p:column>
+                                    <b:inputText value="#{marcaBean.buscar}" placeholder="Buscar" style="width: 100%">                                       
+                                        <p:ajax event="keyup" listener="#{marcaBean.filtrar()}" update="DTMarcas"/>
+                                    </b:inputText>                                    
+                                    <p:fragment>                                           
+                                        <p:dataTable id="DTMarcas" var="Marca" value="#{marcaBean.marcasListView}"
+                                                     rows="5"
+                                                     paginator="true"
+                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="5,10,15" emptyMessage="Marcas no registrados">
+                                            <p:column headerText="Nombre">
+                                                <h:outputText value="#{Marca.marcaNombre}" />
+                                            </p:column>
 
-                                                <p:column style="width: 35px">
-                                                    <p:commandButton icon="ui-icon-pencil" update="@(.ui-panel)" action="#{marcaBean.seleccionarCRUD(1)}" title="Modificar">
-                                                        <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
-                                                    </p:commandButton>
-                                                </p:column>
+                                            <p:column style="width: 35px">
+                                                <p:commandButton icon="ui-icon-pencil" update="@form" action="#{marcaBean.seleccionarCRUD(1)}" title="Modificar">
+                                                    <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
+                                                </p:commandButton>
+                                            </p:column>
 
-                                                <p:column style="width: 35px">
-                                                    <p:commandButton icon="ui-icon-close" update="@(.ui-panel)" action="#{marcaBean.seleccionarCRUD(2)}" title="Eliminar">
-                                                        <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
-                                                    </p:commandButton>
-                                                </p:column>
-                                            </p:dataTable>
-                                        </p:fragment>
-                                    </p:panel>
+                                            <p:column style="width: 35px">
+                                                <p:commandButton icon="ui-icon-close" update="@form" action="#{marcaBean.seleccionarCRUD(2)}" title="Eliminar">
+                                                    <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </p:fragment>                                    
                                 </b:well>
                             </b:column>
                         </h:form> 

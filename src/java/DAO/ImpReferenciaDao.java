@@ -126,6 +126,24 @@ public class ImpReferenciaDao implements IReferenciaDao {
         }
         return referencias;
     }
+
+    @Override
+    public List<SmsReferencia> filtrarReferencias(String dato) {
+Session session = null;
+        List<SmsReferencia> referencias = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsReferencia as referencia left join fetch referencia.smsMarca where referencia.referenciaNombre LIKE '%" + dato + "%'");
+            referencias = (List<SmsReferencia>) query.list();
+
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return referencias;    }
     
     
 }

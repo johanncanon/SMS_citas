@@ -19,6 +19,7 @@ public interface IMarcaDao {
     public void modificarMarca(SmsMarca marca);
     public void eliminarMarca(SmsMarca marca);
     public List<SmsMarca> consultarMarca(SmsMarca marca);
+    public List<SmsMarca> filtrarMarca(String dato);
     
     
 }

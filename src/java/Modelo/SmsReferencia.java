@@ -18,7 +18,6 @@ public class SmsReferencia  implements java.io.Serializable {
 
     public SmsReferencia() {
     }
-
 	
     public SmsReferencia(SmsMarca smsMarca) {
         this.smsMarca = smsMarca;

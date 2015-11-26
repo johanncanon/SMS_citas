@@ -16,6 +16,7 @@ public interface IReferenciaDao {
     
     public List<SmsReferencia> mostrarReferencias();
     public List<SmsReferencia> consultarReferencias(SmsReferencia referencia);
+    public List<SmsReferencia> filtrarReferencias(String dato);
     public void registrarReferencia(SmsReferencia referencia);
     public void modificarReferencia(SmsReferencia referencia);
     public void eliminarReferencia(SmsReferencia referencia);

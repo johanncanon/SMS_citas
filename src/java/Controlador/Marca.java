@@ -81,4 +81,10 @@ public class Marca {
        return marcas;
     }
     
+    public List<SmsMarca> filtrarMarcas(String valor){
+       marcas = new ArrayList<>();
+       IMarcaDao linkDao = new ImpMarcaDao();
+       marcas = linkDao.filtrarMarca(valor);
+       return marcas;
+    }
 }

@@ -10,6 +10,7 @@ import Modelo.SmsCategoria;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 
 public class CategoriaBean implements Serializable {
 
@@ -32,9 +33,14 @@ public class CategoriaBean implements Serializable {
         nombresCategoriasListView = new ArrayList<>();
         categoriaController = new Categoria();
 
-        buscar = "";
+        buscar = null;
         estado = 0;
         nombre = "Registrar Categoria";
+    }
+
+    @PostConstruct
+    public void init() {
+        categoriasListView = categoriaController.cargarCategorias();
     }
 
     //Getters & Setters
@@ -47,8 +53,6 @@ public class CategoriaBean implements Serializable {
     }
 
     public List<SmsCategoria> getCategoriasListView() {
-        categoriasListView = new ArrayList<>();
-        categoriasListView = categoriaController.cargarCategorias();
         return categoriasListView;
     }
 
@@ -107,6 +111,7 @@ public class CategoriaBean implements Serializable {
         //DE LA CLASE DEL PAQUETE CONTROLADOR
         categoriaController.modificarCategoria(categoriaView);
         categoriaView = new SmsCategoria();
+        categoriasListView = categoriaController.cargarCategorias();
 
     }
 
@@ -115,6 +120,7 @@ public class CategoriaBean implements Serializable {
         //DE LA CLASE DEL PAQUETE CONTROLADOR
         categoriaController.registrarCategoria(categoriaView);
         categoriaView = new SmsCategoria();
+        categoriasListView = categoriaController.cargarCategorias();
 
     }
 
@@ -123,10 +129,12 @@ public class CategoriaBean implements Serializable {
         //DE LA CLASE DEL PAQUETE CONTROLADOR
         categoriaController.eliminarCategoria(categoriaView);
         categoriaView = new SmsCategoria();
+        categoriasListView = categoriaController.cargarCategorias();
     }
 
     public void filtrar() {
-        if (buscar.equals("")) {
+        categoriasListView = new ArrayList<>();
+        if (buscar == null) {
             categoriasListView = categoriaController.cargarCategorias();
         } else {
             categoriasListView = categoriaController.filtrarCategoria(buscar);

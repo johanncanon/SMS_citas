@@ -12,6 +12,7 @@ import Modelo.SmsMarca;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 
 /**
  *
@@ -21,6 +22,7 @@ public class MarcaBean implements Serializable {
 
     //Objetos de vista
     private SmsMarca marcaView;
+    private SmsMarca auxMarcaView;
     private List<SmsMarca> marcasListView;
     private List<String> nombresMarcaView;
 
@@ -30,25 +32,29 @@ public class MarcaBean implements Serializable {
     //Variables
     private int estado; //Controla la operacion a realizar
     private String nombre;
+    private String buscar;
 
     public MarcaBean() {
         marcaView = new SmsMarca();
         marcasListView = new ArrayList<>();
         nombresMarcaView = new ArrayList<>();
         marcaController = new Marca();
+        auxMarcaView = new SmsMarca();
 
+        buscar = null;
         estado = 0;
         nombre = "Registrar Marca";
-    } 
-      
-    
+    }
+    @PostConstruct
+    public void init(){
+        marcasListView = marcaController.cargarMarcas();
+    }
 
     /* GETTERS Y SETTERS **********************************************************************/
-    
-    public Marca getMarcaController() {    
+    public Marca getMarcaController() {
         return marcaController;
     }
-    
+
     public void setMarcaController(Marca marcaController) {
         this.marcaController = marcaController;
     }
@@ -61,9 +67,7 @@ public class MarcaBean implements Serializable {
         this.marcaView = marcaView;
     }
 
-    public List<SmsMarca> getMarcasListView() {
-        marcasListView = new ArrayList<>();
-        marcasListView = marcaController.cargarMarcas();
+    public List<SmsMarca> getMarcasListView() {       
         return marcasListView;
     }
 
@@ -83,8 +87,8 @@ public class MarcaBean implements Serializable {
     public void setNombresMarcaView(List<String> nombresMarcaView) {
         this.nombresMarcaView = nombresMarcaView;
     }
-    
-     public int getEstado() {
+
+    public int getEstado() {
         return estado;
     }
 
@@ -99,6 +103,23 @@ public class MarcaBean implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+
+    public SmsMarca getAuxMarcaView() {
+        return auxMarcaView;
+    }
+
+    public void setAuxMarcaView(SmsMarca auxMarcaView) {
+        this.auxMarcaView = auxMarcaView;
+    }
+    
     
 
     /*+++++++++++++++++++++++++*****************************************************************
@@ -106,16 +127,29 @@ public class MarcaBean implements Serializable {
     public void modificar() {
         marcaController.modificarMarca(marcaView);
         marcaView = new SmsMarca();
+        marcasListView = marcaController.cargarMarcas();
     }
 
     public void eliminar() {
         marcaController.eliminarMarca(marcaView);
         marcaView = new SmsMarca();
+        marcasListView = marcaController.cargarMarcas();
     }
 
     public void registrar() {
         marcaController.registrarMarca(marcaView);
-        marcaView = new SmsMarca();
+        marcaView = new SmsMarca();        
+        marcasListView = marcaController.cargarMarcas();
+    }
+
+    public void filtrar() {
+        marcasListView = new ArrayList<>();
+        if (buscar == null) {
+        marcasListView = marcaController.cargarMarcas();
+        } else {            
+            marcasListView = marcaController.filtrarMarcas(buscar);
+            marcaView = new SmsMarca();
+        }
     }
 
     //Metodos Propios
@@ -135,10 +169,10 @@ public class MarcaBean implements Serializable {
 
     public void seleccionarCRUD(int i) {
         estado = i;
-        if (estado == 1) {            
-            nombre = "Modificar Marca";
-        } else if (estado == 2) {           
-            nombre = "Eliminar Marca";
+        if (estado == 1) {
+            nombre = "Modificar Marca";            
+        } else if (estado == 2) {
+            nombre = "Eliminar Marca";            
         }
     }
 }

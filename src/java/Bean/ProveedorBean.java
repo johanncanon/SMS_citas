@@ -34,7 +34,7 @@ public class ProveedorBean implements Serializable {
 
     //lista de Id de proveedor
     private List<SmsProveedor> proveedoresView;
-    private List<Integer> listaProveedoresView;
+    private List<String> listaProveedoresView;
 
     public ProveedorBean() {
         usuarioView = new SmsUsuario();
@@ -108,18 +108,18 @@ public class ProveedorBean implements Serializable {
         this.proveedoresView = proveedoresView;
     }
 
-    public List<Integer> getListaProveedoresView() {
+    public List<String> getListaProveedoresView() {
         listaProveedoresView = new ArrayList<>();
         IProveedorDao linkDao = new ImpProveedorDao();
         proveedoresView = linkDao.mostrarProveedores();
         
         for (int i = 0; i < proveedoresView.size();i++){
-            listaProveedoresView.add(proveedoresView.get(i).getIdProveedor());
+            listaProveedoresView.add(proveedoresView.get(i).getSmsUsuario().getUsuarioNombre());
         }
         return listaProveedoresView;
     }
 
-    public void setListaProveedoresView(List<Integer> listaProveedoresView) {
+    public void setListaProveedoresView(List<String> listaProveedoresView) {
         this.listaProveedoresView = listaProveedoresView;
     }
 

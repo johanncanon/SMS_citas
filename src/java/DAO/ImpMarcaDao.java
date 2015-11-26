@@ -17,44 +17,45 @@ import org.hibernate.Session;
  *
  * @author Desarrollo_Planit
  */
-public class ImpMarcaDao implements IMarcaDao{
+public class ImpMarcaDao implements IMarcaDao {
 
     private FacesMessage message;
-    
+
     @Override
     public List<SmsMarca> mostrarMarcas() {
         Session session = null;
         List<SmsMarca> marcas = null;
-        
-        try{
+
+        try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsMarca");
             marcas = (List<SmsMarca>) query.list();
-            
-        }catch(HibernateException e){
+
+        } catch (HibernateException e) {
             e.getMessage();
-        }finally{
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
-        }return marcas;
+        }
+        return marcas;
     }
 
     @Override
     public void registrarMarca(SmsMarca marca) {
         Session session = null;
-        try{
+        try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(marca);
             session.getTransaction().commit();
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Marca registrada", "" + marca.getMarcaNombre() );
-        }catch(HibernateException e){
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Marca registrada", "" + marca.getMarcaNombre());
+        } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
-        }finally{
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
@@ -64,18 +65,18 @@ public class ImpMarcaDao implements IMarcaDao{
     @Override
     public void modificarMarca(SmsMarca marca) {
         Session session = null;
-        try{
+        try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.update(marca);
             session.getTransaction().commit();
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Marca modificada", "" + marca.getMarcaNombre() );
-        }catch(HibernateException e){
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Marca modificada", "" + marca.getMarcaNombre());
+        } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
-        }finally{
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
@@ -85,18 +86,18 @@ public class ImpMarcaDao implements IMarcaDao{
     @Override
     public void eliminarMarca(SmsMarca marca) {
         Session session = null;
-        try{
+        try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.delete(marca);
             session.getTransaction().commit();
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Marca eliminada", "" + marca.getMarcaNombre() );
-        }catch(HibernateException e){
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Marca eliminada", "" + marca.getMarcaNombre());
+        } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
-        }finally{
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
@@ -105,22 +106,41 @@ public class ImpMarcaDao implements IMarcaDao{
 
     @Override
     public List<SmsMarca> consultarMarca(SmsMarca marca) {
-       Session session = null;
+        Session session = null;
         List<SmsMarca> marcas = null;
-        
-        try{
+
+        try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsMarca as marca where marca.marcaNombre = '"+ marca.getMarcaNombre() +"'");
+            Query query = session.createQuery("from SmsMarca as marca where marca.marcaNombre = '" + marca.getMarcaNombre() + "'");
             marcas = (List<SmsMarca>) query.list();
-            
-        }catch(HibernateException e){
+
+        } catch (HibernateException e) {
             e.getMessage();
-        }finally{
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
-        }return marcas;
+        }
+        return marcas;
     }
-    }
-    
 
+    @Override
+    public List<SmsMarca> filtrarMarca(String dato) {
+        Session session = null;
+        List<SmsMarca> marcas = null;
+
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsMarca as marca where marca.marcaNombre LIKE '%" + dato + "%'");
+            marcas = (List<SmsMarca>) query.list();
+
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return marcas;
+    }
+}

@@ -92,6 +92,13 @@ public class Referencia {
         return referencias;
     }
     
+     public List<SmsReferencia> filtrarReferencias(String valor) {
+        referencias = new ArrayList<>();
+        IReferenciaDao linkDao = new ImpReferenciaDao();
+        referencias = linkDao.filtrarReferencias(valor);
+        return referencias;
+    }
+    
     
 
 }
