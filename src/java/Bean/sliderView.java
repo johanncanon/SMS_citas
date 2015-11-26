@@ -7,8 +7,9 @@ package Bean;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
 
-
+@ManagedBean
 public class sliderView {
 
     private List<String> images;

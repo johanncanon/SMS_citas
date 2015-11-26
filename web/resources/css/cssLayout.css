@@ -52,7 +52,7 @@
 }
 
 .left_content {
-    background-color: #E8E8E8;
+    background-color: #ecf0f5;
     top: -20px;
     position: relative;
     margin-bottom: -30px;
@@ -406,4 +406,28 @@ td, th {
     font-size: 18px;
     color: #B5B5B5;
     text-shadow: rgba(49, 30, 30, 0.03) 1px 1px 1px;
+}
+
+.img-thumbnail {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+    padding: 4px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+.img-responsive,
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
