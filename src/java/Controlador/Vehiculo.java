@@ -33,9 +33,7 @@ public class Vehiculo {
 
     public Vehiculo() {
         vehiculo = new SmsVehiculo();        
-    }
-
-  
+    }  
   
     //Getters & Setters
     public SmsVehiculo getVehiculo() {
@@ -87,15 +85,7 @@ public class Vehiculo {
         IVehiculoDao linkDao = new ImpVehiculoDao();
         linkDao.modificarVehiculo(vehiculo);
 
-    }
-
-    public void eliminarVehiculo(SmsVehiculo v) {
-        vehiculo = v;
-
-        IVehiculoDao linkDao = new ImpVehiculoDao();
-        linkDao.eliminarVehiculo(vehiculo);
-
-    }
+    }   
 
     public void registrarVehiculo(SmsCategoria c, SmsProveedor p, SmsCiudad ci, SmsReferencia r, SmsVehiculo v) {
         SmsCategoria categoria = c;
@@ -126,6 +116,13 @@ public class Vehiculo {
         
         IVehiculoDao linkDao = new ImpVehiculoDao();
         linkDao.registrarVehiculo(vehiculo);
+    }
+    
+    public void eliminarVehiculo(SmsVehiculo v) {
+        vehiculo = v;
+
+        IVehiculoDao linkDao = new ImpVehiculoDao();
+        linkDao.eliminarVehiculo(vehiculo);
     }
 
 }

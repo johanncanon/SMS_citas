@@ -44,7 +44,7 @@
                                     <h4>Lista de Vehìculos SMS por Marcas</h4>
                                     <hr/>
                                     <b:inputText value="#{marcaBean.buscar}" placeholder="Buscar" style="width: 100%">                                       
-                                        <p:ajax event="keyup" listener="#{marcaBean.filtrar()}" update="DTMarcas"/>
+                                        <p:ajax event="keydown" listener="#{marcaBean.filtrar()}" update="DTMarcas"/>
                                     </b:inputText>                                    
                                     <p:fragment>                                           
                                         <p:dataTable id="DTMarcas" var="Marca" value="#{marcaBean.marcasListView}"

@@ -5,9 +5,7 @@
  */
 package Bean;
 
-import DAO.IVehiculoDao;
 import Controlador.Vehiculo;
-import DAO.ImpVehiculoDao;
 import Modelo.SmsCategoria;
 import Modelo.SmsCiudad;
 import Modelo.SmsEstadovehiculo;
@@ -117,15 +115,9 @@ public class VehiculoBean {
 
     public void setVehiculoView(SmsVehiculo veh) {
         this.vehiculoView = veh;
-    }
-    
-    
-    /*  ********  LISTAS DE OBJETOS DE RELACIONES CON VEHICULO  ********************************************************/
-    /*  *****************************************************************************************************************/
-
-    
-
-    /*  *****************************************************************************************************************/
+    }       
+  
+ 
     //Definicion de metodos VEHICULO
     public void registrar() {
         vehiculoController.registrarVehiculo(categoriaView, proveedorView, ciudadView, refenciaView, vehiculoView);
@@ -157,8 +149,4 @@ public class VehiculoBean {
         vehiculoView = new SmsVehiculo();
     }
 
-    /**
-     * ***************** DEFINICION DE METODOS DE ESTADO DE VEHICULO
-     * *********************
-     */
 }
