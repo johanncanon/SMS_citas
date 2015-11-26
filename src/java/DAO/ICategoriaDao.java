@@ -16,6 +16,7 @@ public interface ICategoriaDao {
     
     public List<SmsCategoria> mostrarCategorias();
     public List<SmsCategoria> consultarCategoria(SmsCategoria categoria);
+    public List<SmsCategoria> filtrarCategorias(String dato);
     public void registrarCategoria(SmsCategoria categoria);
     public void modificarCategoria(SmsCategoria categoria);
     public void eliminarCategoria(SmsCategoria categoria);    

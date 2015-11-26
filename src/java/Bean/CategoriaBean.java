@@ -20,18 +20,19 @@ public class CategoriaBean implements Serializable {
 
     //Relacion con el controlador
     private Categoria categoriaController;
-    
+
     //Variables
     private int estado; //Controla la operacion a realizar
     private String nombre;
-    
-    
+    private String buscar;
+
     public CategoriaBean() {//CONSTRUCTOR
         categoriaView = new SmsCategoria();
         categoriasListView = new ArrayList<>();
         nombresCategoriasListView = new ArrayList<>();
         categoriaController = new Categoria();
 
+        buscar = "";
         estado = 0;
         nombre = "Registrar Categoria";
     }
@@ -91,8 +92,14 @@ public class CategoriaBean implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    
+
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
 
     //METODOS QUE DEVUELVEN DATOS PARA VISTAS
     public void modificar() {
@@ -116,6 +123,14 @@ public class CategoriaBean implements Serializable {
         //DE LA CLASE DEL PAQUETE CONTROLADOR
         categoriaController.eliminarCategoria(categoriaView);
         categoriaView = new SmsCategoria();
+    }
+
+    public void filtrar() {
+        if (buscar.equals("")) {
+            categoriasListView = categoriaController.cargarCategorias();
+        } else {
+            categoriasListView = categoriaController.filtrarCategoria(buscar);
+        }
     }
 
     //Metodos Propios

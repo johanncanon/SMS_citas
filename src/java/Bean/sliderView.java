@@ -4,20 +4,11 @@
  * and open the template in the editor.
  */
 package Bean;
-
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
 
-/**
- *
- * @author SISTEMAS
- */
-@Named(value = "sliderView")
-@Dependent
+
 public class sliderView {
 
     private List<String> images;
@@ -25,6 +16,8 @@ public class sliderView {
     /**
      * Creates a new instance of sliderView
      */
+    
+    @PostConstruct
     public void init() {
         images = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {

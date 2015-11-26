@@ -77,6 +77,13 @@ public class Categoria {
         return categorias;
     }
     
+    public List<SmsCategoria> filtrarCategoria(String valor){
+        categorias = new ArrayList<>();
+        ICategoriaDao linkDao = new ImpCategoriaDao();
+        categorias = linkDao.filtrarCategorias(valor);
+        return categorias;
+    }
+    
 /* ------------------- Metodos con la Logica de CAtegoriaBean ------------------------*/
     
     
