@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/11/2015 12:16:59 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 26-nov-2015 15:26:56 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="Modelo.SmsReferencia" table="sms_referencia" catalog="bd_sms_citas">
+    <class name="Modelo.SmsReferencia" table="sms_referencia" catalog="bd_sms_citas" optimistic-lock="version">
         <id name="idReferencia" type="java.lang.Integer">
             <column name="idReferencia" />
-            <generator class="identity"></generator>
+            <generator class="identity" />
         </id>
         <many-to-one name="smsMarca" class="Modelo.SmsMarca" fetch="join">
             <column name="Referencia_idMarca" not-null="true" />
@@ -14,7 +14,7 @@
         <property name="referenciaNombre" type="string">
             <column name="Referencia_nombre" length="45" />
         </property>
-        <set name="smsVehiculos" table="sms_vehiculo" inverse="true" lazy="true" fetch="select">
+        <set name="smsVehiculos" table="sms_vehiculo" inverse="true" lazy="true" fetch="join">
             <key>
                 <column name="Veh_idReferencia" not-null="true" />
             </key>

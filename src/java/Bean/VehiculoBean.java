@@ -7,14 +7,6 @@ package Bean;
 
 import DAO.IVehiculoDao;
 import Controlador.Vehiculo;
-import DAO.ICategoriaDao;
-import DAO.ICiudadDao;
-import DAO.IProveedorDao;
-import DAO.IReferenciaDao;
-import DAO.ImpCategoriaDao;
-import DAO.ImpCiudadDao;
-import DAO.ImpProveedorDao;
-import DAO.ImpReferenciaDao;
 import DAO.ImpVehiculoDao;
 import Modelo.SmsCategoria;
 import Modelo.SmsCiudad;
@@ -23,97 +15,101 @@ import Modelo.SmsProveedor;
 import Modelo.SmsReferencia;
 import Modelo.SmsVehiculo;
 import java.util.List;
+import javax.annotation.PostConstruct;
 
-/**
- *
- * @author Desarrollo_Planit
- */
 public class VehiculoBean {
 
-    /**
-     * Creates a new instance of VehiculoBean
-     */
-    private Vehiculo vehiculo;
-    private SmsCategoria catView;
-    private SmsCiudad ciuView;
-    private SmsProveedor provView;
-    private SmsReferencia refeView;
+    //Objetos de vista    
+    private SmsCategoria categoriaView;
+    private SmsCiudad ciudadView;
+    private SmsProveedor proveedorView;
+    private SmsReferencia refenciaView;
     private SmsVehiculo vehiculoView;
-    private SmsEstadovehiculo estVehiView;//instancia de Estado Vehiculo
-    private List<SmsVehiculo> vehiculosView;
-    private List<String> vehiculosViewS;
+    private SmsEstadovehiculo estadoVehiculoView;
+    private List<SmsVehiculo> vehiculosListView;
+    private List<String> PlacasVehiculosListView;
 
-    
+    //Relacion con el controlodar
+    private Vehiculo vehiculoController;
+
     public VehiculoBean() {
-        vehiculo = new Vehiculo();
+        vehiculoController = new Vehiculo();
         vehiculoView = new SmsVehiculo();
-        catView = new SmsCategoria();
-        ciuView = new SmsCiudad();
-        provView = new SmsProveedor();
-        refeView = new SmsReferencia();
-        estVehiView = new SmsEstadovehiculo();
-        
+        categoriaView = new SmsCategoria();
+        ciudadView = new SmsCiudad();
+        proveedorView = new SmsProveedor();
+        refenciaView = new SmsReferencia();
+        estadoVehiculoView = new SmsEstadovehiculo();
     }
 
-    /**
-     * **************************************************************************
-     */
-    public SmsCategoria getCatView() {
-        return catView;
+    @PostConstruct
+    public void init(){
+    }
+    
+    //Getters & Setters
+    public SmsCategoria getCategoriaView() {
+        return categoriaView;
     }
 
-    public void setCatView(SmsCategoria catView) {
-        this.catView = catView;
+    public void setCategoriaView(SmsCategoria categoriaView) {
+        this.categoriaView = categoriaView;
     }
 
-    public SmsCiudad getCiuView() {
-        return ciuView;
+    public SmsCiudad getCiudadView() {
+        return ciudadView;
     }
 
-    public void setCiuView(SmsCiudad ciuView) {
-        this.ciuView = ciuView;
+    public void setCiudadView(SmsCiudad ciudadView) {
+        this.ciudadView = ciudadView;
     }
 
-    public SmsProveedor getProvView() {
-        return provView;
+    public SmsProveedor getProveedorView() {
+        return proveedorView;
     }
 
-    public void setProvView(SmsProveedor provView) {
-        this.provView = provView;
+    public void setProveedorView(SmsProveedor proveedorView) {
+        this.proveedorView = proveedorView;
     }
 
-    public SmsReferencia getRefeView() {
-        return refeView;
+    public SmsReferencia getRefenciaView() {
+        return refenciaView;
     }
 
-    public void setRefeView(SmsReferencia refeView) {
-        this.refeView = refeView;
+    public void setRefenciaView(SmsReferencia refenciaView) {
+        this.refenciaView = refenciaView;
     }
 
-    public SmsEstadovehiculo getEstVehiView() {
-        return estVehiView;
+    public SmsEstadovehiculo getEstadoVehiculoView() {
+        return estadoVehiculoView;
     }
 
-    public void setEstVehiView(SmsEstadovehiculo estVehiView) {
-        this.estVehiView = estVehiView;
+    public void setEstadoVehiculoView(SmsEstadovehiculo estadoVehiculoView) {
+        this.estadoVehiculoView = estadoVehiculoView;
     }
 
-    public List<String> getVehiculosViewS() {
-        
-        return vehiculosViewS;
+    public List<SmsVehiculo> getVehiculosListView() {
+        return vehiculosListView;
     }
 
-    public void setVehiculosViewS(List<String> vehiculosViewS) {
-        this.vehiculosViewS = vehiculosViewS;
+    public void setVehiculosListView(List<SmsVehiculo> vehiculosListView) {
+        this.vehiculosListView = vehiculosListView;
     }
 
-    public Vehiculo getVehiculo() {
-        return vehiculo;
+    public List<String> getPlacasVehiculosListView() {
+        return PlacasVehiculosListView;
     }
 
-    public void setVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
+    public void setPlacasVehiculosListView(List<String> PlacasVehiculosListView) {
+        this.PlacasVehiculosListView = PlacasVehiculosListView;
     }
+
+    public Vehiculo getVehiculoController() {
+        return vehiculoController;
+    }
+
+    public void setVehiculoController(Vehiculo vehiculoController) {
+        this.vehiculoController = vehiculoController;
+    }   
 
     public SmsVehiculo getVehiculoView() {
         return vehiculoView;
@@ -122,48 +118,42 @@ public class VehiculoBean {
     public void setVehiculoView(SmsVehiculo veh) {
         this.vehiculoView = veh;
     }
+    
+    
     /*  ********  LISTAS DE OBJETOS DE RELACIONES CON VEHICULO  ********************************************************/
     /*  *****************************************************************************************************************/
 
-    public List<SmsVehiculo> getVehiculosView() {
-        IVehiculoDao vehDao = new ImpVehiculoDao();
-        vehiculosView = vehDao.mostrarVehiculo();
-        return vehiculosView;
-    }
-
-    public void setVehiculosView(List<SmsVehiculo> veh) {
-        this.vehiculosView = veh;
-    }
+    
 
     /*  *****************************************************************************************************************/
     //Definicion de metodos VEHICULO
     public void registrar() {
-        vehiculo.regisrtarVehiculo(catView, provView, ciuView, refeView, vehiculoView);
-        estVehiView.setSmsVehiculo(vehiculoView);
-        refeView = new SmsReferencia();
-        catView = new SmsCategoria();
-        provView = new SmsProveedor();
-        ciuView = new SmsCiudad();
+        vehiculoController.registrarVehiculo(categoriaView, proveedorView, ciudadView, refenciaView, vehiculoView);
+        estadoVehiculoView.setSmsVehiculo(vehiculoView);
+        refenciaView = new SmsReferencia();
+        categoriaView = new SmsCategoria();
+        proveedorView = new SmsProveedor();
+        ciudadView = new SmsCiudad();
         vehiculoView = new SmsVehiculo();
     }
 
     public void modificar() {
-        vehiculo.modficarVehiculo(catView, provView, ciuView, refeView, vehiculoView);
-        estVehiView.setSmsVehiculo(vehiculoView);
-        refeView = new SmsReferencia();
-        catView = new SmsCategoria();
-        provView = new SmsProveedor();
-        ciuView = new SmsCiudad();
+        vehiculoController.modficarVehiculo(categoriaView, proveedorView, ciudadView, refenciaView, vehiculoView);
+        estadoVehiculoView.setSmsVehiculo(vehiculoView);
+        refenciaView = new SmsReferencia();
+        categoriaView = new SmsCategoria();
+        proveedorView = new SmsProveedor();
+        ciudadView = new SmsCiudad();
         vehiculoView = new SmsVehiculo();
     }
 
     public void eliminar() {
-        vehiculo.eliminarVehiculo(catView, provView, ciuView, refeView, vehiculoView);
-        estVehiView.setSmsVehiculo(vehiculoView);
-        refeView = new SmsReferencia();
-        catView = new SmsCategoria();
-        provView = new SmsProveedor();
-        ciuView = new SmsCiudad();
+        vehiculoController.eliminarVehiculo(vehiculoView);
+        estadoVehiculoView.setSmsVehiculo(vehiculoView);
+        refenciaView= new SmsReferencia();
+        categoriaView= new SmsCategoria();
+        proveedorView= new SmsProveedor();
+        ciudadView= new SmsCiudad();
         vehiculoView = new SmsVehiculo();
     }
 

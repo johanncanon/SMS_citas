@@ -1,5 +1,5 @@
 package Modelo;
-// Generated 17/11/2015 12:16:55 PM by Hibernate Tools 4.3.1
+// Generated 26-nov-2015 15:26:50 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -22,6 +22,8 @@ public class SmsVehiculo  implements java.io.Serializable {
      private Integer vehNumPersonas;
      private Integer vehNumMalGrande;
      private Integer vehNumMalPequeña;
+     private String vehFotoNombre;
+     private String vehFotoRuta;
      private Set<SmsAgenda> smsAgendas = new HashSet<SmsAgenda>(0);
      private Set<SmsEstadovehiculo> smsEstadovehiculos = new HashSet<SmsEstadovehiculo>(0);
 
@@ -35,7 +37,7 @@ public class SmsVehiculo  implements java.io.Serializable {
         this.smsProveedor = smsProveedor;
         this.smsReferencia = smsReferencia;
     }
-    public SmsVehiculo(SmsCategoria smsCategoria, SmsCiudad smsCiudad, SmsProveedor smsProveedor, SmsReferencia smsReferencia, String vehPlaca, String vehModelo, String vehColor, Integer vehNumPersonas, Integer vehNumMalGrande, Integer vehNumMalPequeña, Set<SmsAgenda> smsAgendas, Set<SmsEstadovehiculo> smsEstadovehiculos) {
+    public SmsVehiculo(SmsCategoria smsCategoria, SmsCiudad smsCiudad, SmsProveedor smsProveedor, SmsReferencia smsReferencia, String vehPlaca, String vehModelo, String vehColor, Integer vehNumPersonas, Integer vehNumMalGrande, Integer vehNumMalPequeña, String vehFotoNombre, String vehFotoRuta, Set<SmsAgenda> smsAgendas, Set<SmsEstadovehiculo> smsEstadovehiculos) {
        this.smsCategoria = smsCategoria;
        this.smsCiudad = smsCiudad;
        this.smsProveedor = smsProveedor;
@@ -46,6 +48,8 @@ public class SmsVehiculo  implements java.io.Serializable {
        this.vehNumPersonas = vehNumPersonas;
        this.vehNumMalGrande = vehNumMalGrande;
        this.vehNumMalPequeña = vehNumMalPequeña;
+       this.vehFotoNombre = vehFotoNombre;
+       this.vehFotoRuta = vehFotoRuta;
        this.smsAgendas = smsAgendas;
        this.smsEstadovehiculos = smsEstadovehiculos;
     }
@@ -126,6 +130,20 @@ public class SmsVehiculo  implements java.io.Serializable {
     
     public void setVehNumMalPequeña(Integer vehNumMalPequeña) {
         this.vehNumMalPequeña = vehNumMalPequeña;
+    }
+    public String getVehFotoNombre() {
+        return this.vehFotoNombre;
+    }
+    
+    public void setVehFotoNombre(String vehFotoNombre) {
+        this.vehFotoNombre = vehFotoNombre;
+    }
+    public String getVehFotoRuta() {
+        return this.vehFotoRuta;
+    }
+    
+    public void setVehFotoRuta(String vehFotoRuta) {
+        this.vehFotoRuta = vehFotoRuta;
     }
     public Set<SmsAgenda> getSmsAgendas() {
         return this.smsAgendas;

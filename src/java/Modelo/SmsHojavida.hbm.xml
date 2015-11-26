@@ -1,17 +1,20 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/11/2015 12:16:59 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 26-nov-2015 15:26:56 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="Modelo.SmsHojavida" table="sms_hojavida" catalog="bd_sms_citas">
+    <class name="Modelo.SmsHojavida" table="sms_hojavida" catalog="bd_sms_citas" optimistic-lock="version">
         <id name="idHojaVida" type="java.lang.Integer">
             <column name="idHojaVida" />
-            <generator class="identity"></generator>
+            <generator class="identity" />
         </id>
         <property name="hojaVidaNombre" type="string">
-            <column name="HojaVida_nombre" length="150" />
-        </property>     
-        <set name="smsEmpleados" table="sms_empleado" inverse="true" lazy="true" fetch="select">
+            <column name="HojaVida_nombre" length="65535" not-null="true" />
+        </property>
+        <property name="hojaVidaRuta" type="string">
+            <column name="HojaVida_ruta" length="65535" not-null="true" />
+        </property>
+        <set name="smsEmpleados" table="sms_empleado" inverse="true" lazy="true" fetch="join">
             <key>
                 <column name="empleado_hojaVida" />
             </key>

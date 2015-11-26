@@ -1,5 +1,5 @@
 package Modelo;
-// Generated 17/11/2015 12:16:55 PM by Hibernate Tools 4.3.1
+// Generated 26-nov-2015 15:26:50 by Hibernate Tools 4.3.1
 
 
 
@@ -12,12 +12,12 @@ public class SmsCostosServicio  implements java.io.Serializable {
      private int idSmsCostosServicio;
      private SmsCategoria smsCategoria;
      private SmsServicios smsServicios;
-     private String smsPrecio;
+     private int smsPrecio;
 
     public SmsCostosServicio() {
     }
 
-    public SmsCostosServicio(int idSmsCostosServicio, SmsCategoria smsCategoria, SmsServicios smsServicios, String smsPrecio) {
+    public SmsCostosServicio(int idSmsCostosServicio, SmsCategoria smsCategoria, SmsServicios smsServicios, int smsPrecio) {
        this.idSmsCostosServicio = idSmsCostosServicio;
        this.smsCategoria = smsCategoria;
        this.smsServicios = smsServicios;
@@ -45,11 +45,11 @@ public class SmsCostosServicio  implements java.io.Serializable {
     public void setSmsServicios(SmsServicios smsServicios) {
         this.smsServicios = smsServicios;
     }
-    public String getSmsPrecio() {
+    public int getSmsPrecio() {
         return this.smsPrecio;
     }
     
-    public void setSmsPrecio(String smsPrecio) {
+    public void setSmsPrecio(int smsPrecio) {
         this.smsPrecio = smsPrecio;
     }
 

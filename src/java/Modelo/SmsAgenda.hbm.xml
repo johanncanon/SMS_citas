@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/11/2015 12:16:59 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 26-nov-2015 15:26:56 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="Modelo.SmsAgenda" table="sms_agenda" catalog="bd_sms_citas">
+    <class name="Modelo.SmsAgenda" table="sms_agenda" catalog="bd_sms_citas" optimistic-lock="version">
         <id name="idAgenda" type="java.lang.Integer">
             <column name="idAgenda" />
-            <generator class="identity"></generator>
+            <generator class="identity" />
         </id>
-        <many-to-one name="smsVehiculo" class="Modelo.SmsVehiculo" fetch="select">
+        <many-to-one name="smsVehiculo" class="Modelo.SmsVehiculo" fetch="join">
             <column name="Agenda_idVehiculo" not-null="true" />
         </many-to-one>
         <property name="agendaIdConductor" type="int">
@@ -26,7 +26,7 @@
         <property name="agendaHoraLlegada" type="time">
             <column name="Agenda_horaLlegada" length="0" />
         </property>
-        <set name="smsReservacions" table="sms_reservacion" inverse="true" lazy="true" fetch="select">
+        <set name="smsReservacions" table="sms_reservacion" inverse="true" lazy="true" fetch="join">
             <key>
                 <column name="Reservacion_idAgenda" not-null="true" />
             </key>

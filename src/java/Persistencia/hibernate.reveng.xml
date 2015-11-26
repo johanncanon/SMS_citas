@@ -2,24 +2,24 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="bd_sms_citas"/>
-  <table-filter match-name="sms_estadovehiculo"/>
-  <table-filter match-name="sms_hojavida"/>
-  <table-filter match-name="sms_referencia"/>
-  <table-filter match-name="sms_costos_servicio"/>
-  <table-filter match-name="sms_empleado"/>
   <table-filter match-name="sms_servicios"/>
-  <table-filter match-name="sms_proveedor"/>
-  <table-filter match-name="sms_vehiculo"/>
-  <table-filter match-name="sms_reservacion"/>
-  <table-filter match-name="sms_ciudad"/>
-  <table-filter match-name="sms_usuario"/>
   <table-filter match-name="sms_calificacion"/>
-  <table-filter match-name="sms_agenda"/>
-  <table-filter match-name="sms_categoria"/>
-  <table-filter match-name="sms_usuario_rol"/>
-  <table-filter match-name="sms_permisos"/>
-  <table-filter match-name="sms_rol"/>
+  <table-filter match-name="sms_estadovehiculo"/>
   <table-filter match-name="sms_pais"/>
+  <table-filter match-name="sms_proveedor"/>
+  <table-filter match-name="sms_permisos"/>
+  <table-filter match-name="sms_usuario"/>
+  <table-filter match-name="sms_referencia"/>
+  <table-filter match-name="sms_rol"/>
+  <table-filter match-name="sms_empleado"/>
+  <table-filter match-name="sms_categoria"/>
   <table-filter match-name="sms_marca"/>
+  <table-filter match-name="sms_vehiculo"/>
+  <table-filter match-name="sms_ciudad"/>
+  <table-filter match-name="sms_reservacion"/>
+  <table-filter match-name="sms_hojavida"/>
+  <table-filter match-name="sms_costos_servicio"/>
+  <table-filter match-name="sms_agenda"/>
   <table-filter match-name="sms_rol_permisos"/>
+  <table-filter match-name="sms_usuario_rol"/>
 </hibernate-reverse-engineering>

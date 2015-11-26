@@ -49,7 +49,7 @@
 
                                                 <h:outputLabel value="Color: "/>
                                                 <b:inputText placeholder="Color del vehiculo" style="width: 100%" value="#{vehiculoBean.vehiculoView.vehColor}"/>
-                                                
+
                                                 <h:outputLabel value="Modelo: "/>
                                                 <b:inputText placeholder="Modelo del vehiculo" style="width: 100%" value="#{vehiculoBean.vehiculoView.vehModelo}"/>
 
@@ -123,14 +123,21 @@
                                 </b:well>
                             </b:column>
                         </div>
-                        
+
                         <div class="espacio-arriba">
                             <b:column col-lg="3" col-md="3" col-sm="3" col-xs="12" >
                                 <b:well>
-                                    <h3>Fotografias del vehiculo</h3>
+                                    <h4>Ingreso fotografia Vehiculo</h4>
                                     <hr/>
-                                    <p>En este panel podra ingresar las Marcas de los vehiculos de SMS renta como 
-                                        consultar los vehiculos por sus respectivas Marcas.</p>
+                                    <div class="table-responsive">
+                                        <p:fragment>
+                                            <p:panelGrid columns="2" id="seccionHojaVida" style="width: 100%">
+                                                <p:outputLabel value="Foto: "/>
+                                                <p:fileUpload mode="simple" value="#{empleadoBean.archivo}"/>                                    
+                                            </p:panelGrid>
+                                        </p:fragment>
+                                    </div>
+                                    <p:commandButton value="subir" disabled="#{empleadoBean.hoja}" style="width: 100%" class="btn btn-block btn-primary" ajax="false" action="#{empleadoBean.registrarHojaVida()}"/>                                    
                                 </b:well>
                             </b:column>
                         </div>

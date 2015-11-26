@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/11/2015 12:16:59 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 26-nov-2015 15:26:56 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="Modelo.SmsVehiculo" table="sms_vehiculo" catalog="bd_sms_citas">
+    <class name="Modelo.SmsVehiculo" table="sms_vehiculo" catalog="bd_sms_citas" optimistic-lock="version">
         <id name="idVehiculo" type="java.lang.Integer">
             <column name="idVehiculo" />
-            <generator class="identity"></generator>
+            <generator class="identity" />
         </id>
         <many-to-one name="smsCategoria" class="Modelo.SmsCategoria" fetch="select">
             <column name="Veh_categoria" not-null="true" />
@@ -38,15 +38,21 @@
         <property name="vehNumMalPequeña" type="java.lang.Integer">
             <column name="Veh_num_malPequeña" />
         </property>
-        <set name="smsAgendas" table="sms_agenda" inverse="true" lazy="true" fetch="select">
+        <property name="vehFotoNombre" type="string">
+            <column name="Veh_foto_nombre" length="65535" />
+        </property>
+        <property name="vehFotoRuta" type="string">
+            <column name="veh_foto_ruta" length="65535" />
+        </property>
+        <set name="smsAgendas" table="sms_agenda" inverse="true" lazy="true" fetch="join">
             <key>
                 <column name="Agenda_idVehiculo" not-null="true" />
             </key>
             <one-to-many class="Modelo.SmsAgenda" />
         </set>
-        <set name="smsEstadovehiculos" table="sms_estadovehiculo" inverse="true" lazy="true" fetch="select">
+        <set name="smsEstadovehiculos" table="sms_estadovehiculo" inverse="true" lazy="true" fetch="join">
             <key>
-                <column name="EstadoVeh_idVehiculo" not-null="true" />
+                <column name="SMS_Vehiculo_idVehiculo" not-null="true" />
             </key>
             <one-to-many class="Modelo.SmsEstadovehiculo" />
         </set>

@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/11/2015 12:16:59 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 26-nov-2015 15:26:56 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="Modelo.SmsEmpleado" table="sms_empleado" catalog="bd_sms_citas">
+    <class name="Modelo.SmsEmpleado" table="sms_empleado" catalog="bd_sms_citas" optimistic-lock="version">
         <id name="idEmpleado" type="java.lang.Integer">
             <column name="idEmpleado" />
-            <generator class="identity"></generator>
+            <generator class="identity" />
         </id>
-        <many-to-one name="smsHojavida" class="Modelo.SmsHojavida" fetch="select">
+        <many-to-one name="smsHojavida" class="Modelo.SmsHojavida" fetch="join">
             <column name="empleado_hojaVida" />
         </many-to-one>
-        <many-to-one name="smsUsuario" class="Modelo.SmsUsuario" fetch="select">
+        <many-to-one name="smsUsuario" class="Modelo.SmsUsuario" fetch="join">
             <column name="empleado_idUsuario" not-null="true" />
         </many-to-one>
     </class>

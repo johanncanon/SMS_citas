@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/11/2015 12:16:59 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 26-nov-2015 15:26:56 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="Modelo.SmsReservacion" table="sms_reservacion" catalog="bd_sms_citas">
+    <class name="Modelo.SmsReservacion" table="sms_reservacion" catalog="bd_sms_citas" optimistic-lock="version">
         <id name="idReservacion" type="java.lang.Integer">
             <column name="idReservacion" />
-            <generator class="identity"></generator>
+            <generator class="identity" />
         </id>
-        <many-to-one name="smsAgenda" class="Modelo.SmsAgenda" fetch="select">
+        <many-to-one name="smsAgenda" class="Modelo.SmsAgenda" fetch="join">
             <column name="Reservacion_idAgenda" not-null="true" />
         </many-to-one>
-        <many-to-one name="smsCiudad" class="Modelo.SmsCiudad" fetch="select">
+        <many-to-one name="smsCiudad" class="Modelo.SmsCiudad" fetch="join">
             <column name="Reservacion_idCiudad" not-null="true" />
         </many-to-one>
-        <many-to-one name="smsUsuario" class="Modelo.SmsUsuario" fetch="select">
+        <many-to-one name="smsUsuario" class="Modelo.SmsUsuario" fetch="join">
             <column name="Reservacion_idCliente" not-null="true" />
         </many-to-one>
         <property name="reservacionLugarLlegada" type="string">
@@ -24,9 +24,9 @@
             <column name="Reservacion_lugar_destino" length="100" />
         </property>
         <property name="reservacionNotas" type="string">
-            <column name="Reservacion_notas" length="65535" />
+            <column name="Reservacion_notas" />
         </property>
-        <set name="smsCalificacions" table="sms_calificacion" inverse="true" lazy="true" fetch="select">
+        <set name="smsCalificacions" table="sms_calificacion" inverse="true" lazy="true" fetch="join">
             <key>
                 <column name="Calificacion_idReservacion" not-null="true" />
             </key>

@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/11/2015 12:16:59 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 26-nov-2015 15:26:56 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="Modelo.SmsEstadovehiculo" table="sms_estadovehiculo" catalog="bd_sms_citas">
+    <class name="Modelo.SmsEstadovehiculo" table="sms_estadovehiculo" catalog="bd_sms_citas" optimistic-lock="version">
         <id name="idEstadoVeh" type="java.lang.Integer">
             <column name="idEstadoVeh" />
-            <generator class="identity"></generator>
+            <generator class="identity" />
         </id>
-        <many-to-one name="smsVehiculo" class="Modelo.SmsVehiculo" fetch="select">
-            <column name="EstadoVeh_idVehiculo" not-null="true" />
+        <many-to-one name="smsVehiculo" class="Modelo.SmsVehiculo" fetch="join">
+            <column name="SMS_Vehiculo_idVehiculo" not-null="true" />
         </many-to-one>
         <property name="estadoVehFrenos" type="string">
             <column name="EstadoVeh_frenos" length="45" />

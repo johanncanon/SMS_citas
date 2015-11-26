@@ -1,5 +1,5 @@
 package Modelo;
-// Generated 17/11/2015 12:16:55 PM by Hibernate Tools 4.3.1
+// Generated 26-nov-2015 15:26:50 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -23,6 +23,8 @@ public class SmsUsuario  implements java.io.Serializable {
      private String usuarioPassword;
      private String usuarioRememberToken;
      private Integer usuarioEstadoUsuario;
+     private String usuarioFotoNombre;
+     private String usuarioFotoRuta;
      private Set<SmsEmpleado> smsEmpleados = new HashSet<SmsEmpleado>(0);
      private Set<SmsProveedor> smsProveedors = new HashSet<SmsProveedor>(0);
      private Set<SmsReservacion> smsReservacions = new HashSet<SmsReservacion>(0);
@@ -35,7 +37,7 @@ public class SmsUsuario  implements java.io.Serializable {
     public SmsUsuario(SmsCiudad smsCiudad) {
         this.smsCiudad = smsCiudad;
     }
-    public SmsUsuario(SmsCiudad smsCiudad, String usuarioNombre, String usuarioCc, String usuarioTelefono, String usuarioEmail, String usuarioRazonSocial, String usuarioNit, String usuarioLogin, String usuarioPassword, String usuarioRememberToken, Integer usuarioEstadoUsuario, Set<SmsEmpleado> smsEmpleados, Set<SmsProveedor> smsProveedors, Set<SmsReservacion> smsReservacions, Set<SmsRol> smsRols) {
+    public SmsUsuario(SmsCiudad smsCiudad, String usuarioNombre, String usuarioCc, String usuarioTelefono, String usuarioEmail, String usuarioRazonSocial, String usuarioNit, String usuarioLogin, String usuarioPassword, String usuarioRememberToken, Integer usuarioEstadoUsuario, String usuarioFotoNombre, String usuarioFotoRuta, Set<SmsEmpleado> smsEmpleados, Set<SmsProveedor> smsProveedors, Set<SmsReservacion> smsReservacions, Set<SmsRol> smsRols) {
        this.smsCiudad = smsCiudad;
        this.usuarioNombre = usuarioNombre;
        this.usuarioCc = usuarioCc;
@@ -47,6 +49,8 @@ public class SmsUsuario  implements java.io.Serializable {
        this.usuarioPassword = usuarioPassword;
        this.usuarioRememberToken = usuarioRememberToken;
        this.usuarioEstadoUsuario = usuarioEstadoUsuario;
+       this.usuarioFotoNombre = usuarioFotoNombre;
+       this.usuarioFotoRuta = usuarioFotoRuta;
        this.smsEmpleados = smsEmpleados;
        this.smsProveedors = smsProveedors;
        this.smsReservacions = smsReservacions;
@@ -136,6 +140,20 @@ public class SmsUsuario  implements java.io.Serializable {
     
     public void setUsuarioEstadoUsuario(Integer usuarioEstadoUsuario) {
         this.usuarioEstadoUsuario = usuarioEstadoUsuario;
+    }
+    public String getUsuarioFotoNombre() {
+        return this.usuarioFotoNombre;
+    }
+    
+    public void setUsuarioFotoNombre(String usuarioFotoNombre) {
+        this.usuarioFotoNombre = usuarioFotoNombre;
+    }
+    public String getUsuarioFotoRuta() {
+        return this.usuarioFotoRuta;
+    }
+    
+    public void setUsuarioFotoRuta(String usuarioFotoRuta) {
+        this.usuarioFotoRuta = usuarioFotoRuta;
     }
     public Set<SmsEmpleado> getSmsEmpleados() {
         return this.smsEmpleados;

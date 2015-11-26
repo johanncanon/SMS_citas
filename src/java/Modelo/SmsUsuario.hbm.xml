@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/11/2015 12:16:59 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 26-nov-2015 15:26:56 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="Modelo.SmsUsuario" table="sms_usuario" catalog="bd_sms_citas">
+    <class name="Modelo.SmsUsuario" table="sms_usuario" catalog="bd_sms_citas" optimistic-lock="version">
         <id name="idUsuario" type="java.lang.Integer">
             <column name="idUsuario" />
-            <generator class="identity"></generator>
+            <generator class="identity" />
         </id>
-        <many-to-one name="smsCiudad" class="Modelo.SmsCiudad" fetch="select">
+        <many-to-one name="smsCiudad" class="Modelo.SmsCiudad" fetch="join">
             <column name="Usuario_ciudad" not-null="true" />
         </many-to-one>
         <property name="usuarioNombre" type="string">
@@ -40,6 +40,12 @@
         </property>
         <property name="usuarioEstadoUsuario" type="java.lang.Integer">
             <column name="Usuario_EstadoUsuario" />
+        </property>
+        <property name="usuarioFotoNombre" type="string">
+            <column name="Usuario_foto_nombre" length="65535" />
+        </property>
+        <property name="usuarioFotoRuta" type="string">
+            <column name="Usuario_foto_ruta" length="65535" />
         </property>
         <set name="smsEmpleados" table="sms_empleado" inverse="true" lazy="true" fetch="join">
             <key>
