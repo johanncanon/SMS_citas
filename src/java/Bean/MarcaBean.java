@@ -5,8 +5,6 @@
  */
 package Bean;
 
-import DAO.IMarcaDao;
-import DAO.ImpMarcaDao;
 import Controlador.Marca;
 import Modelo.SmsMarca;
 import java.io.Serializable;
@@ -41,12 +39,13 @@ public class MarcaBean implements Serializable {
         marcaController = new Marca();
         auxMarcaView = new SmsMarca();
 
-        buscar = null;
+        buscar = "";
         estado = 0;
         nombre = "Registrar Marca";
     }
+
     @PostConstruct
-    public void init(){
+    public void init() {
         marcasListView = marcaController.cargarMarcas();
     }
 
@@ -67,7 +66,7 @@ public class MarcaBean implements Serializable {
         this.marcaView = marcaView;
     }
 
-    public List<SmsMarca> getMarcasListView() {       
+    public List<SmsMarca> getMarcasListView() {
         return marcasListView;
     }
 
@@ -119,8 +118,6 @@ public class MarcaBean implements Serializable {
     public void setAuxMarcaView(SmsMarca auxMarcaView) {
         this.auxMarcaView = auxMarcaView;
     }
-    
-    
 
     /*+++++++++++++++++++++++++*****************************************************************
      ****************    CREACION DE METODOS DEL BEAN      *********************************+++++*/
@@ -138,15 +135,15 @@ public class MarcaBean implements Serializable {
 
     public void registrar() {
         marcaController.registrarMarca(marcaView);
-        marcaView = new SmsMarca();        
+        marcaView = new SmsMarca();
         marcasListView = marcaController.cargarMarcas();
     }
 
     public void filtrar() {
         marcasListView = new ArrayList<>();
-        if (buscar == null) {
-        marcasListView = marcaController.cargarMarcas();
-        } else {            
+        if (buscar.equals("")) {
+            marcasListView = marcaController.cargarMarcas();
+        } else {
             marcasListView = marcaController.filtrarMarcas(buscar);
             marcaView = new SmsMarca();
         }

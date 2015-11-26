@@ -29,13 +29,15 @@
                                     <h4>Ingreso de Marcas de Vehiculos SMS</h4>
                                     <hr/>                                    
                                     <div class="table-responsive">
+
                                         <h:panelGrid cellpadding="5" columns="3" id="PMarca" style="width: 100%">
                                             <p:outputLabel  value="Nombre de Marca: "/>
                                             <b:inputText placeholder="Nombre de marca" id="TNombreMrc" required="true" requiredMessage="Ingrese nombre" style="width: 100%" value="#{marcaBean.marcaView.marcaNombre}"/>
                                             <p:message for="TNombreMrc"/>
                                         </h:panelGrid>
-                                    </div><hr/>                                
-                                    <p:commandButton id="BTMarca" style="width: 100%" update="@form" value="#{marcaBean.nombre}" action="#{marcaBean.metodo()}"/>
+                                    </div>
+                                    <hr/>                                
+                                    <p:commandButton id="BTMarca" style="width: 100%" update="PMarca BTMarca DTMarcas" value="#{marcaBean.nombre}" action="#{marcaBean.metodo()}"/>
                                 </b:well>
                             </b:column>
 
@@ -44,9 +46,9 @@
                                     <h4>Lista de Vehìculos SMS por Marcas</h4>
                                     <hr/>
                                     <b:inputText value="#{marcaBean.buscar}" placeholder="Buscar" style="width: 100%">                                       
-                                        <p:ajax event="keydown" listener="#{marcaBean.filtrar()}" update="DTMarcas"/>
-                                    </b:inputText>                                    
-                                    <p:fragment>                                           
+                                        <p:ajax event="keyup" listener="#{marcaBean.filtrar()}" update="DTMarcas"/>
+                                    </b:inputText>                                  
+                                    <p:fragment>
                                         <p:dataTable id="DTMarcas" var="Marca" value="#{marcaBean.marcasListView}"
                                                      rows="5"
                                                      paginator="true"
@@ -68,7 +70,7 @@
                                                 </p:commandButton>
                                             </p:column>
                                         </p:dataTable>
-                                    </p:fragment>                                    
+                                    </p:fragment>
                                 </b:well>
                             </b:column>
                         </h:form> 

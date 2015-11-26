@@ -29,7 +29,7 @@
                                     <h4>Ingreso de Categorias de Vehiculos SMS</h4>
                                     <hr/>                                                                          
                                     <div class="table-responsive">
-                                        <h:panelGrid columns="3" style="width: 100%" cellpadding="5">
+                                        <h:panelGrid id="PCategoria" columns="3" style="width: 100%" cellpadding="5">
                                             <p:outputLabel  value="Nombre de Categoria: "/>
                                             <b:inputText id="TNombreCat" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre de categoria" value="#{categoriaBean.categoriaView.categoriaNombre}"/>
                                             <p:message for="TNombreCat"/>
@@ -40,7 +40,7 @@
 
                                         </h:panelGrid>
                                     </div>
-                                    <p:commandButton style="width: 100%" update="@form" value="#{categoriaBean.nombre}" action="#{categoriaBean.metodo()}"/>
+                                    <p:commandButton id="BTCategoria" style="width: 100%" update="PCategoria BTCategoria DTCategorias" value="#{categoriaBean.nombre}" action="#{categoriaBean.metodo()}"/>
 
                                 </b:well>
                             </b:column>
@@ -50,10 +50,11 @@
                                 <b:well>
                                     <h4>Lista de Categorias</h4>
                                     <hr/>
+                                    <p:fragment autoUpdate="true">
                                     <b:inputText placeholder="Buscar" value="#{categoriaBean.buscar}" style="width: 100%">
                                         <p:ajax event="keydown" listener="#{categoriaBean.filtrar()}" update="DTCategorias"/>
                                     </b:inputText>                                   
-                                    <p:fragment>
+                                    
                                         <p:dataTable id="DTCategorias" var="Categorias" value="#{categoriaBean.categoriasListView}" 
                                                      rows="5"
                                                      paginator="true"

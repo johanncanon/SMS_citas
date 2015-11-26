@@ -40,7 +40,7 @@ public class ReferenciaBean implements Serializable {
         nombresReferenciaListView = new ArrayList<>();
         marcaView = new SmsMarca();   
         
-        buscar = null;
+        buscar = "";
         estado = 0;
         nombre = "Registrar Referencia";
     }    
@@ -159,7 +159,7 @@ public class ReferenciaBean implements Serializable {
     
     public void filtrar() {
         referenciasListView = new ArrayList<>();
-        if (buscar == null) {
+        if (buscar.equals("")) {
             referenciasListView = referenciaController.cargarReferencias();
         } else {
             referenciasListView = referenciaController.filtrarReferencias(buscar);

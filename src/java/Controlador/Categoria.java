@@ -84,7 +84,7 @@ public class Categoria {
         return categorias;
     }
     
-/* ------------------- Metodos con la Logica de CAtegoriaBean ------------------------*/
+/* ------------------- Metodos con la Logica de CategoriaBean ------------------------*/
     
     
     

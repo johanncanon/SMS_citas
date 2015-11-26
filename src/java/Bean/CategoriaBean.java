@@ -33,7 +33,7 @@ public class CategoriaBean implements Serializable {
         nombresCategoriasListView = new ArrayList<>();
         categoriaController = new Categoria();
 
-        buscar = null;
+        buscar = "";
         estado = 0;
         nombre = "Registrar Categoria";
     }
@@ -134,7 +134,7 @@ public class CategoriaBean implements Serializable {
 
     public void filtrar() {
         categoriasListView = new ArrayList<>();
-        if (buscar == null) {
+        if (buscar.equals("")) {
             categoriasListView = categoriaController.cargarCategorias();
         } else {
             categoriasListView = categoriaController.filtrarCategoria(buscar);
