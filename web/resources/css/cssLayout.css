@@ -398,3 +398,12 @@ td, th {
 .navbar-brand {
     padding: 9px 15px !important;    
 }
+/************************************************************************
+***************    ESTILOS DEL CLIENTE     *****************************/
+
+.label-cl{
+    padding-left: 28%;
+    font-size: 18px;
+    color: #B5B5B5;
+    text-shadow: rgba(49, 30, 30, 0.03) 1px 1px 1px;
+}
