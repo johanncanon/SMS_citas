@@ -9,6 +9,7 @@ import Controlador.Servicio;
 import Modelo.SmsServicios;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 
 /**
  *
@@ -27,14 +28,22 @@ public class ServiciosBean {
     //Variables
     private int estado; //Controla la operacion a realizar
     private String nombre;
+    private String buscar;
 
     public ServiciosBean() {
         servicioController = new Servicio();
         servicioView = new SmsServicios();
         serviciosListView = new ArrayList<>();
         nombreServiciosListView = new ArrayList<>();
+        
+        buscar = null;
         estado = 0;
         nombre = "Registrar Servicio";
+    }
+    
+    @PostConstruct
+    public void init(){
+        serviciosListView = servicioController.cargarServicio();
     }
 
     //Getters & Setters
@@ -46,9 +55,7 @@ public class ServiciosBean {
         this.servicioView = servicioView;
     }
 
-    public List<SmsServicios> getServiciosListView() {
-        serviciosListView = new ArrayList<>();
-        serviciosListView = servicioController.cargarServicio();
+    public List<SmsServicios> getServiciosListView() {        
         return serviciosListView;
     }
 
@@ -89,6 +96,16 @@ public class ServiciosBean {
         this.nombre = nombre;
     }
 
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+    
+    
+
     //Metodos Propios
     public void metodo() {
         if (estado == 0) {
@@ -118,16 +135,28 @@ public class ServiciosBean {
     public void registrar() {
         servicioController.registrarServicio(servicioView);
         servicioView = new SmsServicios();
+        serviciosListView = servicioController.cargarServicio();
     }
 
     public void modificar() {
         servicioController.modificarServicio(servicioView);
         servicioView = new SmsServicios();
+        serviciosListView = servicioController.cargarServicio();
     }
 
     public void eliminar() {
         servicioController.eliminarServicio(servicioView);
         servicioView = new SmsServicios();
+        serviciosListView = servicioController.cargarServicio();
+    }
+    
+    public void filtrar() {
+        serviciosListView = new ArrayList<>();
+        if (buscar == null) {
+            serviciosListView = servicioController.cargarServicio();
+        } else {
+            serviciosListView = servicioController.filtrarServicio(buscar);
+        }
     }
 
 }

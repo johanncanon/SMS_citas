@@ -48,12 +48,11 @@
                             </b:column>
                             <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
                                 <b:well>
-                                    <h4>Referencias SMS Renta</h4><hr/>                                    
+                                    <h4>Referencias SMS Renta</h4><hr/>                                   
 
                                     <b:inputText id="TBuscar" placeholder="Buscar" value="#{referenciaBean.buscar}" style="width: 100%">
-                                        <p:ajax event="keyup" listener="#{referenciaBean.filtrar()}" update="@form"/>
-                                    </b:inputText><hr/>
-                                    <p:fragment autoUpdate="true">
+                                        <p:ajax event="keyup" listener="#{referenciaBean.filtrar()}" process="@this" update="DTReferencias"/>
+                                    </b:inputText>                                 
                                         <p:dataTable id="DTReferencias" var="Referencias" value="#{referenciaBean.referenciasListView}"
                                                      rows="5"
                                                      paginator="true"
@@ -68,18 +67,17 @@
                                             </p:column>
 
                                             <p:column style="width: 35px">
-                                                <p:commandButton icon="ui-icon-pencil"  update="@form" action="#{referenciaBean.seleccionarCRUD(1)}" title="Modificar">
+                                                <p:commandButton icon="ui-icon-pencil" process="@this"  update="@form" action="#{referenciaBean.seleccionarCRUD(1)}" title="Modificar">
                                                     <f:setPropertyActionListener value="#{Referencias}" target="#{referenciaBean.referenciaView}"/>
                                                 </p:commandButton>
                                             </p:column>
 
                                             <p:column style="width: 35px">                                                    
-                                                <p:commandButton icon="ui-icon-close" update="@form" action="#{referenciaBean.seleccionarCRUD(2)}" title="Eliminar">
+                                                <p:commandButton icon="ui-icon-close" process="@this" update="@form" action="#{referenciaBean.seleccionarCRUD(2)}" title="Eliminar">
                                                     <f:setPropertyActionListener value="#{Referencias}" target="#{referenciaBean.referenciaView}"/>
                                                 </p:commandButton>
                                             </p:column>
-                                        </p:dataTable>                                        
-                                    </p:fragment>                                   
+                                        </p:dataTable>                                       
                                 </b:well>
                             </b:column>
                         </h:form> 

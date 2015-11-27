@@ -6,18 +6,23 @@
 package Controlador;
 
 import DAO.IProveedorDao;
+import DAO.IUsuarioDao;
 import DAO.ImpProveedorDao;
+import DAO.ImpUsuarioDao;
 import Modelo.SmsProveedor;
 import Modelo.SmsUsuario;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Desarrollo_Planit
  */
-public class Proveedor extends Usuario{
+public class Proveedor extends Usuario {
 
     SmsProveedor proveedor;
-    
+    List<SmsProveedor> proveedores;
+
     public Proveedor() {
         super();
         proveedor = new SmsProveedor();
@@ -28,32 +33,40 @@ public class Proveedor extends Usuario{
     }
 
     public void setProveedor(SmsProveedor proveedor) {
-        
+
         this.proveedor = proveedor;
     }
-    
+
     //Metodos de la clase
-    public void registrarProveedor(SmsProveedor p, SmsUsuario u){
-    usuario = u; proveedor = p;
-    proveedor.setSmsUsuario(usuario);
-    IProveedorDao provedorDao= new  ImpProveedorDao();
-    provedorDao.registrarProveedor(proveedor);
+    public void registrarProveedor(SmsProveedor p, SmsUsuario u) {
+        usuario = u;
+        proveedor = p;
+        usuario = consultarUsuario(usuario).get(0);
+        proveedor.setSmsUsuario(usuario);
+        IProveedorDao provedorDao = new ImpProveedorDao();
+        provedorDao.registrarProveedor(proveedor);
     }
-    
-    public void modificarProveedor(SmsProveedor p, SmsUsuario u){
-    usuario = u; proveedor = p;
-    proveedor.setSmsUsuario(usuario);
-    IProveedorDao provedorDao= new  ImpProveedorDao();
-    provedorDao.registrarProveedor(proveedor);
+
+    public void modificarProveedor(SmsProveedor p, SmsUsuario u) {
+        usuario = u;
+        proveedor = p;
+        usuario = consultarUsuario(usuario).get(0);
+        proveedor.setSmsUsuario(usuario);
+        IProveedorDao provedorDao = new ImpProveedorDao();
+        provedorDao.modificarProveedor(proveedor);
     }
-    
-    public void eliminarProveedor(SmsProveedor p){
-    proveedor = p;
-    IProveedorDao provedorDao= new  ImpProveedorDao();
-    provedorDao.eliminarProveedor(proveedor);    
+
+    public void eliminarProveedor(SmsProveedor p) {
+        proveedor = p;
+        IProveedorDao provedorDao = new ImpProveedorDao();
+        provedorDao.eliminarProveedor(proveedor);
     }
-    
-    
-    
-    
+
+    public List<SmsProveedor> cargarProveedor() {
+        proveedores = new ArrayList<>();
+        IProveedorDao provedorDao = new ImpProveedorDao();
+        proveedores = provedorDao.mostrarProveedores();
+        return proveedores;
+    }
+
 }

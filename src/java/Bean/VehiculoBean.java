@@ -17,16 +17,18 @@ import javax.annotation.PostConstruct;
 
 public class VehiculoBean {
 
-    //Objetos de vista    
+    //Objetos de vista  
+    
+    private SmsVehiculo vehiculoView;   
+    private List<SmsVehiculo> vehiculosListView;
+    private List<String> PlacasVehiculosListView;
+
     private SmsCategoria categoriaView;
     private SmsCiudad ciudadView;
     private SmsProveedor proveedorView;
     private SmsReferencia refenciaView;
-    private SmsVehiculo vehiculoView;
     private SmsEstadovehiculo estadoVehiculoView;
-    private List<SmsVehiculo> vehiculosListView;
-    private List<String> PlacasVehiculosListView;
-
+    
     //Relacion con el controlodar
     private Vehiculo vehiculoController;
 

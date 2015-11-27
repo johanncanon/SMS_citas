@@ -37,7 +37,7 @@
                                         </h:panelGrid>
                                     </div>
                                     <hr/>                                
-                                    <p:commandButton id="BTMarca" style="width: 100%" update="PMarca BTMarca DTMarcas" value="#{marcaBean.nombre}" action="#{marcaBean.metodo()}"/>
+                                    <p:commandButton id="BTMarca" style="width: 100%" update="@form" value="#{marcaBean.nombre}" action="#{marcaBean.metodo()}"/>
                                 </b:well>
                             </b:column>
 
@@ -46,31 +46,29 @@
                                     <h4>Lista de Vehìculos SMS por Marcas</h4>
                                     <hr/>
                                     <b:inputText value="#{marcaBean.buscar}" placeholder="Buscar" style="width: 100%">                                       
-                                        <p:ajax event="keyup" listener="#{marcaBean.filtrar()}" update="DTMarcas"/>
-                                    </b:inputText>                                  
-                                    <p:fragment>
-                                        <p:dataTable id="DTMarcas" var="Marca" value="#{marcaBean.marcasListView}"
-                                                     rows="5"
-                                                     paginator="true"
-                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                     rowsPerPageTemplate="5,10,15" emptyMessage="Marcas no registrados">
-                                            <p:column headerText="Nombre">
-                                                <h:outputText value="#{Marca.marcaNombre}" />
-                                            </p:column>
+                                        <p:ajax event="keyup" listener="#{marcaBean.filtrar()}" process="@this" update="DTMarcas"/>
+                                    </b:inputText>                                
+                                    <p:dataTable id="DTMarcas" var="Marca" value="#{marcaBean.marcasListView}"
+                                                 rows="5"
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15" emptyMessage="Marcas no registrados">
+                                        <p:column headerText="Nombre">
+                                            <h:outputText value="#{Marca.marcaNombre}" />
+                                        </p:column>
 
-                                            <p:column style="width: 35px">
-                                                <p:commandButton icon="ui-icon-pencil" update="@form" action="#{marcaBean.seleccionarCRUD(1)}" title="Modificar">
-                                                    <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
-                                                </p:commandButton>
-                                            </p:column>
+                                        <p:column style="width: 35px">
+                                            <p:commandButton icon="ui-icon-pencil" process="@this" update="@form" action="#{marcaBean.seleccionarCRUD(1)}" title="Modificar">
+                                                <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
+                                            </p:commandButton>
+                                        </p:column>
 
-                                            <p:column style="width: 35px">
-                                                <p:commandButton icon="ui-icon-close" update="@form" action="#{marcaBean.seleccionarCRUD(2)}" title="Eliminar">
-                                                    <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
-                                                </p:commandButton>
-                                            </p:column>
-                                        </p:dataTable>
-                                    </p:fragment>
+                                        <p:column style="width: 35px">
+                                            <p:commandButton icon="ui-icon-close" process="@this" update="@form" action="#{marcaBean.seleccionarCRUD(2)}" title="Eliminar">
+                                                <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
+                                            </p:commandButton>
+                                        </p:column>
+                                    </p:dataTable>
                                 </b:well>
                             </b:column>
                         </h:form> 

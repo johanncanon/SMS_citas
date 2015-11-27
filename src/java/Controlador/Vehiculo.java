@@ -119,8 +119,7 @@ public class Vehiculo {
     }
     
     public void eliminarVehiculo(SmsVehiculo v) {
-        vehiculo = v;
-
+       vehiculo = v;
         IVehiculoDao linkDao = new ImpVehiculoDao();
         linkDao.eliminarVehiculo(vehiculo);
     }

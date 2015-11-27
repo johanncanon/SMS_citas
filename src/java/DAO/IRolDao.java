@@ -6,7 +6,6 @@
 package DAO;
 
 import Modelo.SmsRol;
-import Modelo.SmsUsuario;
 import java.util.List;
 
 /**

@@ -19,5 +19,6 @@ public interface IServicioDao {
     public void registrarServicio(SmsServicios servicio);
     public void modificarServicio(SmsServicios servicio);
     public void eliminarServicio(SmsServicios servicio);
+    public List<SmsServicios> filtrarServicios(String dato);
     
 }

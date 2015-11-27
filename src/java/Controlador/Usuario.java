@@ -88,6 +88,13 @@ public class Usuario {
     }
     
     
+    public List<SmsUsuario> consultarUsuario(SmsUsuario usuario){
+        //el metodo consulta de la base de datos todos los usuarios registrados y los retorna en una lista
+        IUsuarioDao usuarioDao = new ImpUsuarioDao();
+        List<SmsUsuario> usuarios = usuarioDao.consultarUsuario(usuario);        
+        return usuarios;
+    }
+    
     
     
     

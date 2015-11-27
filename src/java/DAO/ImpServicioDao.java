@@ -18,42 +18,43 @@ import org.hibernate.Session;
  *
  * @author Desarrollo_Planit
  */
-public class ImpServicioDao implements IServicioDao{
+public class ImpServicioDao implements IServicioDao {
 
     private FacesMessage message;
-    
+
     @Override
-    public List<SmsServicios> mostrarServicios() {              
+    public List<SmsServicios> mostrarServicios() {
         Session session = null;
-        List<SmsServicios> servicios = new ArrayList<>();        
-        try{
+        List<SmsServicios> servicios = new ArrayList<>();
+        try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsServicios");
-            servicios = (List<SmsServicios>) query.list();            
-        }catch(HibernateException e){
+            servicios = (List<SmsServicios>) query.list();
+        } catch (HibernateException e) {
             e.getMessage();
-        }finally{
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
-        }return servicios;
+        }
+        return servicios;
     }
 
     @Override
     public void registrarServicio(SmsServicios servicio) {
         Session session = null;
-        try{
+        try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(servicio);
             session.getTransaction().commit();
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Servicio registrado", "" + servicio.getServiciosNombre() );
-        }catch(HibernateException e){
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Servicio registrado", "" + servicio.getServiciosNombre());
+        } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
-        }finally{
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
@@ -62,19 +63,19 @@ public class ImpServicioDao implements IServicioDao{
 
     @Override
     public void modificarServicio(SmsServicios servicio) {
-       Session session = null;
-        try{
+        Session session = null;
+        try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.update(servicio);
             session.getTransaction().commit();
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Servicio modificado", "" + servicio.getServiciosNombre() );
-        }catch(HibernateException e){
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Servicio modificado", "" + servicio.getServiciosNombre());
+        } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
-        }finally{
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
@@ -84,22 +85,40 @@ public class ImpServicioDao implements IServicioDao{
     @Override
     public void eliminarServicio(SmsServicios servicio) {
         Session session = null;
-        try{
+        try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.delete(servicio);
             session.getTransaction().commit();
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Servicio eliminado", "" + servicio.getServiciosNombre() );
-        }catch(HibernateException e){
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Servicio eliminado", "" + servicio.getServiciosNombre());
+        } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
-        }finally{
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-    
+
+    @Override
+    public List<SmsServicios> filtrarServicios(String dato) {
+        Session session = null;
+        List<SmsServicios> servicios = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsServicios as servicios where servicios.serviciosNombre LIKE '%" + dato + "%' or servicios.serviciosDescripcion LIKE '%" + dato + "%'");
+            servicios = (List<SmsServicios>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return servicios;
+    }
+
 }

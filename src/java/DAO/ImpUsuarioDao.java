@@ -28,7 +28,7 @@ public class ImpUsuarioDao implements IUsuarioDao {
         List<SmsUsuario> usuarios = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsUsuario as usuario left join fetch usuario.smsRols");
+            Query query = session.createQuery("from SmsUsuario as usuario left join fetch usuario.smsRols as rol left join fetch usuario.smsCiudad as ciudad");
             usuarios = (List<SmsUsuario>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
@@ -70,7 +70,7 @@ public class ImpUsuarioDao implements IUsuarioDao {
             session.beginTransaction();
             session.update(usuario);
             session.getTransaction().commit();
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "perfil creado", "" + usuario.getUsuarioLogin());
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario modificado", "" + usuario.getUsuarioLogin());
         } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
@@ -110,7 +110,7 @@ public class ImpUsuarioDao implements IUsuarioDao {
         List<SmsUsuario> usuarios = new ArrayList<>();
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsUsuario as usuario left join fetch usuario.smsRols where usuario.usuarioLogin = '" + usuario.getUsuarioLogin() + "'");
+            Query query = session.createQuery("from SmsUsuario as usuario left join fetch usuario.smsRols as rol left join fetch usuario.smsCiudad as ciudad where usuario.usuarioLogin = '" + usuario.getUsuarioLogin() + "'");
             usuarios = (List<SmsUsuario>) query.list();
         } catch (HibernateException e) {
             e.getMessage();

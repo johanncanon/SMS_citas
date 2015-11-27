@@ -59,4 +59,10 @@ public class Servicio {
         return listaServicios;
     }
     
+    public List<SmsServicios> filtrarServicio(String valor){
+        List<SmsServicios> listaServicios = new ArrayList<>();
+        IServicioDao servicioDao = new ImpServicioDao();
+        listaServicios = servicioDao.filtrarServicios(valor);
+        return listaServicios;
+    }
 }

@@ -5,14 +5,12 @@
  */
 package Bean;
 
-import DAO.ICiudadDao;
-import DAO.ImpCiudadDao;
 import Controlador.Ciudad;
-import Controlador.Pais;
 import Modelo.SmsCiudad;
 import Modelo.SmsPais;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 
 /**
  *
@@ -32,6 +30,7 @@ public class CiudadBean {
     //Variables
     private int estado; //Controla la operacion a realizar
     private String nombre;
+    private String buscar;
 
     public CiudadBean() {
         ciudadView = new SmsCiudad();
@@ -40,8 +39,14 @@ public class CiudadBean {
         ciudadController = new Ciudad();
         paisView = new SmsPais();
 
+        buscar = null;
         estado = 0;
         nombre = "Registrar Ciudad";
+    }
+
+    @PostConstruct
+    public void init() {
+        ciudadesListView = ciudadController.getCiudades();
     }
 
     //Getters & Setters    
@@ -54,8 +59,6 @@ public class CiudadBean {
     }
 
     public List<SmsCiudad> getCiudadesListView() {
-        ciudadesListView = new ArrayList<>();
-        ciudadesListView = ciudadController.getCiudades();
         return ciudadesListView;
     }
 
@@ -108,6 +111,16 @@ public class CiudadBean {
         this.nombre = nombre;
     }
 
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+    
+    
+
     //Metodos propios
     public void seleccionarCrud(int i) {
         estado = i;
@@ -139,17 +152,29 @@ public class CiudadBean {
         ciudadController.registrarCiudad(ciudadView, paisView);
         ciudadView = new SmsCiudad();
         paisView = new SmsPais();
+        ciudadesListView = ciudadController.getCiudades();
     }
 
     public void modificar() {
         ciudadController.modificarCiudad(ciudadView, paisView);
         ciudadView = new SmsCiudad();
         paisView = new SmsPais();
+        ciudadesListView = ciudadController.getCiudades();
     }
 
     public void eliminar() {
         ciudadController.eliminarCiudad(ciudadView);
         ciudadView = new SmsCiudad();
         paisView = new SmsPais();
+        ciudadesListView = ciudadController.getCiudades();
+    }
+    
+    public void filtrar() {
+        ciudadesListView = new ArrayList<>();
+        if (buscar == null) {
+            ciudadesListView = ciudadController.cargarCiudades();
+        } else {
+            ciudadesListView = ciudadController.filtrarCiudades(buscar);
+        }
     }
 }

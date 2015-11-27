@@ -57,7 +57,8 @@ public class ImpCiudadDao implements ICiudadDao {
             if (session != null) {
                 session.close();
             }
-        } FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
@@ -77,7 +78,8 @@ public class ImpCiudadDao implements ICiudadDao {
             if (session != null) {
                 session.close();
             }
-        } FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
@@ -97,7 +99,8 @@ public class ImpCiudadDao implements ICiudadDao {
             if (session != null) {
                 session.close();
             }
-        } FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
@@ -107,6 +110,24 @@ public class ImpCiudadDao implements ICiudadDao {
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsCiudad as ciudad where ciudad.ciudadNombre='" + ciudad.getCiudadNombre() + "'");
+            ciudades = (List<SmsCiudad>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return ciudades;
+    }
+
+    @Override
+    public List<SmsCiudad> filtrarCiudad(String dato) {
+        Session session = null;
+        List<SmsCiudad> ciudades = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsCiudad as ciudad left join fetch ciudad.smsPais where ciudad.ciudadNombre LIKE '%" + dato + "%' or ciudad.smsPais.paisNombre LIKE '%" + dato + "%'");
             ciudades = (List<SmsCiudad>) query.list();
         } catch (HibernateException e) {
             e.getMessage();

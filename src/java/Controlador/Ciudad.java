@@ -78,4 +78,11 @@ public class Ciudad {
         ciudades = linkDao.mostrarCiudades();
         return ciudades;
     }
+    
+    public List<SmsCiudad> filtrarCiudades(String valor) {
+        ciudades = new ArrayList<>();
+        ICiudadDao linkDao = new ImpCiudadDao();
+        ciudades = linkDao.filtrarCiudad(valor);
+        return ciudades;
+    }
 }

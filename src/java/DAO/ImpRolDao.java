@@ -122,7 +122,5 @@ public class ImpRolDao implements IRolDao{
         }
         return roles;
     }
-
-    
-    
+        
 }
