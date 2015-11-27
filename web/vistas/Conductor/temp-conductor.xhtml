@@ -11,7 +11,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Dashboard SMS | Administradot Secundario</title>
+        <h:outputStylesheet name="./bootstrap/css/bootstrap.css"/>
+        <h:outputStylesheet name="./adminLT/css/AdminLTE.css"/>
+        <h:outputStylesheet name="./adminLT/css/skins/_all-skins.min.css"/>
+        <title>Dashboard SMS Renta | Conductor</title>
     </h:head>
 
     <h:body>
@@ -56,37 +59,14 @@
                                 </b:thumbnail>
                                 <p:panelMenu styleClass="ui-state-default-menu">
 
-                                    <p:submenu label="Registro" styleClass="color-menu-1" icon="ui-icon-pencil">
-                                        <p:menuitem style="font-size: 1.2em" value="Registro de Usuario" icon="ui-icon-pencil" url="reservas/reservadmin.xhtml"/>
+                                    <p:submenu label="Horario Conductor" styleClass="color-menu-1" icon="ui-icon-pencil">
+                                        <p:menuitem style="font-size: 1.2em" value="Horario Conductor" icon="ui-icon-pencil" url="reservas/reservadmin.xhtml"/>
                                     </p:submenu>
 
-                                    <p:submenu label="Reservaciones" >
-                                        <p:menuitem style="font-size: 1.2em" value="Reservar Vehiculos" url="reservas/reservadmin.xhtml"  icon="ui-icon-star" />
-                                        <p:menuitem style="font-size: 1.2em" value="Reservar Conductores" url="reservas/reservadmin.xhtml"  icon="ui-icon-plusthick" />
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar reservaciones" url="reservas/reservadmin.xhtml"  icon="ui-icon-circle-zoomin" />
+                                    <p:submenu label="Edicion de Perfil" >
+                                        <p:menuitem style="font-size: 1.2em" value="Datos de Perfil" url="reservas/reservadmin.xhtml"  icon="ui-icon-star" />
                                     </p:submenu>
 
-                                    <p:submenu label="Clientes">
-                                        <p:menuitem style="font-size: 1.2em" value="Registro de Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-check"/>
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-circle-zoomin"/>
-                                    </p:submenu>
-
-                                    <p:separator />
-                                    <p:submenu label="Vehiculos" >
-                                        <p:menuitem style="font-size: 1.2em" value="Marcas SMS Renta" url="#" icon="ui-icon-home"/>
-                                        <p:menuitem style="font-size: 1.2em"  value="Categorias SMS Renta" url="#" icon="ui-icon-contact"/>
-                                        <p:menuitem style="font-size: 1.2em" value="Referencias SMS Renta" url="http://www.primefaces.org" icon="ui-icon-folder-collapsed" />
-                                        <p:menuitem style="font-size: 1.2em" value="Vehiculo SMS Renta" url="http://www.primefaces.org" icon="ui-icon-person" />
-                                    </p:submenu>
-
-                                    <p:submenu label="Conductores SMS">
-                                        <p:menuitem style="font-size: 1.2em" value="Registrar Conductores" url="#" icon="ui-icon-arrowstop-1-s"/>
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar Conductores" url="#" icon="ui-icon-calculator"/>
-
-                                    </p:submenu>
-                                    <p:submenu label="Calificaciones">
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar Calificaciones" url="#" icon="ui-icon-star"/>
-                                    </p:submenu>
                                 </p:panelMenu>
                             </h:form>
                         </div>

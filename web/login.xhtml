@@ -12,7 +12,10 @@
         <h:outputStylesheet name="./bootstrap/css/bootstrap.css"/>
         <h:outputStylesheet name="./bootstrap/css/bootstrap.min.css"/>
         <h:outputStylesheet name="./bootstrap/css/login.css"/>
-        <title>Facelet Title</title>
+        <h:outputStylesheet name="./adminLT/css/AdminLTE.min.css"/>
+        <h:outputStylesheet name="./adminLT/css/skins/_all-skins.min.css"/>
+
+        <title>Login | Registro de SMS</title>
     </h:head>
     <script>
         $(document).ready(function () {
@@ -32,31 +35,58 @@
             <b:container fluid="true">               
                 <script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
                 <!-- This is a very simple parallax effect achieved by simple CSS 3 multiple backgrounds, made by http://twitter.com/msurguy -->
+                <h:form>
+                    <div class="container">
+                        <div class="row vertical-offset-100">
+                            <div class="col-md-5 col-md-offset-3 mrg-tab" >
 
-                <div class="container">
-                    <div class="row vertical-offset-100">
-                        <div class="col-md-4 col-md-offset-4">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Sign in</h3>
+                                <div class="box box-danger">
+                                    <div class="box-header with-border">
+                                        <i class="fa fa-5x fa-desktop"></i>
+                                        <h3 class="box-title">Plataforma <stong>SMS Renta</stong></h3>
+                                    </div>
+                                    <div class="box-body">
+
+                                        <b:tabView activeIndex="0">
+                                            <b:tab title="Login SMS Rentas">
+                                                <f:facet name="anchor"><b:iconAwesome name="user" size="1x"  /></f:facet>
+                                                <!-- <form accept-charset="UTF-8" role="form">-->
+                                                <p:growl id="messages" life="2000"/>
+                                                <fieldset>
+                                                    <div class="form-group centro">
+                                                        <img src="resources/images/logo.jpg" class="cntr-1 img-thumbnail "/>
+                                                        <b:inputText placeholder="Ingrese su nombre de usuario" required="true" requiredMessage="Por favor, ingrese nombre de sesion" value="#{usuarioBean.usuarioView.usuarioLogin}" style="width: 100%; margin-bottom: 12px"/>
+                                                        <p:password  placeholder="Ingrese su contraseña" required="true" requiredMessage="Por favor, ingrese contraseña" value="#{usuarioBean.usuarioView.usuarioPassword}" style="width: 100% ; height: 36px; border-radius: 5px;"/>
+                                                    </div>                                                                                      
+                                                    <p:commandButton styleClass="btn-login" ajax="false" action="#{usuarioBean.login()}" value="Registrate"/>
+                                                </fieldset>
+                                                <!--</form>-->
+                                            </b:tab>
+                                            <b:tab title="Registro SMS Rentas">
+                                                <f:facet name="anchor"><b:iconAwesome name="user-plus" size="1x"  /></f:facet>
+                                                <!-- <form accept-charset="UTF-8" role="form">-->
+                                                <p:growl id="messages-2" life="2000"/>
+                                                <fieldset>
+                                                    <div class="form-group centro">
+                                                        <img src="resources/images/logo.jpg" class="cntr-1 img-thumbnail "/>
+                                                        <b:inputText placeholder="Ingrese su nombre de usuario" required="true" requiredMessage="Por favor, ingrese nombre de sesion" value="#{usuarioBean.usuarioView.usuarioLogin}" style="width: 100%; margin-bottom: 12px"/>
+                                                        <p:password placeholder="Ingrese su contraseña" required="true" requiredMessage="Por favor, ingrese contraseña" value="#{usuarioBean.usuarioView.usuarioPassword}" style="width: 100% ; height: 36px; border-radius: 5px;"/>
+                                                    </div>     
+                                                    
+                                                    <p:commandButton styleClass="btn-reg" ajax="false" action="#{usuarioBean.login()}" value="Login"/>
+                                                    
+                                                </fieldset>
+                                                <!--</form>-->
+                                            </b:tab>
+                                        </b:tabView>  
+
+                                    </div>
                                 </div>
-                                <div class="panel-body">
-                                   <!-- <form accept-charset="UTF-8" role="form">-->
-                                   <p:growl id="messages" life="2000"/>
-                                        <fieldset>
-                                            <div class="form-group centro">
-                                                <p:graphicImage name="images/logo.jpg" class="cntr-1"/>
-                                                <p:inputText placeholder="Ingrese su nombre de usuario" required="true" requiredMessage="Por favor, ingrese nombre de sesion" value="#{usuarioBean.usuarioView.usuarioLogin}" style="width: 100%; margin-bottom: 12px"/>
-                                                <p:password placeholder="Ingrese su contraseña" required="true" requiredMessage="Por favor, ingrese contraseña" value="#{usuarioBean.usuarioView.usuarioPassword}" style="width: 100%"/>
-                                            </div>                                                                                      
-                                            <p:commandButton class="btn btn-lg btn-success btn-block" ajax="false" action="#{usuarioBean.login()}" value="Login"/>
-                                        </fieldset>
-                                    <!--</form>-->
-                                </div>
+
                             </div>
                         </div>
                     </div>
-                </div>
+                </h:form>
             </b:container>
         </h:form>
     </h:body>

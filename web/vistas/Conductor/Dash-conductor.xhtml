@@ -7,32 +7,72 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-  
-        <ui:composition template="./temp-conductor.xhtml">
 
-            <ui:define name="content3">
+    <ui:composition template="./temp-conductor.xhtml">
 
-                <b:container>
-                    <b:row>
+        <ui:define name="content3">
 
-                        <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
-                            <b:well>vista 1</b:well>
-                        </b:column>
+            <b:container>
+                <b:row>
+                    <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12" style="margin-top: 20px">
 
-                        <b:column col-lg="4" col-md="9" col-sm="8" col-xs="12">
-                            <b:well>vista 2</b:well>
-                        </b:column>
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <i class="fa fa-5x fa-road"></i>
+                                <h1 class="box-title">Horarios de Conductores</h1>
+                            </div>
+                            <div class="box-body">
+                                <h:form>
+                                    <p:growl id="messages" showDetail="true" />
 
-                        <b:column col-lg="4" col-md="9" col-sm="8" col-xs="12">
-                            <b:well>vista 3</b:well>
-                        </b:column>
+                                    <h:panelGrid columnClasses="value">
 
-                    </b:row>
-                </b:container>
+                                        <p:schedule id="schedule"  widgetVar="myschedule" timeZone="GMT+2">
 
-            </ui:define>
+                                            <p:ajax event="dateSelect"  update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                                            <p:ajax event="eventSelect"  update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                                            <p:ajax event="eventMove"  update="messages" />
+                                            <p:ajax event="eventResize"  update="messages" />
 
-        </ui:composition>
+                                        </p:schedule>
+                                    </h:panelGrid>
+
+                                    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                                        <h:panelGrid id="eventDetails" columns="2">
+                                            <p:outputLabel for="title" value="Titles:" />
+                                            <p:inputText id="title"  required="true" />
+
+                                            <p:outputLabel for="from" value="From:" />
+                                            <p:calendar id="from"  timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+
+                                            <p:outputLabel for="to" value="To:" />
+                                            <p:calendar id="to"  timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+
+                                            <p:outputLabel for="allDay" value="All Day:" />
+                                            <h:selectBooleanCheckbox id="allDay" />
+
+                                            <p:commandButton type="reset" value="Reset" />
+                                            <p:commandButton id="addButton" value="Save"  oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                                        </h:panelGrid>
+                                    </p:dialog>    
+                                </h:form>
+                                <style type="text/css">
+                                    .value {
+                                        width: 1000px;
+                                    }
+                                </style>
+                            </div> 
+                        </div>
+
+                    </b:column>
+
+
+                </b:row>
+            </b:container>
+
+        </ui:define>
+
+    </ui:composition>
 
 
 </html>
