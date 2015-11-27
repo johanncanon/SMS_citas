@@ -402,9 +402,9 @@ td, th {
 ***************    ESTILOS DEL CLIENTE     *****************************/
 
 .label-cl{
-    padding-left: 28%;
+
     font-size: 18px;
-    color: #B5B5B5;
+    color: #494444;
     text-shadow: rgba(49, 30, 30, 0.03) 1px 1px 1px;
 }
 
@@ -430,4 +430,65 @@ td, th {
     display: block;
     max-width: 100%;
     height: auto;
+}
+
+.nav-cliente {
+    background-color: #222;
+    border-color: #080808;
+    padding-bottom: 19px;
+}
+
+#nav-cliente-img {
+    top: 10px;
+}
+
+.mrg-cl-1{
+    margin-top: 40px;
+}
+
+.mrg-cl-2{
+    margin-top: 40px;
+}
+
+@media screen and (max-width: 991px){
+    .mrg-cl-1{
+        margin-top: 20px;
+    }
+
+    .mrg-cl-2{
+        margin-top: 20px;
+    }
+}
+
+/**************************************************************************/
+
+.panel-primary>.panel-heading {
+    color: #fff;
+    background-color: #FC5B35 !important;
+    border-color: #FC5B35 !important;
+    text-decoration: none;
+}
+
+.panel-primary {
+    border-color: #FC5B35 !important;
+}
+
+.bg-black {
+    background: url('../images/toyo-prado.jpg') 40% ;
+    background-position: left;
+}
+
+.txt-redes{
+    font-size: 26px!important;
+    font-weight: 300!important;
+    text-shadow: 0 1px 1px rgb(0, 0, 0) !important;
+    color: #FC5B35!important;
+}
+
+.txt-redes-t{
+    margin-top: 0;
+    text-shadow: #3C3C3C 1px 1px 1px !important;
+    color: white!important;
+    position: relative!important;
+    top: -5px!important;
 }

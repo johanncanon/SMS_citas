@@ -76,19 +76,21 @@
         <div id="top">
             <b:container fluid="true">
                 <b:row><!-- MENU -->
-                    <b:navBar  brandImg="../../resources/images/logo-DASH.png"   brandHref="#"  inverse="true">
-                        <b:navbarLinks pull="right">
+                    <div class="nav-cliente ">
+                        <b:navBar  brandImg="../../resources/images/logo-DASH.png" id="nav-cliente-img"  brandHref="#"  inverse="true">
+                            <b:navbarLinks pull="right">
 
-                            <ui:include src="general/men-respn-c.xhtml"></ui:include>
-                            <b:dropMenu value="Nombre del Usuario">
-                                <b:navLink value="Perfil" href="#"></b:navLink>
-                                <b:navLink></b:navLink>
-                                <b:navLink header="Sesión"></b:navLink>
-                                <h:form><p:commandButton value="Cerrar Sesion"  icon="power"  style="margin-left:5%"/></h:form>                                   
+                                <ui:include src="general/men-respn-c.xhtml"></ui:include>
+                                <b:dropMenu value="Nombre del Usuario">
+                                    <b:navLink value="Perfil" href="#"></b:navLink>
+                                    <b:navLink></b:navLink>
+                                    <b:navLink header="Sesión"></b:navLink>
+                                    <h:form><p:commandButton value="Cerrar Sesion"  icon="power"  style="margin-left:5%"/></h:form>                                   
 
-                            </b:dropMenu>
-                        </b:navbarLinks>
-                    </b:navBar>
+                                </b:dropMenu>
+                            </b:navbarLinks>
+                        </b:navBar>
+                    </div>
                 </b:row><!-- MENU -->
             </b:container>
 
