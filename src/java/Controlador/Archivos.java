@@ -20,6 +20,24 @@ public class Archivos {
     UploadedFile archivo;
     String filePath = "c:/prueba/";
 
+    public UploadedFile getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(UploadedFile archivo) {
+        this.archivo = archivo;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+    
+    
+
     public void UploadFile(byte[] b, String nombre) throws IOException {        
         
         if (null != b) {
@@ -29,6 +47,7 @@ public class Archivos {
             stream.write(bytes);
             stream.close();
         }
+        
     }
     
     public void DownloadFile(){

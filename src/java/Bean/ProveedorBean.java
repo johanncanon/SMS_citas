@@ -5,6 +5,7 @@
  */
 package Bean;
 
+import Controlador.Archivos;
 import Controlador.Proveedor;
 import DAO.IProveedorDao;
 import DAO.ImpProveedorDao;
@@ -12,10 +13,15 @@ import Modelo.SmsCiudad;
 import Modelo.SmsProveedor;
 import Modelo.SmsRol;
 import Modelo.SmsUsuario;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import org.apache.commons.io.IOUtils;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -28,9 +34,11 @@ public class ProveedorBean implements Serializable {
     protected SmsProveedor proveedorView;
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
+    private UploadedFile archivo;
 
     //Relacion con el controlador
-    protected Proveedor proveedor;
+    protected Proveedor proveedorController;
+    protected Archivos fileController;
 
     //lista de Id de proveedor
     private List<SmsProveedor> proveedoresListView;
@@ -40,22 +48,29 @@ public class ProveedorBean implements Serializable {
     private int estado; //Controla la operacion a realizar
     private String nombre;
     private String buscar;
+    private Boolean habilitarSubir;
+    private String subirArchivo;
+    private String estadoArchivo;
 
     public ProveedorBean() {
         usuarioView = new SmsUsuario();
         proveedorView = new SmsProveedor();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
-        proveedor = new Proveedor();
-
+        proveedorController = new Proveedor();
+        fileController = new Archivos();
+        
         buscar = null;
         estado = 0;
         nombre = "Registrar Proveedor";
+        habilitarSubir = false;
+        subirArchivo = "Subir fotografia";
+        estadoArchivo = "Foto sin subir";
     }
 
     @PostConstruct
     public void init() {
-        proveedoresListView = proveedor.cargarProveedor();
+        proveedoresListView = proveedorController.cargarProveedor();
     }
 
     //Getters & Setters
@@ -91,12 +106,12 @@ public class ProveedorBean implements Serializable {
         this.rolView = rolView;
     }
 
-    public Proveedor getProveedor() {
-        return proveedor;
+    public Proveedor getProveedorController() {
+        return proveedorController;
     }
 
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
+    public void setProveedorController(Proveedor proveedorController) {
+        this.proveedorController = proveedorController;
     }
 
     public List<SmsProveedor> getProveedoresListView() {
@@ -146,34 +161,97 @@ public class ProveedorBean implements Serializable {
         this.buscar = buscar;
     }
 
+    public UploadedFile getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(UploadedFile archivo) {
+        this.archivo = archivo;
+    }
+
+    public Archivos getFileController() {
+        return fileController;
+    }
+
+    public void setFileController(Archivos fileController) {
+        this.fileController = fileController;
+    }
+
+    public String getSubirArchivo() {
+        return subirArchivo;
+    }
+
+    public void setSubirArchivo(String subirArchivo) {
+        this.subirArchivo = subirArchivo;
+    }
+
+    public Boolean getHabilitarSubir() {
+        return habilitarSubir;
+    }
+
+    public void setHabilitarSubir(Boolean habilitarSubir) {
+        this.habilitarSubir = habilitarSubir;
+    }
+
+    public String getEstadoArchivo() {
+        return estadoArchivo;
+    }
+
+    public void setEstadoArchivo(String estadoArchivo) {
+        this.estadoArchivo = estadoArchivo;
+    }
+
     //Metodos    
     public void registrar() {
         rolView.setRolNombre("Proveedor");
-        proveedor.registrarUsuario(usuarioView, ciudadView, rolView);
-        proveedor.registrarProveedor(proveedorView, usuarioView);
+        proveedorController.registrarUsuario(usuarioView, ciudadView, rolView);
+        proveedorController.registrarProveedor(proveedorView, usuarioView);       
 
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         proveedorView = new SmsProveedor();
-        proveedoresListView = proveedor.cargarProveedor();
+        rolView = new SmsRol();
+        proveedoresListView = proveedorController.cargarProveedor();        
+        
+        estadoArchivo = "Foto sin subir";
+        subirArchivo = "Subir Fotografia";
+        habilitarSubir = false;
+
     }
 
     public void modificar() {
-        proveedor.modificarUsuario(usuarioView, ciudadView);
-        proveedor.modificarProveedor(proveedorView, usuarioView);
-        
+        proveedorController.modificarUsuario(usuarioView, ciudadView);
+        proveedorController.modificarProveedor(proveedorView, usuarioView);        
+
         proveedorView = new SmsProveedor();
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
-        proveedoresListView = proveedor.cargarProveedor();
+        proveedoresListView = proveedorController.cargarProveedor();
+        
+        estadoArchivo = "Foto sin subir";
+        subirArchivo = "Subir Fotografia";
+        habilitarSubir = false;
     }
 
     public void eliminar() {
-        proveedor.eliminarProveedor(proveedorView);
-        proveedor.eliminarUsuario(usuarioView);
+        proveedorController.eliminarProveedor(proveedorView);
+        proveedorController.eliminarUsuario(usuarioView);
         proveedorView = new SmsProveedor();
         usuarioView = new SmsUsuario();
-        proveedoresListView = proveedor.cargarProveedor();
+
+        estadoArchivo = "Foto sin subir";
+        subirArchivo = "Subir Fotografia";
+        habilitarSubir = false;
+        proveedoresListView = proveedorController.cargarProveedor();
+    }
+
+    public void filtrar() {
+        proveedoresListView = new ArrayList<>();
+        if (buscar == null) {
+            proveedoresListView = proveedorController.cargarProveedor();
+        } else {
+            proveedoresListView = proveedorController.filtrarProveedor(buscar);
+        }
     }
 
     //Metodos propios
@@ -182,13 +260,24 @@ public class ProveedorBean implements Serializable {
         if (estado == 1) {
             nombre = "Modificar Proveedor";
             usuarioView = proveedorView.getSmsUsuario();
-            usuarioView = proveedor.consultarUsuario(usuarioView).get(0);
+            usuarioView = proveedorController.consultarUsuario(usuarioView).get(0);
             ciudadView = usuarioView.getSmsCiudad();
+
+            if (usuarioView.getUsuarioFotoNombre() != null && usuarioView.getUsuarioFotoRuta() != null) {
+                subirArchivo = "Modificar Fotografia";
+                habilitarSubir = false;
+            } else {
+                subirArchivo = "Subir Fotografia";
+                habilitarSubir = false;
+            }
         } else if (estado == 2) {
-            nombre = "Eliminar Proveedor";        
+            nombre = "Eliminar Proveedor";
             usuarioView = proveedorView.getSmsUsuario();
-            usuarioView = proveedor.consultarUsuario(usuarioView).get(0);
+            usuarioView = proveedorController.consultarUsuario(usuarioView).get(0);
             ciudadView = usuarioView.getSmsCiudad();
+
+            subirArchivo = "Subir Fotografia";
+            habilitarSubir = true;
         }
     }
 
@@ -206,4 +295,21 @@ public class ProveedorBean implements Serializable {
         }
     }
 
+    public void upload() throws IOException {
+         FacesMessage message = new FacesMessage();
+        if (null != getArchivo()) {
+            fileController.UploadFile(IOUtils.toByteArray(getArchivo().getInputstream()), getArchivo().getFileName());
+            usuarioView.setUsuarioFotoNombre(getArchivo().getFileName());
+            usuarioView.setUsuarioFotoRuta(fileController.getFilePath());
+            habilitarSubir = true;
+            if (estado == 0) {
+                estadoArchivo = "Foto Subida con exito";
+            } else if (estado == 1) {
+                estadoArchivo = "Foto actualizada con exito";
+            }
+        }else{
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione fotografia", null);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
 }

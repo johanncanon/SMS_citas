@@ -103,9 +103,7 @@ public class ImpCategoriaDao implements ICategoriaDao {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    /**
-     * *****************************************************************************************************************
-     */
+   
 
     @Override
     public List<SmsCategoria> consultarCategoria(SmsCategoria categoria) {

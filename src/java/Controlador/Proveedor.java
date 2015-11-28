@@ -69,4 +69,10 @@ public class Proveedor extends Usuario {
         return proveedores;
     }
 
+    public List<SmsProveedor> filtrarProveedor(String valor) {
+        proveedores = new ArrayList<>();
+        IProveedorDao provedorDao = new ImpProveedorDao();
+        proveedores = provedorDao.filtrarProveedor(valor);
+        return proveedores;
+    }
 }
