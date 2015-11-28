@@ -5,16 +5,22 @@
  */
 package Bean;
 
+import Controlador.Archivos;
+import Controlador.Rol;
 import Controlador.Usuario;
 import DAO.IUsuarioDao;
 import DAO.ImpUsuarioDao;
 import Modelo.SmsCiudad;
 import Modelo.SmsRol;
 import Modelo.SmsUsuario;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.apache.commons.io.IOUtils;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -25,8 +31,7 @@ public class UsuarioBean implements Serializable {
 
     //Instanciacion de los objetos    
     protected SmsUsuario usuarioView;
-    protected SmsUsuario auxUsuarioView;
-    protected List<SmsUsuario> usuarios;
+    protected List<SmsUsuario> usuariosListView;
 
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
@@ -35,35 +40,56 @@ public class UsuarioBean implements Serializable {
     boolean habilitado;
 
     //Relacion con el controlador
-    protected Usuario usuario;
+    protected Usuario usuarioController;
+    protected Archivos fileController;
 
     //Contexto
     private FacesMessage message;
 
-    public UsuarioBean() {
+    //Variables
+    private int estado; //Controla la operacion a realizar
+    private String nombre;
+    private String buscar;
+    private Boolean habilitarSubir;
+    private String subirArchivo;
+    private String estadoArchivo;
+    private UploadedFile archivo;
+
+    public UsuarioBean(){
         usuarioView = new SmsUsuario();
-        auxUsuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
-        usuario = new Usuario();
+        usuarioController = new Usuario();
         habilitado = true;
+
+        buscar = null;
+        estado = 0;
+        nombre = "Registrar Usuario";
+        habilitarSubir = false;
+        subirArchivo = "Subir fotografia";
+        estadoArchivo = "Foto sin subir";
     }
 
-    public List<SmsUsuario> getUsuarios() {
-        usuarios = usuario.cargarUsuarios();
-        return usuarios;
+    @PostConstruct
+    public void init() {
+        usuariosListView = usuarioController.cargarUsuarios();
     }
 
-    public void setUsuarios(List<SmsUsuario> usuarios) {
-        this.usuarios = usuarios;
+    //Getters & Setters
+    public List<SmsUsuario> getUsuariosListView() {
+        return usuariosListView;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public void setUsuariosListView(List<SmsUsuario> usuariosListView) {
+        this.usuariosListView = usuariosListView;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public Usuario getUsuarioController() {
+        return usuarioController;
+    }
+
+    public void setUsuarioController(Usuario usuarioController) {
+        this.usuarioController = usuarioController;
     }
 
     public SmsUsuario getUsuarioView() {
@@ -72,14 +98,6 @@ public class UsuarioBean implements Serializable {
 
     public void setUsuarioView(SmsUsuario usuarioView) {
         this.usuarioView = usuarioView;
-    }
-
-    public SmsUsuario getAuxUsuarioView() {
-        return auxUsuarioView;
-    }
-
-    public void setAuxUsuarioView(SmsUsuario auxUsuarioView) {
-        this.auxUsuarioView = auxUsuarioView;
     }
 
     public SmsCiudad getCiudadView() {
@@ -106,34 +124,192 @@ public class UsuarioBean implements Serializable {
         this.habilitado = habilitado;
     }
 
+    public FacesMessage getMessage() {
+        return message;
+    }
+
+    public void setMessage(FacesMessage message) {
+        this.message = message;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+
+    public Boolean getHabilitarSubir() {
+        return habilitarSubir;
+    }
+
+    public void setHabilitarSubir(Boolean habilitarSubir) {
+        this.habilitarSubir = habilitarSubir;
+    }
+
+    public String getSubirArchivo() {
+        return subirArchivo;
+    }
+
+    public void setSubirArchivo(String subirArchivo) {
+        this.subirArchivo = subirArchivo;
+    }
+
+    public String getEstadoArchivo() {
+        return estadoArchivo;
+    }
+
+    public void setEstadoArchivo(String estadoArchivo) {
+        this.estadoArchivo = estadoArchivo;
+    }
+
+    public UploadedFile getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(UploadedFile archivo) {
+        this.archivo = archivo;
+    }
+
     //Declaracion de metodos
     //Metodos CRUD
     public void registrar() {
-        usuario.registrarUsuario(usuarioView, ciudadView, rolView);        
+        usuarioController.registrarUsuario(usuarioView, ciudadView, rolView);
+        usuariosListView = usuarioController.cargarUsuarios();
+
+        estadoArchivo = "Foto sin subir";
+        subirArchivo = "Subir Fotografia";
+        habilitarSubir = false;
+        
         usuarioView = new SmsUsuario();
-        habilitado = false;
-    }    
+        ciudadView = new SmsCiudad();
+        rolView = new SmsRol();
+    }
 
     public void modificar() {
-        usuario.modificarUsuario(usuarioView, ciudadView);
+        usuarioController.modificarUsuario(usuarioView, ciudadView, rolView);
+        usuariosListView = usuarioController.cargarUsuarios();
+
+        estadoArchivo = "Foto sin subir";
+        subirArchivo = "Subir Fotografia";
+        habilitarSubir = false;
+
         usuarioView = new SmsUsuario();
+        ciudadView = new SmsCiudad();
+        rolView = new SmsRol();
     }
 
     public void eliminar() {
-        usuario.eliminarUsuario(usuarioView);
+        usuarioController.eliminarUsuario(usuarioView);        
+        usuariosListView = usuarioController.cargarUsuarios();
+
+        estadoArchivo = "Foto sin subir";
+        subirArchivo = "Subir Fotografia";
+        habilitarSubir = false;
+        
         usuarioView = new SmsUsuario();
+        ciudadView = new SmsCiudad();
+        rolView = new SmsRol();
     }
 
-    //Metodos de funcionalidad
+    //Metodos propios
+    public void seleccionarCrud(int i) {
+        estado = i;
+        Rol rolController = new Rol();
+        List<SmsRol> roles = rolController.cargarRoles();
+        boolean rol;
+        if (estado == 1) {//MODIFICACION
+            nombre = "Modificar Usuario";
+            usuarioView = usuarioController.consultarUsuario(usuarioView).get(0);//Recargamos el usuario para tener acceso a los datos de ciudad
+            ciudadView = usuarioView.getSmsCiudad();
+
+            for (int b = 0; b < roles.size(); b++) {
+                rol = rolController.validarRol(usuarioView, roles.get(b));
+                if (rol) {
+                    rolView = roles.get(b);
+                }
+            }
+
+            if (usuarioView.getUsuarioFotoNombre() != null && usuarioView.getUsuarioFotoRuta() != null) {
+                subirArchivo = "Modificar Fotografia";
+                habilitarSubir = false;
+            } else {
+                subirArchivo = "Subir Fotografia";
+                estadoArchivo = "Foto sin subir";
+                habilitarSubir = false;
+            }
+
+        } else if (estado == 2) {//ELIMINACION
+            nombre = "Eliminar Proveedor";
+            usuarioView = usuarioController.consultarUsuario(usuarioView).get(0);
+            ciudadView = usuarioView.getSmsCiudad();
+
+            subirArchivo = "Subir Fotografia";
+            estadoArchivo = "Foto sin subir";
+            habilitarSubir = true;
+        }
+    }
+
+    public void metodo() {
+        if (estado == 0) {
+            registrar();
+        } else if (estado == 1) {
+            modificar();
+            estado = 0;
+            nombre = "Registrar Usuario";
+        } else if (estado == 2) {
+            eliminar();
+            estado = 0;
+            nombre = "Registrar Usuario";
+        }
+    }
+
+    //Metodo para subir fotografias
+    public void upload() throws IOException {//Metodo para subir fotografia del usuario
+        FacesMessage message = new FacesMessage();
+        if (null != getArchivo()) {
+            fileController.UploadFile(IOUtils.toByteArray(getArchivo().getInputstream()), getArchivo().getFileName());
+            usuarioView.setUsuarioFotoNombre(getArchivo().getFileName());
+            usuarioView.setUsuarioFotoRuta(fileController.getFilePath());
+            habilitarSubir = true;
+            if (estado == 0) {//Registro
+                estadoArchivo = "Foto Subida con exito";
+            } else if (estado == 1) {//Modificacion
+                estadoArchivo = "Foto actualizada con exito";
+            }
+        } else {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione fotografia", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+    }
+
+    //Metodos para iniciar Sesion
     public String login() {
         String ruta = "/login.xhtml";
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
-        List<SmsUsuario> user = usuarioDao.consultarUsuario(usuarioView);//Trae de la base de datos toda la informacion de usuario
+        List<SmsUsuario> user = usuarioDao.consultarDatosSesionUsuario(usuarioView);//Trae de la base de datos toda la informacion de usuario
 
         if (!user.isEmpty()) {//valida si el usuario existe en la BD
             if (user.get(0).getUsuarioEstadoUsuario() == 1) {//Evalua el estado de la cuenta de usuario, si esta activa o inactiva
                 if (user.get(0).getUsuarioLogin().equalsIgnoreCase(usuarioView.getUsuarioLogin()) && user.get(0).getUsuarioPassword().equalsIgnoreCase(usuarioView.getUsuarioPassword())) {
-                    ruta = usuario.iniciarSesion(usuarioView);//envia el objeto usuarioBean al metodo iniciarSesion para tomar este objeto como atributo de sesion
+                    ruta = usuarioController.iniciarSesion(usuarioView);//envia el objeto usuarioBean al metodo iniciarSesion para tomar este objeto como atributo de sesion
                     message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Acceso Correcto", "Bienvenid@: " + usuarioView.getUsuarioNombre());
                 } else {
                     message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseña incorrecto", null);
@@ -150,7 +326,7 @@ public class UsuarioBean implements Serializable {
 
     public String logout() {
         String ruta = "/login.xhtml";
-        usuario.cerrarSesion();
+        usuarioController.cerrarSesion();
         return ruta;
     }
 

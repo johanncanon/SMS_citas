@@ -11,42 +11,42 @@
     <managed-bean>
         <managed-bean-name>marcaBean</managed-bean-name>
         <managed-bean-class>Bean.MarcaBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>clienteBean</managed-bean-name>
         <managed-bean-class>Bean.ClienteBean</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>proveedorBean</managed-bean-name>
         <managed-bean-class>Bean.ProveedorBean</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>empleadoBean</managed-bean-name>
         <managed-bean-class>Bean.EmpleadoBean</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>rolBean</managed-bean-name>
         <managed-bean-class>Bean.RolBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>permisosBean</managed-bean-name>
         <managed-bean-class>Bean.PermisosBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
         <managed-bean>
         <managed-bean-name>pruebaBean</managed-bean-name>
         <managed-bean-class>Bean.PruebaBean</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>ciudadBean</managed-bean-name>
         <managed-bean-class>Bean.CiudadBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>vehiculoBean</managed-bean-name>
@@ -81,11 +81,11 @@
     <managed-bean>
         <managed-bean-name>serviciosBean</managed-bean-name>
         <managed-bean-class>Bean.ServiciosBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>paisBean</managed-bean-name>
         <managed-bean-class>Bean.PaisBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 </faces-config>

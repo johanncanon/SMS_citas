@@ -108,7 +108,8 @@ public class ClienteBean implements Serializable {
     }    
 
     public void modificar() {
-        cliente.modificarUsuario(clienteView, ciudadView);
+        rolView.setRolNombre("Cliente");
+        cliente.modificarUsuario(clienteView, ciudadView, rolView);
         clienteView = new SmsUsuario();
     }
 

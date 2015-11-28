@@ -12,73 +12,127 @@
             <ui:define name="content">
                 <b:container fluid="true">
                     <b:row>
-                        <h:form>
-                            <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12" class="espacio-arriba">
-                                <b:well>
-                                    <h4>REGISTRO DE ADMINISTRADOR</h4>                                    
-                                    <hr/>
-                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros usuarios y podra crear una cuenta de sesion para el ingreso al sistema,
-                                        esta cuenta podra ser de tipo administrador principal o secundario.</p> 
-                                </b:well>
+                        <h:form id="formA">
+                            <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12" class="espacio-arriba">
+                                <div class="box box-info">
+                                    <div class="box-header with-border">
+                                        <h4>REGISTRO DE ADMINISTRADOR</h4>                                    
+                                        <hr/>
+                                        <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros usuarios y podra crear una cuenta de sesion para el ingreso al sistema,
+                                            esta cuenta podra ser de tipo administrador principal o secundario.</p> 
+                                    </div>
+                                </div>
                             </b:column>
-                            <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
-                                <b:well>
-                                    <h4>DATOS DE ADMINISTRADOR</h4>
-                                    <h4>Datos de usuario</h4>
-                                    <hr/>
-                                    <p:growl id="messages" showDetail="true"/>                            
-                                    <div class="table-responsive">
-                                        <p:panelGrid id="seccionDatosUsuario" columns="2" style="width: 100%;">
-                                            <p:outputLabel value="Nombre: "/>
-                                            <p:inputText placeholder="Nombres y apellidos" value="#{usuarioBean.usuarioView.usuarioNombre}" style="width: 100%;" maxlength="60"></p:inputText>                       
+                            <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
+                                <div class="box box-danger">
+                                    <div class="box-header with-border">
+                                        <h4>DATOS DE ADMINISTRADOR</h4>                                       
+                                        <hr/>                                                               
+                                        <div class="table-responsive">
+                                            <h:panelGrid id="seccionDatosUsuario" cellpadding="5" columns="2" style="width: 100%;">
+                                                <p:outputLabel value="Nombre: "/>
+                                                <b:inputText placeholder="Nombres y apellidos" value="#{usuarioBean.usuarioView.usuarioNombre}" style="width: 100%;" maxlength="60"></b:inputText>                       
 
-                                            <p:outputLabel value="CC: " />
-                                            <p:inputText placeholder="Cedula de ciudadania" value="#{usuarioBean.usuarioView.usuarioCc}" style="width: 100%" ></p:inputText>
+                                                <p:outputLabel value="CC: " />
+                                                <b:inputText placeholder="Cedula de ciudadania" value="#{usuarioBean.usuarioView.usuarioCc}" style="width: 100%" ></b:inputText>
 
-                                            <p:outputLabel value="Telefono: "/>
-                                            <p:inputText placeholder="Numero de telefono fijo o celular" value="#{usuarioBean.usuarioView.usuarioTelefono}" style="width: 100%" ></p:inputText> 
+                                                <p:outputLabel value="Telefono: "/>
+                                                <b:inputText placeholder="Numero de telefono fijo o celular" value="#{usuarioBean.usuarioView.usuarioTelefono}" style="width: 100%" ></b:inputText> 
 
-                                            <p:outputLabel value="Email: "/>
-                                            <p:inputText placeholder="Direccion de correo electronico" value="#{usuarioBean.usuarioView.usuarioEmail}" style="width: 100%" ></p:inputText>
+                                                <p:outputLabel value="Email: "/>
+                                                <b:inputText placeholder="Direccion de correo electronico" value="#{usuarioBean.usuarioView.usuarioEmail}" style="width: 100%" ></b:inputText>
 
-                                            <p:outputLabel value="Razon social: "/>
-                                            <p:inputText placeholder="Nombre de la empresa" value="#{usuarioBean.usuarioView.usuarioRazonSocial}" style="width: 100%" ></p:inputText>
+                                                <p:outputLabel value="Razon social: "/>
+                                                <b:inputText placeholder="Nombre de la empresa" value="#{usuarioBean.usuarioView.usuarioRazonSocial}" style="width: 100%" ></b:inputText>
 
-                                            <p:outputLabel value="Nit: "/>
-                                            <p:inputText placeholder="Nit de la empresa" value="#{usuarioBean.usuarioView.usuarioNit}" style="width: 100%" ></p:inputText>
+                                                <p:outputLabel value="Nit: "/>
+                                                <b:inputText placeholder="Nit de la empresa" value="#{usuarioBean.usuarioView.usuarioNit}" style="width: 100%" ></b:inputText>
 
-                                            <p:outputLabel value="Ciudad: "/>
-                                            <p:selectOneMenu value="#{usuarioBean.ciudadView.ciudadNombre}" style="width: 60%">
-                                                <f:selectItem itemLabel="Seleccione ciudad"/>
-                                                <f:selectItems value="#{ciudadBean.nombresCiudadesListView}"/>
-                                            </p:selectOneMenu>                                                                                
-                                        </p:panelGrid>
-                                    </div><hr/>
-                                    <h4>Datos de sesion</h4>
-                                    <hr/>
-                                    <div class="table-responsive">
-                                        <p:panelGrid columns="2" id="seccionDatosSesion" style="width: 100%">
+                                                <p:outputLabel value="Ciudad: "/>
+                                                <b:selectOneMenu value="#{usuarioBean.ciudadView.ciudadNombre}" style="width: 100%">
+                                                    <f:selectItem itemLabel="Seleccione ciudad"/>
+                                                    <f:selectItems value="#{ciudadBean.nombresCiudadesListView}"/>
+                                                </b:selectOneMenu>                                                                                
+                                            </h:panelGrid>
+                                        </div><hr/>
+                                        <h4>Datos de sesion</h4>
+                                        <hr/>
+                                        <div class="table-responsive">
+                                            <h:panelGrid cellpadding="5" columns="2" id="seccionDatosSesion" style="width: 100%">
 
-                                            <p:outputLabel value="Login: "/>
-                                            <p:inputText style="width: 100%" value="#{usuarioBean.usuarioView.usuarioLogin}" placeholder="Login de sesion"></p:inputText>
+                                                <p:outputLabel value="Login: "/>
+                                                <b:inputText style="width: 100%" value="#{usuarioBean.usuarioView.usuarioLogin}" placeholder="Login de sesion"></b:inputText>
 
-                                            <p:outputLabel value="Contraseña: "/>
-                                            <p:password style="width: 100%" value="#{usuarioBean.usuarioView.usuarioPassword}" placeholder="Contraseña de sesion"></p:password>
+                                                <p:outputLabel value="Contraseña: "/>
+                                                <b:inputSecret style="width: 100%" value="#{usuarioBean.usuarioView.usuarioPassword}" placeholder="Contraseña de sesion"></b:inputSecret>
 
-                                            <p:outputLabel value="Repita contraseña: "/>
-                                            <p:password style="width: 100%" value="#{usuarioBean.usuarioView.usuarioRememberToken}" placeholder="Repita contraseña de sesion" ></p:password>                               
+                                                <p:outputLabel value="Repita contraseña: "/>
+                                                <b:inputSecret style="width: 100%" value="#{usuarioBean.usuarioView.usuarioRememberToken}" placeholder="Repita contraseña de sesion" ></b:inputSecret>
 
-                                            <p:outputLabel value="Perfil: "/>
-                                            <p:selectOneMenu  style="width: 60%" value="#{usuarioBean.rolView.rolNombre}">
-                                                <f:selectItem itemLabel="Seleccione tipo de perfil"/>
-                                                <f:selectItem itemLabel="Administrador Principal" itemValue="Administrador Principal"/>
-                                                <f:selectItem itemLabel="Administrador Secundario" itemValue="Administrador Secundario"/>
-                                            </p:selectOneMenu> 
-                                        </p:panelGrid>
-                                    </div><hr/>
-                                    <p:commandButton style="width:100%" class="btn btn-block btn-primary btn-lg" update="messages seccionDatosUsuario seccionDatosSesion" action="#{usuarioBean.registrar()}" value="Registrar Usuario" />
-                                </b:well>
+                                                <p:outputLabel value="Perfil: "/>
+                                                <b:selectOneMenu  style="width: 100%" value="#{usuarioBean.rolView.rolNombre}">
+                                                    <f:selectItem itemLabel="Seleccione tipo de perfil"/>
+                                                    <f:selectItem itemLabel="Administrador Principal" itemValue="Administrador Principal"/>
+                                                    <f:selectItem itemLabel="Administrador Secundario" itemValue="Administrador Secundario"/>
+                                                </b:selectOneMenu> 
+                                            </h:panelGrid>
+                                        </div><hr/>
+                                        <p:commandButton id="BTUsuario" style="width:100%" ajax="false" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTUsuario :formB :formC:DTUsuarios" action="#{usuarioBean.metodo()}" value="#{usuarioBean.nombre}" />
+                                    </div> 
+                                </div>
                             </b:column>                          
+                        </h:form>
+                        <h:form id="formB" enctype="multipart/form-data">
+                            <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <p:fragment autoUpdate="true">
+                                            <h4>INGRESO FOTOGRAFIA</h4>
+                                            <hr/>
+                                            <p:outputLabel value="#{usuarioBean.estadoArchivo}"/>
+                                            <div class="table-responsive">
+                                                <p:fileUpload mode="simple" value="#{usuarioBean.archivo}"></p:fileUpload>
+                                                <hr/>
+                                                <p:commandButton disabled="#{usuarioBean.habilitarSubir}" ajax="false" action="#{usuarioBean.upload()}" value="#{usuarioBean.subirArchivo}" style="width: 50%"></p:commandButton>
+                                            </div>
+                                        </p:fragment>
+                                    </div>
+                                </div>
+                            </b:column>
+                        </h:form>
+                        <h:form id="formC">
+                            <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h4>Administradores SMS Renta</h4><hr/>
+                                        <p:dataTable id="DTUsuarios" var="usuario" emptyMessage="Administradores no registrados" value="#{usuarioBean.usuariosListView}">
+                                            <p:column headerText="Nombre y apellido">
+                                                <p:outputLabel value="#{usuario.usuarioNombre}"/>
+                                            </p:column>
+
+                                            <p:column headerText="Email">
+                                                <p:outputLabel value="#{usuario.usuarioEmail}"/>
+                                            </p:column>
+
+                                            <p:column headerText="Telefono">
+                                                <p:outputLabel value="#{usuario.usuarioTelefono}"/>
+                                            </p:column>
+
+                                            <p:column style="width: 35px">
+                                                <p:commandButton process="@this" ajax="false" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTUsuario :formB" icon="ui-icon-pencil" actionListener="#{usuarioBean.seleccionarCrud(1)}" title="Modificar">
+                                                    <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuarioView}"/>
+                                                </p:commandButton>
+                                            </p:column>
+
+                                            <p:column style="width: 35px"> 
+                                                <p:commandButton process="@this" ajax="false" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTUsuario :formB" icon="ui-icon-close" actionListener="#{usuarioBean.seleccionarCrud(2)}" title="Eliminar">
+                                                    <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuarioView}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </div>
+                                </div>
+                            </b:column>
                         </h:form>
                     </b:row>
                 </b:container>

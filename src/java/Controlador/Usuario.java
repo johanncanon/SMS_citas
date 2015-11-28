@@ -30,7 +30,7 @@ public class Usuario {
 
     //Atributos
     protected SmsUsuario usuario;
-    
+
     //Relaciones con otras clases
     protected SmsCiudad ciudad;//asociacion
     protected List<String> listaRoles;//agregacion   
@@ -42,68 +42,67 @@ public class Usuario {
     }
 
     //Metodos CRUD 
-    public void registrarUsuario(SmsUsuario u, SmsCiudad c, SmsRol r) {        
-        usuario=u;ciudad=c;SmsRol rol = r;
+    public void registrarUsuario(SmsUsuario u, SmsCiudad c, SmsRol r) {
+        usuario = u;ciudad = c;SmsRol rol = r;
+
         //el metodo recibe los atributos, agrega al atributo ciudad del objeto usuario un objeto correspondiente, 
-        //y persiste el usuario en la base de datos
+        //de la misma forma comprueba el rol y lo asocia, por ultimo persiste el usuario en la base de datos
         ICiudadDao ciudadDao = new ImpCiudadDao();
         ciudad = ciudadDao.consultarCiudad(ciudad).get(0);
-        usuario.setSmsCiudad(ciudad);
-        
-        usuario.setUsuarioEstadoUsuario(1);
-        
+        usuario.setSmsCiudad(ciudad);//Asociamos una ciudad a un usuario
+
         IRolDao rolDao = new ImpRolDao();
         rol = rolDao.consultarRol(rol).get(0);
-        
-        usuario.getSmsRols().add(rol);       
-        
+        usuario.getSmsRols().add(rol);//Asociamos un rol a un usuario
+
+        usuario.setUsuarioEstadoUsuario(1);//Asignamos un estado de cuenta
+
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
-        usuarioDao.registrarUsuario(usuario);        
+        usuarioDao.registrarUsuario(usuario);//Registramos usuario
     }
-   
-    
-    public void modificarUsuario(SmsUsuario u, SmsCiudad c) {
-        usuario=u;ciudad=c;        
+
+    public void modificarUsuario(SmsUsuario u, SmsCiudad c, SmsRol r) {
+        usuario = u;ciudad = c;SmsRol rol = r;
+        
         //el metodo recibe el objeto usuario, con sus atributos modificados y lo persiste en la BD
         ICiudadDao ciudadDao = new ImpCiudadDao();
         ciudad = ciudadDao.consultarCiudad(ciudad).get(0);
-        usuario.setSmsCiudad(ciudad);
+        usuario.setSmsCiudad(ciudad);//Asociamos una ciudad a un usuario
+
+        IRolDao rolDao = new ImpRolDao();
+        rol = rolDao.consultarRol(rol).get(0);
+        usuario.getSmsRols().add(rol);//Asociamos un rol a un usuario
+        
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarioDao.modificarUsuario(usuario);
-        
-    }
+    }    
 
-    public void eliminarUsuario(SmsUsuario u){
-        usuario=u; 
+    public void eliminarUsuario(SmsUsuario u) {
+        usuario = u;
         //el metodo recibe el objeto usuario se comunica con el dao y lo elimina de la base de datos
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarioDao.eliminarUsuario(usuario);
     }
-    
-    public List<SmsUsuario> cargarUsuarios(){
+
+    public List<SmsUsuario> cargarUsuarios() {
         //el metodo consulta de la base de datos todos los usuarios registrados y los retorna en una lista
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
-        List<SmsUsuario> usuarios = usuarioDao.mostrarUsuario();        
+        List<SmsUsuario> usuarios = usuarioDao.mostrarUsuario();
         return usuarios;
     }
-    
-    
-    public List<SmsUsuario> consultarUsuario(SmsUsuario usuario){
+
+    public List<SmsUsuario> consultarUsuario(SmsUsuario u) {
+        usuario = u;
         //el metodo consulta de la base de datos todos los usuarios registrados y los retorna en una lista
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
-        List<SmsUsuario> usuarios = usuarioDao.consultarUsuario(usuario);        
+        List<SmsUsuario> usuarios = usuarioDao.consultarUsuario(usuario);
         return usuarios;
     }
-    
-    
-    
-    
-    
-    
+
     //Metodos de la sesion    
     public String iniciarSesion(SmsUsuario u) {
-        usuario=u;
-        
+        usuario = u;
+
         String ruta = "";
         Rol rol = new Rol();
         httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
@@ -139,12 +138,11 @@ public class Usuario {
     }
 
     public void cerrarSesion() {
-        
+
         //Desmonta el objeto usuario subido al contexto de sesion y e invalida esta.
-               
         httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        httpSession.invalidate();        
-        
+        httpSession.invalidate();
+
     }
 
 }

@@ -205,28 +205,30 @@ public class ProveedorBean implements Serializable {
     public void registrar() {
         rolView.setRolNombre("Proveedor");
         proveedorController.registrarUsuario(usuarioView, ciudadView, rolView);
-        proveedorController.registrarProveedor(proveedorView, usuarioView);       
-
-        usuarioView = new SmsUsuario();
-        ciudadView = new SmsCiudad();
-        proveedorView = new SmsProveedor();
-        rolView = new SmsRol();
+        proveedorController.registrarProveedor(proveedorView, usuarioView);     
         proveedoresListView = proveedorController.cargarProveedor();        
         
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
         habilitarSubir = false;
+        
+        usuarioView = new SmsUsuario();
+        ciudadView = new SmsCiudad();
+        proveedorView = new SmsProveedor();
+        rolView = new SmsRol();
 
     }
 
     public void modificar() {
-        proveedorController.modificarUsuario(usuarioView, ciudadView);
+        rolView.setRolNombre("Proveedor");
+        proveedorController.modificarUsuario(usuarioView, ciudadView, rolView);
         proveedorController.modificarProveedor(proveedorView, usuarioView);        
-
+        proveedoresListView = proveedorController.cargarProveedor();
+        
         proveedorView = new SmsProveedor();
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
-        proveedoresListView = proveedorController.cargarProveedor();
+        
         
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
@@ -309,7 +311,8 @@ public class ProveedorBean implements Serializable {
             }
         }else{
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione fotografia", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
-        FacesContext.getCurrentInstance().addMessage(null, message);
+      
     }
 }
