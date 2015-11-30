@@ -16,7 +16,7 @@ import org.hibernate.Session;
  *
  * @author Desarrollo_Planit
  */
-public class ImpHojaVidaDao implements IHojaVidaDao{
+public class ImpHojaVidaDao implements IHojaVidaDao {
 
     @Override
     public List<SmsHojavida> mostrarHojaVida() {
@@ -24,7 +24,7 @@ public class ImpHojaVidaDao implements IHojaVidaDao{
         List<SmsHojavida> HojasVida = new ArrayList<>();
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsHojaVida");
+            Query query = session.createQuery("from SmsHojavida");
             HojasVida = (List<SmsHojavida>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
@@ -56,7 +56,7 @@ public class ImpHojaVidaDao implements IHojaVidaDao{
 
     @Override
     public void modificarHojaVida(SmsHojavida hojaVida) {
-       Session session = null;
+        Session session = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
@@ -69,7 +69,7 @@ public class ImpHojaVidaDao implements IHojaVidaDao{
             if (session != null) {
                 session.close();
             }
-        } 
+        }
     }
 
     @Override
@@ -87,6 +87,25 @@ public class ImpHojaVidaDao implements IHojaVidaDao{
             if (session != null) {
                 session.close();
             }
-        } 
-    }    
+        }
+    }
+
+    @Override
+    public List<SmsHojavida> consultarHojaVida(SmsHojavida hojavida) {
+        Session session = null;
+        List<SmsHojavida> HojasVida = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsHojavida as hojavida where hojavida.hojaVidaNombre = '" + hojavida.getHojaVidaNombre() + "' or hojavida.hojaVidaRuta = '" + hojavida.getHojaVidaRuta() + "'");
+            HojasVida = (List<SmsHojavida>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return HojasVida;
+    }
 }
+

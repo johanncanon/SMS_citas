@@ -19,4 +19,6 @@ public interface IHojaVidaDao {
    public void registrarHojaVida(SmsHojavida hojaVida);
    public void modificarHojaVida(SmsHojavida hojaVida);
    public void eliminarHojaVida(SmsHojavida hojaVida);
+   public List<SmsHojavida> consultarHojaVida(SmsHojavida hojavida);
 }
+

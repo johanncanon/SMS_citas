@@ -7,52 +7,56 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-
     <body>
         <ui:composition template="./../../template-admin-p.xhtml">
-            <ui:define name="content">
+              <ui:define name="content">
                 <b:container fluid="true">
                     <b:row>
                         <h:form>                            
                             <div class="espacio-arriba">
                                 <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
-                                    <b:well>
-                                        <h3>Referencias SMS Renta</h3>
-                                        <hr/>
-                                        <p>En este panel podra registrar las referencias de los vehiculos a manejar en SMS Renta, 
-                                            relacionando esta referencia con su respectiva marca.</p>
-                                    </b:well>
+                                    <div class="box box-info">
+                                        <div class="box-header with-border">
+                                            <h3>Referencias SMS Renta</h3>
+                                            <hr/>
+                                            <p>En este panel podra registrar las referencias de los vehiculos a manejar en SMS Renta, 
+                                                relacionando esta referencia con su respectiva marca.</p>
+                                        </div>
+                                    </div>
                                 </b:column>                               
                             </div>
                             <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
-                                <b:well>
-                                    <h3>Registro de referencias de vehiculos SMS</h3>
-                                    <hr/>                                    
-                                    <div class="table-responsive">                                        
-                                        <h:panelGrid id="PReferencias" columns="3" cellpadding="5" style="width: 100%">
-                                            <p:outputLabel value="Marca"/>
-                                            <b:selectOneMenu value="#{referenciaBean.marcaView.marcaNombre}">
-                                                <f:selectItem id="SMarcas" itemLabel="Seleccione Marca"/>
-                                                <f:selectItems value="#{marcaBean.nombresMarcaView}"/>
-                                            </b:selectOneMenu>
-                                            <p:message for="SMarcas" />
+                                <div class="box box-danger">
+                                    <div class="box-header with-border">
+                                        <h3>Registro de referencias de vehiculos SMS</h3>
+                                        <hr/>                                    
+                                        <div class="table-responsive">                                        
+                                            <h:panelGrid id="PReferencias" columns="3" cellpadding="5" style="width: 100%">
+                                                <p:outputLabel value="Marca"/>
+                                                <b:selectOneMenu value="#{referenciaBean.marcaView.marcaNombre}">
+                                                    <f:selectItem id="SMarcas" itemLabel="Seleccione Marca"/>
+                                                    <f:selectItems value="#{marcaBean.nombresMarcaView}"/>
+                                                </b:selectOneMenu>
+                                                <p:message for="SMarcas" />
 
-                                            <p:outputLabel  value="Referencia: "/>
-                                            <b:inputText id="TNombreRef" placeholder="Referencia del vehiculo" required="true" requiredMessage="Ingrese referencia" style="width: 100%" value="#{referenciaBean.referenciaView.referenciaNombre}"/>
-                                            <p:message for="TNombreRef" />
-                                        </h:panelGrid>
-                                    </div>
-                                    <hr/>
-                                    <p:commandButton id="BTReferencia" update="@form" style="width: 100%" value="#{referenciaBean.nombre}" action="#{referenciaBean.metodo()}"/>                                    
-                                </b:well>
+                                                <p:outputLabel  value="Referencia: "/>
+                                                <b:inputText id="TNombreRef" placeholder="Referencia del vehiculo" required="true" requiredMessage="Ingrese referencia" style="width: 100%" value="#{referenciaBean.referenciaView.referenciaNombre}"/>
+                                                <p:message for="TNombreRef" />
+                                            </h:panelGrid>
+                                        </div>
+                                        <hr/>
+                                        <p:commandButton id="BTReferencia" update="@form" style="width: 100%" value="#{referenciaBean.nombre}" action="#{referenciaBean.metodo()}"/>                                    
+                                    </div> 
+                                </div>
                             </b:column>
                             <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
-                                <b:well>
-                                    <h4>Referencias SMS Renta</h4><hr/>                                   
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h4>Referencias SMS Renta</h4><hr/>                                   
 
-                                    <b:inputText id="TBuscar" placeholder="Buscar" value="#{referenciaBean.buscar}" style="width: 100%">
-                                        <p:ajax event="keyup" listener="#{referenciaBean.filtrar()}" process="@this" update="DTReferencias"/>
-                                    </b:inputText>                                 
+                                        <b:inputText id="TBuscar" placeholder="Buscar" value="#{referenciaBean.buscar}" style="width: 100%">
+                                            <p:ajax event="keyup" listener="#{referenciaBean.filtrar()}" process="@this" update="DTReferencias"/>
+                                        </b:inputText>                                 
                                         <p:dataTable id="DTReferencias" var="Referencias" value="#{referenciaBean.referenciasListView}"
                                                      rows="5"
                                                      paginator="true"
@@ -78,7 +82,8 @@
                                                 </p:commandButton>
                                             </p:column>
                                         </p:dataTable>                                       
-                                </b:well>
+                                    </div>
+                                </div>
                             </b:column>
                         </h:form> 
                     </b:row>

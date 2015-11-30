@@ -9,67 +9,73 @@
 
     <body>
         <ui:composition template="./../../template-admin-p.xhtml">
-            <ui:define name="content">
+         <ui:define name="content">
                 <b:container fluid="true">
                     <b:row>
                         <h:form>                            
                             <div class="espacio-arriba">
                                 <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12" >
-                                    <b:well>
-                                        <h3>Marcas SMS Renta</h3>
-                                        <hr/>
-                                        <p>En este panel podra ingresar las Marcas de los vehiculos de SMS renta como 
-                                            consultar los vehiculos por sus respectivas Marcas.</p>
-                                    </b:well>
+                                    <div class="box box-info">
+                                        <div class="box-header with-border">
+                                            <h3>Marcas SMS Renta</h3>
+                                            <hr/>
+                                            <p>En este panel podra ingresar las Marcas de los vehiculos de SMS renta como 
+                                                consultar los vehiculos por sus respectivas Marcas.</p>
+                                        </div>
+                                    </div>
                                 </b:column>
                             </div>
 
                             <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
-                                <b:well>
-                                    <h4>Ingreso de Marcas de Vehiculos SMS</h4>
-                                    <hr/>                                    
-                                    <div class="table-responsive">
+                                <div class="box box-danger">
+                                    <div class="box-header with-border">
+                                        <h4>Ingreso de Marcas de Vehiculos SMS</h4>
+                                        <hr/>                                    
+                                        <div class="table-responsive">
 
-                                        <h:panelGrid cellpadding="5" columns="3" id="PMarca" style="width: 100%">
-                                            <p:outputLabel  value="Nombre de Marca: "/>
-                                            <b:inputText placeholder="Nombre de marca" id="TNombreMrc" required="true" requiredMessage="Ingrese nombre" style="width: 100%" value="#{marcaBean.marcaView.marcaNombre}"/>
-                                            <p:message for="TNombreMrc"/>
-                                        </h:panelGrid>
-                                    </div>
-                                    <hr/>                                
-                                    <p:commandButton id="BTMarca" style="width: 100%" update="@form" value="#{marcaBean.nombre}" action="#{marcaBean.metodo()}"/>
-                                </b:well>
+                                            <h:panelGrid cellpadding="5" columns="3" id="PMarca" style="width: 100%">
+                                                <p:outputLabel  value="Nombre de Marca: "/>
+                                                <b:inputText placeholder="Nombre de marca" id="TNombreMrc" required="true" requiredMessage="Ingrese nombre" style="width: 100%" value="#{marcaBean.marcaView.marcaNombre}"/>
+                                                <p:message for="TNombreMrc"/>
+                                            </h:panelGrid>
+                                        </div>
+                                        <hr/>                                
+                                        <p:commandButton id="BTMarca" style="width: 100%" update="@form" value="#{marcaBean.nombre}" action="#{marcaBean.metodo()}"/>
+                                    </div> 
+                                </div>
                             </b:column>
 
                             <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
-                                <b:well>
-                                    <h4>Lista de Vehìculos SMS por Marcas</h4>
-                                    <hr/>
-                                    <b:inputText value="#{marcaBean.buscar}" placeholder="Buscar" style="width: 100%">                                       
-                                        <p:ajax event="keyup" listener="#{marcaBean.filtrar()}" process="@this" update="DTMarcas"/>
-                                    </b:inputText>                                
-                                    <p:dataTable id="DTMarcas" var="Marca" value="#{marcaBean.marcasListView}"
-                                                 rows="5"
-                                                 paginator="true"
-                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                 rowsPerPageTemplate="5,10,15" emptyMessage="Marcas no registrados">
-                                        <p:column headerText="Nombre">
-                                            <h:outputText value="#{Marca.marcaNombre}" />
-                                        </p:column>
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h4>Lista de Vehìculos SMS por Marcas</h4>
+                                        <hr/>
+                                        <b:inputText value="#{marcaBean.buscar}" placeholder="Buscar" style="width: 100%">                                       
+                                            <p:ajax event="keyup" listener="#{marcaBean.filtrar()}" process="@this" update="DTMarcas"/>
+                                        </b:inputText>                                
+                                        <p:dataTable id="DTMarcas" var="Marca" value="#{marcaBean.marcasListView}"
+                                                     rows="5"
+                                                     paginator="true"
+                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="5,10,15" emptyMessage="Marcas no registrados">
+                                            <p:column headerText="Nombre">
+                                                <h:outputText value="#{Marca.marcaNombre}" />
+                                            </p:column>
 
-                                        <p:column style="width: 35px">
-                                            <p:commandButton icon="ui-icon-pencil" process="@this" update="@form" action="#{marcaBean.seleccionarCRUD(1)}" title="Modificar">
-                                                <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
-                                            </p:commandButton>
-                                        </p:column>
+                                            <p:column style="width: 35px">
+                                                <p:commandButton icon="ui-icon-pencil" process="@this" update="@form" action="#{marcaBean.seleccionarCRUD(1)}" title="Modificar">
+                                                    <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
+                                                </p:commandButton>
+                                            </p:column>
 
-                                        <p:column style="width: 35px">
-                                            <p:commandButton icon="ui-icon-close" process="@this" update="@form" action="#{marcaBean.seleccionarCRUD(2)}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
-                                            </p:commandButton>
-                                        </p:column>
-                                    </p:dataTable>
-                                </b:well>
+                                            <p:column style="width: 35px">
+                                                <p:commandButton icon="ui-icon-close" process="@this" update="@form" action="#{marcaBean.seleccionarCRUD(2)}" title="Eliminar">
+                                                    <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </div>
+                                </div>
                             </b:column>
                         </h:form> 
                     </b:row>

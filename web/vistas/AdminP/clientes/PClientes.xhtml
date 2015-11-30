@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./../template-admin-p.xhtml">
+             <ui:define name="content">
+                <b:container fluid="true">
+                    <b:row>
+                        <h:form id="formA">
+                            <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12" class="espacio-arriba">
+                                <div class="box box-info">
+                                    <div class="box-header with-border">
+                                        <h4>REGISTRO DE CLIENTES</h4>
+                                        <hr/>
+                                        <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros clientes y podra crear una cuenta de sesion para el ingreso al sistema,
+                                            con la que posteriormente el cliente realizara sus reservaciones.</p> 
+                                    </div>
+                                </div>
+                            </b:column>
+                            <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
+                                <div class="box box-danger">
+                                    <div class="box-header with-border">
+                                        <h4>DATOS DE CLIENTE</h4>                                       
+                                        <hr/>                                                               
+                                        <div class="table-responsive">
+                                            <h:panelGrid id="seccionDatosUsuario" cellpadding="5" columns="3" style="width: 100%;">
+                                                <p:outputLabel value="Nombre:* "/>
+                                                <b:inputText id="TNombreApCli" required="true" requiredMessage="Ingrese nombre y apellido" placeholder="Nombres y apellidos" value="#{clienteBean.clienteView.usuarioNombre}" style="width: 100%;" maxlength="60"></b:inputText>                       
+                                                <p:message for="TNombreApCli"/>
+
+                                                <p:outputLabel value="CC: " />
+                                                <b:inputText id="TCcCli" placeholder="Cedula de ciudadania" value="#{clienteBean.clienteView.usuarioCc}" style="width: 100%" ></b:inputText>
+                                                <p:message for="TCcCli"/>
+
+                                                <p:outputLabel value="Telefono: "/>
+                                                <b:inputText id="TTelCli" placeholder="Numero de telefono fijo o celular" value="#{clienteBean.clienteView.usuarioTelefono}" style="width: 100%" ></b:inputText> 
+                                                <p:message for="TTelCli"/>
+
+                                                <p:outputLabel value="Email:* "/>
+                                                <b:inputText id="TEmailCli" required="true" requiredMessage="Ingrese Email valido" placeholder="Direccion de correo electronico" value="#{clienteBean.clienteView.usuarioEmail}" style="width: 100%" ></b:inputText>
+                                                <p:message for="TEmailCli"/>
+
+                                                <p:outputLabel value="Razon social: "/>
+                                                <b:inputText id="TRazSocCli" placeholder="Nombre de la empresa" value="#{clienteBean.clienteView.usuarioRazonSocial}" style="width: 100%" ></b:inputText>
+                                                <p:message for="TRazSocCli"/>
+
+                                                <p:outputLabel value="Nit: "/>
+                                                <b:inputText id="TNitCli" placeholder="Nit de la empresa" value="#{clienteBean.clienteView.usuarioNit}" style="width: 100%" ></b:inputText>
+                                                <p:message for="TNitCli"/>
+
+                                                <p:outputLabel value="Ciudad:* "/>
+                                                <b:selectOneMenu required="true" requiredMessage="Seleccione ciudad" id="SCiudades" value="#{clienteBean.ciudadView.ciudadNombre}" style="width: 100%">
+                                                    <f:selectItem itemLabel="Seleccione ciudad"/>
+                                                    <f:selectItems value="#{ciudadBean.nombresCiudadesListView}"/>
+                                                </b:selectOneMenu>
+                                                <p:message for="SCiudades"/>
+                                            </h:panelGrid>
+                                        </div><hr/>
+                                        <h4>Datos de sesion</h4>
+                                        <hr/>
+                                        <div class="table-responsive">
+                                            <h:panelGrid cellpadding="5" columns="3" id="seccionDatosSesion" style="width: 100%">
+
+                                                <p:outputLabel value="Login: "/>
+                                                <b:inputText id="TLoginCli" style="width: 100%" value="#{clienteBean.clienteView.usuarioLogin}" placeholder="Login de sesion"></b:inputText>
+                                                <p:message for="TLoginCli"/>
+
+                                                <p:outputLabel value="Contraseña: "/>
+                                                <b:inputSecret id="TPassCli" style="width: 100%" value="#{clienteBean.clienteView.usuarioPassword}" placeholder="Contraseña de sesion"></b:inputSecret>
+                                                <p:message for="TPassCli"/>
+
+                                                <p:outputLabel value="Repita contraseña: "/>
+                                                <b:inputSecret id="TRemPassCli" style="width: 100%" value="#{clienteBean.clienteView.usuarioRememberToken}" placeholder="Repita contraseña de sesion" ></b:inputSecret>
+                                                <p:message for="TRemPassCli"/>
+                                                
+                                            </h:panelGrid>
+                                        </div><hr/>
+                                        <p:commandButton id="BTCliente" style="width:100%" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTCliente :formC:DTClientes :formB" action="#{clienteBean.metodo()}" value="#{clienteBean.nombre}" />
+                                    </div> 
+                                </div>
+                            </b:column>                          
+                        </h:form>
+                        <h:form id="formB" enctype="multipart/form-data">
+                            <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <p:fragment autoUpdate="true">
+                                            <h4>INGRESO FOTOGRAFIA</h4>
+                                            <hr/>
+                                            <p:outputLabel value="#{clienteBean.estadoArchivo}"/>
+                                            <div class="table-responsive">
+                                                <p:fileUpload mode="simple" update=":formA" value="#{clienteBean.archivo}"></p:fileUpload>
+                                                <hr/>
+                                                <p:commandButton disabled="#{clienteBean.habilitarSubir}" ajax="false" action="#{clienteBean.upload()}" value="#{clienteBean.subirArchivo}" style="width: 50%"></p:commandButton>
+                                            </div>
+                                        </p:fragment>
+                                    </div>
+                                </div>
+                            </b:column>
+                        </h:form>
+                        <h:form id="formC">
+                            <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h4>CLIENTES SMS Renta</h4><hr/>
+                                        <p:dataTable id="DTClientes" var="cliente" emptyMessage="Administradores no registrados" value="#{clienteBean.clientesListView}">
+                                            <p:column headerText="Nombre y apellido">
+                                                <p:outputLabel value="#{cliente.usuarioNombre}"/>
+                                            </p:column>
+
+                                            <p:column headerText="Email">
+                                                <p:outputLabel value="#{cliente.usuarioEmail}"/>
+                                            </p:column>
+
+                                            <p:column headerText="Telefono">
+                                                <p:outputLabel value="#{cliente.usuarioTelefono}"/>
+                                            </p:column>
+
+                                            <p:column style="width: 35px">
+                                                <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTCliente :formB" icon="ui-icon-pencil" action="#{clienteBean.seleccionarCrud(1)}" title="Modificar">
+                                                    <f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.clienteView}"/>
+                                                </p:commandButton>
+                                            </p:column>
+
+                                            <p:column style="width: 35px"> 
+                                                <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTCliente :formB" icon="ui-icon-close" action="#{clienteBean.seleccionarCrud(2)}" title="Eliminar">
+                                                    <f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.clienteView}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </div>
+                                </div>
+                            </b:column>
+                        </h:form>
+                    </b:row>
+                </b:container>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

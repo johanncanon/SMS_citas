@@ -59,13 +59,12 @@ public class Rol {
     public boolean validarRol(SmsUsuario usuario, SmsRol rolUsuario) {
         boolean valor = false;
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
-        SmsUsuario u = usuarioDao.consultarUsuario(usuario).get(0);
-
-        for (SmsRol r : u.getSmsRols()) {//Recorre la coleccion del objeto u, guarda el objeto consultado en r 
-            if (r.getRolNombre().equalsIgnoreCase(rolUsuario.getRolNombre())) {//compara el objeto r con el objeto rolUsuario
+        SmsUsuario u = usuarioDao.consultarDatosSesionUsuario(usuario).get(0);      
+       
+            if (u.getSmsRol().getRolNombre().equalsIgnoreCase(rolUsuario.getRolNombre())) {//compara el objeto r con el objeto rolUsuario
                 valor = true;
             }
-        }
+        
         return valor;
     }
 

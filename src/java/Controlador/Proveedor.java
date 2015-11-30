@@ -6,9 +6,7 @@
 package Controlador;
 
 import DAO.IProveedorDao;
-import DAO.IUsuarioDao;
 import DAO.ImpProveedorDao;
-import DAO.ImpUsuarioDao;
 import Modelo.SmsProveedor;
 import Modelo.SmsUsuario;
 import java.util.ArrayList;
@@ -66,6 +64,13 @@ public class Proveedor extends Usuario {
         proveedores = new ArrayList<>();
         IProveedorDao provedorDao = new ImpProveedorDao();
         proveedores = provedorDao.mostrarProveedores();
+        return proveedores;
+    }
+    
+    public List<SmsProveedor> consultarProveedor(SmsUsuario usuario) {
+        proveedores = new ArrayList<>();
+        IProveedorDao provedorDao = new ImpProveedorDao();
+        proveedores = provedorDao.consultarProveedores(usuario);
         return proveedores;
     }
 

@@ -6,6 +6,7 @@
 package DAO;
 
 import Modelo.SmsEmpleado;
+import Modelo.SmsUsuario;
 import java.util.List;
 
 /**
@@ -14,9 +15,10 @@ import java.util.List;
  */
 public interface IEmpleadoDao {
     
-    //Definicion metodos CRUD
+   //Definicion metodos CRUD
     public List<SmsEmpleado> mostrarEmpleados();
     public void registrarEmpleado(SmsEmpleado empleado);
     public void modificarEmpleado(SmsEmpleado empleado);
     public void eliminarEmpleado(SmsEmpleado empleado);
+    public List<SmsEmpleado> consultarEmpleado(SmsUsuario usuario);
 }

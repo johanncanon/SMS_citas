@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface IUsuarioDao {
 
- //Declaracion de metodos CRUD
+    //Declaracion de metodos CRUD
     public List<SmsUsuario> mostrarUsuario();
 
     public void registrarUsuario(SmsUsuario usuario);
@@ -22,9 +22,17 @@ public interface IUsuarioDao {
     public void modificarUsuario(SmsUsuario usuario);
 
     public void eliminarUsuario(SmsUsuario usuario);
+
+    public List<SmsUsuario> consultarUsuariosAdministradores();
+
+    public List<SmsUsuario> consultarUsuariosClientes();
+    
+    public List<SmsUsuario> consultarUsuariosEmpleados();
+   
+     public List<SmsUsuario> consultarUsuariosProveedores();
     
     public List<SmsUsuario> consultarUsuario(SmsUsuario usuario);
-    
+
     public List<SmsUsuario> consultarDatosSesionUsuario(SmsUsuario usuario);
 
 }

@@ -30,6 +30,7 @@ public class Usuario {
 
     //Atributos
     protected SmsUsuario usuario;
+    protected List<SmsUsuario> usuarios;
 
     //Relaciones con otras clases
     protected SmsCiudad ciudad;//asociacion
@@ -38,6 +39,7 @@ public class Usuario {
     public Usuario() {
         usuario = new SmsUsuario();
         ciudad = new SmsCiudad();
+        usuarios = new ArrayList<>();
         listaRoles = new ArrayList<>();
     }
 
@@ -53,7 +55,7 @@ public class Usuario {
 
         IRolDao rolDao = new ImpRolDao();
         rol = rolDao.consultarRol(rol).get(0);
-        usuario.getSmsRols().add(rol);//Asociamos un rol a un usuario
+        usuario.setSmsRol(rol);//Asociamos un rol a un usuario
 
         usuario.setUsuarioEstadoUsuario(1);//Asignamos un estado de cuenta
 
@@ -71,7 +73,7 @@ public class Usuario {
 
         IRolDao rolDao = new ImpRolDao();
         rol = rolDao.consultarRol(rol).get(0);
-        usuario.getSmsRols().add(rol);//Asociamos un rol a un usuario
+        usuario.setSmsRol(rol);//Asociamos un rol a un usuario
         
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarioDao.modificarUsuario(usuario);
@@ -98,7 +100,31 @@ public class Usuario {
         List<SmsUsuario> usuarios = usuarioDao.consultarUsuario(usuario);
         return usuarios;
     }
+    
+    public List<SmsUsuario> consultarAdministradores() {
+        usuarios = new ArrayList<>();
+        //el metodo consulta de la base de datos todos los usuarios registrados y los retorna en una lista
+        IUsuarioDao usuarioDao = new ImpUsuarioDao();
+        usuarios = usuarioDao.consultarUsuariosAdministradores();
+        return usuarios;
+    }
+    
+    public List<SmsUsuario> consultarClientes() {
+        usuarios = new ArrayList<>();
+        IUsuarioDao usuarioDao = new ImpUsuarioDao();
+        usuarios = usuarioDao.consultarUsuariosClientes();
+        return usuarios;
+    }
 
+    public List<SmsUsuario> consultarProveedores() {
+        usuarios = new ArrayList<>();
+        //el metodo consulta de la base de datos todos los usuarios registrados y los retorna en una lista
+        IUsuarioDao usuarioDao = new ImpUsuarioDao();
+        usuarios = usuarioDao.consultarUsuariosProveedores();
+        return usuarios;
+    }
+    
+   
     //Metodos de la sesion    
     public String iniciarSesion(SmsUsuario u) {
         usuario = u;
@@ -117,19 +143,19 @@ public class Usuario {
             if (rolUsuario) {//valida si el rol es verdadero y consulta segun su valor, a cual dashboard debo direccionar al usuario
                 switch (roles.get(i).getRolNombre()) {
                     case "Administrador Principal":
-                        ruta = "./vistas/AdminP/Dashboard-Admin-Principal.xhtml";
+                        ruta = "Dashboard-Admin-Principal.xhtml";
                         break;
                     case "Administrador Secundario":
-                        ruta = "./vistas/AdminS/Dashboard-Admin-Secundario.xhtml";
+                        ruta = "Dashboard-Admin-Secundario.xhtml";
                         break;
                     case "Cliente":
-                        ruta = "./vistas/Cliente/Dashboard-Cliente.xhtml";
+                        ruta = "Dashboard-Cliente.xhtml";
                         break;
                     case "Empleado":
-                        ruta = "./vistas/Conductor/Dashboard-Conductor.xhtml";
+                        ruta = "Dashboard-Conductor.xhtml";
                         break;
                     case "Proveedor":
-                        ruta = "./vistas/Proveedor/Dashboard-Proveedor.xhtml";
+                        ruta = "Dashboard-Proveedor.xhtml";
                         break;
                 }
             }

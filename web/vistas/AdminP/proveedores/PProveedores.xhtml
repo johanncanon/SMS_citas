@@ -6,7 +6,6 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
     <body>
         <ui:composition template="./../template-admin-p.xhtml">
             <ui:define name="content">
@@ -35,11 +34,11 @@
                                                 <p:outputLabel value="Nombre: *"/>
                                                 <b:inputText id="TNombreApProv" required="true" requiredMessage="Ingrese nombre y apellido" placeholder="Nombres y apellidos" style="width: 100%;" maxlength="60" value="#{proveedorBean.usuarioView.usuarioNombre}"></b:inputText>                       
                                                 <p:message for="TNombreApProv"/>
-                                                
+
                                                 <p:outputLabel value="CC: " />
                                                 <b:inputText id="TCcProv" placeholder="Cedula de ciudadania" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioCc}"></b:inputText>
                                                 <p:message for="TCcProv"/>
-                                                
+
                                                 <p:outputLabel value="Telefono: "/>
                                                 <b:inputText id="TTelProv" placeholder="Numero de telefono fijo o celular" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioTelefono}"></b:inputText> 
                                                 <p:message for="TTelProv"/>
@@ -47,19 +46,19 @@
                                                 <p:outputLabel value="Email: *"/>
                                                 <b:inputText id="TEmailProv" required="true" requiredMessage="Ingrese email" placeholder="Direccion de correo electronico" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioEmail}"></b:inputText>
                                                 <p:message for="TEmailProv"/>
-                                                
+
                                                 <p:outputLabel value="Razon social: "/>
                                                 <b:inputText id="TRazSocProv" placeholder="Nombre de la empresa" style="width: 100%"  value="#{proveedorBean.usuarioView.usuarioRazonSocial}"></b:inputText>
                                                 <p:message for="TRazSocProv"/>
-                                                    
+
                                                 <p:outputLabel value="Nit: "/>
                                                 <b:inputText id="TNitProv" placeholder="Nit de la empresa" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioNit}"></b:inputText>
                                                 <p:message for="TNitProv"/>
-                                                
+
                                                 <p:outputLabel value="Valor Ganancia: *"/>
                                                 <b:inputText id="TValorGProv" placeholder="Valor de ganancia" required="true" requiredMessage="Indique valor de ganancia acordado con el proveedor" style="width: 100%" value="#{proveedorBean.proveedorView.proveedorValorGanancia}"></b:inputText>
                                                 <p:message for="TValorGProv"/>
-                                                
+
                                                 <p:outputLabel value="Ciudad: *"/>
                                                 <b:selectOneMenu id="SCiudades" required="true"  requiredMessage="Por favor, seleccione ciudad" value="#{proveedorBean.ciudadView.ciudadNombre}" style="width: 100%">
                                                     <f:selectItem itemLabel="Seleccione ciudad"/>
@@ -108,39 +107,44 @@
                             </b:column>
                         </h:form>
                         <h:form id="formC">
-                        <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
-                            <div class="box box-success">
-                                <div class="box-header with-border">
-                                    <h4>PROVEEDORES SMS Renta</h4><hr/>
-                                                                            
-                                    <p:dataTable id="DTProveedores" var="proveedor" emptyMessage="Proveedores no registrados" value="#{proveedorBean.proveedoresListView}">
-                                        <p:column headerText="Razon Social">
-                                            <p:outputLabel value="#{proveedor.smsUsuario.usuarioRazonSocial}"/>
-                                        </p:column>
+                            <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h4>PROVEEDORES SMS Renta</h4><hr/>
 
-                                        <p:column headerText="Representante">
-                                            <p:outputLabel value="#{proveedor.smsUsuario.usuarioNombre}"/>
-                                        </p:column>
+                                        <p:dataTable id="DTProveedores" var="proveedor" emptyMessage="Proveedores no registrados" value="#{proveedorBean.proveedoresListView}">
+                                           
+                                            <p:column headerText="Representante">
+                                                <p:outputLabel value="#{proveedor.usuarioNombre}"/>
+                                            </p:column>
+                                           
+                                             <p:column headerText="Razon Social">
+                                                <p:outputLabel value="#{proveedor.usuarioRazonSocial}"/>
+                                            </p:column>
+                                            
+                                            <p:column headerText="NIT">
+                                                <p:outputLabel value="#{proveedor.usuarioNit}"/>
+                                            </p:column>
 
-                                        <p:column headerText="Valor Ganancia">
-                                            <p:outputLabel value="#{proveedor.proveedorValorGanancia}"/>
-                                        </p:column>
+                                            <p:column headerText="Email">
+                                                <p:outputLabel value="#{proveedor.usuarioEmail}"/>
+                                            </p:column>
+                                            
+                                            <p:column style="width: 35px">
+                                                <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formB :formA:seccionDatosSesion :formA:BTProveedor" icon="ui-icon-pencil" action="#{proveedorBean.seleccionarCrud(1)}" title="Modificar">
+                                                    <f:setPropertyActionListener value="#{proveedor}" target="#{proveedorBean.usuarioView}"/>
+                                                </p:commandButton>
+                                            </p:column>
 
-                                        <p:column style="width: 35px">
-                                            <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formB :formA:seccionDatosSesion :formA:BTProveedor" icon="ui-icon-pencil" action="#{proveedorBean.seleccionarCrud(1)}" title="Modificar">
-                                                <f:setPropertyActionListener value="#{proveedor}" target="#{proveedorBean.proveedorView}"/>
-                                            </p:commandButton>
-                                        </p:column>
-
-                                        <p:column style="width: 35px"> 
-                                            <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formB :formA:seccionDatosSesion :formA:BTProveedor" icon="ui-icon-close" action="#{proveedorBean.seleccionarCrud(2)}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{proveedor}" target="#{proveedorBean.proveedorView}"/>
-                                            </p:commandButton>
-                                        </p:column>
-                                    </p:dataTable>
+                                            <p:column style="width: 35px"> 
+                                                <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formB :formA:seccionDatosSesion :formA:BTProveedor" icon="ui-icon-close" action="#{proveedorBean.seleccionarCrud(2)}" title="Eliminar">
+                                                    <f:setPropertyActionListener value="#{proveedor}" target="#{proveedorBean.usuarioView}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </div>
                                 </div>
-                            </div>
-                        </b:column>
+                            </b:column>
                         </h:form>
                     </b:row>
                 </b:container>

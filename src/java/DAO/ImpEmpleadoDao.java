@@ -6,6 +6,7 @@
 package DAO;
 
 import Modelo.SmsEmpleado;
+import Modelo.SmsUsuario;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -24,7 +25,7 @@ public class ImpEmpleadoDao implements IEmpleadoDao {
         List<SmsEmpleado> empleados = new ArrayList<>();
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsEmpleado");
+            Query query = session.createQuery("from SmsEmpleado as empleado left join fetch empleado.smsUsuario as usuario left join fetch empleado.smsHojavida as hojaVida");
             empleados = (List<SmsEmpleado>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
@@ -56,7 +57,7 @@ public class ImpEmpleadoDao implements IEmpleadoDao {
 
     @Override
     public void modificarEmpleado(SmsEmpleado empleado) {
-       Session session = null;
+        Session session = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
@@ -88,6 +89,24 @@ public class ImpEmpleadoDao implements IEmpleadoDao {
                 session.close();
             }
         }
+    }
+
+    @Override
+    public List<SmsEmpleado> consultarEmpleado(SmsUsuario usuario) {
+        Session session = null;
+        List<SmsEmpleado> empleados = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsEmpleado as empleado left join fetch empleado.smsUsuario as usuario left join fetch empleado.smsHojavida as hojaVida where usuario.idUsuario = '" + usuario.getIdUsuario() + "'");
+            empleados = (List<SmsEmpleado>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return empleados;
     }
 
 }

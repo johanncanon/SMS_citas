@@ -8,7 +8,7 @@
       xmlns:b="http://bootsfaces.net/ui">
 
     <body>
-        <ui:composition template="./../template-admin-p.xhtml">
+        <ui:composition template="./../template-admin-p.xhtml">        
             <ui:define name="content">
                 <b:container fluid="true">
                     <b:row>
@@ -16,54 +16,60 @@
                             <p:messages id="messages" showDetail="true"/>
                             <div class="espacio-arriba">
                                 <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
-                                    <b:well>
-                                        <h4>REGISTRO DE PAISES</h4>
-                                        <hr/>
-                                        <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a los paises en donde
-                                            SMS Renta presta sus servicios.</p> 
-                                    </b:well>
+                                    <div class="box box-info">
+                                        <div class="box-header with-border">
+                                            <h4>REGISTRO DE PAISES</h4>
+                                            <hr/>
+                                            <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a los paises en donde
+                                                SMS Renta presta sus servicios.</p> 
+                                        </div>
+                                    </div>
                                 </b:column>
                             </div>
                             <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
-                                <b:well>
-                                    <h4>Datos de pais</h4><hr/>
-                                    <div class="table-responsive">
-                                        <h:panelGrid id="PPais" columns="2" style="width: 100%">                                            
-                                            <p:outputLabel value="Nombre del pais:"/>
-                                            <p:inputText placeholder="Nombre del pais"  value="#{paisBean.paisView.paisNombre}" style="width: 100%"></p:inputText>                                            
-                                        </h:panelGrid>
-                                    </div><hr/>
-                                    <p:commandButton style="width: 100%" id="BTPais" action="#{paisBean.metodo()}" class="btn btn-block btn-primary" update="messages PPais BTPais DTPaises" value="#{paisBean.nombre}"/>                                       
-                                </b:well>
+                                <div class="box box-danger">
+                                    <div class="box-header with-border">
+                                        <h4>Datos de pais</h4><hr/>
+                                        <div class="table-responsive">
+                                            <h:panelGrid id="PPais" columns="2" style="width: 100%">                                            
+                                                <p:outputLabel value="Nombre del pais:"/>
+                                                <p:inputText placeholder="Nombre del pais"  value="#{paisBean.paisView.paisNombre}" style="width: 100%"></p:inputText>                                            
+                                            </h:panelGrid>
+                                        </div><hr/>
+                                        <p:commandButton style="width: 100%" id="BTPais" action="#{paisBean.metodo()}" update="messages PPais BTPais DTPaises" value="#{paisBean.nombre}"/>                                       
+                                    </div> 
+                                </div>
                             </b:column>
                             <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
-                                <b:well>
-                                    <h4>Lista de ciudades</h4>
-                                    <hr/>                                    
-                                    <p:inputText placeholder="Buscar" id="SearchPais" style="width: 100%"></p:inputText>
-                                    <hr/>
-                                    <p:dataTable id="DTPaises" emptyMessage="Ciudades no registradas" var="paises" value="#{paisBean.paisesListView}" 
-                                                 rows="5"
-                                                 paginator="true"
-                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                 rowsPerPageTemplate="5,10,15">
-                                        <p:column headerText="Nombre">
-                                            <h:outputText value="#{paises.paisNombre}"/>
-                                        </p:column>
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h4>Lista de ciudades</h4>
+                                        <hr/>                                    
+                                        <p:inputText placeholder="Buscar" id="SearchPais" style="width: 100%"></p:inputText>
+                                        <hr/>
+                                        <p:dataTable id="DTPaises" emptyMessage="Ciudades no registradas" var="paises" value="#{paisBean.paisesListView}" 
+                                                     rows="5"
+                                                     paginator="true"
+                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="5,10,15">
+                                            <p:column headerText="Nombre">
+                                                <h:outputText value="#{paises.paisNombre}"/>
+                                            </p:column>
 
-                                        <p:column style="width: 35px">
-                                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{paisBean.seleccionarCrud(1)}" title="Modificar">
-                                                <f:setPropertyActionListener value="#{paises}" target="#{paisBean.paisView}"/>
-                                            </p:commandButton>
-                                        </p:column>
+                                            <p:column style="width: 35px">
+                                                <p:commandButton icon="ui-icon-pencil" action="#{paisBean.seleccionarCrud(1)}" title="Modificar">
+                                                    <f:setPropertyActionListener value="#{paises}" target="#{paisBean.paisView}"/>
+                                                </p:commandButton>
+                                            </p:column>
 
-                                        <p:column style="width: 35px"> 
-                                            <p:commandButton ajax="false" icon="ui-icon-close" action="#{paisBean.seleccionarCrud(2)}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{paises}" target="#{paisBean.paisView}"/>
-                                            </p:commandButton>
-                                        </p:column>
-                                    </p:dataTable> 
-                                </b:well>
+                                            <p:column style="width: 35px"> 
+                                                <p:commandButton icon="ui-icon-close" action="#{paisBean.seleccionarCrud(2)}" title="Eliminar">
+                                                    <f:setPropertyActionListener value="#{paises}" target="#{paisBean.paisView}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                        </p:dataTable> 
+                                    </div> 
+                                </div>
                             </b:column>
                         </h:form> 
                     </b:row>

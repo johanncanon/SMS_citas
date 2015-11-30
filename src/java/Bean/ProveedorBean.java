@@ -7,8 +7,6 @@ package Bean;
 
 import Controlador.Archivos;
 import Controlador.Proveedor;
-import DAO.IProveedorDao;
-import DAO.ImpProveedorDao;
 import Modelo.SmsCiudad;
 import Modelo.SmsProveedor;
 import Modelo.SmsRol;
@@ -41,7 +39,7 @@ public class ProveedorBean implements Serializable {
     protected Archivos fileController;
 
     //lista de Id de proveedor
-    private List<SmsProveedor> proveedoresListView;
+    private List<SmsUsuario> proveedoresListView;
     private List<String> nombresProveedoresView;
 
     //Variables
@@ -59,7 +57,7 @@ public class ProveedorBean implements Serializable {
         rolView = new SmsRol();
         proveedorController = new Proveedor();
         fileController = new Archivos();
-        
+
         buscar = null;
         estado = 0;
         nombre = "Registrar Proveedor";
@@ -70,7 +68,7 @@ public class ProveedorBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        proveedoresListView = proveedorController.cargarProveedor();
+        proveedoresListView = proveedorController.consultarProveedores();
     }
 
     //Getters & Setters
@@ -114,21 +112,20 @@ public class ProveedorBean implements Serializable {
         this.proveedorController = proveedorController;
     }
 
-    public List<SmsProveedor> getProveedoresListView() {
+    public List<SmsUsuario> getProveedoresListView() {
         return proveedoresListView;
     }
 
-    public void setProveedoresListView(List<SmsProveedor> proveedoresListView) {
+    public void setProveedoresListView(List<SmsUsuario> proveedoresListView) {
         this.proveedoresListView = proveedoresListView;
     }
 
     public List<String> getNombresProveedoresView() {
         nombresProveedoresView = new ArrayList<>();
-        IProveedorDao linkDao = new ImpProveedorDao();
-        proveedoresListView = linkDao.mostrarProveedores();
+        proveedoresListView = proveedorController.consultarProveedores();
 
         for (int i = 0; i < proveedoresListView.size(); i++) {
-            nombresProveedoresView.add(proveedoresListView.get(i).getSmsUsuario().getUsuarioNombre());
+            nombresProveedoresView.add(proveedoresListView.get(i).getUsuarioNombre());
         }
         return nombresProveedoresView;
     }
@@ -205,13 +202,13 @@ public class ProveedorBean implements Serializable {
     public void registrar() {
         rolView.setRolNombre("Proveedor");
         proveedorController.registrarUsuario(usuarioView, ciudadView, rolView);
-        proveedorController.registrarProveedor(proveedorView, usuarioView);     
-        proveedoresListView = proveedorController.cargarProveedor();        
-        
+        proveedorController.registrarProveedor(proveedorView, usuarioView);
+        proveedoresListView = proveedorController.consultarProveedores();
+
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
         habilitarSubir = false;
-        
+
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         proveedorView = new SmsProveedor();
@@ -222,14 +219,13 @@ public class ProveedorBean implements Serializable {
     public void modificar() {
         rolView.setRolNombre("Proveedor");
         proveedorController.modificarUsuario(usuarioView, ciudadView, rolView);
-        proveedorController.modificarProveedor(proveedorView, usuarioView);        
-        proveedoresListView = proveedorController.cargarProveedor();
-        
+        proveedorController.modificarProveedor(proveedorView, usuarioView);
+        proveedoresListView = proveedorController.consultarProveedores();
+
         proveedorView = new SmsProveedor();
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
-        
-        
+
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
         habilitarSubir = false;
@@ -240,20 +236,13 @@ public class ProveedorBean implements Serializable {
         proveedorController.eliminarUsuario(usuarioView);
         proveedorView = new SmsProveedor();
         usuarioView = new SmsUsuario();
+        ciudadView = new SmsCiudad();
 
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
         habilitarSubir = false;
-        proveedoresListView = proveedorController.cargarProveedor();
-    }
 
-    public void filtrar() {
-        proveedoresListView = new ArrayList<>();
-        if (buscar == null) {
-            proveedoresListView = proveedorController.cargarProveedor();
-        } else {
-            proveedoresListView = proveedorController.filtrarProveedor(buscar);
-        }
+        proveedoresListView = proveedorController.consultarProveedores();
     }
 
     //Metodos propios
@@ -261,12 +250,13 @@ public class ProveedorBean implements Serializable {
         estado = i;
         if (estado == 1) {
             nombre = "Modificar Proveedor";
-            usuarioView = proveedorView.getSmsUsuario();
-            usuarioView = proveedorController.consultarUsuario(usuarioView).get(0);
+
+            proveedorView = proveedorController.consultarProveedor(usuarioView).get(0);
             ciudadView = usuarioView.getSmsCiudad();
 
             if (usuarioView.getUsuarioFotoNombre() != null && usuarioView.getUsuarioFotoRuta() != null) {
                 subirArchivo = "Modificar Fotografia";
+                estadoArchivo = "Foto subida:" + usuarioView.getUsuarioFotoNombre();
                 habilitarSubir = false;
             } else {
                 subirArchivo = "Subir Fotografia";
@@ -274,8 +264,8 @@ public class ProveedorBean implements Serializable {
             }
         } else if (estado == 2) {
             nombre = "Eliminar Proveedor";
-            usuarioView = proveedorView.getSmsUsuario();
-            usuarioView = proveedorController.consultarUsuario(usuarioView).get(0);
+
+            proveedorView = proveedorController.consultarProveedor(usuarioView).get(0);
             ciudadView = usuarioView.getSmsCiudad();
 
             subirArchivo = "Subir Fotografia";
@@ -298,7 +288,7 @@ public class ProveedorBean implements Serializable {
     }
 
     public void upload() throws IOException {
-         FacesMessage message = new FacesMessage();
+        FacesMessage message = new FacesMessage();
         if (null != getArchivo()) {
             fileController.UploadFile(IOUtils.toByteArray(getArchivo().getInputstream()), getArchivo().getFileName());
             usuarioView.setUsuarioFotoNombre(getArchivo().getFileName());
@@ -309,10 +299,10 @@ public class ProveedorBean implements Serializable {
             } else if (estado == 1) {
                 estadoArchivo = "Foto actualizada con exito";
             }
-        }else{
+        } else {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione fotografia", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
-      
+
     }
 }

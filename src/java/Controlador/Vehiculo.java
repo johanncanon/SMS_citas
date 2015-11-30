@@ -10,16 +10,19 @@ import DAO.ICategoriaDao;
 import DAO.ICiudadDao;
 import DAO.IProveedorDao;
 import DAO.IReferenciaDao;
+import DAO.IUsuarioDao;
 import DAO.IVehiculoDao;
 import DAO.ImpCategoriaDao;
 import DAO.ImpCiudadDao;
 import DAO.ImpProveedorDao;
 import DAO.ImpReferenciaDao;
+import DAO.ImpUsuarioDao;
 import DAO.ImpVehiculoDao;
 import Modelo.SmsCategoria;
 import Modelo.SmsCiudad;
 import Modelo.SmsProveedor;
 import Modelo.SmsReferencia;
+import Modelo.SmsUsuario;
 import java.util.List;
 
 /**
@@ -32,9 +35,9 @@ public class Vehiculo {
     private List<SmsVehiculo> vehiculos;
 
     public Vehiculo() {
-        vehiculo = new SmsVehiculo();        
-    }  
-  
+        vehiculo = new SmsVehiculo();
+    }
+
     //Getters & Setters
     public SmsVehiculo getVehiculo() {
         return vehiculo;
@@ -53,23 +56,27 @@ public class Vehiculo {
     public void setVehiculos(List<SmsVehiculo> vehiculos) {
         this.vehiculos = vehiculos;
     }
-    
+
     //Metodos
-    public void modficarVehiculo(SmsCategoria c, SmsProveedor p, SmsCiudad ci, SmsReferencia r, SmsVehiculo v) {
+    public void modficarVehiculo(SmsCategoria c, SmsUsuario u, SmsCiudad ci, SmsReferencia r, SmsVehiculo v) {
         SmsCategoria categoria = c;
-        SmsProveedor proveedor = p;
+        SmsUsuario usuario = u;
+        SmsProveedor proveedor;
         SmsCiudad ciudad = ci;
         SmsReferencia referencia = r;
         vehiculo = v;
 
+        IUsuarioDao usuDao = new ImpUsuarioDao();
+        usuario = usuDao.consultarUsuario(usuario).get(0);
+        
         //Consulta categoria
         ICategoriaDao cateDao = new ImpCategoriaDao();
         categoria = cateDao.consultarCategoria(categoria).get(0);
         vehiculo.setSmsCategoria(categoria);
 
         //Consulta proveedor
-        IProveedorDao proDao = new ImpProveedorDao();
-        proveedor = proDao.consultarProveedores(proveedor).get(0);
+        IProveedorDao provDao = new ImpProveedorDao();
+        proveedor = provDao.consultarProveedores(usuario).get(0);
         vehiculo.setSmsProveedor(proveedor);
 
         //Consulta ciudad
@@ -85,14 +92,18 @@ public class Vehiculo {
         IVehiculoDao linkDao = new ImpVehiculoDao();
         linkDao.modificarVehiculo(vehiculo);
 
-    }   
+    }
 
-    public void registrarVehiculo(SmsCategoria c, SmsProveedor p, SmsCiudad ci, SmsReferencia r, SmsVehiculo v) {
+    public void registrarVehiculo(SmsCategoria c, SmsUsuario u, SmsCiudad ci, SmsReferencia r, SmsVehiculo v) {
         SmsCategoria categoria = c;
-        SmsProveedor proveedor = p;
+        SmsUsuario usuario = u;
+        SmsProveedor proveedor;
         SmsCiudad ciudad = ci;
         SmsReferencia referencia = r;
         vehiculo = v;
+
+        IUsuarioDao usuDao = new ImpUsuarioDao();
+        usuario = usuDao.consultarUsuario(usuario).get(0);
 
         //Consulta categoria
         ICategoriaDao cateDao = new ImpCategoriaDao();
@@ -100,8 +111,8 @@ public class Vehiculo {
         vehiculo.setSmsCategoria(categoria);
 
         //Consulta proveedor
-        IProveedorDao proDao = new ImpProveedorDao();
-        proveedor = proDao.consultarProveedores(proveedor).get(0);
+        IProveedorDao provDao = new ImpProveedorDao();
+        proveedor = provDao.consultarProveedores(usuario).get(0);
         vehiculo.setSmsProveedor(proveedor);
 
         //Consulta ciudad
@@ -113,13 +124,13 @@ public class Vehiculo {
         IReferenciaDao refDao = new ImpReferenciaDao();
         referencia = refDao.consultarReferencias(referencia).get(0);
         vehiculo.setSmsReferencia(referencia);
-        
+
         IVehiculoDao linkDao = new ImpVehiculoDao();
         linkDao.registrarVehiculo(vehiculo);
     }
-    
+
     public void eliminarVehiculo(SmsVehiculo v) {
-       vehiculo = v;
+        vehiculo = v;
         IVehiculoDao linkDao = new ImpVehiculoDao();
         linkDao.eliminarVehiculo(vehiculo);
     }
