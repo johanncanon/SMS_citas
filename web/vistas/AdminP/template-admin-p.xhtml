@@ -63,6 +63,7 @@
 
                                     <p:submenu label="Registro" styleClass="color-menu-1" icon="ui-icon-pencil">
                                         <p:menuitem style="font-size: 1.2em" value="Registro de Usuario" icon="ui-icon-pencil" url="reservas/reservadmin.xhtml"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Registro de Lugar" icon="ui-icon-pencil" url="#"/>
                                     </p:submenu>
 
                                     <p:submenu label="Reservaciones" >
@@ -70,11 +71,16 @@
                                         <p:menuitem style="font-size: 1.2em" value="Reservar Conductores" url="reservas/reservadmin.xhtml"  icon="ui-icon-plusthick" />
                                         <p:menuitem style="font-size: 1.2em" value="Consultar reservaciones" url="reservas/reservadmin.xhtml"  icon="ui-icon-circle-zoomin" />
                                     </p:submenu>
+                                    
+                                     <p:submenu label="Servicios" >
+                                        <p:menuitem style="font-size: 1.2em" value="Consultar Servicios" url="reservas/reservadmin.xhtml"  icon="ui-icon-star" />
+                                    </p:submenu>
 
                                     <p:submenu label="Clientes">
                                         <p:menuitem style="font-size: 1.2em" value="Registro de Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-check"/>
                                         <p:menuitem style="font-size: 1.2em" value="Consultar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-circle-zoomin"/>
                                     </p:submenu>
+                                    
 
                                     <p:separator />
                                     <p:submenu label="Vehiculos" >
@@ -89,8 +95,17 @@
                                         <p:menuitem style="font-size: 1.2em" value="Consultar Conductores" url="#" icon="ui-icon-calculator"/>
 
                                     </p:submenu>
+                                    
+                                    <p:submenu label="Proveedores">
+                                        <p:menuitem style="font-size: 1.2em" value="Consultar Proveedores" url="#" icon="ui-icon-star"/>
+                                    </p:submenu>
+                                    
                                     <p:submenu label="Calificaciones">
                                         <p:menuitem style="font-size: 1.2em" value="Consultar Calificaciones" url="#" icon="ui-icon-star"/>
+                                    </p:submenu>
+                                    
+                                    <p:submenu label="Estadisticas">
+                                        <p:menuitem style="font-size: 1.2em" value="Estadisticas generales de SMS Renta" url="#" icon="ui-icon-star"/>
                                     </p:submenu>
                                 </p:panelMenu>
                             </h:form>
