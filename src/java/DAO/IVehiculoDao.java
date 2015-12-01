@@ -18,6 +18,7 @@ public interface IVehiculoDao {
     public void registrarVehiculo(SmsVehiculo vehiculo);
     public void modificarVehiculo(SmsVehiculo vehiculo);
     public void eliminarVehiculo(SmsVehiculo vehiculo);
+    public List<SmsVehiculo> consultarVehiculo(SmsVehiculo vehiculo);
     
     
     

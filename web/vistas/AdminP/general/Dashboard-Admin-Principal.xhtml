@@ -7,7 +7,7 @@
 
 
 
-    <ui:composition template="./template-admin-p.xhtml">
+    <ui:composition template="./../template-admin-p.xhtml">
         
         <ui:define name="content">
             
@@ -16,7 +16,7 @@
                     <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12"  >
                         <b:well>   
                             <!-- CALENDARIO PRINCIPAL -->
-                            <ui:include src="general/horarios.xhtml"></ui:include>
+                            <ui:include src="horarios.xhtml"></ui:include>
                         </b:well>
                     </b:column>
 
@@ -25,14 +25,14 @@
                             <b:column col-lg="6" col-md="6" col-sm="8" col-xs="12" >
                                 <b:well>
                                     <!-- CARUSEL DE VEHICULOS -->
-                                    <ui:include src="general/carousel-cars.xhtml"></ui:include>
+                                    <ui:include src="carousel-cars.xhtml"></ui:include>
                                 </b:well>
                             </b:column>
 
                             <b:column col-lg="3" col-md="3" col-sm="4" col-xs="12">
                                 <b:well>
                                     <!-- LISTA DE CONDUCTORES -->
-                                    <ui:include src="general/paginator.xhtml"></ui:include>
+                                    <ui:include src="paginator.xhtml"></ui:include>
                                 </b:well>                                
                             </b:column>
 
@@ -40,14 +40,14 @@
                             <b:column col-lg="3" col-md="3" col-sm="4" col-xs="12">
                                 <b:well>
                                     <!-- LISTA DE CLIENTES -->
-                                    <ui:include src="general/clientes.xhtml"></ui:include>
+                                    <ui:include src="clientes.xhtml"></ui:include>
                                 </b:well>                                
                             </b:column>
 
                             <b:column col-lg="6" col-md="6" col-sm="8" col-xs="12">
                                 <b:well>
                                     <!-- ESTADISTICAS GENERALES -->
-                                    <ui:include src="general/Est-dash.xhtml"></ui:include>
+                                    <ui:include src="Est-dash.xhtml"></ui:include>
                                 </b:well>                                
                             </b:column>
                         </b:row>

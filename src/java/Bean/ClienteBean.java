@@ -13,6 +13,7 @@ import Modelo.SmsRol;
 import Modelo.SmsUsuario;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -211,13 +212,20 @@ public class ClienteBean implements Serializable {
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
     }
+    
+     public void filtrar() {
+        clientesListView = new ArrayList<>();
+        if (buscar == null) {
+            clientesListView = clienteController.consultarClientes();
+        } else {
+           clientesListView = clienteController.filtrarClientes(buscar);
+        }
+    }
 
     //Metodos propios
     public void seleccionarCrud(int i) {
-        estado = i;
-        Rol rolController = new Rol();
-        List<SmsRol> roles = rolController.cargarRoles();
-        boolean rol;
+        estado = i;       
+        
         if (estado == 1) {//MODIFICACION
             nombre = "Modificar Cliente";
             ciudadView = clienteView.getSmsCiudad();

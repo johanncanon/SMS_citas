@@ -24,7 +24,8 @@
         <div id="top">
             <b:container fluid="true">
                 <b:row><!-- MENU -->
-                    <b:navBar  brandImg="../../resources/images/logo-DASH.png"   brandHref="#"  inverse="true">
+                    <b:navBar  brandImg="../../../resources/images/logo-DASH.png"   brandHref="#"  inverse="true">
+                        
                         <b:navbarLinks pull="right">
                             
                             <ui:include src="general/menu-responsive.xhtml"></ui:include>
@@ -51,8 +52,8 @@
                             <h:form>
                                 <p:growl autoUpdate="true"/>
                                 <b:thumbnail id="esp1">
-                                    <b:panelGrid colSpans="4,8">
-                                        <img src="../../resources/images/col-band.png" style="width: 113%; margin-left: 9px; margin-top: 16px;"/>
+                                    <b:panelGrid colSpans="4,8">                                        
+                                        <img src="../../../resources/images/col-band.png" style="width: 113%; margin-left: 9px; margin-top: 16px;"/>
                                         <f:facet name="caption"/>
                                         <h4>Thumbnail label</h4>
                                         <p>Nombre: "Nombre Completo."</p>
@@ -61,43 +62,38 @@
                                 </b:thumbnail>
                                 <p:panelMenu styleClass="ui-state-default-menu">
 
-                                    <p:submenu label="Registro" styleClass="color-menu-1" icon="ui-icon-pencil">
-                                        <p:menuitem style="font-size: 1.2em" value="Registro de Usuario" icon="ui-icon-pencil" url="reservas/reservadmin.xhtml"/>
-                                        <p:menuitem style="font-size: 1.2em" value="Registro de Lugar" icon="ui-icon-pencil" url="#"/>
+                                    <p:submenu label="Administradores" styleClass="color-menu-1" icon="ui-icon-pencil">
+                                        <p:menuitem style="font-size: 1.2em" value="Panel de administradores" icon="ui-icon-pencil" url="/vistas/AdminP/usuarios/PUsuario.xhtml"/>
+                                        
                                     </p:submenu>
 
                                     <p:submenu label="Reservaciones" >
-                                        <p:menuitem style="font-size: 1.2em" value="Reservar Vehiculos" url="reservas/reservadmin.xhtml"  icon="ui-icon-star" />
-                                        <p:menuitem style="font-size: 1.2em" value="Reservar Conductores" url="reservas/reservadmin.xhtml"  icon="ui-icon-plusthick" />
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar reservaciones" url="reservas/reservadmin.xhtml"  icon="ui-icon-circle-zoomin" />
+                                        <p:menuitem style="font-size: 1.2em" value="Panel Reserva" url="../referncias/PReserva.xhtml"  icon="ui-icon-star" />
                                     </p:submenu>
                                     
                                      <p:submenu label="Servicios" >
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar Servicios" url="reservas/reservadmin.xhtml"  icon="ui-icon-star" />
+                                        <p:menuitem style="font-size: 1.2em" value="Panel Servicios" url="../servicios/PServicios.xhtml"  icon="ui-icon-star" />
                                     </p:submenu>
 
                                     <p:submenu label="Clientes">
-                                        <p:menuitem style="font-size: 1.2em" value="Registro de Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-check"/>
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-circle-zoomin"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Panel de Clientes" url="../clientes/PClientes.xhtml"  icon="ui-icon-check"/>                                        
                                     </p:submenu>
                                     
 
                                     <p:separator />
                                     <p:submenu label="Vehiculos" >
-                                        <p:menuitem style="font-size: 1.2em" value="Marcas SMS Renta" url="#" icon="ui-icon-home"/>
-                                        <p:menuitem style="font-size: 1.2em"  value="Categorias SMS Renta" url="#" icon="ui-icon-contact"/>
-                                        <p:menuitem style="font-size: 1.2em" value="Referencias SMS Renta" url="http://www.primefaces.org" icon="ui-icon-folder-collapsed" />
-                                        <p:menuitem style="font-size: 1.2em" value="Vehiculo SMS Renta" url="http://www.primefaces.org" icon="ui-icon-person" />
+                                        <p:menuitem style="font-size: 1.2em" value="Marcas SMS Renta" url="../marcas/PMarca.xhtml" icon="ui-icon-home"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Categorias SMS Renta" url="../categorias/PCategoria.xhtml" icon="ui-icon-contact"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Referencias SMS Renta" url="../referencias/PReferencia.xhtml" icon="ui-icon-folder-collapsed" />
+                                        <p:menuitem style="font-size: 1.2em" value="Vehiculo SMS Renta" url="../vehiculos/PVehiculo.xhtml" icon="ui-icon-person" />
                                     </p:submenu>
 
-                                    <p:submenu label="Conductores SMS">
-                                        <p:menuitem style="font-size: 1.2em" value="Registrar Conductores" url="#" icon="ui-icon-arrowstop-1-s"/>
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar Conductores" url="#" icon="ui-icon-calculator"/>
-
+                                    <p:submenu label="Conductores">
+                                        <p:menuitem style="font-size: 1.2em" value="Panel Conductores" url="../empleados/PEmpleado.xhtml" icon="ui-icon-arrowstop-1-s"/>                                        
                                     </p:submenu>
                                     
                                     <p:submenu label="Proveedores">
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar Proveedores" url="#" icon="ui-icon-star"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Panel Proveedores" url="../proveedores/PProveedores.xhtml" icon="ui-icon-star"/>
                                     </p:submenu>
                                     
                                     <p:submenu label="Calificaciones">
@@ -105,7 +101,7 @@
                                     </p:submenu>
                                     
                                     <p:submenu label="Estadisticas">
-                                        <p:menuitem style="font-size: 1.2em" value="Estadisticas generales de SMS Renta" url="#" icon="ui-icon-star"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Estadisticas generales de SMS Renta" url="../estadisticas/" icon="ui-icon-star"/>
                                     </p:submenu>
                                 </p:panelMenu>
                             </h:form>

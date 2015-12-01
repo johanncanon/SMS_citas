@@ -9,6 +9,7 @@ import DAO.IEstadoVehiculoDao;
 import DAO.ImpEstadoVehiculoDao;
 import Modelo.SmsEstadovehiculo;
 import Modelo.SmsVehiculo;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,24 +56,30 @@ public class EstadoVehiculo {
     /**
      * ************************** METODOS DEL CRUD ****************************
      */
-    
-    public void registrarEstVeh(SmsEstadovehiculo estV){
+    public void registrarEstVeh(SmsEstadovehiculo estV) {
         estVehiculo = estV;
         IEstadoVehiculoDao linkDao = new ImpEstadoVehiculoDao();
         linkDao.registrarEstadoVehiculo(estVehiculo);
     }
-    
-    public void modificarEstVeh(SmsEstadovehiculo estV){
+
+    public void modificarEstVeh(SmsEstadovehiculo estV) {
         estVehiculo = estV;
         IEstadoVehiculoDao linkDao = new ImpEstadoVehiculoDao();
         linkDao.modificarEstadoVehiculo(estVehiculo);
     }
-    
-    public void eliminarEstVeh(SmsEstadovehiculo estV){
+
+    public void eliminarEstVeh(SmsEstadovehiculo estV) {
         estVehiculo = estV;
         IEstadoVehiculoDao linkDao = new ImpEstadoVehiculoDao();
         linkDao.eliminarEstadoVehiculo(estVehiculo);
     }
-    
-    
+
+    public List<SmsEstadovehiculo> consultarEstado(SmsVehiculo v) {
+        vehiculo = v;
+        estVehiculos = new ArrayList<>();
+        IEstadoVehiculoDao linkDao = new ImpEstadoVehiculoDao();
+        estVehiculos = linkDao.consultarEstadoVehiculo(vehiculo);
+        return estVehiculos;
+    }
+
 }

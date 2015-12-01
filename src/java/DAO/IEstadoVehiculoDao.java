@@ -6,6 +6,7 @@
 package DAO;
 
 import Modelo.SmsEstadovehiculo;
+import Modelo.SmsVehiculo;
 import java.util.List;
 
 /**
@@ -19,5 +20,5 @@ public interface IEstadoVehiculoDao {
     public void registrarEstadoVehiculo(SmsEstadovehiculo estado);
     public void modificarEstadoVehiculo(SmsEstadovehiculo estado);
     public void eliminarEstadoVehiculo(SmsEstadovehiculo estado);
-    
+    public List<SmsEstadovehiculo> consultarEstadoVehiculo(SmsVehiculo  vehiculo);
 }

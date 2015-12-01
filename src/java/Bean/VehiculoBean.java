@@ -7,6 +7,7 @@ package Bean;
 
 import Controlador.Archivos;
 import Controlador.EstadoVehiculo;
+import Controlador.Usuario;
 import Controlador.Vehiculo;
 import Modelo.SmsCategoria;
 import Modelo.SmsCiudad;
@@ -41,6 +42,7 @@ public class VehiculoBean {
     private Vehiculo vehiculoController;
     protected Archivos fileController;
     private EstadoVehiculo estadoVehiculoController;
+    private Usuario usuarioController;
 
     //Variables
     private int estado; //Controla la operacion a realizar
@@ -62,6 +64,7 @@ public class VehiculoBean {
         estadoVehiculoController = new EstadoVehiculo();
         fileController = new Archivos();
         usuarioView = new SmsUsuario();
+        usuarioController = new Usuario();
         
         buscar = null;
         estado = 0;
@@ -73,6 +76,7 @@ public class VehiculoBean {
 
     @PostConstruct
     public void init() {
+        vehiculosListView = vehiculoController.cargarVehiculos();
     }
 
     //Getters & Setters
@@ -226,67 +230,79 @@ public class VehiculoBean {
 
     public void setUsuarioView(SmsUsuario usuarioView) {
         this.usuarioView = usuarioView;
-    }   
-    
-    
-    
+    }
 
     //Definicion de metodos VEHICULO
     public void registrar() {
         vehiculoController.registrarVehiculo(categoriaView, usuarioView, ciudadView, refenciaView, vehiculoView);
+        vehiculoView = vehiculoController.consultarVehiculo(vehiculoView).get(0);
         estadoVehiculoView.setSmsVehiculo(vehiculoView);
         estadoVehiculoController.registrarEstVeh(estadoVehiculoView);
-        
+
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
         habilitarSubir = false;
-        
+
         refenciaView = new SmsReferencia();
         categoriaView = new SmsCategoria();
         proveedorView = new SmsProveedor();
         ciudadView = new SmsCiudad();
         vehiculoView = new SmsVehiculo();
+        usuarioView = new SmsUsuario();
+        estadoVehiculoView = new SmsEstadovehiculo();
+        vehiculosListView = vehiculoController.cargarVehiculos();
     }
 
     public void modificar() {
-        vehiculoController.modficarVehiculo(categoriaView, usuarioView, ciudadView, refenciaView, vehiculoView);
+        vehiculoController.modificarVehiculo(categoriaView, usuarioView, ciudadView, refenciaView, vehiculoView);
+        vehiculoView = vehiculoController.consultarVehiculo(vehiculoView).get(0);
         estadoVehiculoView.setSmsVehiculo(vehiculoView);
         estadoVehiculoController.modificarEstVeh(estadoVehiculoView);
-                
+
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
         habilitarSubir = false;
-        
+
         refenciaView = new SmsReferencia();
         categoriaView = new SmsCategoria();
         proveedorView = new SmsProveedor();
         ciudadView = new SmsCiudad();
         vehiculoView = new SmsVehiculo();
+        usuarioView = new SmsUsuario();
+        estadoVehiculoView = new SmsEstadovehiculo();
+        vehiculosListView = vehiculoController.cargarVehiculos();
     }
 
     public void eliminar() {
-        vehiculoController.eliminarVehiculo(vehiculoView);        
-        
+        vehiculoController.eliminarVehiculo(vehiculoView);
+
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
         habilitarSubir = false;
-        
-        
+
         refenciaView = new SmsReferencia();
         categoriaView = new SmsCategoria();
         proveedorView = new SmsProveedor();
         ciudadView = new SmsCiudad();
         vehiculoView = new SmsVehiculo();
+        usuarioView = new SmsUsuario();
+        estadoVehiculoView = new SmsEstadovehiculo();
+
+        vehiculosListView = vehiculoController.cargarVehiculos();
     }
 
-    
     //Metodos propios
     public void seleccionarCrud(int i) {
         estado = i;
-        
+
         if (estado == 1) {//MODIFICACION
             nombre = "Modificar Vehiculo";
-            ciudadView = vehiculoView.getSmsCiudad();            
+            ciudadView = vehiculoView.getSmsCiudad();
+            refenciaView = vehiculoView.getSmsReferencia();
+            categoriaView = vehiculoView.getSmsCategoria();
+            proveedorView = vehiculoView.getSmsProveedor();
+            usuarioView = usuarioController.consultarUsuario(proveedorView.getSmsUsuario()).get(0);
+            estadoVehiculoView = estadoVehiculoController.consultarEstado(vehiculoView).get(0);
 
             if (vehiculoView.getVehFotoNombre() != null && vehiculoView.getVehFotoRuta() != null) {
                 subirArchivo = "Modificar Fotografia";
@@ -298,9 +314,14 @@ public class VehiculoBean {
             }
         } else if (estado == 2) {//ELIMINACION
             nombre = "Eliminar Vehiculo";
-            ciudadView = vehiculoView.getSmsCiudad();            
-
+            ciudadView = vehiculoView.getSmsCiudad();
+            refenciaView = vehiculoView.getSmsReferencia();
+            categoriaView = vehiculoView.getSmsCategoria();
+            proveedorView = vehiculoView.getSmsProveedor();
+            estadoVehiculoView = estadoVehiculoController.consultarEstado(vehiculoView).get(0);
+            usuarioView = usuarioController.consultarUsuario(proveedorView.getSmsUsuario()).get(0);
             subirArchivo = "Subir Fotografia";
+            estadoArchivo = "Foto subida:" + vehiculoView.getVehFotoNombre();
             habilitarSubir = true;
         }
     }
@@ -318,7 +339,7 @@ public class VehiculoBean {
             nombre = "Registrar Vehiculo";
         }
     }
-    
+
     public void upload() throws IOException {
         FacesMessage message = new FacesMessage();
         if (null != getArchivo()) {

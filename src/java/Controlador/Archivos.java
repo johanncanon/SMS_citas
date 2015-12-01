@@ -34,10 +34,8 @@ public class Archivos {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
-    }
+    }    
     
-    
-
     public void UploadFile(byte[] b, String nombre) throws IOException {        
         
         if (null != b) {

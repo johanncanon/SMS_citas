@@ -198,6 +198,15 @@ public class ProveedorBean implements Serializable {
         this.estadoArchivo = estadoArchivo;
     }
 
+    public void filtrar() {
+        proveedoresListView = new ArrayList<>();
+        if (buscar == null) {
+            proveedoresListView = proveedorController.consultarProveedores();
+        } else {
+            proveedoresListView = proveedorController.filtrarProveedores(buscar);
+        }
+    }
+
     //Metodos    
     public void registrar() {
         rolView.setRolNombre("Proveedor");

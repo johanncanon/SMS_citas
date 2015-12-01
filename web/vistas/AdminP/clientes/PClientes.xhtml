@@ -109,6 +109,9 @@
                                 <div class="box box-success">
                                     <div class="box-header with-border">
                                         <h4>CLIENTES SMS Renta</h4><hr/>
+                                        <b:inputText placeholder="Buscar" value="#{clienteBean.buscar}" style=" width: 100%">
+                                            <p:ajax event="keyup" listener="#{clienteBean.filtrar()}" process="@this" update="DTClientes"/>
+                                        </b:inputText>
                                         <p:dataTable id="DTClientes" var="cliente" emptyMessage="Administradores no registrados" value="#{clienteBean.clientesListView}">
                                             <p:column headerText="Nombre y apellido">
                                                 <p:outputLabel value="#{cliente.usuarioNombre}"/>

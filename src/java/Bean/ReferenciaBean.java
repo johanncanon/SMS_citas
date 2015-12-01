@@ -49,10 +49,8 @@ public class ReferenciaBean implements Serializable {
     public void init(){
         referenciasListView = referenciaController.cargarReferencias();
     }
-    /**
-     * ******************************************************
-     ********* getters y setters *************
-     */
+    
+    //Getters & Setters
     public SmsMarca getMarcaView() {
         return marcaView;
     }

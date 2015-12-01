@@ -111,7 +111,9 @@
                                 <div class="box box-success">
                                     <div class="box-header with-border">
                                         <h4>PROVEEDORES SMS Renta</h4><hr/>
-
+                                        <b:inputText placeholder="Buscar" value="#{proveedorBean.buscar}" style=" width: 100%">
+                                            <p:ajax event="keyup" listener="#{proveedorBean.filtrar()}" process="@this" update="DTProveedores"/>
+                                        </b:inputText>
                                         <p:dataTable id="DTProveedores" var="proveedor" emptyMessage="Proveedores no registrados" value="#{proveedorBean.proveedoresListView}">
                                            
                                             <p:column headerText="Representante">

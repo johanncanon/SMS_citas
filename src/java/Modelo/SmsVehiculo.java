@@ -10,7 +10,6 @@ import java.util.Set;
  */
 public class SmsVehiculo  implements java.io.Serializable {
 
-
      private Integer idVehiculo;
      private SmsCategoria smsCategoria;
      private SmsCiudad smsCiudad;
@@ -159,9 +158,6 @@ public class SmsVehiculo  implements java.io.Serializable {
     public void setSmsEstadovehiculos(Set<SmsEstadovehiculo> smsEstadovehiculos) {
         this.smsEstadovehiculos = smsEstadovehiculos;
     }
-
-
-
 
 }
 

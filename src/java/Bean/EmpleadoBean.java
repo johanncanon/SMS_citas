@@ -15,6 +15,7 @@ import Modelo.SmsRol;
 import Modelo.SmsUsuario;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -253,6 +254,15 @@ public class EmpleadoBean implements Serializable {
 
     public void setEmpleadosListView(List<SmsUsuario> empleadosListView) {
         this.empleadosListView = empleadosListView;
+    }
+    
+    public void filtrar() {
+        empleadosListView = new ArrayList<>();
+        if (buscar == null) {
+            empleadosListView = empleadoController.consultarEmpleados();
+        } else {
+            empleadosListView = empleadoController.filtrarEmpleados(buscar);
+        }
     }
 
     //Metodos que se comunican con el controlador    

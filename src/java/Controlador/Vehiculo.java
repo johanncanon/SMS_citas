@@ -23,6 +23,7 @@ import Modelo.SmsCiudad;
 import Modelo.SmsProveedor;
 import Modelo.SmsReferencia;
 import Modelo.SmsUsuario;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,7 +59,7 @@ public class Vehiculo {
     }
 
     //Metodos
-    public void modficarVehiculo(SmsCategoria c, SmsUsuario u, SmsCiudad ci, SmsReferencia r, SmsVehiculo v) {
+    public void modificarVehiculo(SmsCategoria c, SmsUsuario u, SmsCiudad ci, SmsReferencia r, SmsVehiculo v) {
         SmsCategoria categoria = c;
         SmsUsuario usuario = u;
         SmsProveedor proveedor;
@@ -135,4 +136,17 @@ public class Vehiculo {
         linkDao.eliminarVehiculo(vehiculo);
     }
 
+    public List<SmsVehiculo> consultarVehiculo(SmsVehiculo vehiculo){
+        vehiculos = new ArrayList<>();
+        IVehiculoDao linkDao = new ImpVehiculoDao();
+        vehiculos = linkDao.consultarVehiculo(vehiculo);
+        return vehiculos;
+    }
+    
+    public List<SmsVehiculo> cargarVehiculos(){
+        vehiculos = new ArrayList<>();
+        IVehiculoDao linkDao = new ImpVehiculoDao();
+        vehiculos = linkDao.mostrarVehiculo();
+        return vehiculos;
+    }
 }

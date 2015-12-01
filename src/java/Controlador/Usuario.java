@@ -45,7 +45,9 @@ public class Usuario {
 
     //Metodos CRUD 
     public void registrarUsuario(SmsUsuario u, SmsCiudad c, SmsRol r) {
-        usuario = u;ciudad = c;SmsRol rol = r;
+        usuario = u;
+        ciudad = c;
+        SmsRol rol = r;
 
         //el metodo recibe los atributos, agrega al atributo ciudad del objeto usuario un objeto correspondiente, 
         //de la misma forma comprueba el rol y lo asocia, por ultimo persiste el usuario en la base de datos
@@ -64,8 +66,10 @@ public class Usuario {
     }
 
     public void modificarUsuario(SmsUsuario u, SmsCiudad c, SmsRol r) {
-        usuario = u;ciudad = c;SmsRol rol = r;
-        
+        usuario = u;
+        ciudad = c;
+        SmsRol rol = r;
+
         //el metodo recibe el objeto usuario, con sus atributos modificados y lo persiste en la BD
         ICiudadDao ciudadDao = new ImpCiudadDao();
         ciudad = ciudadDao.consultarCiudad(ciudad).get(0);
@@ -74,10 +78,10 @@ public class Usuario {
         IRolDao rolDao = new ImpRolDao();
         rol = rolDao.consultarRol(rol).get(0);
         usuario.setSmsRol(rol);//Asociamos un rol a un usuario
-        
+
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarioDao.modificarUsuario(usuario);
-    }    
+    }
 
     public void eliminarUsuario(SmsUsuario u) {
         usuario = u;
@@ -89,7 +93,7 @@ public class Usuario {
     public List<SmsUsuario> cargarUsuarios() {
         //el metodo consulta de la base de datos todos los usuarios registrados y los retorna en una lista
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
-        List<SmsUsuario> usuarios = usuarioDao.mostrarUsuario();
+        usuarios = usuarioDao.mostrarUsuario();
         return usuarios;
     }
 
@@ -97,10 +101,10 @@ public class Usuario {
         usuario = u;
         //el metodo consulta de la base de datos todos los usuarios registrados y los retorna en una lista
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
-        List<SmsUsuario> usuarios = usuarioDao.consultarUsuario(usuario);
+        usuarios = usuarioDao.consultarUsuario(usuario);
         return usuarios;
     }
-    
+
     public List<SmsUsuario> consultarAdministradores() {
         usuarios = new ArrayList<>();
         //el metodo consulta de la base de datos todos los usuarios registrados y los retorna en una lista
@@ -108,7 +112,7 @@ public class Usuario {
         usuarios = usuarioDao.consultarUsuariosAdministradores();
         return usuarios;
     }
-    
+
     public List<SmsUsuario> consultarClientes() {
         usuarios = new ArrayList<>();
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
@@ -123,8 +127,35 @@ public class Usuario {
         usuarios = usuarioDao.consultarUsuariosProveedores();
         return usuarios;
     }
-    
-   
+
+    public List<SmsUsuario> consultarEmpleados() {
+        usuarios = new ArrayList<>();
+        IUsuarioDao usuarioDao = new ImpUsuarioDao();
+        usuarios = usuarioDao.consultarUsuariosEmpleados();
+        return usuarios;
+    }
+
+    public List<SmsUsuario> filtrarEmpleados(String valor) {
+        usuarios = new ArrayList<>();
+        IUsuarioDao usuarioDao = new ImpUsuarioDao();
+        usuarios = usuarioDao.filtrarUsuariosEmpleados(valor);
+        return usuarios;
+    }
+
+    public List<SmsUsuario> filtrarClientes(String valor) {
+        usuarios = new ArrayList<>();
+        IUsuarioDao usuarioDao = new ImpUsuarioDao();
+        usuarios = usuarioDao.filtrarUsuariosClientes(valor);
+        return usuarios;
+    }
+
+    public List<SmsUsuario> filtrarProveedores(String valor) {
+        usuarios = new ArrayList<>();
+        IUsuarioDao usuarioDao = new ImpUsuarioDao();
+        usuarios = usuarioDao.filtrarUsuariosProveedores(valor);
+        return usuarios;
+    }
+
     //Metodos de la sesion    
     public String iniciarSesion(SmsUsuario u) {
         usuario = u;
@@ -143,7 +174,7 @@ public class Usuario {
             if (rolUsuario) {//valida si el rol es verdadero y consulta segun su valor, a cual dashboard debo direccionar al usuario
                 switch (roles.get(i).getRolNombre()) {
                     case "Administrador Principal":
-                        ruta = "Dashboard-Admin-Principal.xhtml";
+                        ruta = "/vistas/AdminP/general/Dashboard-Admin-Principal.xhtml";
                         break;
                     case "Administrador Secundario":
                         ruta = "Dashboard-Admin-Secundario.xhtml";

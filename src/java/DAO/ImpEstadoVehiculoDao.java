@@ -6,6 +6,7 @@
 package DAO;
 
 import Modelo.SmsEstadovehiculo;
+import Modelo.SmsVehiculo;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -16,7 +17,7 @@ import org.hibernate.Session;
  *
  * @author Desarrollo_Planit
  */
-public class ImpEstadoVehiculoDao implements IEstadoVehiculoDao{
+public class ImpEstadoVehiculoDao implements IEstadoVehiculoDao {
 
     @Override
     public List<SmsEstadovehiculo> mostrarEstadoVehiculo() {
@@ -24,7 +25,7 @@ public class ImpEstadoVehiculoDao implements IEstadoVehiculoDao{
         List<SmsEstadovehiculo> EstadoVehiculos = new ArrayList<>();
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsCiudad");
+            Query query = session.createQuery("from SmsEstadoVehiculo as estado left join fetch estado.smsVehiculo");
             EstadoVehiculos = (List<SmsEstadovehiculo>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
@@ -33,7 +34,7 @@ public class ImpEstadoVehiculoDao implements IEstadoVehiculoDao{
                 session.close();
             }
         }
-        return EstadoVehiculos;        
+        return EstadoVehiculos;
     }
 
     @Override
@@ -89,5 +90,22 @@ public class ImpEstadoVehiculoDao implements IEstadoVehiculoDao{
             }
         }
     }
-    
+
+    @Override
+    public List<SmsEstadovehiculo> consultarEstadoVehiculo(SmsVehiculo vehiculo) {
+        Session session = null;
+        List<SmsEstadovehiculo> EstadoVehiculos = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsEstadovehiculo as estado left join fetch estado.smsVehiculo as vehiculo where vehiculo.idVehiculo = '" + vehiculo.getIdVehiculo() + "'");
+            EstadoVehiculos = (List<SmsEstadovehiculo>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return EstadoVehiculos;
+    }
 }

@@ -7,10 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-
-
     <ui:composition template="./../template-admin-p.xhtml">
-      <ui:define name="content">   
+        <ui:define name="content">   
             <b:container fluid="true">
                 <b:row>
                     <h:form id="formA">
@@ -18,107 +16,113 @@
                             <b:column col-lg="6" col-md="6" col-sm="5" col-xs="12" >
                                 <div class="box box-danger">
                                     <div class="box-header with-border">                                        
-                                        <h4>REGISTRO VEHICULOS SMS Renta</h4>
-                                        <div class="table-responsive">                                    
-                                            <p:panel header="Ingreso de Datos de Vehiculos SMS" style="margin-bottom:10px;">                                      
+                                        <h4>REGISTRO VEHICULOS SMS Renta</h4><hr/>
+                                        <div class="table-responsive">                                
+                                            <h:panelGrid id="seccionDatosVehiculo" columns="4" style="width: 100%">                                     
+                                                <p:outputLabel value="Referencia: " />
+                                                <b:selectOneMenu id="referencia" label="Referencia" required="true" value="#{vehiculoBean.refenciaView.referenciaNombre}" style="width: 100%">
+                                                    <f:selectItem itemLabel="Seleccionar Referencia" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItems value="#{referenciaBean.nombresReferenciaListView}" />
+                                                </b:selectOneMenu>
 
-                                                <h:panelGrid columns="4" style="width: 100%">                                     
-                                                    <p:outputLabel value="Referencia: " />
-                                                    <b:selectOneMenu id="referencia" value="#{vehiculoBean.refenciaView.referenciaNombre}" style="width: 100%">
-                                                        <f:selectItem itemLabel="Seleccionar Referencia" itemValue="" noSelectionOption="true" />
-                                                        <f:selectItems value="#{referenciaBean.nombresReferenciaListView}" />
-                                                    </b:selectOneMenu>
 
-                                                    <p:outputLabel value="Ciudad:" />
-                                                    <b:selectOneMenu id="ciudad" value="#{vehiculoBean.ciudadView.ciudadNombre}" style="width: 100%">
-                                                        <f:selectItem itemLabel="Selecionar Ciudad" itemValue="" noSelectionOption="true" />
-                                                        <f:selectItems value="#{ciudadBean.nombresCiudadesListView}" />
-                                                    </b:selectOneMenu>
+                                                <p:outputLabel value="Ciudad:" />
+                                                <b:selectOneMenu id="ciudad" label="Ciudad" required="true" value="#{vehiculoBean.ciudadView.ciudadNombre}" style="width: 100%">
+                                                    <f:selectItem itemLabel="Selecionar Ciudad" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItems value="#{ciudadBean.nombresCiudadesListView}" />
+                                                </b:selectOneMenu>
 
-                                                    <p:outputLabel value="Categoria:" />
-                                                    <b:selectOneMenu id="categoria" value="#{vehiculoBean.categoriaView.categoriaNombre}" style="width: 100%">
-                                                        <f:selectItem itemLabel="Seleccionar Categoria" itemValue="" noSelectionOption="true" />
-                                                        <f:selectItems value="#{categoriaBean.nombresCategoriasListView}" />
-                                                    </b:selectOneMenu>
 
-                                                    <p:outputLabel value="Proveedor:" />
-                                                    <b:selectOneMenu id="id-prov" value="#{vehiculoBean.usuarioView.usuarioNombre}" style="width: 100%">
-                                                        <f:selectItem itemLabel="Seleccionar Proveedor" itemValue="" noSelectionOption="true" />
-                                                        <f:selectItems value="#{proveedorBean.nombresProveedoresView}" />
-                                                    </b:selectOneMenu>
+                                                <p:outputLabel value="Categoria:" />
+                                                <b:selectOneMenu id="categoria" label="Categoria" required="true" value="#{vehiculoBean.categoriaView.categoriaNombre}" style="width: 100%">
+                                                    <f:selectItem itemLabel="Seleccionar Categoria" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItems value="#{categoriaBean.nombresCategoriasListView}" />
+                                                </b:selectOneMenu>
 
-                                                    <h:outputLabel value="Color: "/>
-                                                    <b:inputText placeholder="Color del vehiculo" style="width: 100%" value="#{vehiculoBean.vehiculoView.vehColor}"/>
 
-                                                    <h:outputLabel value="Modelo: "/>
-                                                    <b:inputText placeholder="Modelo del vehiculo" style="width: 100%" value="#{vehiculoBean.vehiculoView.vehModelo}"/>
+                                                <p:outputLabel value="Proveedor:" />
+                                                <b:selectOneMenu id="proveedor" required="true" label="Categoria" value="#{vehiculoBean.usuarioView.usuarioNombre}" style="width: 100%">
+                                                    <f:selectItem itemLabel="Seleccionar Proveedor" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItems value="#{proveedorBean.nombresProveedoresView}" />
+                                                </b:selectOneMenu>
 
-                                                    <h:outputLabel value="N° de Maletas P: "/>
-                                                    <b:inputText placeholder="Cant. maletas pequeñas" style="width: 100%"  value="#{vehiculoBean.vehiculoView.vehNumMalPequeña}"/>
 
-                                                    <h:outputLabel value="N° de Maletas G: "/>
-                                                    <b:inputText placeholder="Cant. maletas grandes" style="width: 100%" value="#{vehiculoBean.vehiculoView.vehNumMalGrande}"/>
+                                                <p:outputLabel value="Color: "/>
+                                                <b:inputText id="TVehColor" required="true" requiredMessage="Ingrese color " placeholder="Color del vehiculo" style="width: 100%" value="#{vehiculoBean.vehiculoView.vehColor}"/>
 
-                                                    <h:outputLabel value="N° de Personas: "/>
-                                                    <b:inputText placeholder="Cant. personas" style="width: 100%" value="#{vehiculoBean.vehiculoView.vehNumPersonas}"/>
 
-                                                    <h:outputLabel value="N° de Placa: "/>
-                                                    <b:inputText placeholder="Numero del placa" style="width: 100%" value="#{vehiculoBean.vehiculoView.vehPlaca}"/>                                                
-                                                </h:panelGrid>
-                                            </p:panel>
+                                                <p:outputLabel value="Modelo: "/>
+                                                <b:inputText id="TVehModelo" required="true" requiredMessage="Ingrese modelo del vehiculo" placeholder="Modelo del vehiculo" style="width: 100%" value="#{vehiculoBean.vehiculoView.vehModelo}"/>
+
+
+                                                <p:outputLabel value="N° de Maletas P: "/>
+                                                <b:inputText id="TVehMalP" placeholder="Cant. maletas pequeñas" style="width: 100%"  value="#{vehiculoBean.vehiculoView.vehNumMalPequeña}"/>
+
+
+                                                <p:outputLabel value="N° de Maletas G: "/>
+                                                <b:inputText id="TVehMalG" placeholder="Cant. maletas grandes" style="width: 100%" value="#{vehiculoBean.vehiculoView.vehNumMalGrande}"/>
+
+
+                                                <p:outputLabel value="N° de Personas: "/>
+                                                <b:inputText id="TVehPer" placeholder="Cant. personas" style="width: 100%" value="#{vehiculoBean.vehiculoView.vehNumPersonas}"/>
+
+
+                                                <p:outputLabel value="N° de Placa: "/>
+                                                <b:inputText id="TVehPlaca" required="true" requiredMessage="Ingrese placa del vehiculo" placeholder="Numero del placa" style="width: 100%" value="#{vehiculoBean.vehiculoView.vehPlaca}"/>                                                
+
+                                            </h:panelGrid>
                                         </div>
-
+                                        <hr/>
                                         <div class="table-responsive">
-                                            <p:panel header="Estado del Vehiculo">                                           
-                                                <h:panelGrid columns="4" style="width: 100%">
-                                                    <p:outputLabel value="Frenos:" />
-                                                    <b:selectOneMenu id="est-frenos" value="#{vehiculoBean.estadoVehiculoView.estadoVehFrenos}" style="width: 100%">
-                                                        <f:selectItem itemLabel="Excelente" itemValue="Excelente" />
-                                                        <f:selectItem itemLabel="Bueno" itemValue="Bueno" />
-                                                        <f:selectItem itemLabel="Regular" itemValue="Regular" />
-                                                        <f:selectItem itemLabel="Malo" itemValue="Malo" />
-                                                    </b:selectOneMenu>
+                                            <h4>Estado Vehiculo</h4>
+                                            <h:panelGrid id="seccionEstadoVehiculo" columns="4" style="width: 100%">
+                                                <p:outputLabel value="Frenos:" />
+                                                <b:selectOneMenu id="est-frenos" value="#{vehiculoBean.estadoVehiculoView.estadoVehFrenos}" style="width: 100%">
+                                                    <f:selectItem itemLabel="Excelente" itemValue="Excelente" />
+                                                    <f:selectItem itemLabel="Bueno" itemValue="Bueno" />
+                                                    <f:selectItem itemLabel="Regular" itemValue="Regular" />
+                                                    <f:selectItem itemLabel="Malo" itemValue="Malo" />
+                                                </b:selectOneMenu>
 
-                                                    <p:outputLabel value="Motor:" />
-                                                    <b:selectOneMenu id="est-motor" value="#{vehiculoBean.estadoVehiculoView.estadoVehMotor}" style="width: 100%">
-                                                        <f:selectItem itemLabel="Excelente" itemValue="Excelente" />
-                                                        <f:selectItem itemLabel="Bueno" itemValue="Bueno" />
-                                                        <f:selectItem itemLabel="Regular" itemValue="Regular" />
-                                                        <f:selectItem itemLabel="Malo" itemValue="Malo" />
-                                                    </b:selectOneMenu>
+                                                <p:outputLabel value="Motor:" />
+                                                <b:selectOneMenu id="est-motor" value="#{vehiculoBean.estadoVehiculoView.estadoVehMotor}" style="width: 100%">
+                                                    <f:selectItem itemLabel="Excelente" itemValue="Excelente" />
+                                                    <f:selectItem itemLabel="Bueno" itemValue="Bueno" />
+                                                    <f:selectItem itemLabel="Regular" itemValue="Regular" />
+                                                    <f:selectItem itemLabel="Malo" itemValue="Malo" />
+                                                </b:selectOneMenu>
 
-                                                    <p:outputLabel value="Silleteria:" />
-                                                    <b:selectOneMenu id="est-sillas" value="#{vehiculoBean.estadoVehiculoView.estadoVehSilleteria}" style="width: 100%">
-                                                        <f:selectItem itemLabel="Excelente" itemValue="Excelente" />
-                                                        <f:selectItem itemLabel="Bueno" itemValue="Bueno" />
-                                                        <f:selectItem itemLabel="Regular" itemValue="Regular" />
-                                                        <f:selectItem itemLabel="Malo" itemValue="Malo" />
-                                                    </b:selectOneMenu>
+                                                <p:outputLabel value="Silleteria:" />
+                                                <b:selectOneMenu id="est-sillas" value="#{vehiculoBean.estadoVehiculoView.estadoVehSilleteria}" style="width: 100%">
+                                                    <f:selectItem itemLabel="Excelente" itemValue="Excelente" />
+                                                    <f:selectItem itemLabel="Bueno" itemValue="Bueno" />
+                                                    <f:selectItem itemLabel="Regular" itemValue="Regular" />
+                                                    <f:selectItem itemLabel="Malo" itemValue="Malo" />
+                                                </b:selectOneMenu>
 
-                                                    <p:outputLabel value="Pintura:" />
-                                                    <b:selectOneMenu id="est-pintu" value="#{vehiculoBean.estadoVehiculoView.estadoVehPintura}" style="width: 100%">
-                                                        <f:selectItem itemLabel="Excelente" itemValue="Excelente" />
-                                                        <f:selectItem itemLabel="Bueno" itemValue="Bueno" />
-                                                        <f:selectItem itemLabel="Regular" itemValue="Regular" />
-                                                        <f:selectItem itemLabel="Malo" itemValue="Malo" />
-                                                    </b:selectOneMenu>
+                                                <p:outputLabel value="Pintura:" />
+                                                <b:selectOneMenu id="est-pintu" value="#{vehiculoBean.estadoVehiculoView.estadoVehPintura}" style="width: 100%">
+                                                    <f:selectItem itemLabel="Excelente" itemValue="Excelente" />
+                                                    <f:selectItem itemLabel="Bueno" itemValue="Bueno" />
+                                                    <f:selectItem itemLabel="Regular" itemValue="Regular" />
+                                                    <f:selectItem itemLabel="Malo" itemValue="Malo" />
+                                                </b:selectOneMenu>
 
-                                                    <p:outputLabel value="Kilometraje:" />
-                                                    <b:inputText placeholder="Valor del kilometraje" style="width: 100%" value="#{vehiculoBean.estadoVehiculoView.estadoVehKilometraje}"/>
-                                                </h:panelGrid>
-                                            </p:panel>
+                                                <p:outputLabel value="Kilometraje:" />
+                                                <b:inputText placeholder="Valor del kilometraje" style="width: 100%" value="#{vehiculoBean.estadoVehiculoView.estadoVehKilometraje}"/>
+                                            </h:panelGrid>
+
                                         </div><hr/>
-                                        <p:commandButton  style="width: 100%" value="#{vehiculoBean.nombre}" ajax="false" action="#{vehiculoBean.metodo()}"/>
+                                        <p:commandButton id="BTVehiculo" style="width: 100%" value="#{vehiculoBean.nombre}" update=":formA:seccionDatosVehiculo :formA:seccionEstadoVehiculo :formA:BTVehiculo :formB :formC:DTVehiculos" action="#{vehiculoBean.metodo()}"/>
                                     </div>
                                 </div>
                             </b:column>
-                        </div>      
-
+                        </div>    
                         <div class="espacio-arriba">
                             <b:column col-lg="3" col-md="3" col-sm="3" col-xs="12" >
                                 <div class="box box-info">
                                     <div class="box-header with-border"> 
-                                        <h3>Vehiculos SMS Renta</h3>
+                                        <h4>VEHICULOS SMS Renta</h4>
                                         <hr/>
                                         <p>En este panel podra ingresar las Marcas de los vehiculos de SMS renta como 
                                             consultar los vehiculos por sus respectivas Marcas.</p>
@@ -151,35 +155,35 @@
                                 <div class="box-header with-border">
                                     <h3>Vehìculos SMS Renta</h3>
                                     <hr/>
-                                    <p:dataTable var="vehiculo" emptyMessage="Vehiculos nos registrados" value="#{vehiculoBean.vehiculosListView}">
+                                    <p:dataTable var="vehiculo" id="DTVehiculos" emptyMessage="Vehiculos nos registrados" value="#{vehiculoBean.vehiculosListView}">
                                         <p:column headerText="Placa">
                                             <h:outputText value="#{vehiculo.vehPlaca}" />
                                         </p:column>
 
                                         <p:column headerText="Referencia">
-                                            <h:outputText value="#{vehiculo.smsReferencia}" />
+                                            <h:outputText value="#{vehiculo.smsReferencia.referenciaNombre}" />
                                         </p:column>
 
                                         <p:column headerText="Ciudad">
-                                            <h:outputText value="#{vehiculo.smsCiudad}" />
+                                            <h:outputText value="#{vehiculo.smsCiudad.ciudadNombre}" />
                                         </p:column>
 
                                         <p:column headerText="Categoria">
-                                            <h:outputText value="#{vehiculo.smsCategoria}" />
+                                            <h:outputText value="#{vehiculo.smsCategoria.categoriaNombre}" />
                                         </p:column>
 
                                         <p:column headerText="Proveedor">
-                                            <h:outputText value="#{vehiculo.smsProveedor}" />
+                                            <h:outputText value="#{vehiculo.smsProveedor.smsUsuario.usuarioRazonSocial}" />
                                         </p:column>
 
                                         <p:column style="width: 35px">
-                                            <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTCliente :formB" icon="ui-icon-pencil" action="#{clienteBean.seleccionarCrud(1)}" title="Modificar">
+                                            <p:commandButton process="@this" update=":formA:seccionDatosVehiculo :formA:seccionEstadoVehiculo :formA:BTVehiculo :formB" icon="ui-icon-pencil" action="#{vehiculoBean.seleccionarCrud(1)}" title="Modificar">
                                                 <f:setPropertyActionListener value="#{vehiculo}" target="#{vehiculoBean.vehiculoView}"/>
                                             </p:commandButton>
                                         </p:column>
 
                                         <p:column style="width: 35px"> 
-                                            <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTCliente :formB" icon="ui-icon-close" action="#{clienteBean.seleccionarCrud(2)}" title="Eliminar">
+                                            <p:commandButton process="@this" update=":formA:seccionDatosVehiculo :formA:seccionEstadoVehiculo :formA:BTVehiculo :formB" icon="ui-icon-close" action="#{vehiculoBean.seleccionarCrud(2)}" title="Eliminar">
                                                 <f:setPropertyActionListener value="#{vehiculo}" target="#{vehiculoBean.vehiculoView}"/>
                                             </p:commandButton>
                                         </p:column>                                                                   

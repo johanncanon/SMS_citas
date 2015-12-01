@@ -18,19 +18,19 @@ import org.hibernate.Session;
  *
  * @author Desarrollo_Planit
  */
-public class ImpVehiculoDao implements IVehiculoDao{
-    
+public class ImpVehiculoDao implements IVehiculoDao {
+
     private FacesMessage message;
 
     @Override
     public List<SmsVehiculo> mostrarVehiculo() {
-         Session session = null;
+        Session session = null;
         List<SmsVehiculo> vehiculos = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsVehiculo");
+            Query query = session.createQuery("from SmsVehiculo as vehiculo left join fetch vehiculo.smsCategoria as categoria left join fetch vehiculo.smsCiudad as ciudad "
+                    + "left join fetch vehiculo.smsProveedor as proveedor left join fetch proveedor.smsUsuario as usuario left join fetch vehiculo.smsReferencia as referencia");
             vehiculos = (List<SmsVehiculo>) query.list();
-
         } catch (HibernateException e) {
             e.getMessage();
         } finally {
@@ -44,18 +44,18 @@ public class ImpVehiculoDao implements IVehiculoDao{
     @Override
     public void registrarVehiculo(SmsVehiculo vehiculo) {
         Session session = null;
-        try{
+        try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(vehiculo);
             session.getTransaction().commit();
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Vehiculo registrado", "" + vehiculo.getVehPlaca() );
-        }catch(HibernateException e){
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Vehiculo registrado", "" + vehiculo.getVehPlaca());
+        } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
-        }finally{
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
@@ -64,19 +64,19 @@ public class ImpVehiculoDao implements IVehiculoDao{
 
     @Override
     public void modificarVehiculo(SmsVehiculo vehiculo) {
-       Session session = null;
-        try{
+        Session session = null;
+        try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.update(vehiculo);
             session.getTransaction().commit();
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Vehiculo modificado", "" + vehiculo.getVehPlaca() );
-        }catch(HibernateException e){
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Vehiculo modificado", "" + vehiculo.getVehPlaca());
+        } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
-        }finally{
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
@@ -86,23 +86,42 @@ public class ImpVehiculoDao implements IVehiculoDao{
     @Override
     public void eliminarVehiculo(SmsVehiculo vehiculo) {
         Session session = null;
-        try{
+        try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.delete(vehiculo);
             session.getTransaction().commit();
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Vehiculo eliminado", "" + vehiculo.getVehPlaca() );
-        }catch(HibernateException e){
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Vehiculo eliminado", "" + vehiculo.getVehPlaca());
+        } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Imposible realizar la operacion", null);
-        }finally{
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-    
-    
+
+    @Override
+    public List<SmsVehiculo> consultarVehiculo(SmsVehiculo vehiculo) {
+        Session session = null;
+        List<SmsVehiculo> vehiculos = null;
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsVehiculo as vehiculo left join fetch vehiculo.smsCategoria as categoria left join fetch vehiculo.smsCiudad as ciudad"
+                    + " left join fetch vehiculo.smsProveedor as proveedor left join fetch vehiculo.smsReferencia as referencia where vehiculo.vehPlaca = '" + vehiculo.getVehPlaca() + "'");
+            vehiculos = (List<SmsVehiculo>) query.list();
+
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return vehiculos;
+    }
+
 }

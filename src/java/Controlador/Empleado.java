@@ -101,15 +101,8 @@ public class Empleado extends Usuario {
 
         IHojaVidaDao hojaDao = new ImpHojaVidaDao();
         hojaDao.eliminarHojaVida(hojaVida);
-    }
-
-    public List<SmsUsuario> consultarEmpleados() {
-        usuarios = new ArrayList<>();
-        IUsuarioDao usuarioDao = new ImpUsuarioDao();
-        usuarios = usuarioDao.consultarUsuariosEmpleados();
-        return usuarios;
-    }
-    
+    }   
+        
     public List<SmsEmpleado> consultarEmpleado(SmsUsuario u) {
         usuario = u;
         empleados = new ArrayList<>();
@@ -117,5 +110,7 @@ public class Empleado extends Usuario {
         empleados = empleadoDao.consultarEmpleado(usuario);
         return empleados;
     }
+    
+    
 
 }

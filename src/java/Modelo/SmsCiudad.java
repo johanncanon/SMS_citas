@@ -76,9 +76,6 @@ public class SmsCiudad  implements java.io.Serializable {
         this.smsReservacions = smsReservacions;
     }
 
-
-
-
 }
 
 
