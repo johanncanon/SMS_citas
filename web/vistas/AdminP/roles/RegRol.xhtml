@@ -11,74 +11,103 @@
         <ui:define name="content">
             <b:container fluid="true">
                 <b:row>
-                    <b:column col-lg="9" col-sm="8" col-xs="12" class="espacio-arriba">
-                        <b:well>
-                            <h:form>
-                                <p:growl id="messages" showDetail="true"/>
-                                <p:panelGrid id="formularioRoles">
-                                    <p:row>
-                                        <p:column>
-                                            <p:panelGrid id="seccionRol" style="width: 100%">
-                                                <p:row>
-                                                    <p:column colspan="2">
-                                                        <h3>Registro de roles</h3>
-                                                    </p:column>
-                                                </p:row>                   
-                                                <p:row>
-                                                    <p:column><p:outputLabel value="Nombre del rol: "/></p:column>
-                                                    <p:column><p:inputText value="#{rolBean.rol.rolNombre}"></p:inputText></p:column>
-                                                </p:row>
-                                            </p:panelGrid>
+                    <h:form>
+                        <div class="espacio-arriba">
+                            <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
+                                <div class="box box-info">
+                                    <div class="box-header with-border">
+                                        <h3>Categorias SMS Renta</h3>
+                                        <hr/>
+                                        <p>En este panel podra ingresar el nombre y la descripcion respecto a las categorias 
+                                            de los Vehiculos de SMS Renta.Un ejemplo de Categoria puede ser Categoria Blindado, Categorisa 
+                                            Business, Categoria VIV, etc.</p>
+                                    </div>
+                                </div>
+                            </b:column>
+                        </div>
+
+                        <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
+                            <div class="box box-danger">
+                                <div class="box-header with-border">
+                                    <p:growl id="messages" showDetail="true"/>
+                                    <h:panelGrid cellpadding="5" style="width: 100%" id="formularioRoles">
+                                        <p:row>
+                                            <p:column>
+                                                <h4>Registro de roles</h4><hr/>
+                                                <h:panelGrid cellpadding="5" columns="2" id="seccionRol" style="width: 100%">                                                                 
+
+                                                    <p:outputLabel value="Nombre del rol: "/>
+                                                    <b:inputText placeholder="Administrador, empleado, cliente,..." value="#{rolBean.rolView.rolNombre}"></b:inputText>
+
+                                                </h:panelGrid>
+                                            </p:column>
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h4>Asignacion de permisos</h4>
+                                                <h:panelGrid id="seccionAsignacion" style="width: 100%">
+                                                    <p:row>
+                                                        <p:column colspan="2">
+                                                            <p:selectManyCheckbox layout="grid" id="permisos" style="width: 100%" columns="2">
+                                                                <f:selectItems  />
+                                                            </p:selectManyCheckbox>
+                                                        </p:column>
+                                                    </p:row>                                                    
+                                                </h:panelGrid>
+                                                <p:commandButton value="Registrar rol" update="messages formularioRoles" style="width: 100%" action="#{rolBean.asignarPermiso()}"/>
+                                            </p:column>
+                                        </p:row>
+                                    </h:panelGrid>
+                                </div> 
+                            </div>
+                        </b:column>
+
+                        <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <h4>Permisos</h4><hr/>
+                                    <h:panelGrid id="seccionPermisos" columns="2" cellpadding="5" style="width: 100%">                                       
+                                        
+                                        <p:outputLabel value="Nombre del permiso: "/>
+                                        <b:inputText placeholder="Registro, consulta, modificacion,..." value="#{permisosBean.permisoView.permisosNombre}"></b:inputText>                                        
+                                        <p:outputLabel value="Descripcion: "/>
+                                        <p:inputTextarea placeholder="Descripcion de los limites del permiso" style="width: 100%" value="#{permisosBean.permisoView.permisosDescripcion}" rows="4"></p:inputTextarea>
+                                        
+                                    </h:panelGrid><hr/>
+                                    <p:commandButton style="width: 100%" value="Registrar Permiso" action="#{permisosBean.registrarPermiso()}" update="messages seccionPermisos seccionAsignacion"></p:commandButton>
+                                </div>
+                            </div>
+                        </b:column>
+
+                        <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <h3>Lista de permisos</h3>
+                                    <hr/>
+                                    <p:dataTable emptyMessage="Permisos no registrados" id="DTPermisos" var="permiso" value="#{permisosBean.permisosListView}">
+                                        <p:column headerText="Permiso">
+                                            <p:outputLabel value="#{permiso.permisosNombre}"/>
                                         </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:panelGrid id="seccionPermisos" style="width: 100%">
-                                                <p:row>
-                                                    <p:column colspan="2">
-                                                        <h4>Permisos</h4>
-                                                    </p:column>
-                                                </p:row>
-                                                <p:row>
-                                                    <p:column><p:outputLabel value="Nombre del permiso: "/></p:column>
-                                                    <p:column><p:inputText value="#{permisosBean.permiso.permisosNombre}"></p:inputText></p:column>
-                                                </p:row>
-                                                <p:row>
-                                                    <p:column colspan="2">
-                                                        <p:inputTextarea placeholder="Descripcion de los limites del permiso" style="width: 100%" value="#{permisosBean.permiso.permisosDescripcion}" rows="4"></p:inputTextarea>
-                                                    </p:column>
-                                                </p:row>
-                                                <p:row>
-                                                    <p:column colspan="2"><p:commandButton value="Registrar Permiso" action="#{permisosBean.registrarPermiso()}" update="messages seccionPermisos seccionAsignacion"></p:commandButton></p:column>
-                                                </p:row>
-                                            </p:panelGrid>
+                                        <p:column headerText="Descripcion">
+                                            <p:outputLabel value="#{permiso.permisosDescripcion}"/>
                                         </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:panelGrid id="seccionAsignacion" style="width: 100%">
-                                                <p:row>
-                                                    <p:column colspan="2">
-                                                        <h4>Asignacion de permisos</h4>
-                                                    </p:column>
-                                                </p:row>
-                                                <p:row>
-                                                    <p:column colspan="2">
-                                                        <p:selectManyCheckbox layout="grid" id="permisos" style="width: 100%" value="#{rolBean.permisosSeleccionados}" columns="2">
-                                                            <f:selectItems value="#{permisosBean.listaPermisos}" />
-                                                        </p:selectManyCheckbox>
-                                                    </p:column>
-                                                </p:row>
-                                                <p:row>  
-                                                    <p:column colspan="2"><p:commandButton value="Registrar rol" update="messages formularioRoles" style="width: 100%" action="#{rolBean.asignarPermiso()}"/></p:column>
-                                                </p:row>
-                                            </p:panelGrid>
-                                        </p:column>
-                                    </p:row>
-                                </p:panelGrid>
-                            </h:form>
-                        </b:well>
-                    </b:column>
+                                        <p:column style="width: 35px">
+                                                <p:commandButton icon="ui-icon-pencil" process="@this" update="@form" action="#{categoriaBean.seleccionarCRUD(1)}" title="Modificar">
+                                                    <f:setPropertyActionListener value="#{permiso}" target="#{permisosBean.permisoView}"/>
+                                                </p:commandButton>
+                                            </p:column>
+
+                                            <p:column style="width: 35px">
+                                                <p:commandButton icon="ui-icon-close" process="@this" update="@form" action="#{categoriaBean.seleccionarCRUD(2)}" title="Eliminar">
+                                                    <f:setPropertyActionListener value="#{permiso}" target="#{permisosBean.permisoView}"/>
+                                                </p:commandButton>
+                                            </p:column>  
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </b:column>
+                    </h:form>
                 </b:row>
             </b:container>
         </ui:define>

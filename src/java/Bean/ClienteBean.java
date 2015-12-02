@@ -7,7 +7,6 @@ package Bean;
 
 import Controlador.Archivos;
 import Controlador.Cliente;
-import Controlador.Rol;
 import Modelo.SmsCiudad;
 import Modelo.SmsRol;
 import Modelo.SmsUsuario;

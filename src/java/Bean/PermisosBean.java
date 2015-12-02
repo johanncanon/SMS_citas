@@ -5,6 +5,7 @@
  */
 package Bean;
 
+import Controlador.Permiso;
 import DAO.IPermisosDao;
 import DAO.ImpPermisosDao;
 import Modelo.SmsPermisos;
@@ -19,15 +20,19 @@ import javax.annotation.PostConstruct;
  */
 public class PermisosBean implements Serializable{
 
-    private List<SmsPermisos> permisos;
-    private SmsPermisos permiso;
+    //Objetos de vista
+    private List<SmsPermisos> permisosListView;
+    private SmsPermisos permisoView;
     private List<String> ListaPermisos;
     
-
+    //relacion con el controlador
+    Permiso permisoController;
+    
     public PermisosBean() {
-        permiso = new SmsPermisos();
-        permisos = new ArrayList<>();
-        ListaPermisos = new ArrayList<>();
+        permisoView = new SmsPermisos();
+        permisosListView = new ArrayList<>();
+        ListaPermisos = new ArrayList<>();        
+        permisoController = new Permiso();
     }
 
     @PostConstruct
@@ -35,58 +40,45 @@ public class PermisosBean implements Serializable{
         
     }
 
-    public List<SmsPermisos> getPermisos() {
-        permisos = new ArrayList<>();
-        IPermisosDao permisoDao = new ImpPermisosDao();
-        permisos = permisoDao.mostrarPermisos();
-        return permisos;
+    public List<SmsPermisos> getPermisosListView() {
+        return permisosListView;
     }
 
-    public void setPermisos(List<SmsPermisos> permisos) {
-        this.permisos = permisos;
+    public void setPermisosListView(List<SmsPermisos> permisosListView) {
+        this.permisosListView = permisosListView;
     }
 
-    public SmsPermisos getPermiso() {
-        return permiso;
+    public SmsPermisos getPermisoView() {
+        return permisoView;
     }
 
-    public void setPermiso(SmsPermisos permiso) {
-        this.permiso = permiso;
+    public void setPermisoView(SmsPermisos permisoView) {
+        this.permisoView = permisoView;
     }
 
-    public List getListaPermisos() {
-        //Consulta los permisos en la BD y carga los nombres en un array para mostrarlos en la vista
-        ListaPermisos = new ArrayList<>();
-        IPermisosDao permisoDao = new ImpPermisosDao();
-        permisos = permisoDao.mostrarPermisos();
-        for (int i = 0; i < permisos.size(); i++) {
-            ListaPermisos.add(permisos.get(i).getPermisosNombre());
-        }
+    public List<String> getListaPermisos() {
         return ListaPermisos;
     }
 
-    public void setListaPermisos(List ListaPermisos) {
+    public void setListaPermisos(List<String> ListaPermisos) {
         this.ListaPermisos = ListaPermisos;
     }
+      
     
-
     //Definicion de metodos CRUD    
-    public void registrarPermiso() {
-        IPermisosDao permisoDao = new ImpPermisosDao();
-        permisoDao.registrarPermiso(permiso);
-        permiso = new SmsPermisos();
+    public void registrar(){
+        permisoController.registrarPermiso(permisoView);
+        permisoView = new SmsPermisos();
     }
 
-    public void modificarPermiso() {
-        IPermisosDao permisoDao = new ImpPermisosDao();
-        permisoDao.modificarPermiso(permiso);
-        permiso = new SmsPermisos();
+    public void modificar(){
+        permisoController.modificarPermiso(permisoView);
+        permisoView = new SmsPermisos();
     }
-
-    public void eliminarPermiso() {
-        IPermisosDao permisoDao = new ImpPermisosDao();
-        permisoDao.eliminarPermiso(permiso);
-        permiso = new SmsPermisos();
+    
+    public void eliminar(){
+        permisoController.eliminarPermiso(permisoView);
+        permisoView = new SmsPermisos();
     }
-
+    
 }
