@@ -30,7 +30,7 @@ public class ImpRolDao implements IRolDao{
         
         try{
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsRol");
+            Query query = session.createQuery("from SmsRol as rol left join fetch rol.smsPermisoses as permisos");
             roles = (List<SmsRol>) query.list();
             
         }catch(HibernateException e){
@@ -111,7 +111,25 @@ public class ImpRolDao implements IRolDao{
         List<SmsRol> roles = new ArrayList<>();
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsRol as rol where rol.rolNombre = '" + rol.getRolNombre() + "'");
+            Query query = session.createQuery("from SmsRol as rol left join fetch rol.smsPermisoses as permisos where rol.rolNombre = '" + rol.getRolNombre() + "'");
+            roles = (List<SmsRol>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return roles;
+    }
+
+    @Override
+    public List<SmsRol> filtrarRol(String valor) {
+        Session session = null;
+        List<SmsRol> roles = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsRol as rol left join fetch rol.smsPermisoses as permisos where rol.rolNombre Like '%" + valor + "%'");
             roles = (List<SmsRol>) query.list();
         } catch (HibernateException e) {
             e.getMessage();

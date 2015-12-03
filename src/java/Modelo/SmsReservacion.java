@@ -10,7 +10,6 @@ import java.util.Set;
  */
 public class SmsReservacion  implements java.io.Serializable {
 
-
      private Integer idReservacion;
      private SmsAgenda smsAgenda;
      private SmsCiudad smsCiudad;

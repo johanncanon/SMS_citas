@@ -5,18 +5,55 @@
  */
 package Bean;
 
-/**
- *
- * @author Desarrollo_Planit
- */
-public class AgendaBean {
+import Controlador.Agenda;
+import Controlador.Reservacion;
+import Modelo.SmsAgenda;
+import Modelo.SmsCiudad;
+import Modelo.SmsEmpleado;
+import Modelo.SmsReservacion;
+import Modelo.SmsVehiculo;
 
-    /**
-     * Creates a new instance of AgendaBean
-     */
+public class AgendaBean {
     
+    //Objetos necesarios en vista
+    SmsAgenda agendaView;
+    SmsVehiculo vehiculoView;
+    SmsEmpleado empleadoView;
+    SmsReservacion reservaView;
+    SmsCiudad ciudad;
+    
+    //Relacion con los controladores
+    Reservacion reservacionController;
+    Agenda agendaController;
     
     public AgendaBean() {
     }
+
+    public SmsAgenda getAgendaView() {
+        return agendaView;
+    }
+
+    public void setAgendaView(SmsAgenda agendaView) {
+        this.agendaView = agendaView;
+    }
+
+    public SmsVehiculo getVehiculoView() {
+        return vehiculoView;
+    }
+
+    public void setVehiculoView(SmsVehiculo vehiculoView) {
+        this.vehiculoView = vehiculoView;
+    }
+
+    public SmsEmpleado getEmpleadoView() {
+        return empleadoView;
+    }
+
+    public void setEmpleadoView(SmsEmpleado empleadoView) {
+        this.empleadoView = empleadoView;
+    }
     
+    //Metodos
+    
+
 }

@@ -11,9 +11,7 @@ package Bean;
  */
 public class ReservacionBean {
 
-    /**
-     * Creates a new instance of ReservacionBean
-     */
+    
     public ReservacionBean() {
     }
     

@@ -11,10 +11,9 @@ import java.util.Set;
  */
 public class SmsAgenda  implements java.io.Serializable {
 
-
      private Integer idAgenda;
      private SmsVehiculo smsVehiculo;
-     private int agendaIdConductor;
+     private SmsEmpleado smsEmpleado;
      private Date agendaFechaInicio;
      private Date agendaFechaLlegada;
      private Date agendaHoraInicio;
@@ -25,13 +24,13 @@ public class SmsAgenda  implements java.io.Serializable {
     }
 
 	
-    public SmsAgenda(SmsVehiculo smsVehiculo, int agendaIdConductor) {
+    public SmsAgenda(SmsVehiculo smsVehiculo, SmsEmpleado smsEmpleado) {
         this.smsVehiculo = smsVehiculo;
-        this.agendaIdConductor = agendaIdConductor;
+        this.smsEmpleado = smsEmpleado;
     }
-    public SmsAgenda(SmsVehiculo smsVehiculo, int agendaIdConductor, Date agendaFechaInicio, Date agendaFechaLlegada, Date agendaHoraInicio, Date agendaHoraLlegada, Set<SmsReservacion> smsReservacions) {
+    public SmsAgenda(SmsVehiculo smsVehiculo, SmsEmpleado smsEmpleado, Date agendaFechaInicio, Date agendaFechaLlegada, Date agendaHoraInicio, Date agendaHoraLlegada, Set<SmsReservacion> smsReservacions) {
        this.smsVehiculo = smsVehiculo;
-       this.agendaIdConductor = agendaIdConductor;
+       this.smsEmpleado = smsEmpleado;
        this.agendaFechaInicio = agendaFechaInicio;
        this.agendaFechaLlegada = agendaFechaLlegada;
        this.agendaHoraInicio = agendaHoraInicio;
@@ -53,13 +52,15 @@ public class SmsAgenda  implements java.io.Serializable {
     public void setSmsVehiculo(SmsVehiculo smsVehiculo) {
         this.smsVehiculo = smsVehiculo;
     }
-    public int getAgendaIdConductor() {
-        return this.agendaIdConductor;
+
+    public SmsEmpleado getSmsEmpleado() {
+        return smsEmpleado;
+    }
+
+    public void setSmsEmpleado(SmsEmpleado smsEmpleado) {
+        this.smsEmpleado = smsEmpleado;
     }
     
-    public void setAgendaIdConductor(int agendaIdConductor) {
-        this.agendaIdConductor = agendaIdConductor;
-    }
     public Date getAgendaFechaInicio() {
         return this.agendaFechaInicio;
     }

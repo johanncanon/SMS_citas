@@ -21,9 +21,11 @@ import java.util.List;
 public class Rol {
 
     SmsRol rol;
+    List<SmsRol> roles;
 
     public Rol() {
         rol = new SmsRol();
+        roles = new ArrayList<>();
     }
 
     //Metodos CRUD
@@ -45,6 +47,14 @@ public class Rol {
         rol=r;
         IRolDao rolDao = new ImpRolDao();
         rolDao.eliminarRol(rol);
+        
+    }
+    
+     public List<SmsRol> filtrarRol(String valor) {
+        roles = new ArrayList<>();
+        IRolDao rolDao = new ImpRolDao();
+        roles = rolDao.filtrarRol(valor);
+        return roles;
         
     }
 

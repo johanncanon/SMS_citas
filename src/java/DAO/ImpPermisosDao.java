@@ -122,4 +122,22 @@ public class ImpPermisosDao implements IPermisosDao {
 
     }
 
+    @Override
+    public List<SmsPermisos> filtrarPermiso(String valor) {
+        Session session = null;
+        List<SmsPermisos> permisos = null;
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsPermisos as permiso where permiso.permisosNombre LIKE '%" + valor + "%' or permiso.permisosDescripcion LIKE '%" + valor + "%'");
+            permisos = (List<SmsPermisos>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return permisos;
+    }
+
 }

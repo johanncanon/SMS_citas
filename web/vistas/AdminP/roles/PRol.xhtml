@@ -26,10 +26,9 @@
                             </b:column>
                         </div>
 
-                        <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
+                        <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
                             <div class="box box-danger">
-                                <div class="box-header with-border">
-                                    <p:growl id="messages" showDetail="true"/>
+                                <div class="box-header with-border">                                    
                                     <h:panelGrid cellpadding="5" style="width: 100%" id="formularioRoles">
                                         <p:row>
                                             <p:column>
@@ -49,22 +48,50 @@
                                                 <h:panelGrid id="seccionAsignacion" style="width: 100%">
                                                     <p:row>
                                                         <p:column colspan="2">
-                                                            <p:selectManyCheckbox layout="grid" id="permisos" style="width: 100%" columns="2">
-                                                                <f:selectItems  />
+                                                            <p:selectManyCheckbox value="#{rolBean.permisosSeleccionados}" layout="grid" id="permisos" style="width: 100%" columns="2">
+                                                                <f:selectItems value="#{permisosBean.nombresPermisosListView}"  />
                                                             </p:selectManyCheckbox>
                                                         </p:column>
                                                     </p:row>                                                    
-                                                </h:panelGrid>
-                                                <p:commandButton value="Registrar rol" update="messages formularioRoles" style="width: 100%" action="#{rolBean.asignarPermiso()}"/>
+                                                </h:panelGrid><hr/>
+                                                <p:commandButton value="#{rolBean.nombre}" update="formularioRoles DTRoles" style="width: 100%" action="#{rolBean.metodo()}"/>
                                             </p:column>
                                         </p:row>
                                     </h:panelGrid>
                                 </div> 
                             </div>
                         </b:column>
+                        
+                        <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
+                            <div class="box box-success">
+                                <div class="box-header with-border">
+                                    <h4>Lista de roles</h4>
+                                    <hr/>
+                                    <b:inputText placeholder="Buscar" value="#{rolBean.buscar}" style="width: 100%">
+                                            <p:ajax event="keyup" listener="#{rolBean.filtrar()}"  process="@this" update="DTRoles"/>
+                                        </b:inputText>    
+                                    <p:dataTable emptyMessage="Roles no registrados" id="DTRoles" var="rol" value="#{rolBean.rolesListView}">
+                                        <p:column headerText="Rol">
+                                            <p:outputLabel value="#{rol.rolNombre}"/>
+                                        </p:column>                                      
+                                        <p:column style="width: 35px">
+                                            <p:commandButton icon="ui-icon-pencil" process="@this" update="@form" action="#{rolBean.seleccionarCrud(1)}" title="Modificar">
+                                                    <f:setPropertyActionListener value="#{rol}" target="#{rolBean.rolView}"/>
+                                                </p:commandButton>
+                                            </p:column>
+
+                                            <p:column style="width: 35px">
+                                                <p:commandButton icon="ui-icon-close" process="@this" update="@form" action="#{rolBean.seleccionarCrud(2)}" title="Eliminar">
+                                                    <f:setPropertyActionListener value="#{rol}" target="#{rolBean.rolView}"/>
+                                                </p:commandButton>
+                                            </p:column>  
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </b:column>
 
                         <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
-                            <div class="box box-info">
+                            <div class="box box-danger">
                                 <div class="box-header with-border">
                                     <h4>Permisos</h4><hr/>
                                     <h:panelGrid id="seccionPermisos" columns="2" cellpadding="5" style="width: 100%">                                       
@@ -72,19 +99,22 @@
                                         <p:outputLabel value="Nombre del permiso: "/>
                                         <b:inputText placeholder="Registro, consulta, modificacion,..." value="#{permisosBean.permisoView.permisosNombre}"></b:inputText>                                        
                                         <p:outputLabel value="Descripcion: "/>
-                                        <p:inputTextarea placeholder="Descripcion de los limites del permiso" style="width: 100%" value="#{permisosBean.permisoView.permisosDescripcion}" rows="4"></p:inputTextarea>
+                                        <p:inputTextarea placeholder="Descripcion de los limites del permiso" style="width: 100%" value="#{permisosBean.permisoView.permisosDescripcion}" rows="3"></p:inputTextarea>
                                         
                                     </h:panelGrid><hr/>
-                                    <p:commandButton style="width: 100%" value="Registrar Permiso" action="#{permisosBean.registrarPermiso()}" update="messages seccionPermisos seccionAsignacion"></p:commandButton>
+                                    <p:commandButton id="BTPermisos" style="width: 100%" action="#{permisosBean.metodo()}" value="#{permisosBean.nombre}" update="seccionPermisos seccionAsignacion BTPermisos DTPermisos"></p:commandButton>
                                 </div>
                             </div>
-                        </b:column>
-
-                        <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
-                            <div class="box box-info">
+                        </b:column>                        
+                        
+                        <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
+                            <div class="box box-success">
                                 <div class="box-header with-border">
-                                    <h3>Lista de permisos</h3>
+                                    <h4>Lista de permisos</h4>
                                     <hr/>
+                                    <b:inputText placeholder="Buscar" value="#{permisosBean.buscar}" style="width: 100%">
+                                        <p:ajax event="keyup" listener="#{permisosBean.filtrar()}"  process="@this" update="DTPermisos"/>
+                                        </b:inputText>    
                                     <p:dataTable emptyMessage="Permisos no registrados" id="DTPermisos" var="permiso" value="#{permisosBean.permisosListView}">
                                         <p:column headerText="Permiso">
                                             <p:outputLabel value="#{permiso.permisosNombre}"/>
@@ -93,13 +123,13 @@
                                             <p:outputLabel value="#{permiso.permisosDescripcion}"/>
                                         </p:column>
                                         <p:column style="width: 35px">
-                                                <p:commandButton icon="ui-icon-pencil" process="@this" update="@form" action="#{categoriaBean.seleccionarCRUD(1)}" title="Modificar">
+                                                <p:commandButton icon="ui-icon-pencil" process="@this" update="@form" action="#{permisosBean.seleccionarCrud(1)}" title="Modificar">
                                                     <f:setPropertyActionListener value="#{permiso}" target="#{permisosBean.permisoView}"/>
                                                 </p:commandButton>
                                             </p:column>
 
                                             <p:column style="width: 35px">
-                                                <p:commandButton icon="ui-icon-close" process="@this" update="@form" action="#{categoriaBean.seleccionarCRUD(2)}" title="Eliminar">
+                                                <p:commandButton icon="ui-icon-close" process="@this" update="@form" action="#{permisosBean.seleccionarCrud(2)}" title="Eliminar">
                                                     <f:setPropertyActionListener value="#{permiso}" target="#{permisosBean.permisoView}"/>
                                                 </p:commandButton>
                                             </p:column>  

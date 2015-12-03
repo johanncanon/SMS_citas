@@ -9,20 +9,18 @@
 
 
     <ui:composition template="./temp-cliente.xhtml">
-
         <ui:define name="content2">
             <b:container>
                 <b:row>
-                    <b:column col-lg="8" col-md="8" >
-
-                        <div class="box box-danger direct-chat direct-chat-danger mrg-cl-1" style="padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
-                            <div class="box-header with-border" style="margin-bottom: 12px">
-                                <i class="fa fa-car"></i>
-                                <h3 class="box-title">Reservación de Vehiculo SMS Renta</h3>
-                            </div>
-                            <h:form>
-                                <p:growl id="growl" sticky="true" showDetail="true"/>
-
+                    <h:form>
+                        <p:growl id="growl" sticky="true" showDetail="true"/>
+                        <b:column col-lg="8" col-md="8" >
+                            <div class="box box-danger direct-chat direct-chat-danger mrg-cl-1" style="padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+                                <div class="box-header with-border" style="margin-bottom: 12px">
+                                    <i class="fa fa-car"></i>
+                                    <h3 class="box-title">Reservación de Vehiculo SMS Renta</h3>
+                                </div>
+                                
                                 <p:wizard flowListener="#{userWizard.onFlowProcess}">
                                     <p:tab id="personal" title="Ciudad" titleStyle="btn">
                                         <b:panel title="Ingrese Ciudad de Destino"  look="primary" style="text-decoration: none">
@@ -144,9 +142,7 @@
                                         </b:panel>
                                     </p:tab>
 
-
                                     <p:tab id="conductor" title="Conductor">
-
                                         <p:messages />
                                         <h:form>
                                             <p style="margin-top: 12px">Aqui pdrá definir la Fecha de inicio del Servicio yla Fecha de 
@@ -226,62 +222,54 @@
                                         </b:panel>
                                     </p:tab>
                                 </p:wizard>
-
-                            </h:form>
-
-                        </div>
-
-                    </b:column>
-
-                    <b:column col-lg="4" col-md="4">
-
-                        <div class="box box-primary mrg-cl-2">
-                            <div class="box-header with-border">
-                                <i class="fa fa-comments-o"></i>
-                                <h3 class="box-title">Anuncios Importantes:</h3>
                             </div>
+                        </b:column>
 
-                            <div class="img-responsive img-thumbnail" style="padding: 20px">
-                                <p:imageSwitch effect="fade"  id="fadeEffect">
-                                    <ui:repeat value="#{sliderView.images}" var="img" id="fadeEffectImages">
-                                        <p:graphicImage style="padding: 0; margin: 0; width: 100%" name="images/pub/#{img}" id="image" />
-                                    </ui:repeat>
-                                </p:imageSwitch>
-                            </div>
-                        </div>
-                        
-                        <div class="box box-widget widget-user">
-                            <div class="widget-user-header bg-black">
-                                <h3 class="widget-user-username txt-redes"><strong>SMS </strong>Renta</h3>
-                                <h5 class="widget-user-desc txt-redes-t">Mientras tu lo sueñas, nosotros lo hacemos realidad</h5>
-                            </div>  
-                            <div class="widget-user-image">
-                                <div class="img-thumbnail" style="width: 73%" >
-                                    <p:graphicImage name="images/logo.jpg" style="width: 100%;" />
+                        <b:column col-lg="4" col-md="4">
+                            <div class="box box-primary mrg-cl-2">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-comments-o"></i>
+                                    <h3 class="box-title">Anuncios Importantes:</h3>
+                                </div>
+
+                                <div class="img-responsive img-thumbnail" style="padding: 20px">
+                                    <p:imageSwitch effect="fade"  id="fadeEffect">
+                                        <ui:repeat value="#{sliderView.images}" var="img" id="fadeEffectImages">
+                                            <p:graphicImage style="padding: 0; margin: 0; width: 100%" name="images/pub/#{img}" id="image" />
+                                        </ui:repeat>
+                                    </p:imageSwitch>
                                 </div>
                             </div>
-                            <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-sm-4 col-xs-4 border-right" style="text-align: center; color: #2887B7;">
-                                        <i class="fa fa-5x fa-facebook-square text-center"></i>
+
+                            <div class="box box-widget widget-user">
+                                <div class="widget-user-header bg-black">
+                                    <h3 class="widget-user-username txt-redes"><strong>SMS </strong>Renta</h3>
+                                    <h5 class="widget-user-desc txt-redes-t">Mientras tu lo sueñas, nosotros lo hacemos realidad</h5>
+                                </div>  
+                                <div class="widget-user-image">
+                                    <div class="img-thumbnail" style="width: 73%" >
+                                        <p:graphicImage name="images/logo.jpg" style="width: 100%;" />
                                     </div>
-                                    <div class="col-sm-4 col-xs-4 border-right" style="text-align: center; color: #56DAD5;">
-                                        <i class="fa fa-5x fa-twitter-square text-center"></i>
-                                    </div>
-                                    <div class="col-sm-4 col-xs-4" style="text-align: center; color: #DD4B39;">
-                                        <i class="fa fa-5x fa-google-plus-square text-center" ></i>
+                                </div>
+                                <div class="box-footer">
+                                    <div class="row">
+                                        <div class="col-sm-4 col-xs-4 border-right" style="text-align: center; color: #2887B7;">
+                                            <i class="fa fa-5x fa-facebook-square text-center"></i>
+                                        </div>
+                                        <div class="col-sm-4 col-xs-4 border-right" style="text-align: center; color: #56DAD5;">
+                                            <i class="fa fa-5x fa-twitter-square text-center"></i>
+                                        </div>
+                                        <div class="col-sm-4 col-xs-4" style="text-align: center; color: #DD4B39;">
+                                            <i class="fa fa-5x fa-google-plus-square text-center" ></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                       
-                    </b:column>
+                        </b:column>
+                    </h:form>
                 </b:row>
             </b:container>
-
-
         </ui:define>
-
     </ui:composition>
 
 </html>

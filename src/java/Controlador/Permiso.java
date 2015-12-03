@@ -8,6 +8,7 @@ package Controlador;
 import DAO.IPermisosDao;
 import DAO.ImpPermisosDao;
 import Modelo.SmsPermisos;
+import Modelo.SmsRol;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,5 +62,35 @@ public class Permiso {
        
     }
     
+    public List<SmsPermisos> cargarPermisos(){
+        permisos = new ArrayList<>();
+        IPermisosDao permisosDao = new ImpPermisosDao();
+        permisos = permisosDao.mostrarPermisos();
+        return permisos;
+    }
+    
+    public List<SmsPermisos> consultarPermiso(String valor){
+        permisos = new ArrayList<>();
+        IPermisosDao permisosDao = new ImpPermisosDao();
+        permisos = permisosDao.consultarPermiso(valor);
+        return permisos;
+    }
+    
+    public String validarPermiso(SmsRol r, SmsPermisos p){
+        String permiso = null;
+        for(SmsPermisos per: r.getSmsPermisoses()){
+            if(per.getPermisosNombre().equalsIgnoreCase(p.getPermisosNombre())){
+            permiso = per.getPermisosNombre();
+            }
+        }
+        return permiso;
+    }
+    
+    public List<SmsPermisos> filtrarPermiso(String valor){
+        permisos = new ArrayList<>();
+        IPermisosDao permisosDao = new ImpPermisosDao();
+        permisos = permisosDao.filtrarPermiso(valor);
+        return permisos;
+    }
     
 }
