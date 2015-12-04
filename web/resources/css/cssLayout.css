@@ -1,3 +1,8 @@
+body {
+    color: #222D32 !important;
+    background-color: #222D32 !important;
+}
+
 
 #top {
     position: relative;
@@ -20,7 +25,18 @@
     background-color: #222D32;
     padding: 5px;
     width: 104.91%;
-    min-height: 1418px;
+   
+}
+
+#left-cond {
+    z-index: 100000;
+    position: relative;
+    left: -15px;
+    top: -20px;
+    background-color: #222D32;
+    padding: 5px;
+    width: 104.91%;
+
 }
 
 #arreglo{
@@ -56,6 +72,7 @@
     top: -20px;
     position: relative;
     margin-bottom: -30px;
+    margin-left: 24%;
 }
 
 .right_content {
@@ -88,9 +105,17 @@
     padding: 10px !important;
 }
 
-#footer{
-    padding: 12px;
-    padding-left: 7%;
+#footer {
+    padding: 19px;
+    padding-top: 29px;
+    padding-left: 25%;
+    background-color: #FC5B35;
+    color: #fff;
+    margin: 0%;
+    left: -15px;
+    width: 102.3%;
+    position: relative;
+    margin-top: 10px;
 }
 
 .copy-r{
@@ -251,6 +276,15 @@
 ********************************************************************************/
 
 @media screen and (max-width: 767px){
+
+    .left_content {
+        background-color: #ecf0f5;
+        top: -20px;
+        position: relative;
+        margin-bottom: -30px;
+        margin-left: 0px !important;
+    }
+
     .menu-respon1{
         display: inline-block;
         visibility: visible;
@@ -269,6 +303,8 @@
         width: 100%;
         padding: 0px 4% 29px 0px;
     }
+
+
 }
 
 /********* MENU RESPONSIVE
@@ -491,4 +527,30 @@ td, th {
     color: white!important;
     position: relative!important;
     top: -5px!important;
+}
+
+
+.img-usuario{
+    width: 43%;
+    margin-left: 30%;
+    max-width: 80px;
+}
+
+@media screen and (min-width:1200px){
+    .img-usuario{
+        width: 113%;
+        margin-left: 20%;
+    }
+}
+
+@media screen and (max-width:991px){
+    .left_content {
+        background-color: #ecf0f5;
+        top: -20px;
+        position: relative;
+        margin-bottom: -30px;
+        margin-left: 32%;
+    }
+    
+    
 }
