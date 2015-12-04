@@ -12,19 +12,21 @@
         <ui:define name="content2">
             <b:container>
                 <b:row>
-                    <h:form>
-                        <p:growl id="growl" sticky="true" showDetail="true"/>
-                        <b:column col-lg="8" col-md="8" >
-                            <div class="box box-danger direct-chat direct-chat-danger mrg-cl-1" style="padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
-                                <div class="box-header with-border" style="margin-bottom: 12px">
-                                    <i class="fa fa-car"></i>
-                                    <h3 class="box-title">Reservación de Vehiculo SMS Renta</h3>
-                                </div>
-                                
-                                <p:wizard flowListener="#{userWizard.onFlowProcess}">
+                    <b:column col-lg="9" col-md="9" col-xs="8" col-sm="12" >
+
+                        <div class="box box-danger direct-chat direct-chat-danger mrg-cl-1" style="padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+                            <div class="box-header with-border" style="margin-bottom: 12px">
+                                <i class="fa fa-car"></i>
+                                <h3 class="box-title">Reservación de Vehiculo SMS Renta</h3>
+                            </div>
+                            <h:form>
+                                <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                                <p:wizard flowListener="#{agendaBean.onFlowProcess}">
+
                                     <p:tab id="personal" title="Ciudad" titleStyle="btn">
                                         <b:panel title="Ingrese Ciudad de Destino"  look="primary" style="text-decoration: none">
-                                            <p:messages />
+                                            <p:messages/>
                                             <p style="margin-top: 12px">La ciudad de destino es lugar en la
                                                 cual será recojido por nuestro Conductor:</p>
                                             <hr/>
@@ -33,8 +35,7 @@
                                                     <i class="fa fa-2x fa-globe"></i>
                                                     <span class="label-cl">Ciudad: </span>                                                   
                                                 </div>
-                                                <b:inputText value="#{userWizard.user.firstname}" span="7"  placeholder="Bogotá, Cali, Medellin, etc..."  required="true" />
-
+                                                <b:inputText value="#{agendaBean.ciudadView.ciudadNombre}" span="7"  placeholder="Bogotá, Cali, Medellin, etc..."  required="true"/>
                                             </h:panelGrid>
                                         </b:panel>
                                     </p:tab>
@@ -42,7 +43,7 @@
                                     <p:tab id="address" title="Agendamiento">
                                         <b:panel title="Fechas de la reservación" look="primary" >
                                             <p:messages />
-                                            <p style="margin-top: 12px">Aqui pdrá definir la Fecha de inicio del Servicio yla Fecha de 
+                                            <p style="margin-top: 12px">Aqui podrá definir la fecha de inicio del servicio y la fecha de 
                                                 final del servicio SMS:</p>
                                             <hr/>
                                             <div class="form-group">
@@ -51,10 +52,10 @@
                                                     <p:growl id="msgs" showDetail="true" />
                                                     <h:panelGrid columns="4" cellpadding="2">
                                                         <p:outputLabel for="button" value="Fecha de Inicio:" style="font-weight: 800"/>
-                                                        <p:calendar id="button" value="#{calendarView.date3}" showOn="button" />
+                                                        <p:calendar id="button" value="#{agendaBean.agendaView.agendaFechaInicio}" showOn="button"/>
 
                                                         <p:outputLabel for="time" style="font-weight: 800" value="Hora de inicio:" />
-                                                        <p:calendar id="time" value="#{calendarView.date11}" pattern="HH:mm" timeOnly="true"  />
+                                                        <p:calendar id="time" value="#{agendaBean.agendaView.agendaHoraInicio}" pattern="HH:mm" timeOnly="true"/>
                                                     </h:panelGrid>
                                                 </h:form>
                                             </div>
@@ -65,41 +66,30 @@
                                                     <p:growl id="msgs" showDetail="true" />
                                                     <h:panelGrid columns="4" cellpadding="2">
                                                         <p:outputLabel style="font-weight: 800" for="button" value="Fecha de Entrega:" />
-                                                        <p:calendar id="button" value="#{calendarView.date3}" showOn="button" />
+                                                        <p:calendar id="button" value="#{agendaBean.agendaView.agendaFechaLlegada}" showOn="button"/>
 
                                                         <p:outputLabel style="font-weight: 800" for="time" value="Hora de Entrega:" />
-                                                        <p:calendar id="time" value="#{calendarView.date11}" pattern="HH:mm" timeOnly="true"  />
+                                                        <p:calendar id="time" value="#{agendaBean.agendaView.agendaHoraLlegada}" pattern="HH:mm" timeOnly="true"/>
                                                     </h:panelGrid>
                                                 </h:form>
-                                            </div>
-                                            <f:facet name="footer">
-                                                <h:outputText value="texto de prueba"/>
-                                            </f:facet>
+                                            </div>                                            
                                         </b:panel>
                                     </p:tab>
 
                                     <p:tab id="contact" title="Vehiculo">
-                                        <b:panel title="Defina la Categoria y el Servicio" look="primary">
+                                        <b:panel title="Defina la categoria y el servicio" look="primary">
                                             <p:messages />
-                                            <p style="margin-top: 12px">Aqui pdrá definir la Fecha de inicio del Servicio yla Fecha de 
-                                                final del servicio SMS:</p>
+                                            <p style="margin-top: 12px">Aqui podrá elegir el vehiculo que desea para su reservacion:</p>
                                             <hr/>
                                             <div class="form-group">
                                                 <h:form>
                                                     <p:messages autoUpdate="true" />
                                                     <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="7">
                                                         <p:outputLabel for="advanced" value="Categoria de Vehiculo: "  />
-                                                        <p:selectOneMenu id="advanced" value="#{selectOneMenuView.theme}" panelStyle="width:20%"
+                                                        <p:selectOneMenu id="advanced" value="#{agendaBean.categoriaView.categoriaNombre}" panelStyle="width:20%"
                                                                          effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
-                                                            <f:selectItems value="#{selectOneMenuView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme}" />
 
-                                                            <p:column style="width:20%">
-                                                                <h:outputText styleClass="ui-theme ui-theme-#{t.name}" />
-                                                            </p:column>
-
-                                                            <p:column>
-                                                                <h:outputText value="#{t.displayName}" />
-                                                            </p:column>
+                                                            <f:selectItems value="#{categoriaBean.nombresCategoriasListView}"/>
                                                         </p:selectOneMenu>
                                                     </h:panelGrid>
 
@@ -107,32 +97,40 @@
 
                                                     <p:dialog header="Values" modal="true" showEffect="bounce" widgetVar="dlg" resizable="false">
                                                         <p:panelGrid columns="2" id="display" columnClasses="label,value">
-                                                            <h:outputText value="Advanced:" />
-                                                            <h:outputText value="#{selectOneMenuView.theme.displayName}" />
+                                                            <p:outputLabel value="Categoria:"/>
+                                                            <b:inputText placeholder="Blindados, VIV, limosinas,..."></b:inputText>                                       
                                                         </p:panelGrid>
                                                     </p:dialog>
                                                 </h:form>
                                             </div>
                                             <div class="form-group box box-danger direct-chat direct-chat-danger">
                                                 <h:form>
-                                                    <p:dataScroller value="#{dataScrollerView.cars}" var="car" chunkSize="10">
+                                                    <p:dataScroller value="#{vehiculoBean.vehiculosListView}" var="vehiculo" chunkSize="10">
                                                         <f:facet name="header">
                                                             Scroll Down to Load More Cars
                                                         </f:facet>
 
                                                         <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                                                            <p:graphicImage name="demo/images/car/#{car.brand}-big.gif" /> 
+                                                            <p:graphicImage name="#{vehiculo.vehFotoRuta + vehiculo.vehFotoNombre}" /> 
 
                                                             <p:outputPanel>
                                                                 <h:panelGrid columns="2" cellpadding="5">
-                                                                    <h:outputText value="Id:" />
-                                                                    <h:outputText value="#{car.id}" style="font-weight: bold"/>
-
-                                                                    <h:outputText value="Year:" />
-                                                                    <h:outputText value="#{car.year}" style="font-weight: bold"/>
+                                                                    
+                                                                    <h:outputText value="Placa:" />
+                                                                    <h:outputText value="#{vehiculo.vehPlaca}" style="font-weight: bold"/>
 
                                                                     <h:outputText value="Color:" />
-                                                                    <h:outputText value="#{car.color}" style="font-weight: bold"/>
+                                                                    <h:outputText value="#{vehiculo.vehColor}" style="font-weight: bold"/>
+
+                                                                    <h:outputText value="Personas:" />
+                                                                    <h:outputText value="#{vehiculo.vehNumPersonas}" style="font-weight: bold"/>
+                                                                
+                                                                    <h:outputText value="Maletas grandes:" />
+                                                                    <h:outputText value="#{vehiculo.vehNumPersonas}" style="font-weight: bold"/>
+                                                                    
+                                                                    <h:outputText value="Maletas pequeños:" />
+                                                                    <h:outputText value="#{vehiculo.vehNumPersonas}" style="font-weight: bold"/>
+                                                                    
                                                                 </h:panelGrid>
                                                             </p:outputPanel>
                                                         </h:panelGrid>
@@ -142,33 +140,32 @@
                                         </b:panel>
                                     </p:tab>
 
+
                                     <p:tab id="conductor" title="Conductor">
                                         <p:messages />
                                         <h:form>
-                                            <p style="margin-top: 12px">Aqui pdrá definir la Fecha de inicio del Servicio yla Fecha de 
-                                                final del servicio SMS:</p>
+                                            <p style="margin-top: 12px">Aqui podrá elegir el conductor que desea para su reservacion</p>
                                             <hr/>
                                             <div class="box box-danger direct-chat direct-chat-danger">
 
 
-                                                <p:dataScroller value="#{dataScrollerView.cars}" var="car" chunkSize="10" >
+                                                <p:dataScroller value="#{empleadoBean.empleadosListView}" var="empleado" chunkSize="10" >
                                                     <f:facet name="header">
                                                         Scroll Down to Load More Cars
                                                     </f:facet>
 
                                                     <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                                                        <p:graphicImage name="demo/images/car/#{car.brand}-big.gif" /> 
+                                                        <p:graphicImage name="#{empleado.usuarioFotoRuta + empleado.usuarioFotoNombre}" /> 
 
                                                         <p:outputPanel>
                                                             <h:panelGrid columns="2" cellpadding="5">
-                                                                <h:outputText value="Id:" />
-                                                                <h:outputText value="#{car.id}" style="font-weight: bold"/>
+                                                                
+                                                                <h:outputText value="Nombre y apellidos:" />
+                                                                <h:outputText value="#{empleado.usuarioNombre}" style="font-weight: bold"/>
 
-                                                                <h:outputText value="Year:" />
-                                                                <h:outputText value="#{car.year}" style="font-weight: bold"/>
-
-                                                                <h:outputText value="Color:" />
-                                                                <h:outputText value="#{car.color}" style="font-weight: bold"/>
+                                                                <h:outputText value="Identificacion" />
+                                                                <h:outputText value="#{empleado.usuarioCc}" style="font-weight: bold"/>
+                                                                
                                                             </h:panelGrid>
                                                         </p:outputPanel>
                                                     </h:panelGrid>
@@ -181,95 +178,60 @@
                                     <p:tab id="confirm" title="Confirmación">
                                         <b:panel title="Confirmación" look="primary">
                                             <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
-                                                <h:panelGrid columns="2" columnClasses="label, value">
-                                                    <h:outputText value="Firstname: " />
-                                                    <h:outputText value="#{userWizard.user.firstname}" styleClass="outputLabel"/>
 
-                                                    <h:outputText value="Lastname: " />
-                                                    <h:outputText value="#{userWizard.user.lastname}" styleClass="outputLabel"/>
-
-                                                    <h:outputText value="Age: " />
-                                                    <h:outputText value="#{userWizard.user.age}" styleClass="outputLabel"/>
-                                                </h:panelGrid>
-
-                                                <h:panelGrid columns="2" columnClasses="label, value">
-                                                    <h:outputText value="Street: " />
-                                                    <h:outputText value="#{userWizard.user.street}" styleClass="outputLabel"/>
-
-                                                    <h:outputText value="Postal: " />
-                                                    <h:outputText value="#{userWizard.user.postalCode}" styleClass="outputLabel"/>
-
-                                                    <h:outputText value="City: " />
-                                                    <h:outputText value="#{userWizard.user.city}" styleClass="outputLabel"/>
-                                                </h:panelGrid>
-
-                                                <h:panelGrid columns="2" columnClasses="label, value">
-                                                    <h:outputText value="Email: " />
-                                                    <h:outputText value="#{userWizard.user.email}" styleClass="outputLabel"/>
-
-                                                    <h:outputText value="Phone " />
-                                                    <h:outputText value="#{userWizard.user.phone}" styleClass="outputLabel"/>
-
-                                                    <h:outputText value="Info: " />
-                                                    <h:outputText value="#{userWizard.user.info}" styleClass="outputLabel"/>
-
-                                                    <h:outputText />
-                                                    <h:outputText />
-                                                </h:panelGrid>
                                             </h:panelGrid>
-
-                                            <p:commandButton value="Submit" actionListener="#{userWizard.save}" update="growl" process="@this"/>
+                                            <p:commandButton value="Submit" update="growl" process="@this"/>
                                         </b:panel>
                                     </p:tab>
                                 </p:wizard>
-                            </div>
-                        </b:column>
+                            </h:form>
+                        </div>
+                    </b:column>
 
-                        <b:column col-lg="4" col-md="4">
-                            <div class="box box-primary mrg-cl-2">
-                                <div class="box-header with-border">
-                                    <i class="fa fa-comments-o"></i>
-                                    <h3 class="box-title">Anuncios Importantes:</h3>
-                                </div>
-
-                                <div class="img-responsive img-thumbnail" style="padding: 20px">
-                                    <p:imageSwitch effect="fade"  id="fadeEffect">
-                                        <ui:repeat value="#{sliderView.images}" var="img" id="fadeEffectImages">
-                                            <p:graphicImage style="padding: 0; margin: 0; width: 100%" name="images/pub/#{img}" id="image" />
-                                        </ui:repeat>
-                                    </p:imageSwitch>
-                                </div>
+                    <b:column col-lg="4" col-md="4">
+                        <div class="box box-primary mrg-cl-2">
+                            <div class="box-header with-border">
+                                <i class="fa fa-comments-o"></i>
+                                <h3 class="box-title">Anuncios Importantes:</h3>
                             </div>
 
-                            <div class="box box-widget widget-user">
-                                <div class="widget-user-header bg-black">
-                                    <h3 class="widget-user-username txt-redes"><strong>SMS </strong>Renta</h3>
-                                    <h5 class="widget-user-desc txt-redes-t">Mientras tu lo sueñas, nosotros lo hacemos realidad</h5>
-                                </div>  
-                                <div class="widget-user-image">
-                                    <div class="img-thumbnail" style="width: 73%" >
-                                        <p:graphicImage name="images/logo.jpg" style="width: 100%;" />
+                            <div class="img-responsive img-thumbnail" style="padding: 20px">
+                                <p:imageSwitch effect="fade"  id="fadeEffect">
+                                    <ui:repeat value="#{sliderView.images}" var="img" id="fadeEffectImages">
+                                        <p:graphicImage style="padding: 0; margin: 0; width: 100%" name="images/pub/#{img}" id="image" />
+                                    </ui:repeat>
+                                </p:imageSwitch>
+                            </div>
+                        </div>
+
+                        <div class="box box-widget widget-user">
+                            <div class="widget-user-header bg-black">
+                                <h3 class="widget-user-username txt-redes"><strong>SMS </strong>Renta</h3>
+                                <h5 class="widget-user-desc txt-redes-t">Mientras tu lo sueñas, nosotros lo hacemos realidad</h5>
+                            </div>  
+                            <div class="widget-user-image">
+                                <div class="img-thumbnail" style="width: 73%" >
+                                    <p:graphicImage name="images/logo.jpg" style="width: 100%;" />
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <div class="row">
+                                    <div class="col-sm-4 col-xs-4 border-right" style="text-align: center; color: #2887B7;">
+                                        <i class="fa fa-5x fa-facebook-square text-center"></i>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-4 border-right" style="text-align: center; color: #56DAD5;">
+                                        <i class="fa fa-5x fa-twitter-square text-center"></i>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-4" style="text-align: center; color: #DD4B39;">
+                                        <i class="fa fa-5x fa-google-plus-square text-center" ></i>
                                     </div>
                                 </div>
-                                <div class="box-footer">
-                                    <div class="row">
-                                        <div class="col-sm-4 col-xs-4 border-right" style="text-align: center; color: #2887B7;">
-                                            <i class="fa fa-5x fa-facebook-square text-center"></i>
-                                        </div>
-                                        <div class="col-sm-4 col-xs-4 border-right" style="text-align: center; color: #56DAD5;">
-                                            <i class="fa fa-5x fa-twitter-square text-center"></i>
-                                        </div>
-                                        <div class="col-sm-4 col-xs-4" style="text-align: center; color: #DD4B39;">
-                                            <i class="fa fa-5x fa-google-plus-square text-center" ></i>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-                        </b:column>
-                    </h:form>
+                        </div>
+                    </b:column>
+
                 </b:row>
             </b:container>
         </ui:define>
     </ui:composition>
-
 </html>

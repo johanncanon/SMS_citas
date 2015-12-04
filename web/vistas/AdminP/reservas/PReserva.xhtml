@@ -24,6 +24,7 @@
                                 <p:growl id="growl" sticky="true" showDetail="true"/>
 
                                 <p:wizard flowListener="#{userWizard.onFlowProcess}">
+                                    
                                     <p:tab id="personal" title="Ciudad" titleStyle="btn">
                                         <b:panel title="Ingrese Ciudad de Destino"  look="primary" style="text-decoration: none">
                                             <p:messages />
@@ -36,7 +37,6 @@
                                                     <span class="label-cl">Ciudad: </span>                                                   
                                                 </div>
                                                 <b:inputText value="#{userWizard.user.firstname}" span="7"  placeholder="Bogotá, Cali, Medellin, etc..."  required="true" />
-
                                             </h:panelGrid>
                                         </b:panel>
                                     </p:tab>

@@ -18,7 +18,7 @@ public class UserWizard implements Serializable {
  
     private User user = new User();
      
-    private boolean skip;
+    private boolean skip = false;
      
     public User getUser() {
         return user;
