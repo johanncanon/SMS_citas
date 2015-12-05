@@ -7,30 +7,61 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
- 
 
-        <ui:composition template="./temp-proveedor.xhtml">
 
-            <ui:define name="content4">
-                <b:container>
-                    <b:row>
+    <ui:composition template="./temp-proveedor.xhtml">
 
-                        <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
-                            <b:well>vista 1</b:well>
-                        </b:column>
+        <ui:define name="content4">
+            <b:container fluid="true">
+                <b:row>
+                    <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <i class="fa fa-2x fa-newspaper-o"/>
+                                <h2 class="box-title" >Estadisticas Generales del Proveedor</h2>
+                            </div>
+                            <div class="box-body">
+                                <div style="display: inline-flex">
+                                    <h5> 
+                                        <i class="fa fa-check-square"/>
+                                        Seleccionar Periodo:
+                                    </h5>
+                                    <b:selectOneMenu value="" style="display: inline">
+                                        <f:selectItem itemLabel="Año" />
+                                        <f:selectItem itemLabel="Mes"/>
+                                        <f:selectItem itemLabel="Semana"/>
+                                    </b:selectOneMenu>
+                                </div>
 
-                        <b:column col-lg="4" col-md="9" col-sm="8" col-xs="12">
-                            <b:well>vista 2</b:well>
-                        </b:column>
+                                <div style="display: inline-flex">
+                                    <h5> 
+                                        <i class="fa fa-caret-square-o-right"/>
+                                        Seleccionar Fecha:
+                                    </h5>
+                                    <div style="width: 50%">
+                                        <b:datepicker mode="icon-popup" changeYear="true" changeMonth="true" placeholder="Seleccione una fecha" lang="es" />
+                                    </div>
+                                </div>
+                                <b:button value="Hacer consulta" iconAwesome="fa da-user" look="primary"/>
+                                <hr/>
+                                
+                                <b:column col-lg="12">
+                                    <ui:include src="general/estPrueba.xhtml"/>                                    
+                                </b:column>
+                                
 
-                        <b:column col-lg="4" col-md="9" col-sm="8" col-xs="12">
-                            <b:well>vista 3</b:well>
-                        </b:column>
+                            </div>
+                        </div>
+                    </b:column>
 
-                    </b:row>
-                </b:container>
-            </ui:define>
+                    <b:column col-lg="4">
+                         
+                    </b:column>
 
-        </ui:composition>
-    
+                </b:row>
+            </b:container>
+        </ui:define>
+
+    </ui:composition>
+
 </html>
