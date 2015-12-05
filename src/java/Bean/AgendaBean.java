@@ -6,33 +6,53 @@
 package Bean;
 
 import Controlador.Agenda;
+import Controlador.Empleado;
 import Controlador.Reservacion;
+import Controlador.Vehiculo;
 import Modelo.SmsAgenda;
 import Modelo.SmsCategoria;
 import Modelo.SmsCiudad;
 import Modelo.SmsEmpleado;
 import Modelo.SmsReservacion;
+import Modelo.SmsUsuario;
 import Modelo.SmsVehiculo;
+import java.util.ArrayList;
+import java.util.List;
 import org.primefaces.event.FlowEvent;
 
 public class AgendaBean {
 
     //Objetos necesarios en vista
-    SmsAgenda agendaView;
-    SmsVehiculo vehiculoView;
-    SmsEmpleado empleadoView;
-    SmsReservacion reservaView;
-    SmsCategoria categoriaView;
-    SmsCiudad ciudadView;
+    protected SmsAgenda agendaView;
+    protected SmsVehiculo vehiculoView;
+    protected SmsEmpleado empleadoView;
+    protected SmsReservacion reservaView;
+    protected SmsCategoria categoriaView;
+    protected SmsCiudad ciudadView;
+    
+    protected List<SmsVehiculo> vehiculosListView;
+    protected List<SmsUsuario> empleadosListView;
     
     private boolean skip = false;
 
     //Relacion con los controladores
     Reservacion reservacionController;
     Agenda agendaController;
+    Vehiculo vehiculoController;
+    Empleado empleadoController;
 
     
     public AgendaBean() {
+        
+        agendaView = new SmsAgenda();
+        vehiculoView = new SmsVehiculo();
+        empleadoView = new SmsEmpleado();
+        reservaView = new SmsReservacion();
+        categoriaView = new SmsCategoria();
+        ciudadView = new SmsCiudad();
+        
+        vehiculosListView = new ArrayList<>();
+        empleadosListView = new ArrayList<>();
     }
 
     public SmsAgenda getAgendaView() {
@@ -106,10 +126,41 @@ public class AgendaBean {
     public void setCategoriaView(SmsCategoria categoriaView) {
         this.categoriaView = categoriaView;
     }
+
+    public List<SmsVehiculo> getVehiculosListView() {
+        return vehiculosListView;
+    }
+
+    public void setVehiculosListView(List<SmsVehiculo> vehiculosListView) {
+        this.vehiculosListView = vehiculosListView;
+    }
+
+    public List<SmsUsuario> getEmpleadosListView() {
+        return empleadosListView;
+    }
+
+    public void setEmpleadosListView(List<SmsUsuario> empleadosListView) {
+        this.empleadosListView = empleadosListView;
+    }
     
-    
-    
-    
+
+    public Vehiculo getVehiculoController() {
+        return vehiculoController;
+    }
+
+    public void setVehiculoController(Vehiculo vehiculoController) {
+        this.vehiculoController = vehiculoController;
+    }
+
+    public Empleado getEmpleadoController() {
+        return empleadoController;
+    }
+
+    public void setEmpleadoController(Empleado empleadoController) {
+        this.empleadoController = empleadoController;
+    }
+            
+       
     //Metodos
     public String onFlowProcess(FlowEvent event) {
         if(skip) {
