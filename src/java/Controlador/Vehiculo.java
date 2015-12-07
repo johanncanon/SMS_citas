@@ -18,6 +18,7 @@ import DAO.ImpProveedorDao;
 import DAO.ImpReferenciaDao;
 import DAO.ImpUsuarioDao;
 import DAO.ImpVehiculoDao;
+import Modelo.SmsAgenda;
 import Modelo.SmsCategoria;
 import Modelo.SmsCiudad;
 import Modelo.SmsProveedor;
@@ -69,7 +70,7 @@ public class Vehiculo {
 
         IUsuarioDao usuDao = new ImpUsuarioDao();
         usuario = usuDao.consultarUsuario(usuario).get(0);
-        
+
         //Consulta categoria
         ICategoriaDao cateDao = new ImpCategoriaDao();
         categoria = cateDao.consultarCategoria(categoria).get(0);
@@ -136,17 +137,26 @@ public class Vehiculo {
         linkDao.eliminarVehiculo(vehiculo);
     }
 
-    public List<SmsVehiculo> consultarVehiculo(SmsVehiculo vehiculo){
+    public List<SmsVehiculo> consultarVehiculo(SmsVehiculo vehiculo) {
         vehiculos = new ArrayList<>();
         IVehiculoDao linkDao = new ImpVehiculoDao();
         vehiculos = linkDao.consultarVehiculo(vehiculo);
         return vehiculos;
     }
-    
-    public List<SmsVehiculo> cargarVehiculos(){
+
+    public List<SmsVehiculo> cargarVehiculos() {
         vehiculos = new ArrayList<>();
         IVehiculoDao linkDao = new ImpVehiculoDao();
         vehiculos = linkDao.mostrarVehiculo();
+        return vehiculos;
+    }
+
+    public List<SmsVehiculo> consultarVehiculosDisponible(SmsAgenda a, SmsCiudad c) {
+        vehiculos = new ArrayList<>();
+        SmsAgenda agenda = a;
+        SmsCiudad ciudad = c;
+        IVehiculoDao linkDao = new ImpVehiculoDao();
+        vehiculos = linkDao.consultarVehiculosDisponibles(agenda, ciudad);
         return vehiculos;
     }
 }

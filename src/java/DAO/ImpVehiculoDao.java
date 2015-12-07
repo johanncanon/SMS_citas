@@ -5,7 +5,8 @@
  */
 package DAO;
 
-import Modelo.SmsReferencia;
+import Modelo.SmsAgenda;
+import Modelo.SmsCiudad;
 import Modelo.SmsVehiculo;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -112,6 +113,30 @@ public class ImpVehiculoDao implements IVehiculoDao {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsVehiculo as vehiculo left join fetch vehiculo.smsCategoria as categoria left join fetch vehiculo.smsCiudad as ciudad"
                     + " left join fetch vehiculo.smsProveedor as proveedor left join fetch vehiculo.smsReferencia as referencia where vehiculo.vehPlaca = '" + vehiculo.getVehPlaca() + "'");
+            vehiculos = (List<SmsVehiculo>) query.list();
+
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return vehiculos;
+    }
+
+    @Override
+    public List<SmsVehiculo> consultarVehiculosDisponibles(SmsAgenda agenda, SmsCiudad ciudad) {
+        Session session = null;
+        List<SmsVehiculo> vehiculos = null;
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("select vehiculo from SmsVehiculo as vehiculo, SmsAgenda as agenda left join fetch vehiculo.smsCiudad as ciudad left join fetch agenda.smsVehiculo"
+                    + " as vehiculoAgenda where ciudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "' and vehiculoAgenda.idVehiculo <> vehiculo.idVehiculo or ((agenda.agendaFechaInicio = agenda.agendaFechaLlegada"
+                    + " and agenda.agendaHoraInicio > '" + agenda.getAgendaHoraLlegada() + "' and agendaHoraLlegada < '" + agenda.getAgendaHoraInicio() + "') and"
+                    + " (agenda.agendaFechaInicio <> agenda.agendaFechaLlegada and agenda.agendaFechaInicio >= '" + agenda.getAgendaFechaLlegada() + "' and"
+                    + " agenda.agendaFechaLlegada <= '" + agenda.getAgendaFechaInicio() + "' and agenda.agendaHoraInicio > '" + agenda.getAgendaHoraLlegada() + "' and"
+                    + " agendaHoraLlegada < '" + agenda.getAgendaHoraInicio() + "'))");
             vehiculos = (List<SmsVehiculo>) query.list();
 
         } catch (HibernateException e) {

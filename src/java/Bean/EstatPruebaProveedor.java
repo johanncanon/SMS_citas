@@ -6,10 +6,7 @@
 package Bean;
 
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.annotation.PostConstruct;
-import java.io.Serializable;
-import javax.faces.bean.ManagedBean;
 import java.io.Serializable;
  
 import org.primefaces.model.chart.Axis;
@@ -23,7 +20,7 @@ import org.primefaces.model.chart.ChartSeries;
  * @author SISTEMAS
  */
 @Named(value = "estatPruebaProveedor")
-@Dependent
+
 public class EstatPruebaProveedor implements Serializable{
 
    private BarChartModel barModel;

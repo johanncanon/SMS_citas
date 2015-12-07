@@ -19,4 +19,5 @@ public interface IAgendaDao {
     public void registrarAgenda(SmsAgenda agenda);
     public void modificarAgenda(SmsAgenda agenda);
     public void eliminarAgenda(SmsAgenda agenda);
+    
 }

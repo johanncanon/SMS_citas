@@ -232,6 +232,16 @@ public class VehiculoBean {
         this.usuarioView = usuarioView;
     }
 
+    public Usuario getUsuarioController() {
+        return usuarioController;
+    }
+
+    public void setUsuarioController(Usuario usuarioController) {
+        this.usuarioController = usuarioController;
+    }
+    
+    
+
     //Definicion de metodos VEHICULO
     public void registrar() {
         vehiculoController.registrarVehiculo(categoriaView, usuarioView, ciudadView, refenciaView, vehiculoView);

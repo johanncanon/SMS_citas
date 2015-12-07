@@ -5,6 +5,8 @@
  */
 package DAO;
 
+import Modelo.SmsAgenda;
+import Modelo.SmsCiudad;
 import Modelo.SmsVehiculo;
 import java.util.List;
 
@@ -19,7 +21,6 @@ public interface IVehiculoDao {
     public void modificarVehiculo(SmsVehiculo vehiculo);
     public void eliminarVehiculo(SmsVehiculo vehiculo);
     public List<SmsVehiculo> consultarVehiculo(SmsVehiculo vehiculo);
-    
-    
-    
+    public List<SmsVehiculo> consultarVehiculosDisponibles(SmsAgenda agenda, SmsCiudad ciudad);
+        
 }

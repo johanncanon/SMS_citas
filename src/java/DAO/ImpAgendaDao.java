@@ -7,6 +7,7 @@ package DAO;
 
 import Modelo.SmsAgenda;
 import Modelo.SmsCiudad;
+import Modelo.SmsVehiculo;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -91,5 +92,8 @@ public class ImpAgendaDao implements IAgendaDao{
             }
         }
     }
+   
+
+    
     
 }
