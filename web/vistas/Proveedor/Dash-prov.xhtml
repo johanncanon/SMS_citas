@@ -14,13 +14,16 @@
         <ui:define name="content4">
             <b:container fluid="true">
                 <b:row>
-                    <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
-                        <div class="box box-info">
+                    <b:column col-lg="7" col-md="7" col-sm="5" col-xs="12">
+                        <div class="box box-info espacio-arriba">
                             <div class="box-header with-border">
                                 <i class="fa fa-2x fa-newspaper-o"/>
                                 <h2 class="box-title" >Estadisticas Generales del Proveedor</h2>
                             </div>
                             <div class="box-body">
+                                
+                                
+                                
                                 <div style="display: inline-flex">
                                     <h5> 
                                         <i class="fa fa-check-square"/>
@@ -45,7 +48,7 @@
                                 <b:button value="Hacer consulta" iconAwesome="fa da-user" look="primary"/>
                                 <hr/>
                                 
-                                <b:column col-lg="12">
+                                <b:column col-lg="10">
                                     <ui:include src="general/estPrueba.xhtml"/>                                    
                                 </b:column>
                                 
@@ -54,8 +57,33 @@
                         </div>
                     </b:column>
 
-                    <b:column col-lg="4">
-                         
+                    <b:column col-lg="4" col-md="4" col-sm="6" col-xs="12" >
+                        <div class="box box-danger espacio-arriba">
+                            <div class="box-header with-border">
+                                <i class="fa fa-2x fa-user-plus "/>
+                                <h4 class="box-title">Estadisticas para Proveedores</h4>
+                            </div>
+                            <div class="box-body">
+                                <p>Las estadísticas generales para proveedores le permiten tener
+                                listados específicos y cuantificados de los ingresos y ganancias que
+                                recibe del vehículo que esta al servicio de SMS Renta.</p>
+                            </div>
+                        </div>
+                    </b:column>
+                    
+                    <b:column col-lg="4" col-md="4" col-sm="6" col-xs="12" >
+                        <div class="box box-success ">
+                            <div class="box-header with-border">
+                                <i class="fa fa-2x fa-money "/>
+                                <h4 class="box-title">Estado de Vehiculos</h4>
+                            </div>
+                            <div class="box-body">
+                                <p>
+                                   Revice el estado de sus Vehiculos en  dando Clic en el siguiente enlace:
+                                </p>
+                                <b:button value="Ver Estado de Vehiculos"  look="success"  style="width: 100%"/>
+                            </div>
+                        </div>
                     </b:column>
 
                 </b:row>

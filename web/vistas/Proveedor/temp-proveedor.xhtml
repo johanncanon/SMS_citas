@@ -14,7 +14,7 @@
         <h:outputStylesheet name="./bootstrap/css/bootstrap.css"/>
         <h:outputStylesheet name="./adminLT/css/AdminLTE.css"/>
         <h:outputStylesheet name="./adminLT/css/skins/_all-skins.min.css"/>
-        <title>Dashboard SMS | Administradot Secundario</title>
+        <title>Dashboard SMS | Proveedor</title>
     </h:head>
 
     <h:body>
@@ -50,46 +50,24 @@
                                 <p:growl autoUpdate="true"/>
                                 <b:thumbnail id="esp1">
                                     <b:panelGrid colSpans="4,8">
-                                        <img src="../../resources/images/col-band.png" style="width: 113%; margin-left: 9px; margin-top: 16px;"/>
+                                        <img class="img-usuario" src="../../resources/images/col-band.png" style=" margin-top: 16px;"/>
                                         <f:facet name="caption"/>
                                         <h4>Thumbnail label</h4>
                                         <p>Nombre: "Nombre Completo."</p>
                                         <p>Perfil : "tipo de perfil."</p>
                                     </b:panelGrid>
                                 </b:thumbnail>
-                                <p:panelMenu styleClass="ui-state-default-menu">
+                                <p:panelMenu styleClass="ui-state-default-menu" style="font-size: 0.8em">
 
-                                    <p:submenu label="Registro" styleClass="color-menu-1" icon="ui-icon-pencil">
-                                        <p:menuitem style="font-size: 1.2em" value="Registro de Usuario" icon="ui-icon-pencil" url="reservas/reservadmin.xhtml"/>
+                                    <p:submenu label="Estadisticas de Proveedor" styleClass="color-menu-1" icon="ui-icon-pencil">
+                                        <p:menuitem style="font-size: 1.2em" value="Ingresos y Ganancias" icon="ui-icon-bookmark" url="reservas/reservadmin.xhtml"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Estado de vehiculo" icon="ui-icon-star" url="reservas/reservadmin.xhtml"/>
                                     </p:submenu>
 
-                                    <p:submenu label="Reservaciones" >
-                                        <p:menuitem style="font-size: 1.2em" value="Reservar Vehiculos" url="reservas/reservadmin.xhtml"  icon="ui-icon-star" />
-                                        <p:menuitem style="font-size: 1.2em" value="Reservar Conductores" url="reservas/reservadmin.xhtml"  icon="ui-icon-plusthick" />
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar reservaciones" url="reservas/reservadmin.xhtml"  icon="ui-icon-circle-zoomin" />
+                                    <p:submenu label="Perfil" >
+                                        <p:menuitem style="font-size: 1.2em" value="Editar Perfil" url="reservas/reservadmin.xhtml"  icon="ui-icon-circle-check" />
                                     </p:submenu>
-
-                                    <p:submenu label="Clientes">
-                                        <p:menuitem style="font-size: 1.2em" value="Registro de Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-check"/>
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar Clientes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-circle-zoomin"/>
-                                    </p:submenu>
-
-                                    <p:separator />
-                                    <p:submenu label="Vehiculos" >
-                                        <p:menuitem style="font-size: 1.2em" value="Marcas SMS Renta" url="#" icon="ui-icon-home"/>
-                                        <p:menuitem style="font-size: 1.2em"  value="Categorias SMS Renta" url="#" icon="ui-icon-contact"/>
-                                        <p:menuitem style="font-size: 1.2em" value="Referencias SMS Renta" url="http://www.primefaces.org" icon="ui-icon-folder-collapsed" />
-                                        <p:menuitem style="font-size: 1.2em" value="Vehiculo SMS Renta" url="http://www.primefaces.org" icon="ui-icon-person" />
-                                    </p:submenu>
-
-                                    <p:submenu label="Conductores SMS">
-                                        <p:menuitem style="font-size: 1.2em" value="Registrar Conductores" url="#" icon="ui-icon-arrowstop-1-s"/>
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar Conductores" url="#" icon="ui-icon-calculator"/>
-
-                                    </p:submenu>
-                                    <p:submenu label="Calificaciones">
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar Calificaciones" url="#" icon="ui-icon-star"/>
-                                    </p:submenu>
+                                    
                                 </p:panelMenu>
                             </h:form>
                         </div>

@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <ui:composition template="./temp-proveedor.xhtml">
+
+        <ui:define name="content4">
+
+            <b:container fluid="true">
+                <h:form>
+
+                    <b:column col-lg="8">
+                        <div class="box box-success espacio-arriba">
+                            <div class="box-header">
+                                <i class="fa fa-2x fa-pencil-square"/>
+                                <h3 class="box-title">Edicion de datos de Perfil</h3>
+                            </div>
+                            <div class="box-body">
+                                <blockquote>
+                                    <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+                                        <h:outputLabel for="ajax" value="Nombre:" />
+                                        <p:inplace  editor="true">
+                                            <p:inputText value="#{iyhv}" required="true" label="text" />
+                                        </p:inplace>
+
+                                        <h:outputLabel for="ajax" value="Apellido:" />
+                                        <p:inplace editor="true">
+                                            <p:inputText value="#{oihp}" required="true" label="text" />
+                                        </p:inplace>
+
+                                        <h:outputLabel for="ajax" value="Cédula:" />
+                                        <p:inplace  editor="true">
+                                            <p:inputText value="#{iorfg}" required="true" label="text" />
+                                        </p:inplace>
+
+                                        <h:outputLabel for="ajax" value="Teléfono:" />
+                                        <p:inplace  editor="true">
+                                            <p:inputText value="#{oldrg}" required="true" label="text" />
+                                        </p:inplace>
+
+                                        <h:outputLabel for="ajax" value="Celular:" />
+                                        <p:inplace  editor="true">
+                                            <p:inputText value="#{ñdfp}" required="true" label="text" />
+                                        </p:inplace>
+
+                                        <h:outputLabel for="ajax" value="Correo Electronico:" />
+                                        <p:inplace  editor="true">
+                                            <p:inputText value="#{ñdsdfgfp}" required="true" label="text" />
+                                        </p:inplace>
+
+                                        <h:outputLabel for="ajax" value="NIT:" />
+                                        <p:inplace  editor="true">
+                                            <p:inputText value="#{ñdfp}" required="true" label="text" />
+                                        </p:inplace>
+
+                                        <h:outputLabel for="ajax" value="Login:" />
+                                        <p:inplace  editor="true">
+                                            <p:inputText value="#{ñdfp}" required="true" label="text" />
+                                        </p:inplace>
+
+                                        <h:outputLabel for="ajax" value="Cwelular:" />
+                                        <p:inplace  editor="true">
+                                            <p:inputText value="#{ñdfp}" required="true" label="text" />
+                                        </p:inplace>
+
+                                        <h:outputLabel for="ajax" value="Cwelular:" />
+                                        <p:inplace  editor="true">
+                                            <p:inputText value="#{ñdfp}" required="true" label="text" />
+                                        </p:inplace>
+
+                                    </h:panelGrid>
+                                </blockquote>
+                            </div>
+                        </div>
+
+                    </b:column>
+
+                    <b:column col-lg="4">
+                        <div class="box box-solid bg-green-gradient espacio-arriba">
+                            <div class="box-header ui-sortable-handle">
+                                <i class="fa fa-user-plus"/>
+                                <h3 class="box-title">Edición de Datos de Perfil </h3>
+                            </div>
+                            <div class="box-body">
+                                <p class="text-justify">    
+                                    Espacio reservado solo para cambiar los datos del usuario que sean necesarios 
+                                    debido a errores de digitación al principio del registro, o de actualizaciones de datos 
+                                    como el teléfono, el correo, etc.
+                                </p>
+
+                            </div>
+                            <div class="box-footer text-black">
+                                hola que hace
+                            </div>
+                        </div>
+                    </b:column>
+
+                    <b:column>
+                        <div class="">
+                            <div class=""></div>
+                            <div class=""></div>
+                        </div>
+                    </b:column>
+
+
+
+                </h:form>
+            </b:container>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

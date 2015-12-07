@@ -8,9 +8,13 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:body>
-        <p:panelGrid  style="width:100%">
-            <p:chart type="bar" model="#{estadisticasBean.barModel}" />
-        </p:panelGrid>
+        
+        <h:form>
+            <p:panelGrid  columns="2" columnClasses="left,right" style="width:100%">
+                <p:chart type="bar" model="#{estatPruebaProveedor.barModel}" style="width: 97%" />
+            </p:panelGrid>
+        </h:form>
+        
     </h:body>
 </html>
 
