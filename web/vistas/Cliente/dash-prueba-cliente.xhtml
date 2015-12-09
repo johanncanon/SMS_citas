@@ -35,44 +35,40 @@
                                                     <i class="fa fa-2x fa-globe"></i>
                                                     <span class="label-cl">Ciudad: </span>                                                   
                                                 </div>
-                                                <b:inputText span="7" value="#{agendaBean.ciudadView.ciudadNombre}"  placeholder="Bogotá, Cali, Medellin, etc..."  required="true"/>
+                                                <b:inputText value="#{agendaBean.ciudadView.ciudadNombre}" span="7"  placeholder="Bogotá, Cali, Medellin, etc..." requiredMessage="Indique ciudad donde quiere solicitar el servicio"  required="true" />
                                             </h:panelGrid>
                                         </b:panel>
                                     </p:tab>
 
                                     <p:tab id="address" title="Agendamiento">
-                                        <b:panel title="Fechas de la reservación" look="primary" >
-                                            <p:messages />
-                                            <p style="margin-top: 12px">Aqui podrá definir la fecha de inicio del servicio y la fecha de 
-                                                final del servicio SMS:</p>
-                                            <hr/>
-                                            <div class="form-group">
-                                                <label class="control-label" style="font-weight: 800">Fecha de inicio</label>
-                                                <h:form>
-                                                    <p:growl id="msgs" showDetail="true" />
+                                        <b:panel title="Fechas de la reservación" look="primary" >                                            
+                                            <h:form>
+                                                <p:messages autoUpdate="true"/>
+                                                <p style="margin-top: 12px">Aqui podrá definir la fecha de inicio del servicio y la fecha de 
+                                                    final del servicio SMS:</p>
+                                                <hr/>
+                                                <div class="form-group">
+                                                    <label class="control-label" style="font-weight: 800">Fecha de inicio</label>
                                                     <h:panelGrid columns="4" cellpadding="2">
-                                                        <p:outputLabel for="button" value="Fecha de Inicio:" style="font-weight: 800"/>
-                                                        <p:calendar id="button" value="#{agendaBean.agendaView.agendaFechaInicio}" showOn="button"/>
+                                                        <p:outputLabel for="CFechaInicio" value="Fecha de Inicio:" style="font-weight: 800"/>
+                                                        <p:calendar id="CFechaInicio" value="#{agendaBean.agendaView.agendaFechaInicio}" pattern="MM/dd/yyyy" required="true"/>
 
-                                                        <p:outputLabel for="time" style="font-weight: 800" value="Hora de inicio:" />
-                                                        <p:calendar id="time" value="#{agendaBean.agendaView.agendaHoraInicio}" pattern="HH:mm" timeOnly="true"/>
+                                                        <p:outputLabel for="CHoraInicio" style="font-weight: 800" value="Hora de inicio:" />
+                                                        <p:calendar id="CHoraInicio" value="#{agendaBean.agendaView.agendaHoraInicio}" required="true" pattern="HH:mm" timeOnly="true"/>
                                                     </h:panelGrid>
-                                                </h:form>
-                                            </div>
-                                            <hr/>
-                                            <div class="form-group">
-                                                <label class="control-label" style="font-weight: 800">Fecha de inicio</label>
-                                                <h:form>
-                                                    <p:growl id="msgs" showDetail="true" />
+                                                </div>
+                                                <hr/>
+                                                <div class="form-group">
+                                                    <label class="control-label" style="font-weight: 800">Fecha de entrega</label>
                                                     <h:panelGrid columns="4" cellpadding="2">
-                                                        <p:outputLabel style="font-weight: 800" for="button" value="Fecha de Entrega:" />
-                                                        <p:calendar id="button" value="#{agendaBean.agendaView.agendaFechaLlegada}" showOn="button"/>
+                                                        <p:outputLabel style="font-weight: 800" for="CFechaEntrega" value="Fecha de Entrega:" />
+                                                        <p:calendar id="CFechaEntrega" value="#{agendaBean.agendaView.agendaFechaLlegada}" pattern="MM/dd/yyyy" required="true"/>
 
-                                                        <p:outputLabel style="font-weight: 800" for="time" value="Hora de Entrega:" />
-                                                        <p:calendar id="time" value="#{agendaBean.agendaView.agendaHoraLlegada}" pattern="HH:mm" timeOnly="true"/>
+                                                        <p:outputLabel style="font-weight: 800" for="CHoraEntrega" value="Hora de Entrega:" />
+                                                        <p:calendar id="CHoraEntrega" value="#{agendaBean.agendaView.agendaHoraLlegada}" required="true" pattern="HH:mm" timeOnly="true"/>
                                                     </h:panelGrid>
-                                                </h:form>
-                                            </div>                                            
+                                                </div> 
+                                            </h:form>
                                         </b:panel>
                                     </p:tab>
 
@@ -83,7 +79,7 @@
                                             <hr/>
                                             <div class="form-group">
                                                 <h:form>
-                                                    
+
                                                     <p:messages autoUpdate="true" />
                                                     <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="7">
                                                         <p:outputLabel for="advanced" value="Categoria de Vehiculo: "  />
@@ -93,7 +89,7 @@
                                                             <f:selectItems value="#{categoriaBean.nombresCategoriasListView}"/>
                                                         </p:selectOneMenu>
                                                     </h:panelGrid>                                                  
-                                                    
+
                                                 </h:form>
                                             </div>
                                             <div class="form-group box box-danger direct-chat direct-chat-danger">
@@ -104,11 +100,12 @@
                                                         </f:facet>
 
                                                         <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                                                            <p:graphicImage name="#{vehiculo.vehFotoRuta + vehiculo.vehFotoNombre}"/> 
+                                                           
+                                                            <p:graphicImage width="256" height="256" name="/resources/images/upload/#{vehiculo.vehFotoNombre}"/> 
 
                                                             <p:outputPanel>
                                                                 <h:panelGrid columns="2" cellpadding="5">
-                                                                    
+
                                                                     <h:outputText value="Placa:" />
                                                                     <h:outputText value="#{vehiculo.vehPlaca}" style="font-weight: bold"/>
 
@@ -117,13 +114,13 @@
 
                                                                     <h:outputText value="Personas:" />
                                                                     <h:outputText value="#{vehiculo.vehNumPersonas}" style="font-weight: bold"/>
-                                                                
+
                                                                     <h:outputText value="Maletas grandes:" />
                                                                     <h:outputText value="#{vehiculo.vehNumMalGrande}" style="font-weight: bold"/>
-                                                                    
+
                                                                     <h:outputText value="Maletas pequeños:" />
                                                                     <h:outputText value="#{vehiculo.vehNumMalPequeña}" style="font-weight: bold"/>
-                                                                    
+
                                                                 </h:panelGrid>
                                                             </p:outputPanel>
                                                         </h:panelGrid>
@@ -132,7 +129,6 @@
                                             </div>
                                         </b:panel>
                                     </p:tab>
-
 
                                     <p:tab id="conductor" title="Conductor">
                                         <p:messages />
@@ -144,7 +140,7 @@
 
                                                 <p:dataScroller var="empleado" value="#{agendaBean.empleadosListView}" chunkSize="10" >
                                                     <f:facet name="header">
-                                                         Explore hacia abajo para cargar mas conductores.
+                                                        Explore hacia abajo para cargar mas conductores.
                                                     </f:facet>
 
                                                     <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
@@ -152,13 +148,13 @@
 
                                                         <p:outputPanel>
                                                             <h:panelGrid columns="2" cellpadding="5">
-                                                                
+
                                                                 <h:outputText value="Nombre y apellidos:" />
                                                                 <h:outputText value="#{empleado.usuarioNombre}" style="font-weight: bold"/>
 
                                                                 <h:outputText value="Identificacion" />
                                                                 <h:outputText value="#{empleado.usuarioCc}" style="font-weight: bold"/>
-                                                                
+
                                                             </h:panelGrid>
                                                         </p:outputPanel>
                                                     </h:panelGrid>
@@ -180,7 +176,7 @@
                             </h:form>
                         </div>
                     </b:column>
-                    
+
 
                 </b:row>
             </b:container>

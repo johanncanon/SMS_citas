@@ -22,5 +22,6 @@ public interface IVehiculoDao {
     public void eliminarVehiculo(SmsVehiculo vehiculo);
     public List<SmsVehiculo> consultarVehiculo(SmsVehiculo vehiculo);
     public List<SmsVehiculo> consultarVehiculosDisponibles(SmsAgenda agenda, SmsCiudad ciudad);
+    public List<SmsVehiculo> consultarVehiculosCiudad(SmsCiudad ciudad);
         
 }

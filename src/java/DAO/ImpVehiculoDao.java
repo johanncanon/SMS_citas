@@ -132,13 +132,31 @@ public class ImpVehiculoDao implements IVehiculoDao {
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("select vehiculo from SmsVehiculo as vehiculo, SmsAgenda as agenda left join fetch vehiculo.smsCiudad as ciudad left join fetch agenda.smsVehiculo"
-                    + " as vehiculoAgenda where ciudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "' and vehiculoAgenda.idVehiculo <> vehiculo.idVehiculo or ((agenda.agendaFechaInicio = agenda.agendaFechaLlegada"
+                    + " as vehiculoAgenda where ciudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "' and (vehiculoAgenda.idVehiculo <> vehiculo.idVehiculo or ((agenda.agendaFechaInicio = agenda.agendaFechaLlegada"
                     + " and agenda.agendaHoraInicio > '" + agenda.getAgendaHoraLlegada() + "' and agendaHoraLlegada < '" + agenda.getAgendaHoraInicio() + "') and"
                     + " (agenda.agendaFechaInicio <> agenda.agendaFechaLlegada and agenda.agendaFechaInicio >= '" + agenda.getAgendaFechaLlegada() + "' and"
                     + " agenda.agendaFechaLlegada <= '" + agenda.getAgendaFechaInicio() + "' and agenda.agendaHoraInicio > '" + agenda.getAgendaHoraLlegada() + "' and"
-                    + " agendaHoraLlegada < '" + agenda.getAgendaHoraInicio() + "'))");
+                    + " agendaHoraLlegada < '" + agenda.getAgendaHoraInicio() + "')))");
             vehiculos = (List<SmsVehiculo>) query.list();
 
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return vehiculos;
+    }
+
+    @Override
+    public List<SmsVehiculo> consultarVehiculosCiudad(SmsCiudad ciudad) {
+        Session session = null;
+        List<SmsVehiculo> vehiculos = null;
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsVehiculo as vehiculo left join fetch vehiculo.smsCiudad as ciudad where ciudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "' ");
+            vehiculos = (List<SmsVehiculo>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
         } finally {

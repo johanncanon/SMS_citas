@@ -117,10 +117,8 @@ public class CiudadBean {
 
     public void setBuscar(String buscar) {
         this.buscar = buscar;
-    }
+    }    
     
-    
-
     //Metodos propios
     public void seleccionarCrud(int i) {
         estado = i;

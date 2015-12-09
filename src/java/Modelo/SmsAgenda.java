@@ -28,6 +28,7 @@ public class SmsAgenda  implements java.io.Serializable {
         this.smsVehiculo = smsVehiculo;
         this.smsEmpleado = smsEmpleado;
     }
+    
     public SmsAgenda(SmsVehiculo smsVehiculo, SmsEmpleado smsEmpleado, Date agendaFechaInicio, Date agendaFechaLlegada, Date agendaHoraInicio, Date agendaHoraLlegada, Set<SmsReservacion> smsReservacions) {
        this.smsVehiculo = smsVehiculo;
        this.smsEmpleado = smsEmpleado;

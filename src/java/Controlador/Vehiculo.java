@@ -159,4 +159,12 @@ public class Vehiculo {
         vehiculos = linkDao.consultarVehiculosDisponibles(agenda, ciudad);
         return vehiculos;
     }
+    
+    public List<SmsVehiculo> consultarVehiculosCiudad(SmsCiudad c) {
+        vehiculos = new ArrayList<>();        
+        SmsCiudad ciudad = c;
+        IVehiculoDao linkDao = new ImpVehiculoDao();
+        vehiculos = linkDao.consultarVehiculosCiudad(ciudad);
+        return vehiculos;
+    }
 }

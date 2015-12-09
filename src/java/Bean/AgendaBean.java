@@ -29,10 +29,10 @@ public class AgendaBean {
     protected SmsReservacion reservaView;
     protected SmsCategoria categoriaView;
     protected SmsCiudad ciudadView;
-    
+
     protected List<SmsVehiculo> vehiculosListView;
     protected List<SmsUsuario> empleadosListView;
-    
+
     private boolean skip = false;
 
     //Relacion con los controladores
@@ -43,16 +43,23 @@ public class AgendaBean {
 
     
     public AgendaBean() {
-        
+
         agendaView = new SmsAgenda();
         vehiculoView = new SmsVehiculo();
         empleadoView = new SmsEmpleado();
         reservaView = new SmsReservacion();
         categoriaView = new SmsCategoria();
         ciudadView = new SmsCiudad();
-        
+
         vehiculosListView = new ArrayList<>();
         empleadosListView = new ArrayList<>();
+
+        vehiculoController = new Vehiculo();
+        empleadoController = new Empleado();
+        agendaController = new Agenda();
+        reservacionController = new Reservacion();
+
+        
     }
 
     public SmsAgenda getAgendaView() {
@@ -142,7 +149,6 @@ public class AgendaBean {
     public void setEmpleadosListView(List<SmsUsuario> empleadosListView) {
         this.empleadosListView = empleadosListView;
     }
-    
 
     public Vehiculo getVehiculoController() {
         return vehiculoController;
@@ -159,17 +165,22 @@ public class AgendaBean {
     public void setEmpleadoController(Empleado empleadoController) {
         this.empleadoController = empleadoController;
     }
-            
        
+    
+
     //Metodos
     public String onFlowProcess(FlowEvent event) {
-        if(skip) {
+        if (skip) {
             skip = false;//reset in case user goes back
             return "confirm";
-        }
-        else {
+        } else {
+            if (ciudadView.getCiudadNombre() != null) {
+                vehiculosListView = new ArrayList<>();
+                vehiculosListView = vehiculoController.consultarVehiculosCiudad(ciudadView);
+                
+            }
             return event.getNewStep();
         }
     }
-    
+
 }
