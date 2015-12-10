@@ -50,10 +50,10 @@
                                                 <label class="control-label" style="font-weight: 800">Fecha de inicio</label>
                                                 <h:panelGrid columns="4" cellpadding="2">
                                                     <p:outputLabel for="CFechaInicio" value="Fecha de Inicio:" style="font-weight: 800"/>
-                                                    <p:calendar id="CFechaInicio" value="#{agendaBean.agendaView.agendaFechaInicio}" pattern="MM/dd/yyyy" required="true"/>
+                                                    <p:calendar id="CFechaInicio" value="#{agendaBean.agendaView.agendaFechaInicio}" pattern="yyyy-MM-dd" required="true"/>
 
                                                     <p:outputLabel for="CHoraInicio" style="font-weight: 800" value="Hora de inicio:" />
-                                                    <p:calendar id="CHoraInicio" value="#{agendaBean.agendaView.agendaHoraInicio}" required="true" pattern="HH:mm" timeOnly="true"/>
+                                                    <p:calendar id="CHoraInicio" value="#{agendaBean.agendaView.agendaHoraInicio}" required="true" pattern="HH:mm:ss" timeOnly="true"/>
                                                 </h:panelGrid>
                                             </div>
                                             <hr/>
@@ -61,10 +61,10 @@
                                                 <label class="control-label" style="font-weight: 800">Fecha de entrega</label>
                                                 <h:panelGrid columns="4" cellpadding="2">
                                                     <p:outputLabel style="font-weight: 800" for="CFechaEntrega" value="Fecha de Entrega:" />
-                                                    <p:calendar id="CFechaEntrega" value="#{agendaBean.agendaView.agendaFechaLlegada}" pattern="MM/dd/yyyy" required="true"/>
+                                                    <p:calendar id="CFechaEntrega" value="#{agendaBean.agendaView.agendaFechaLlegada}" pattern="yyyy-MM-dd" required="true"/>
 
                                                     <p:outputLabel style="font-weight: 800" for="CHoraEntrega" value="Hora de Entrega:" />
-                                                    <p:calendar id="CHoraEntrega" value="#{agendaBean.agendaView.agendaHoraLlegada}" required="true" pattern="HH:mm" timeOnly="true"/>
+                                                    <p:calendar id="CHoraEntrega" value="#{agendaBean.agendaView.agendaHoraLlegada}" required="true" pattern="HH:mm:ss" timeOnly="true"/>
                                                 </h:panelGrid>
                                             </div> 
 

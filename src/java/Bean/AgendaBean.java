@@ -174,7 +174,8 @@ public class AgendaBean {
             skip = false;//reset in case user goes back
             return "confirm";
         } else {
-            if (ciudadView.getCiudadNombre() != null && agendaView.getAgendaFechaInicio() != null) {
+            if (ciudadView.getCiudadNombre() != null && agendaView.getAgendaFechaInicio() != null && agendaView.getAgendaFechaLlegada() != null
+                    && agendaView.getAgendaHoraInicio() != null && agendaView.getAgendaHoraLlegada() != null) {
                 vehiculosListView = new ArrayList<>();
                 vehiculosListView = vehiculoController.consultarVehiculosDisponible(agendaView, ciudadView);                
             }

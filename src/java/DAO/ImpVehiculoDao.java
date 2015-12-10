@@ -132,7 +132,10 @@ public class ImpVehiculoDao implements IVehiculoDao {
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("select vehiculo from SmsVehiculo as vehiculo, SmsAgenda as agenda left join fetch agenda.smsVehiculo"
-                    + " as vehiculoAgenda where vehiculo.smsCiudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "' and (vehiculoAgenda.idVehiculo <> vehiculo.idVehiculo or (vehiculoAgenda.idVehiculo = vehiculo.idVehiculo ))");
+                    + " as vehiculoAgenda where vehiculo.smsCiudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "' and vehiculoAgenda.idVehiculo <> vehiculo.idVehiculo"
+                    + " or (vehiculo.smsCiudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "' and vehiculoAgenda.idVehiculo = vehiculo.idVehiculo and agenda.agendaFechaInicio = '" + agenda.getAgendaFechaInicio() + "'"
+                    + " and agenda.agendaFechaLlegada = '" + agenda.getAgendaFechaLlegada() + "' and agenda.agendaHoraInicio > '" + agenda.getAgendaHoraLlegada() + "' and agenda.agendaHoraLlegada < '" + agenda.getAgendaHoraInicio() + "')"
+                    + " group by vehiculo.idVehiculo");
             vehiculos = (List<SmsVehiculo>) query.list();
 
         } catch (HibernateException e) {
