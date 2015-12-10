@@ -25,6 +25,9 @@
                             <div class="box-body">
                                 <blockquote>
                                     <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+                                        <h4 class="box-title" style="color: #B9B9B9">Datos Personales:</h4>
+                                        <p:spacer width="20"/>
+                                        <hr/><p:spacer width="20"/>
                                         <h:outputLabel for="ajax" value="Nombre:" />
                                         <p:inplace  editor="true">
                                             <p:inputText value="#{iyhv}" required="true" label="text" />
@@ -60,20 +63,26 @@
                                             <p:inputText value="#{ñdfp}" required="true" label="text" />
                                         </p:inplace>
 
+                                        <h4 class="box-title" style="color: #B9B9B9">Datos de Usuario:</h4>
+                                        <p:spacer width="20"/>
+                                        <hr/><p:spacer width="20"/>
+
                                         <h:outputLabel for="ajax" value="Login:" />
                                         <p:inplace  editor="true">
                                             <p:inputText value="#{ñdfp}" required="true" label="text" />
                                         </p:inplace>
 
-                                        <h:outputLabel for="ajax" value="Cwelular:" />
+                                        <h:outputLabel for="ajax" value="Contraseña:" />
                                         <p:inplace  editor="true">
                                             <p:inputText value="#{ñdfp}" required="true" label="text" />
                                         </p:inplace>
 
-                                        <h:outputLabel for="ajax" value="Cwelular:" />
-                                        <p:inplace  editor="true">
-                                            <p:inputText value="#{ñdfp}" required="true" label="text" />
-                                        </p:inplace>
+                                        <h4 class="box-title" style="color: #B9B9B9">Foto de Perfil:</h4><p:spacer width="20"/>
+                                        <hr/><p:spacer width="20"/>
+                                        <p:fileUpload value="#{cargaArchivosBean.archivo}" mode="simple" /><br/>
+                                        
+                                        <b:commandButton look="danger" style="width: 100%" value="Editar" ajax="false" actionListener="#{cargaArchivosBean.upload()}" disabled="true" />
+
 
                                     </h:panelGrid>
                                 </blockquote>
@@ -96,9 +105,7 @@
                                 </p>
 
                             </div>
-                            <div class="box-footer text-black">
-                                hola que hace
-                            </div>
+                            
                         </div>
                     </b:column>
 

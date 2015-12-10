@@ -7,11 +7,9 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
+    <ui:composition template="./../temp-admin2.xhtml">
 
-
-    <ui:composition template="./../template-admin-p.xhtml">
-
-        <ui:define name="content">
+        <ui:define name="content1">
 
             <b:container fluid="true">
                 <b:row>
@@ -27,23 +25,11 @@
                             </div>
                         </div>
                     </b:column>
-
-
+                    
+                    
+                    
                     <b:column col-lg="4" col-md="3" col-sm="4" col-xs="12">
-                        <div class="box box-danger espacio-arriba">
-                            <div class="box-header with-border">
-                                <i class="fa fa-2x fa-road" />
-                                <h3 class="box-title">Lista de Conductores</h3>
-                            </div>
-                            <div class="box-body">
-                                <!-- LISTA DE CONDUCTORES -->
-                                <ui:include src="paginator.xhtml"></ui:include>
-                            </div>
-                        </div>
-                    </b:column>
-
-                    <b:column col-lg="4" col-md="3" col-sm="4" col-xs="12">
-                        <div class="box box-solid bg-green-gradient espacio-arriba">
+                        <div class="box box-solid bg-light-blue-gradient espacio-arriba">
                             <div class="box-header with-border">
                                 <i class="fa fa-2x fa-dashboard" />
                                 <h3 class="box-title">Tablero Principal</h3>
@@ -54,6 +40,20 @@
                                     importates realizadas dentro de SMS Renta:<em>Horarios, clientes, Conductores, 
                                         Vehiculos y Estadisticas.</em>
                                 </p>
+                            </div>
+                        </div>
+                    </b:column>
+
+
+                    <b:column col-lg="4" col-md="3" col-sm="4" col-xs="12">
+                        <div class="box box-danger ">
+                            <div class="box-header with-border">
+                                <i class="fa fa-2x fa-road" />
+                                <h3 class="box-title">Lista de Conductores</h3>
+                            </div>
+                            <div class="box-body">
+                                <!-- LISTA DE CONDUCTORES -->
+                                <ui:include src="paginator.xhtml"></ui:include>
                             </div>
                         </div>
                     </b:column>
@@ -102,8 +102,9 @@
 
                 </b:row>
             </b:container>
-        </ui:define>
-    </ui:composition>
 
+        </ui:define>
+
+    </ui:composition>
 
 </html>
