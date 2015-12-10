@@ -6,13 +6,10 @@
 package Bean;
 
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -20,7 +17,7 @@ import org.primefaces.model.UploadedFile;
  * @author SISTEMAS
  */
 @Named(value = "cargaArchivosBean")
-@Dependent
+
 public class cargaArchivosBean {
 
     private UploadedFile archivo;

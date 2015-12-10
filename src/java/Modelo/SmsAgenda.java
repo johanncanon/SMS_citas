@@ -22,7 +22,6 @@ public class SmsAgenda  implements java.io.Serializable {
 
     public SmsAgenda() {
     }
-
 	
     public SmsAgenda(SmsVehiculo smsVehiculo, SmsEmpleado smsEmpleado) {
         this.smsVehiculo = smsVehiculo;
