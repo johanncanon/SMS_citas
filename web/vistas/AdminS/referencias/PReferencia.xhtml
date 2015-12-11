@@ -8,11 +8,11 @@
       xmlns:p="http://primefaces.org/ui">
 
 
-    <ui:composition template="./../template-admin-p.xhtml">
-        <ui:define name="content">
+    <ui:composition template="./../temp-admin2.xhtml">
+        <ui:define name="content1">
             <b:container fluid="true">
                 <b:row>
-                    <h:form>   
+                    <h:form>                            
 
                         <b:column col-lg="11" col-md="11" col-sm="11" col-xs="12">
                             <div class="box box-info espacio-arriba">
@@ -26,8 +26,7 @@
                                 </div>
 
                             </div>
-                        </b:column>  
-
+                        </b:column>                               
 
                         <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
                             <div class="box box-danger">
@@ -57,7 +56,6 @@
                             </div>
                         </b:column> 
 
-
                         <b:column col-lg="7" col-md="7" col-sm="6" col-xs="12">
                             <div class="box box-success">
                                 <div class="box-header with-border">
@@ -81,22 +79,14 @@
                                             <p:outputLabel value="#{Referencias.smsMarca.marcaNombre}"/>
                                         </p:column>
 
-                                        <p:column style="width: 35px">
-                                            <p:commandButton icon="ui-icon-pencil" process="@this"  update="@form" action="#{referenciaBean.seleccionarCRUD(1)}" title="Modificar">
-                                                <f:setPropertyActionListener value="#{Referencias}" target="#{referenciaBean.referenciaView}"/>
-                                            </p:commandButton>
-                                        </p:column>
-
-                                        <p:column style="width: 35px">                                                    
-                                            <p:commandButton icon="ui-icon-close" process="@this" update="@form" action="#{referenciaBean.seleccionarCRUD(2)}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{Referencias}" target="#{referenciaBean.referenciaView}"/>
-                                            </p:commandButton>
-                                        </p:column>
                                     </p:dataTable>                                       
                                 </div>
 
                             </div>
                         </b:column>
+
+
+
 
                     </h:form> 
                 </b:row>

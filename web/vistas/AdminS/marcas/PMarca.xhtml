@@ -7,13 +7,13 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-  
-        <ui:composition template="./../template-admin-p.xhtml">
-         <ui:define name="content">
+    
+        <ui:composition template="./../temp-admin2.xhtml">
+            <ui:define name="content1">
                 <b:container fluid="true">
                     <b:row>
-                        <h:form>  
-                            
+                        <h:form>                            
+
                             <b:column col-lg="11" col-md="11" col-sm="11" col-xs="12" >
                                 <div class="box box-info espacio-arriba">
                                     <div class="box-header with-border">
@@ -27,6 +27,7 @@
                                     </div>
                                 </div>
                             </b:column>
+
 
                             <b:column col-lg="6" col-md="6" col-sm="6" col-xs="12">
                                 <div class="box box-danger">
@@ -69,23 +70,13 @@
                                                 <h:outputText value="#{Marca.marcaNombre}" />
                                             </p:column>
 
-                                            <p:column style="width: 35px">
-                                                <p:commandButton icon="ui-icon-pencil" process="@this" update="@form" action="#{marcaBean.seleccionarCRUD(1)}" title="Modificar">
-                                                    <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
-                                                </p:commandButton>
-                                            </p:column>
-
-                                            <p:column style="width: 35px">
-                                                <p:commandButton icon="ui-icon-close" process="@this" update="@form" action="#{marcaBean.seleccionarCRUD(2)}" title="Eliminar">
-                                                    <f:setPropertyActionListener value="#{Marca}" target="#{marcaBean.marcaView}"/>
-                                                </p:commandButton>
-                                            </p:column>
+                                            
                                         </p:dataTable>
                                         
                                     </div>
                                 </div>
-                                
                             </b:column>
+                            
                         </h:form> 
                     </b:row>
                 </b:container>

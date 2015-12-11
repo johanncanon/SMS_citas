@@ -7,11 +7,11 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="./../template-admin-p.xhtml">
-        <ui:define name="content">
+    <ui:composition template="./../temp-admin2.xhtml">
+        <ui:define name="content1">
             <b:container fluid="true">
                 <b:row>
-                    <h:form> 
+                    <h:form>                            
 
                         <b:column col-lg="7" col-md="9" col-sm="8" col-xs="12">
                             <div class="box box-danger espacio-arriba">
@@ -37,6 +37,7 @@
                                     <p:commandButton style="width: 100%" id="BTCiudad" action="#{ciudadBean.metodo()}" update="@form" value="#{ciudadBean.nombre}"/>                                       
                                 </div>
                             </div> 
+
                         </b:column>
 
                         <b:column col-lg="4" col-md="4" col-sm="8" col-xs="12">
@@ -52,7 +53,6 @@
                             </div>
                         </b:column>
 
-                        
                         <b:column col-lg="11" col-md="5" col-sm="8" col-xs="12">
                             <div class="box box-success">
                                 <div class="box-header with-border">
@@ -77,23 +77,11 @@
                                             <h:outputText value="#{ciudades.smsPais.paisNombre}"/>
                                         </p:column>
 
-                                        <p:column style="width: 35px">
-                                            <p:commandButton process="@this" update="@form" icon="ui-icon-pencil" action="#{ciudadBean.seleccionarCrud(1)}" title="Modificar">
-                                                <f:setPropertyActionListener value="#{ciudades}" target="#{ciudadBean.ciudadView}"/>
-                                            </p:commandButton>
-                                        </p:column>
 
-                                        <p:column style="width: 35px"> 
-                                            <p:commandButton process="@this" update="@form" icon="ui-icon-close" action="#{ciudadBean.seleccionarCrud(2)}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{ciudades}" target="#{ciudadBean.ciudadView}"/>
-                                            </p:commandButton>
-                                        </p:column>
                                     </p:dataTable>                                
                                 </div>
                             </div> 
                         </b:column>
-                        
-                        
                     </h:form> 
                 </b:row>
             </b:container>

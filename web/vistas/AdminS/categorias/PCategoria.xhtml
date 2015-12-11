@@ -8,11 +8,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
-    <ui:composition template="./../template-admin-p.xhtml">
-        <ui:define name="content">
+    <ui:composition template="./../temp-admin2.xhtml">
+        <ui:define name="content1">
             <b:container fluid="true">
                 <b:row>
-
                     <h:form>
 
                         <b:column col-lg="7" col-md="7" col-sm="6" col-xs="12">
@@ -53,15 +52,13 @@
                             </div>
                         </b:column>
 
-
-
                         <b:column col-lg="11" col-md="11" col-sm="11" col-xs="12">
                             <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-list"/>
                                     <h4 class="box-title">Lista de Categorias</h4>
                                 </div>
-
+                                
                                 <div class="box-body">
                                     <b:inputText placeholder="Buscar" value="#{categoriaBean.buscar}" style="width: 100%">
                                         <p:ajax event="keyup" listener="#{categoriaBean.filtrar()}"  process="@this" update="DTCategoria"/>
@@ -78,22 +75,13 @@
                                         <p:column headerText="Descripcion">
                                             <h:outputText value="#{Categorias.categoriaDescripcion}" />
                                         </p:column>
-                                        <p:column style="width: 35px">
-                                            <p:commandButton icon="ui-icon-pencil" process="@this" update="@form" action="#{categoriaBean.seleccionarCRUD(1)}" title="Modificar">
-                                                <f:setPropertyActionListener value="#{Categorias}" target="#{categoriaBean.categoriaView}"/>
-                                            </p:commandButton>
-                                        </p:column>
-
-                                        <p:column style="width: 35px">
-                                            <p:commandButton icon="ui-icon-close" process="@this" update="@form" action="#{categoriaBean.seleccionarCRUD(2)}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{Categorias}" target="#{categoriaBean.categoriaView}"/>
-                                            </p:commandButton>
-                                        </p:column>
+                                    
                                     </p:dataTable>                                                                   
+
                                 </div>
+
                             </div>
                         </b:column>
-
                     </h:form> 
                 </b:row>
             </b:container>

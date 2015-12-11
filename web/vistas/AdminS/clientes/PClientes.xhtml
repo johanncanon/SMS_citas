@@ -8,8 +8,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
-    <ui:composition template="./../template-admin-p.xhtml">
-        <ui:define name="content">
+    <ui:composition template="./../temp-admin2.xhtml">
+        <ui:define name="content1">
             <b:container fluid="true">
                 <b:row>
                     <h:form id="formA">
@@ -78,6 +78,7 @@
                                     <p:commandButton id="BTCliente" style="width:100%" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTCliente :formC:DTClientes :formB" action="#{clienteBean.metodo()}" value="#{clienteBean.nombre}" />
                                 </div>
                             </div> 
+
                         </b:column>
 
                         <b:column col-lg="3" col-md="3" col-sm="11" col-xs="12">
@@ -92,8 +93,7 @@
                                         con la que posteriormente el cliente realizara sus reservaciones.</p> 
                                 </div>
                             </div>
-                        </b:column>    
-
+                        </b:column>                          
                     </h:form>
 
                     <h:form id="formB" enctype="multipart/form-data">
@@ -119,14 +119,13 @@
                     </h:form>
 
                     <h:form id="formC">
-
                         <b:column col-lg="12" col-md="12" col-sm="11" col-xs="12">
                             <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-th-list"/>
                                     <h4 class="box-title">Lista de Clientes de SMS Renta</h4>
                                 </div>
-
+                                
                                 <div class="box-body">
                                     <b:inputText placeholder="Buscar" value="#{clienteBean.buscar}" style=" width: 100%">
                                         <p:ajax event="keyup" listener="#{clienteBean.filtrar()}" process="@this" update="DTClientes"/>
@@ -144,26 +143,16 @@
                                             <p:outputLabel value="#{cliente.usuarioTelefono}"/>
                                         </p:column>
 
-                                        <p:column style="width: 35px">
-                                            <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTCliente :formB" icon="ui-icon-pencil" action="#{clienteBean.seleccionarCrud(1)}" title="Modificar">
-                                                <f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.clienteView}"/>
-                                            </p:commandButton>
-                                        </p:column>
-
-                                        <p:column style="width: 35px"> 
-                                            <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTCliente :formB" icon="ui-icon-close" action="#{clienteBean.seleccionarCrud(2)}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.clienteView}"/>
-                                            </p:commandButton>
-                                        </p:column>
                                     </p:dataTable>
                                 </div>
                             </div>
 
                         </b:column>
-
                     </h:form>
                 </b:row>
             </b:container>
+            
+            
         </ui:define>
     </ui:composition>
 

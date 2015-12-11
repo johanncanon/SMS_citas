@@ -7,8 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="./../template-admin-p.xhtml">
-        <ui:define name="content">   
+    <ui:composition template="./../temp-admin2.xhtml">
+        <ui:define name="content1">   
             <b:container fluid="true">
                 <b:row>
                     <h:form id="formA">
@@ -121,7 +121,8 @@
                                 <p:commandButton id="BTVehiculo" style="width: 100%; padding: 7px"  value="#{vehiculoBean.nombre}" update=":formA:seccionDatosVehiculo :formA:seccionEstadoVehiculo :formA:BTVehiculo :formB :formC:DTVehiculos" action="#{vehiculoBean.metodo()}"/>
 
                             </div>
-                        </b:column>  
+                        </b:column>
+
 
                         <b:column col-lg="3" col-md="3" col-sm="3" col-xs="12" >
                             <div class="box box-info espacio-arriba">
@@ -135,9 +136,8 @@
                                 </div>
                             </div>
                         </b:column>
-                        
+
                     </h:form>
-                    
                     <h:form id="formB" enctype="multipart/form-data">
 
                         <b:column col-lg="3" col-md="3" col-sm="3" col-xs="12" >
@@ -188,24 +188,12 @@
                                         <p:column headerText="Proveedor">
                                             <h:outputText value="#{vehiculo.smsProveedor.smsUsuario.usuarioRazonSocial}" />
                                         </p:column>
-                                        
-                                        <p:column style="width: 35px">
-                                            <p:commandButton process="@this" update=":formA:seccionDatosVehiculo :formA:seccionEstadoVehiculo :formA:BTVehiculo :formB" icon="ui-icon-pencil" action="#{vehiculoBean.seleccionarCrud(1)}" title="Modificar">
-                                                <f:setPropertyActionListener value="#{vehiculo}" target="#{vehiculoBean.vehiculoView}"/>
-                                            </p:commandButton>
-                                        </p:column>
 
-                                        <p:column style="width: 35px"> 
-                                            <p:commandButton process="@this" update=":formA:seccionDatosVehiculo :formA:seccionEstadoVehiculo :formA:BTVehiculo :formB" icon="ui-icon-close" action="#{vehiculoBean.seleccionarCrud(2)}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{vehiculo}" target="#{vehiculoBean.vehiculoView}"/>
-                                            </p:commandButton>
-                                        </p:column>  
                                     </p:dataTable>
                                 </div>
                             </div>
                         </b:column>
                     </h:form> 
-              
                 </b:row>
             </b:container>
         </ui:define>
