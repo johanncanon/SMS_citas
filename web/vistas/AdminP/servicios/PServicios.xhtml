@@ -8,27 +8,31 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="./../template-admin-p.xhtml">
-         <ui:define name="content">
+        <ui:define name="content">
             <b:container fluid="true">
                 <b:row>
                     <h:form>                        
-                        <div class="espacio-arriba">
-                            <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12">
-                                <div class="box box-info">
-                                    <div class="box-header with-border">
-                                        <h4><b>REGISTRO DE SERVICIOS</b></h4>
-                                        <hr/>
-                                        <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a los diferentes tipos de servicio
-                                            que presta SMS Renta.</p> 
-                                    </div>
+
+                        <b:column col-lg="11" col-md="11" col-sm="11" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-briefcase"/>
+                                    <h4 class="box-title">Registro de Servicios</h4>
                                 </div>
-                            </b:column>
-                        </div>                        
+                                <div class="box-body">
+                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a los diferentes tipos de servicio
+                                        que presta SMS Renta.</p> 
+                                </div>
+                            </div>
+                        </b:column>
+
                         <b:column col-lg="3" col-md="3" col-sm="8" col-xs="12">
                             <div class="box box-danger">
                                 <div class="box-header with-border">                              
-                                    <h4><b>DATOS DE SERVICIOS</b></h4>
-                                    <hr/>                                
+                                    <i class="fa fa-2x fa-list-alt"/>
+                                    <h4 class="box-title">Datos de Servicios</h4>
+                                </div> 
+                                <div class="box-body">
                                     <div class="table-responsive">
                                         <h:panelGrid id="PServicios" columns="3" cellpadding="5" style="width: 100%">
                                             <p:outputLabel value="Nombre:"/>
@@ -43,14 +47,18 @@
                                     </div>
                                     <hr/>
                                     <p:commandButton id="BTServicio" update="@form" action="#{serviciosBean.metodo()}" style="width: 100%" value="#{serviciosBean.nombre}"/>                           
-                                </div> 
+                                </div>                               
                             </div>
                         </b:column>
+                        
+                        
                         <b:column col-lg="6" col-md="6" col-sm="8" col-xs="12">
                             <div class="box box-success">
                                 <div class="box-header with-border">
-                                    <h4><b>SERVICIOS SMS</b></h4>
-                                    <hr/>                             
+                                    <i class="fa fa-2x fa-shopping-cart"/>
+                                    <h4 class="box-title">Servicios SMS Renta</h4>
+                                </div>
+                                <div class="box-body">
                                     <b:inputText placeholder="Buscar" value="#{serviciosBean.buscar}" style="width: 100%">
                                         <p:ajax event="keyup" listener="#{serviciosBean.filtrar()}" process="@this" update="DTservicios"/>
                                     </b:inputText>
@@ -73,16 +81,18 @@
                                                 <f:setPropertyActionListener value="#{servicio}" target="#{serviciosBean.servicioView}"/>
                                             </p:commandButton>
                                         </p:column>
-                                        
+
                                         <p:column style="width: 35px">
                                             <p:commandButton icon="ui-icon-close" process="@this" update="@form" action="#{serviciosBean.seleccionarCRUD(2)}" title="Eliminar">
                                                 <f:setPropertyActionListener value="#{servicio}" target="#{serviciosBean.servicioView}"/>
                                             </p:commandButton>
                                         </p:column>
                                     </p:dataTable>                                
-                                </div>
+                                    
+                                </div>                             
                             </div>
                         </b:column>
+                        
                     </h:form> 
                 </b:row>
             </b:container>
