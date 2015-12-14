@@ -31,6 +31,7 @@ public class CategoriaBean implements Serializable {
         categoriaView = new SmsCategoria();
         categoriasListView = new ArrayList<>();
         nombresCategoriasListView = new ArrayList<>();
+        
         categoriaController = new Categoria();
 
         buscar = null;

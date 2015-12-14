@@ -11,6 +11,8 @@ import DAO.IUsuarioDao;
 import DAO.ImpEmpleadoDao;
 import DAO.ImpHojaVidaDao;
 import DAO.ImpUsuarioDao;
+import Modelo.SmsAgenda;
+import Modelo.SmsCiudad;
 import Modelo.SmsEmpleado;
 import Modelo.SmsHojavida;
 import Modelo.SmsUsuario;
@@ -111,6 +113,21 @@ public class Empleado extends Usuario {
         return empleados;
     }
     
+    public List<SmsEmpleado> consultarEmpleadosCiudad(SmsCiudad c) {
+        ciudad = c;
+        empleados = new ArrayList<>();
+        IEmpleadoDao empleadoDao = new ImpEmpleadoDao();
+        empleados = empleadoDao.consultarEmpleadosCiudad(ciudad);
+        return empleados;
+    }
+    
+     public List<SmsEmpleado> consultarEmpleadosDisponibles(SmsAgenda a, SmsCiudad c) {
+        ciudad = c; SmsAgenda agenda = a;
+        empleados = new ArrayList<>();
+        IEmpleadoDao empleadoDao = new ImpEmpleadoDao();
+        empleados = empleadoDao.consultarEmpleadosDisponibles(agenda, ciudad);
+        return empleados;
+    }
     
 
 }

@@ -31,9 +31,12 @@ public class AgendaBean {
     protected SmsCiudad ciudadView;
 
     protected List<SmsVehiculo> vehiculosListView;
-    protected List<SmsUsuario> empleadosListView;
+    protected List<SmsEmpleado> empleadosListView;
+    protected List<SmsAgenda> agendaListView;
 
     private boolean skip = false;
+    private boolean SelecVeh;
+    private boolean SelecCon;
 
     //Relacion con los controladores
     Reservacion reservacionController;
@@ -41,7 +44,6 @@ public class AgendaBean {
     Vehiculo vehiculoController;
     Empleado empleadoController;
 
-    
     public AgendaBean() {
 
         agendaView = new SmsAgenda();
@@ -53,13 +55,15 @@ public class AgendaBean {
 
         vehiculosListView = new ArrayList<>();
         empleadosListView = new ArrayList<>();
+        agendaListView = new ArrayList<>();
 
         vehiculoController = new Vehiculo();
         empleadoController = new Empleado();
         agendaController = new Agenda();
         reservacionController = new Reservacion();
 
-        
+        SelecVeh = false;
+        SelecCon = false;
     }
 
     public SmsAgenda getAgendaView() {
@@ -142,13 +146,13 @@ public class AgendaBean {
         this.vehiculosListView = vehiculosListView;
     }
 
-    public List<SmsUsuario> getEmpleadosListView() {
+    public List<SmsEmpleado> getEmpleadosListView() {
         return empleadosListView;
     }
 
-    public void setEmpleadosListView(List<SmsUsuario> empleadosListView) {
+    public void setEmpleadosListView(List<SmsEmpleado> empleadosListView) {
         this.empleadosListView = empleadosListView;
-    }
+    }    
 
     public Vehiculo getVehiculoController() {
         return vehiculoController;
@@ -165,8 +169,30 @@ public class AgendaBean {
     public void setEmpleadoController(Empleado empleadoController) {
         this.empleadoController = empleadoController;
     }
-       
-    
+
+    public boolean isSelecVeh() {
+        return SelecVeh;
+    }
+
+    public void setSelecVeh(boolean SelecVeh) {
+        this.SelecVeh = SelecVeh;
+    }
+
+    public boolean isSelecCon() {
+        return SelecCon;
+    }
+
+    public void setSelecCon(boolean SelecCon) {
+        this.SelecCon = SelecCon;
+    }
+
+    public List<SmsAgenda> getAgendaListView() {
+        return agendaListView;
+    }
+
+    public void setAgendaListView(List<SmsAgenda> agendaListView) {
+        this.agendaListView = agendaListView;
+    }
 
     //Metodos
     public String onFlowProcess(FlowEvent event) {
@@ -174,13 +200,36 @@ public class AgendaBean {
             skip = false;//reset in case user goes back
             return "confirm";
         } else {
+
             if (ciudadView.getCiudadNombre() != null && agendaView.getAgendaFechaInicio() != null && agendaView.getAgendaFechaLlegada() != null
                     && agendaView.getAgendaHoraInicio() != null && agendaView.getAgendaHoraLlegada() != null) {
-                vehiculosListView = new ArrayList<>();
-                vehiculosListView = vehiculoController.consultarVehiculosDisponible(agendaView, ciudadView);                
+                agendaListView = agendaController.cargarAgendas();
+                if (agendaListView.isEmpty()) {
+                    vehiculosListView.clear();
+                    empleadosListView.clear();
+                    vehiculosListView = vehiculoController.consultarVehiculosCiudad(ciudadView);
+                    empleadosListView = empleadoController.consultarEmpleadosCiudad(ciudadView);
+                } else {
+                    vehiculosListView.clear();
+                    empleadosListView.clear();
+                    vehiculosListView = vehiculoController.consultarVehiculosDisponible(agendaView, ciudadView);
+                    empleadosListView = empleadoController.consultarEmpleadosDisponibles(agendaView, ciudadView);
+                }
             }
             return event.getNewStep();
         }
+    }
+
+    public void SeleccionarVehiculo() {
+        SelecVeh = true;
+    }
+
+    public void SeleccionarConductor() {
+        SelecCon = true;
+    }
+    
+    public void registrarReservacion(){
+    
     }
 
 }
