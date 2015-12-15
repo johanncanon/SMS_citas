@@ -8,6 +8,8 @@ package Controlador;
 import DAO.IAgendaDao;
 import DAO.ImpAgendaDao;
 import Modelo.SmsAgenda;
+import Modelo.SmsEmpleado;
+import Modelo.SmsVehiculo;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,42 @@ public class Agenda {
         IAgendaDao agDao = new ImpAgendaDao();
         agendas = agDao.mostrarAgenda();
         return agendas;
+    }
+
+    public void registrarAgenda(SmsEmpleado c, SmsVehiculo v, SmsAgenda a) {
+        agenda = a;
+        SmsVehiculo vehiculo = v;
+        SmsEmpleado conductor = c;
+
+        //Asignacion a la agenda
+        agenda.setSmsVehiculo(vehiculo);
+        agenda.setSmsEmpleado(conductor);
+
+        //Relacion con el dao y registro de la agenda
+        IAgendaDao agDao = new ImpAgendaDao();
+        agDao.registrarAgenda(agenda);//Se ejecuta la funcion del dao
+    }
+
+    public void modificarAgenda(SmsEmpleado c, SmsVehiculo v, SmsAgenda a) {
+        agenda = a;
+        SmsVehiculo vehiculo = v;
+        SmsEmpleado conductor = c;
+
+        //Asignacion a la agenda
+        agenda.setSmsVehiculo(vehiculo);
+        agenda.setSmsEmpleado(conductor);
+
+        //Relacion con el dao y modificacion de la agenda
+        IAgendaDao agDao = new ImpAgendaDao();
+        agDao.modificarAgenda(agenda);//Se ejecuta la funcion del dao
+    }
+
+    public void eliminarAgenda(SmsAgenda a) {
+        agenda = a;
+
+        //Relacion con el dao y eliminacion de la agenda
+        IAgendaDao agDao = new ImpAgendaDao();
+        agDao.eliminarAgenda(agenda);//Se ejecuta la funcion del dao
     }
 
 }

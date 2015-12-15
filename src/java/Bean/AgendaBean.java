@@ -8,6 +8,7 @@ package Bean;
 import Controlador.Agenda;
 import Controlador.Empleado;
 import Controlador.Reservacion;
+import Controlador.Usuario;
 import Controlador.Vehiculo;
 import Modelo.SmsAgenda;
 import Modelo.SmsCategoria;
@@ -29,6 +30,7 @@ public class AgendaBean {
     protected SmsReservacion reservaView;
     protected SmsCategoria categoriaView;
     protected SmsCiudad ciudadView;
+    protected SmsUsuario clienteView;
 
     protected List<SmsVehiculo> vehiculosListView;
     protected List<SmsEmpleado> empleadosListView;
@@ -43,6 +45,7 @@ public class AgendaBean {
     Agenda agendaController;
     Vehiculo vehiculoController;
     Empleado empleadoController;
+    Usuario usuarioController;
 
     public AgendaBean() {
 
@@ -52,6 +55,7 @@ public class AgendaBean {
         reservaView = new SmsReservacion();
         categoriaView = new SmsCategoria();
         ciudadView = new SmsCiudad();
+        clienteView = new SmsUsuario();
 
         vehiculosListView = new ArrayList<>();
         empleadosListView = new ArrayList<>();
@@ -61,6 +65,7 @@ public class AgendaBean {
         empleadoController = new Empleado();
         agendaController = new Agenda();
         reservacionController = new Reservacion();
+        usuarioController = new Usuario();
 
         SelecVeh = false;
         SelecCon = false;
@@ -152,7 +157,7 @@ public class AgendaBean {
 
     public void setEmpleadosListView(List<SmsEmpleado> empleadosListView) {
         this.empleadosListView = empleadosListView;
-    }    
+    }
 
     public Vehiculo getVehiculoController() {
         return vehiculoController;
@@ -194,7 +199,31 @@ public class AgendaBean {
         this.agendaListView = agendaListView;
     }
 
-    //Metodos
+    public Usuario getUsuarioController() {
+        return usuarioController;
+    }
+
+    public void setUsuarioController(Usuario usuarioController) {
+        this.usuarioController = usuarioController;
+    }
+
+    public SmsUsuario getClienteView() {
+        return clienteView;
+    }
+
+    public void setClienteView(SmsUsuario clienteView) {
+        this.clienteView = clienteView;
+    }
+
+    //Metodos    
+    //CRUD
+    public void registrarAgenda() {
+        clienteView = usuarioController.obtenerSesion();//obtiene la informacion del cliente que ha iniciado sesion        
+        agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);
+        reservacionController.registrarReservacion(clienteView, agendaView, ciudadView, reservaView);
+    }
+
+    //Especificos
     public String onFlowProcess(FlowEvent event) {
         if (skip) {
             skip = false;//reset in case user goes back
@@ -226,10 +255,6 @@ public class AgendaBean {
 
     public void SeleccionarConductor() {
         SelecCon = true;
-    }
-    
-    public void registrarReservacion(){
-    
     }
 
 }

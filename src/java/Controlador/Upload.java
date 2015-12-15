@@ -15,7 +15,7 @@ import org.primefaces.model.UploadedFile;
  *
  * @author Desarrollo_Planit
  */
-public class Archivos {
+public class Upload {
 
     UploadedFile archivo;
     String filePath = "C:/Users/CristianCamilo/Documents/NetBeansProjects/SMS_citas/web/resources/images/upload/";

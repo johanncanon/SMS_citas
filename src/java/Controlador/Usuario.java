@@ -14,6 +14,7 @@ import DAO.ImpUsuarioDao;
 import Modelo.SmsCiudad;
 import Modelo.SmsRol;
 import Modelo.SmsUsuario;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.context.FacesContext;
@@ -157,11 +158,12 @@ public class Usuario {
     }
 
     //Metodos de la sesion    
-    public String iniciarSesion(SmsUsuario u) {
+    public String iniciarSesion(SmsUsuario u){
         usuario = u;
 
         String ruta = "";
         Rol rol = new Rol();
+        Path path = new Path();
         httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         httpSession.setAttribute("Sesion", usuario);
 
@@ -174,19 +176,19 @@ public class Usuario {
             if (rolUsuario) {//valida si el rol es verdadero y consulta segun su valor, a cual dashboard debo direccionar al usuario
                 switch (roles.get(i).getRolNombre()) {
                     case "Administrador Principal":
-                        ruta = "faces/vistas/AdminP/general/Dashboard-Admin-Principal.xhtml";
+                        ruta = path.obtenerPath("./vistas/AdminP/general/Dashboard-Admin-Principal.xhtml");
                         break;
                     case "Administrador Secundario":
-                        ruta = "Dashboard-Admin-Secundario.xhtml";
+                        ruta = path.obtenerPath("Dashboard-Admin-Secundario.xhtml");
                         break;
                     case "Cliente":
-                        ruta = "Dashboard-Cliente.xhtml";
+                        ruta = path.obtenerPath("Dashboard-Cliente.xhtml");
                         break;
                     case "Empleado":
-                        ruta = "Dashboard-Conductor.xhtml";
+                        ruta = path.obtenerPath("Dashboard-Conductor.xhtml");
                         break;
                     case "Proveedor":
-                        ruta = "Dashboard-Proveedor.xhtml";
+                        ruta = path.obtenerPath("Dashboard-Proveedor.xhtml");
                         break;
                 }
             }
@@ -195,11 +197,15 @@ public class Usuario {
     }
 
     public void cerrarSesion() {
-
         //Desmonta el objeto usuario subido al contexto de sesion y e invalida esta.
         httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         httpSession.invalidate();
 
     }
 
+    public SmsUsuario obtenerSesion() {
+        //Obtiene el usuario subido a la httpSession
+        usuario = (SmsUsuario) httpSession.getAttribute("Sesion");
+        return usuario;
+    }
 }

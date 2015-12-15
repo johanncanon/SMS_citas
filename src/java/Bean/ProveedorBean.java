@@ -5,7 +5,7 @@
  */
 package Bean;
 
-import Controlador.Archivos;
+import Controlador.Upload;
 import Controlador.Proveedor;
 import Modelo.SmsCiudad;
 import Modelo.SmsProveedor;
@@ -36,7 +36,7 @@ public class ProveedorBean implements Serializable {
 
     //Relacion con el controlador
     protected Proveedor proveedorController;
-    protected Archivos fileController;
+    protected Upload fileController;
 
     //lista de Id de proveedor
     private List<SmsUsuario> proveedoresListView;
@@ -56,7 +56,7 @@ public class ProveedorBean implements Serializable {
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
         proveedorController = new Proveedor();
-        fileController = new Archivos();
+        fileController = new Upload();
 
         buscar = null;
         estado = 0;
@@ -166,11 +166,11 @@ public class ProveedorBean implements Serializable {
         this.archivo = archivo;
     }
 
-    public Archivos getFileController() {
+    public Upload getFileController() {
         return fileController;
     }
 
-    public void setFileController(Archivos fileController) {
+    public void setFileController(Upload fileController) {
         this.fileController = fileController;
     }
 

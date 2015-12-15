@@ -5,6 +5,7 @@
  */
 package Filter;
 
+import Modelo.SmsUsuario;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -40,7 +41,8 @@ public class UserFilter implements Filter {
             return true;
         }
         return false;
-    }
+    }   
+    
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -59,14 +61,13 @@ public class UserFilter implements Filter {
             return;
         }
         
-        Object sesion = req.getSession().getAttribute("Sesion");
+        //Object sesion = req.getSession().getAttribute("Sesion");
         
         if(req.getSession().getAttribute("Sesion")==null){            
             resp.sendRedirect(req.getContextPath() + "/faces/login.xhtml");
         }
 
         chain.doFilter(request, response);
-
     }
     
 

@@ -5,7 +5,7 @@
  */
 package Bean;
 
-import Controlador.Archivos;
+import Controlador.Upload;
 import Controlador.Cliente;
 import Modelo.SmsCiudad;
 import Modelo.SmsRol;
@@ -34,7 +34,7 @@ public class ClienteBean implements Serializable {
 
     //Relacion con el controlador
     protected Cliente clienteController;
-    protected Archivos fileController;
+    protected Upload fileController;
 
     //Variables
     private int estado; //Controla la operacion a realizar
@@ -50,7 +50,7 @@ public class ClienteBean implements Serializable {
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
         clienteController = new Cliente();
-        fileController = new Archivos();
+        fileController = new Upload();
 
         buscar = null;
         estado = 0;
@@ -106,11 +106,11 @@ public class ClienteBean implements Serializable {
         this.rolView = rolView;
     }
 
-    public Archivos getFileController() {
+    public Upload getFileController() {
         return fileController;
     }
 
-    public void setFileController(Archivos fileController) {
+    public void setFileController(Upload fileController) {
         this.fileController = fileController;
     }
 

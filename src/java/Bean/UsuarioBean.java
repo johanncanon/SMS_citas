@@ -5,7 +5,7 @@
  */
 package Bean;
 
-import Controlador.Archivos;
+import Controlador.Upload;
 import Controlador.Rol;
 import Controlador.Usuario;
 import DAO.IUsuarioDao;
@@ -41,7 +41,7 @@ public class UsuarioBean implements Serializable {
 
     //Relacion con el controlador
     protected Usuario usuarioController;
-    protected Archivos fileController;
+    protected Upload fileController;
 
     //Contexto
     private FacesMessage message;

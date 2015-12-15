@@ -5,7 +5,7 @@
  */
 package Bean;
 
-import Controlador.Archivos;
+import Controlador.Upload;
 import Controlador.EstadoVehiculo;
 import Controlador.Usuario;
 import Controlador.Vehiculo;
@@ -40,7 +40,7 @@ public class VehiculoBean {
 
     //Relacion con el controlodar
     private Vehiculo vehiculoController;
-    protected Archivos fileController;
+    protected Upload fileController;
     private EstadoVehiculo estadoVehiculoController;
     private Usuario usuarioController;
 
@@ -62,7 +62,7 @@ public class VehiculoBean {
         refenciaView = new SmsReferencia();
         estadoVehiculoView = new SmsEstadovehiculo();
         estadoVehiculoController = new EstadoVehiculo();
-        fileController = new Archivos();
+        fileController = new Upload();
         usuarioView = new SmsUsuario();
         usuarioController = new Usuario();
         
@@ -152,11 +152,11 @@ public class VehiculoBean {
         this.vehiculoView = veh;
     }
 
-    public Archivos getFileController() {
+    public Upload getFileController() {
         return fileController;
     }
 
-    public void setFileController(Archivos fileController) {
+    public void setFileController(Upload fileController) {
         this.fileController = fileController;
     }
 

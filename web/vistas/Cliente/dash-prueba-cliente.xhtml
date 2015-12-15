@@ -21,7 +21,6 @@
                             </div>
                             <h:form>
                                 <p:growl id="growl" sticky="true" showDetail="true"/>
-
                                 <p:wizard flowListener="#{agendaBean.onFlowProcess}">
                                     <p:tab id="personal" title="Ciudad" titleStyle="btn">
                                         <b:panel title="Ingrese Ciudad de Destino"  look="primary" style="text-decoration: none">
@@ -189,7 +188,7 @@
                                                 <p:outputLabel value="Placa: #{agendaBean.vehiculoView.vehPlaca}"/>
                                                 <p:outputLabel value="Conductor: #{agendaBean.empleadoView.smsUsuario.usuarioNombre}"/>
                                             </h:panelGrid>
-                                            <p:commandButton value="Submit" update="growl" process="@this"/>
+                                            <p:commandButton value="Submit" action="#{agendaBean.registrarAgenda()}" update="growl" process="@this"/>
                                         </b:panel>
                                     </p:tab>
                                 </p:wizard>
