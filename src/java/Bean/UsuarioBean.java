@@ -325,7 +325,7 @@ public class UsuarioBean implements Serializable {
     }
 
     public String logout() {
-        String ruta = "/login.xhtml";
+        String ruta = "Login";
         usuarioController.cerrarSesion();
         return ruta;
     }

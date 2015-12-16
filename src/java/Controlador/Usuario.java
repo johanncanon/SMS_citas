@@ -175,7 +175,7 @@ public class Usuario {
             if (rolUsuario) {//valida si el rol es verdadero y consulta segun su valor, a cual dashboard debo direccionar al usuario
                 switch (roles.get(i).getRolNombre()) {
                     case "Administrador Principal":
-                        ruta = "./vistas/AdminP/general/Dashboard-Admin-Principal.xhtml";
+                        ruta = "AdminPPrincipal";
                         break;
                     case "Administrador Secundario":
                         ruta = "Dashboard-Admin-Secundario.xhtml";
