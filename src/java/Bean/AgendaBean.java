@@ -218,7 +218,7 @@ public class AgendaBean {
     //Metodos    
     //CRUD
     public void registrarAgenda() {
-        clienteView = usuarioController.obtenerSesion();//obtiene la informacion del cliente que ha iniciado sesion        
+        //obtiene la informacion del cliente que ha iniciado sesion        
         agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);
         reservacionController.registrarReservacion(clienteView, agendaView, ciudadView, reservaView);
     }

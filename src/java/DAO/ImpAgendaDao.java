@@ -6,8 +6,6 @@
 package DAO;
 
 import Modelo.SmsAgenda;
-import Modelo.SmsCiudad;
-import Modelo.SmsVehiculo;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -18,11 +16,11 @@ import org.hibernate.Session;
  *
  * @author Desarrollo_Planit
  */
-public class ImpAgendaDao implements IAgendaDao{
+public class ImpAgendaDao implements IAgendaDao {
 
     @Override
     public List<SmsAgenda> mostrarAgenda() {
-       Session session = null;
+        Session session = null;
         List<SmsAgenda> agenda = new ArrayList<>();
 
         try {
@@ -92,8 +90,24 @@ public class ImpAgendaDao implements IAgendaDao{
             }
         }
     }
-   
 
-    
-    
+    @Override
+    public List<SmsAgenda> consultarAgenda(SmsAgenda agenda) {
+        Session session = null;
+        List<SmsAgenda> agendas = new ArrayList<>();
+
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsAgenda");
+            agendas = (List<SmsAgenda>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return agendas;
+    }
+
 }

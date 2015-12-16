@@ -189,7 +189,7 @@
                                                 <p:outputLabel value="Placa: #{agendaBean.vehiculoView.vehPlaca}"/>
                                                 <p:outputLabel value="Conductor: #{agendaBean.empleadoView.smsUsuario.usuarioNombre}"/>
                                             </h:panelGrid>
-                                            <p:commandButton value="Regist" action="#{agendaBean.registrarAgenda()}" update="growl" process="@this"/>
+                                            <p:commandButton value="Registrar" action="#{agendaBean.registrarAgenda()}" update="@form" process="@this"/>
                                         </b:panel>
                                     </p:tab>
                                 </p:wizard>
