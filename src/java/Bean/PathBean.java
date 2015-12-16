@@ -11,59 +11,108 @@ package Bean;
  */
 public class PathBean {
 
-    
-    
-    public PathBean() {   
-                
+    public PathBean() {
+
+    }
+    /* / ADMIN PRINCIPAL / */
+
+    public String ir_PUsuario() {
+        return "AdminPUsuario";
     }
 
-    public String ir_PUsuario(){
-    return "AdminPUsuario";
+    public String ir_PCategoria() {
+        return "AdminPCategoria";
     }
-    public String ir_PCategoria(){
-    return "AdminPCategoria";
-    }
-    public String ir_PCliente(){
-    return "AdminPCliente";
-    }
-    public String ir_PCiudad(){
-    return "AdminPCiudad";
-    }
-    public String ir_PEmpleado(){
-    return "AdminPEmpleado";
-    }
-    public String ir_PEstadisticas(){
-    return "AdminPEstadisticas";
-    }
-    public String ir_PPrincipal(){
-    return "AdminPPrincipal";
-    }
-    public String ir_PPais(){
-    return "AdminPPais";
-    }
-    public String ir_PMarca(){
-    return "AdminPMarca";
-    }
-    public String ir_PProveedor(){
-    return "AdminPProveedores";
-    }
-    public String ir_PReferencias(){
-    return "AdminPReferencias";
-    }
-    public String ir_PReserva(){
-    return "AdminPReserva";
-    }
-    public String ir_PRol(){
-    return "AdminPRol";
-    }
-    public String ir_PServicios(){
-    return "AdminPServicios";
-    }
-    public String ir_PVehiculos(){
-    return "AdminPVehiculos";
-    }
-    
-    
 
-   
+    public String ir_PCliente() {
+        return "AdminPCliente";
+    }
+
+    public String ir_PCiudad() {
+        return "AdminPCiudad";
+    }
+
+    public String ir_PEmpleado() {
+        return "AdminPEmpleado";
+    }
+
+    public String ir_PEstadisticas() {
+        return "AdminPEstadisticas";
+    }
+
+    public String ir_PPrincipal() {
+        return "AdminPPrincipal";
+    }
+
+    public String ir_PPais() {
+        return "AdminPPais";
+    }
+
+    public String ir_PMarca() {
+        return "AdminPMarca";
+    }
+
+    public String ir_PProveedor() {
+        return "AdminPProveedores";
+    }
+
+    public String ir_PReferencias() {
+        return "AdminPReferencias";
+    }
+
+    public String ir_PReserva() {
+        return "AdminPReserva";
+    }
+
+    public String ir_PRol() {
+        return "AdminPRol";
+    }
+
+    public String ir_PServicios() {
+        return "AdminPServicios";
+    }
+
+    public String ir_PVehiculos() {
+        return "AdminPVehiculos";
+    }
+    /* / ADMIN PRINCIPAL / */
+    /* / ADMIN SECUNDARIO / */
+
+    public String ir_SCategoria() {
+        return "AdminSCategoria";
+    }
+
+    public String ir_SCiudad() {
+        return "AdminSCiudad";
+    }
+
+    public String ir_SClientes() {
+        return "AdminSClientes";
+    }
+
+    public String ir_SEmpleados() {
+        return "AdminSEmpleados";
+    }
+
+    public String ir_SGeneral() {
+        return "AdminSGeneral";
+    }
+
+    public String ir_SMarcas() {
+        return "AdminSMarcas";
+    }
+
+    public String ir_SPais() {
+        return "AdminSPais";
+    }
+
+    public String ir_SReferencias() {
+        return "AdminSReferencias";
+    }
+
+    public String ir_SVehiculos() {
+        return "AdminSVehiculos";
+    }
+
+    /* / ADMIN SECUNDARIO / */
 }
