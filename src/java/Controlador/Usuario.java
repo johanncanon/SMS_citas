@@ -162,8 +162,7 @@ public class Usuario {
         usuario = u;
 
         String ruta = "";
-        Rol rol = new Rol();
-        Path path = new Path();
+        Rol rol = new Rol();        
         httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         httpSession.setAttribute("Sesion", usuario);
 
@@ -176,19 +175,19 @@ public class Usuario {
             if (rolUsuario) {//valida si el rol es verdadero y consulta segun su valor, a cual dashboard debo direccionar al usuario
                 switch (roles.get(i).getRolNombre()) {
                     case "Administrador Principal":
-                        ruta = path.obtenerPath("./vistas/AdminP/general/Dashboard-Admin-Principal.xhtml");
+                        ruta = "./vistas/AdminP/general/Dashboard-Admin-Principal.xhtml";
                         break;
                     case "Administrador Secundario":
-                        ruta = path.obtenerPath("Dashboard-Admin-Secundario.xhtml");
+                        ruta = "Dashboard-Admin-Secundario.xhtml";
                         break;
                     case "Cliente":
-                        ruta = path.obtenerPath("Dashboard-Cliente.xhtml");
+                        ruta = "Dashboard-Cliente.xhtml";
                         break;
                     case "Empleado":
-                        ruta = path.obtenerPath("Dashboard-Conductor.xhtml");
+                        ruta = "Dashboard-Conductor.xhtml";
                         break;
                     case "Proveedor":
-                        ruta = path.obtenerPath("Dashboard-Proveedor.xhtml");
+                        ruta = "Dashboard-Proveedor.xhtml";
                         break;
                 }
             }
