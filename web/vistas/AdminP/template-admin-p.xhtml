@@ -55,9 +55,10 @@
                                     <b:panelGrid colSpans="4,8">                                        
                                         <img src="../../../resources/images/col-band.png" style="width: 113%; margin-left: 9px; margin-top: 16px;"/>
                                         <f:facet name="caption"/>
-                                        <h4>Thumbnail label</h4>
-                                        <p>Nombre: "Nombre Completo."</p>
-                                        <p>Perfil : "tipo de perfil."</p>
+                                        <h4>Perfil</h4>
+                                        <p>Nombre: #{usuarioBean.usuario.usuarioNombre}</p>
+                                        <p>Razon Social: "#{usuarioBean.usuario.usuarioRazonSocial}"</p>
+                                        <p>Perfil: "#{usuarioBean.usuario.smsRol.rolNombre}"</p>
                                     </b:panelGrid>
                                 </b:thumbnail>
                                 <p:panelMenu styleClass="ui-state-default-menu">

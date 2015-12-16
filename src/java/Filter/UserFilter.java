@@ -13,6 +13,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Desarrollo_Planit
  */
-//@WebFilter("*.xhtml")
+@WebFilter("*.xhtml")
 public class UserFilter implements Filter {
     
     FilterConfig filterConfig;
@@ -48,10 +49,8 @@ public class UserFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse resp = (HttpServletResponse) response;
-        
-        
-        //UserBean sesion = (UserBean) req.getSession().getAttribute("sesion");
+        HttpServletResponse resp = (HttpServletResponse) response;        
+               
         
         String url = req.getRequestURL().toString();
         boolean noProteger = noProteger(url);
@@ -59,9 +58,7 @@ public class UserFilter implements Filter {
         if (noProteger(url)) {            
             chain.doFilter(request, response);
             return;
-        }
-        
-        //Object sesion = req.getSession().getAttribute("Sesion");
+        }      
         
         if(req.getSession().getAttribute("Sesion")==null){            
             resp.sendRedirect(req.getContextPath() + "/faces/login.xhtml");

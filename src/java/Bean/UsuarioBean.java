@@ -45,6 +45,9 @@ public class UsuarioBean implements Serializable {
 
     //Contexto
     private FacesMessage message;
+    
+    //Sesion
+    protected SmsUsuario Usuario;
 
     //Variables
     private int estado; //Controla la operacion a realizar
@@ -73,6 +76,7 @@ public class UsuarioBean implements Serializable {
     @PostConstruct
     public void init() {
         usuariosListView = usuarioController.cargarUsuarios();
+        
     }
 
     //Getters & Setters
@@ -187,6 +191,24 @@ public class UsuarioBean implements Serializable {
     public void setArchivo(UploadedFile archivo) {
         this.archivo = archivo;
     }
+
+    public Upload getFileController() {
+        return fileController;
+    }
+
+    public void setFileController(Upload fileController) {
+        this.fileController = fileController;
+    }
+
+    public SmsUsuario getUsuario() {
+        return Usuario;
+    }
+
+    public void setUsuario(SmsUsuario Usuario) {
+        this.Usuario = Usuario;
+    }
+    
+    
 
     //Declaracion de metodos
     //Metodos CRUD
@@ -310,6 +332,7 @@ public class UsuarioBean implements Serializable {
             if (user.get(0).getUsuarioEstadoUsuario() == 1) {//Evalua el estado de la cuenta de usuario, si esta activa o inactiva
                 if (user.get(0).getUsuarioLogin().equalsIgnoreCase(usuarioView.getUsuarioLogin()) && user.get(0).getUsuarioPassword().equalsIgnoreCase(usuarioView.getUsuarioPassword())) {
                     ruta = usuarioController.iniciarSesion(usuarioView);//envia el objeto usuarioBean al metodo iniciarSesion para tomar este objeto como atributo de sesion
+                    Usuario = obtenerSesion(); 
                     message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Acceso Correcto", "Bienvenid@: " + usuarioView.getUsuarioNombre());
                 } else {
                     message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseña incorrecto", null);
@@ -328,6 +351,10 @@ public class UsuarioBean implements Serializable {
         String ruta = "Login";
         usuarioController.cerrarSesion();
         return ruta;
+    }
+    
+    public SmsUsuario obtenerSesion(){        
+        return usuarioController.obtenerSesion();
     }
 
 }
