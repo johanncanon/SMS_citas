@@ -14,7 +14,6 @@ import DAO.ImpUsuarioDao;
 import Modelo.SmsCiudad;
 import Modelo.SmsRol;
 import Modelo.SmsUsuario;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.context.FacesContext;

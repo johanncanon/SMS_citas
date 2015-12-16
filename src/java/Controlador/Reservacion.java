@@ -94,7 +94,7 @@ public class Reservacion {
         ciudad = ciuDao.consultarCiudad(ciudad).get(0);
         
         IAgendaDao agDao = new ImpAgendaDao();
-        
+        agenda = agDao.consultarAgenda(agenda).get(0);
         
         reservacion.setSmsCiudad(ciudad);
         reservacion.setSmsUsuario(cliente);
