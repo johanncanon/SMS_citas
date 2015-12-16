@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Desarrollo_Planit
  */
-@WebFilter("*.xhtml")
+//@WebFilter("*.xhtml")
 public class UserFilter implements Filter {
     
     FilterConfig filterConfig;
