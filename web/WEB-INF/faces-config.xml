@@ -38,7 +38,7 @@
         <managed-bean-class>Bean.PermisosBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
-        <managed-bean>
+    <managed-bean>
         <managed-bean-name>pruebaBean</managed-bean-name>
         <managed-bean-class>Bean.PruebaBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
@@ -96,6 +96,8 @@
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
+            
+            <!-- ADMIN PRINCIPAL -->   
             <from-outcome>AdminPUsuario</from-outcome>
             <to-view-id>/vistas/AdminP/usuarios/PUsuario.xhtml</to-view-id>
             <redirect/>
@@ -174,5 +176,54 @@
             <to-view-id>/login.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <!-- ADMIN PRINCIPAL -->   
+        <!-- ADMIN SECUNDARIO --> 
+        <navigation-case>
+            <from-outcome>AdminSCategoria</from-outcome>
+            <to-view-id>/vistas/AdminS/categorias/PCategoria.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminSCiudad</from-outcome>
+            <to-view-id>/vistas/AdminS/ciudad/PCiudad.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminSClientes</from-outcome>
+            <to-view-id>/vistas/AdminS/clientes/PClientes.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminSEmpleados</from-outcome>
+            <to-view-id>/vistas/AdminS/empleados/PEmpleado.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>AdminSPais</from-outcome>
+            <to-view-id>/vistas/AdminS/pais/PPais.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminSReferencias</from-outcome>
+            <to-view-id>/vistas/AdminS/referencias/PReferencia.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminSVehiculos</from-outcome>
+            <to-view-id>/vistas/AdminS/vehiculos/PVehiculo.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminSGeneral</from-outcome>
+            <to-view-id>/vistas/AdminS/general/Dashboard-Admin-Secundario.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminSMarcas</from-outcome>
+            <to-view-id>/vistas/AdminS/marcas/PMarca.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <!-- ADMIN SECUNDARIO -->
     </navigation-rule>
 </faces-config>
