@@ -176,6 +176,7 @@
             <to-view-id>/login.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        
         <!-- ADMIN PRINCIPAL -->   
         <!-- ADMIN SECUNDARIO --> 
         <navigation-case>
@@ -224,6 +225,25 @@
             <to-view-id>/vistas/AdminS/marcas/PMarca.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminSReserva</from-outcome>
+            <to-view-id>/vistas/AdminS/reservas/PReserva.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
         <!-- ADMIN SECUNDARIO -->
+        <!-- CONDUCTOR -->
+        <navigation-case>
+            <from-outcome>ConductorDash</from-outcome>
+            <to-view-id>/vistas/Conductor/Dash-conductor.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ConductorCliente</from-outcome>
+            <to-view-id>/vistas/Conductor/consultar-clientes.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+                
+        <!-- CONDUCTOR -->
     </navigation-rule>
 </faces-config>

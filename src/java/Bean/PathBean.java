@@ -113,6 +113,19 @@ public class PathBean {
     public String ir_SVehiculos() {
         return "AdminSVehiculos";
     }
+    
+    public String ir_SReservacion(){
+        return "AdminSReserva";
+    }
 
     /* / ADMIN SECUNDARIO / */
+    /* / CONDUCTOR / */
+    public String ir_ConductorDash(){
+        return "ConductorDash";
+    }
+    public String ir_ConductorCliente(){
+        return "ConductorCliente";
+    }
+    
+    /* / CONDUCTOR/ */
 }

@@ -60,6 +60,10 @@
                                     </b:panelGrid>
                                 </b:thumbnail>
                                 <p:panelMenu styleClass="ui-state-default-menu">
+                                    
+                                    <p:submenu label="Tablero Principal" >
+                                        <p:menuitem style="font-size: 1.2em" value="Tablero Principal SMS Renta " action="#{pathBean.ir_SGeneral()}"  icon="ui-icon-star" />
+                                    </p:submenu>
 
                                     <p:submenu label="Vehiculos" >
                                         <p:menuitem style="font-size: 1.2em" value="Marcas SMS Renta" action="#{pathBean.ir_SMarcas()}" icon="ui-icon-home"/>
@@ -74,8 +78,7 @@
                                     </p:submenu>
 
                                     <p:submenu label="Reservaciones" >
-                                        <p:menuitem style="font-size: 1.2em" value="Reservar Servicio SMS " action="#{pathBean}"  icon="ui-icon-star" />
-
+                                        <p:menuitem style="font-size: 1.2em" value="Reservar Servicio SMS " action="#{pathBean.ir_SReservacion()}"  icon="ui-icon-star" />
                                     </p:submenu>
 
                                     <p:submenu label="Clientes">

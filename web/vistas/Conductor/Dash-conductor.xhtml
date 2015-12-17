@@ -12,9 +12,9 @@
 
         <ui:define name="content3">
 
-            <b:container>
+            <b:container fluid="true">
                 <b:row>
-                    <b:column col-lg="10" col-md="9" col-sm="8" col-xs="12" style="margin-top: 20px">
+                    <b:column col-lg="7" col-md="7" col-sm="6" col-xs="12" class="espacio-arriba">
 
                         <div class="box box-info">
                             <div class="box-header with-border">
@@ -28,7 +28,6 @@
                                     <h:panelGrid columnClasses="value">
 
                                         <p:schedule id="schedule"  widgetVar="myschedule" timeZone="GMT+2">
-
                                             <p:ajax event="dateSelect"  update="eventDetails" oncomplete="PF('eventDialog').show();" />
                                             <p:ajax event="eventSelect"  update="eventDetails" oncomplete="PF('eventDialog').show();" />
                                             <p:ajax event="eventMove"  update="messages" />
@@ -37,22 +36,22 @@
                                         </p:schedule>
                                     </h:panelGrid>
 
-                                    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                                    <p:dialog widgetVar="eventDialog" header="Detalle del Evento" showEffect="clip" hideEffect="clip">
                                         <h:panelGrid id="eventDetails" columns="2">
-                                            <p:outputLabel for="title" value="Titles:" />
+                                            <p:outputLabel for="title" value="Titulo:" />
                                             <p:inputText id="title"  required="true" />
 
-                                            <p:outputLabel for="from" value="From:" />
+                                            <p:outputLabel for="from" value="Desde:" />
                                             <p:calendar id="from"  timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
 
-                                            <p:outputLabel for="to" value="To:" />
+                                            <p:outputLabel for="to" value="Hasta:" />
                                             <p:calendar id="to"  timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
 
-                                            <p:outputLabel for="allDay" value="All Day:" />
+                                            <p:outputLabel for="allDay" value="Todo el día:" />
                                             <h:selectBooleanCheckbox id="allDay" />
 
-                                            <p:commandButton type="reset" value="Reset" />
-                                            <p:commandButton id="addButton" value="Save"  oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                                            <b:commandButton look="danger" style="width: 100%" type="reset" value="Restaurar" />
+                                            <b:commandButton look="primary" style="width: 50%" id="addButton" value="Guardar"  oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
                                         </h:panelGrid>
                                     </p:dialog>    
                                 </h:form>
@@ -65,21 +64,53 @@
                         </div>
 
                     </b:column>
-                    
-                    <b:column col-lg="9" col-md="9" col-sm="8" col-xs="12"  >
 
-                        <div class="box box-info">
-                            <div class="box-header with-border">
+                    <b:column col-lg="4" col-md="4" col-sm="6" col-xs="12"  class="espacio-arriba" >
+
+                        <div class="box box-solid bg-light-blue-gradient">
+                            <div class="box-header ui-sortable-handle with-border">
                                 <i class="fa fa-5x fa-road"></i>
                                 <h1 class="box-title">Horarios de Conductores</h1>
                             </div>
                             <div class="box-body">
-                                hola que hace
+                                En este espacio podrá encontrar los horarios de los conductores que están asignados a
+                                un cliente con su respectiva reservación.
                             </div> 
                         </div>
 
                     </b:column>
-                    
+
+                    <b:column col-lg="4" col-md="4" col-sm="6" col-xs="12">
+                        <div class="box box-danger">
+                            <div class="box-header with-border">
+                                <i class="fa fa-2x fa-list-alt"/>
+                                <h3 class="box-title">Listado de Clientes</h3>
+                            </div>
+                            <div class="box-body">
+                                <p:dataTable var="car" value="#{dtBasicView.cars}">
+                                    <p:column headerText="Fecha de registro">
+                                        <h:outputText value="#{car.id}" />
+                                    </p:column>
+
+                                    <p:column headerText="Nombre">
+                                        <h:outputText value="#{car.year}" />
+                                    </p:column>
+
+                                    <p:column headerText="Apelido">
+                                        <h:outputText value="#{car.brand}" />
+                                    </p:column>
+
+                                    <p:column headerText="Vehiculo reservado">
+                                        <h:outputText value="#{car.reser}" />
+                                    </p:column>
+                                    <p:column headerText="Consultar">
+
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </div>
+                    </b:column>
+
 
 
                 </b:row>
