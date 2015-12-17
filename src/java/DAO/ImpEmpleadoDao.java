@@ -118,7 +118,7 @@ public class ImpEmpleadoDao implements IEmpleadoDao {
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("select empleado from SmsEmpleado as empleado, SmsAgenda as agenda left join fetch agenda.smsEmpleado as conductor "
-                                         + "where "
+                                        + "where "
                                         + "(empleado.smsUsuario.smsCiudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "' and empleado.idEmpleado not in (select ag.smsEmpleado.idEmpleado from SmsAgenda as ag)) or "
                                         + "(empleado.smsUsuario.smsCiudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "' and conductor.idEmpleado = empleado.idEmpleado and "
                                             + "( "
