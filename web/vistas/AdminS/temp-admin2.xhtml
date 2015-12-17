@@ -14,7 +14,7 @@
         <h:outputStylesheet name="./bootstrap/css/bootstrap.css"/>
         <h:outputStylesheet name="./adminLT/css/AdminLTE.css"/>
         <h:outputStylesheet name="./adminLT/css/skins/_all-skins.min.css"/>
-        
+
         <title>Dashboard SMS | Administradot Secundario</title>
     </h:head>
 
@@ -61,22 +61,6 @@
                                 </b:thumbnail>
                                 <p:panelMenu styleClass="ui-state-default-menu">
 
-                                    <p:submenu label="Registro" styleClass="color-menu-1" icon="ui-icon-pencil">
-                                        <p:menuitem style="font-size: 1.2em" value="Registro de Usuario" icon="ui-icon-pencil" url="reservas/reservadmin.xhtml"/>
-                                    </p:submenu>
-
-                                    <p:submenu label="Reservaciones" >
-                                        <p:menuitem style="font-size: 1.2em" value="Reservar Vehiculos" action="#{pathBean}"  icon="ui-icon-star" />
-                                        <p:menuitem style="font-size: 1.2em" value="Reservar Conductores" action="#{pathBean}"  icon="ui-icon-plusthick" />
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar reservaciones" action="#{pathBean}"  icon="ui-icon-circle-zoomin" />
-                                    </p:submenu>
-
-                                    <p:submenu label="Clientes">
-                                        
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar Clientes" action="#{pathBean.ir_SClientes()}"  ajax="false" icon="ui-icon-circle-zoomin"/>
-                                    </p:submenu>
-
-                                    <p:separator />
                                     <p:submenu label="Vehiculos" >
                                         <p:menuitem style="font-size: 1.2em" value="Marcas SMS Renta" action="#{pathBean.ir_SMarcas()}" icon="ui-icon-home"/>
                                         <p:menuitem style="font-size: 1.2em"  value="Categorias SMS Renta" action="#{pathBean.ir_SCategoria()}" icon="ui-icon-contact"/>
@@ -84,11 +68,24 @@
                                         <p:menuitem style="font-size: 1.2em" value="Vehiculo SMS Renta" action="#{pathBean.ir_SVehiculos()}" icon="ui-icon-person" />
                                     </p:submenu>
 
-                                    <p:submenu label="Conductores SMS">
-                                        <p:menuitem style="font-size: 1.2em" value="Registrar y Consultar Conductores" action="#{pathBean}" icon="ui-icon-arrowstop-1-s"/>
-                                        
+                                    <p:submenu label="Lugares SMS Renta" styleClass="color-menu-1" icon="ui-icon-pencil">
+                                        <p:menuitem style="font-size: 1.2em" value="Ciudad" icon="ui-icon-pencil" action="#{pathBean.ir_SCiudad()}"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Pais" icon="ui-icon-pencil" action="#{pathBean.ir_SPais()}"/>
+                                    </p:submenu>
+
+                                    <p:submenu label="Reservaciones" >
+                                        <p:menuitem style="font-size: 1.2em" value="Reservar Servicio SMS " action="#{pathBean}"  icon="ui-icon-star" />
 
                                     </p:submenu>
+
+                                    <p:submenu label="Clientes">
+                                        <p:menuitem style="font-size: 1.2em" value="Consultar Clientes" action="#{pathBean.ir_SClientes()}"  ajax="false" icon="ui-icon-circle-zoomin"/>
+                                    </p:submenu>
+
+                                    <p:submenu label="Conductores SMS">
+                                        <p:menuitem style="font-size: 1.2em" value="Registro de Conductor" icon="ui-icon-pencil" action="#{pathBean.ir_SEmpleados()}"/>
+                                    </p:submenu>
+                                    
                                     <p:submenu label="Calificaciones">
                                         <p:menuitem style="font-size: 1.2em" value="Consultar Calificaciones" action="#{pathBean}" icon="ui-icon-star"/>
                                     </p:submenu>
