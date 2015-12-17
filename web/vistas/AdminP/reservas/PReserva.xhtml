@@ -23,7 +23,7 @@
                             <h:form>
                                 <p:growl id="growl" sticky="true" showDetail="true"/>
                                 <p:wizard flowListener="#{agendaBean.onFlowProcess}">
-                                    <p:tab id="personal" title="Ciudad" titleStyle="btn">
+                                    <p:tab id="Ciudad" title="Ciudad" titleStyle="btn">
                                         <b:panel title="Ingrese Ciudad de Destino"  look="primary" style="text-decoration: none">
                                             <p:messages/>
                                             <p style="margin-top: 12px">La ciudad de destino es el lugar en el
@@ -54,7 +54,7 @@
                                         </b:panel>
                                     </p:tab>
 
-                                    <p:tab id="address" title="Agendamiento">
+                                    <p:tab id="Agendamiento" title="Agendamiento">
                                         <b:panel title="Fechas de la reservación" look="primary" >                                           
 
                                             <p:messages autoUpdate="true"/>
@@ -85,7 +85,7 @@
                                         </b:panel>
                                     </p:tab>
 
-                                    <p:tab id="contact" title="Vehiculo">
+                                    <p:tab id="Vehiculo" title="Vehiculo">
                                         <b:panel title="Defina la categoria y el servicio" look="primary">
                                             <p:messages autoUpdate="true" />
                                             <p style="margin-top: 12px">Aqui podrá elegir el vehiculo que desea para su reservacion:</p>
@@ -145,12 +145,12 @@
                                         </b:panel>
                                     </p:tab>
 
-                                    <p:tab id="conductor" title="Conductor">
+                                    <p:tab id="Conductor" title="Conductor">
                                         <p:messages />                                       
                                         <p style="margin-top: 12px">Aqui podrá elegir el conductor que desea para su reservacion</p>
                                         <hr/>
                                         <div class="box box-danger direct-chat direct-chat-danger">
-                                            <p:dataScroller var="empleado" id="ScrollerConductores" value="#{agendaBean.empleadosListView}" chunkSize="10" >
+                                            <p:dataScroller var="empleado" id="ScrollerConductores" value="#{agendaBean.empleadosListView}" chunkSize="5" >
                                                 <f:facet name="header">
                                                     Explore hacia abajo para cargar mas conductores.
                                                 </f:facet>
@@ -183,11 +183,12 @@
                                     </p:tab>
 
 
-                                    <p:tab id="confirm" title="Confirmación">
+                                    <p:tab id="Confirmacion" title="Confirmación">
                                         <b:panel title="Confirmación" look="primary">
                                             <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
                                                 <p:outputLabel value="Placa: #{agendaBean.vehiculoView.vehPlaca}"/>
                                                 <p:outputLabel value="Conductor: #{agendaBean.empleadoView.smsUsuario.usuarioNombre}"/>
+                                                <p:inputTextarea rows="3" placeholder="Notas de la reservacion" value="#{agendaBean.reservaView.reservacionNotas}"/>
                                             </h:panelGrid>
                                             <p:commandButton value="Registrar" action="#{agendaBean.registrarAgenda()}" update="@form" process="@this"/>
                                         </b:panel>

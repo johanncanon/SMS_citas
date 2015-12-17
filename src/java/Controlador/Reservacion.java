@@ -17,6 +17,9 @@ import Modelo.SmsCiudad;
 import Modelo.SmsReservacion;
 import Modelo.SmsUsuario;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -32,6 +35,11 @@ public class Reservacion {
     private SmsUsuario cliente;
     private SmsCalificacion calificacion;
 
+    //Sesion  
+    private HttpServletRequest httpServletRequest;
+    private FacesContext faceContext;
+    private FacesMessage facesMessage;
+    
     //Constructor
     public Reservacion() {    
     }
@@ -82,12 +90,16 @@ public class Reservacion {
     
     //Metodos
     
-    public void registrarReservacion(SmsUsuario u, SmsAgenda a, SmsCiudad c, SmsReservacion r){
+    public void registrarReservacion(SmsAgenda a, SmsCiudad c, SmsReservacion r){
         
         reservacion = r;
         agenda= a;
-        SmsCiudad ciudad=c;
-        cliente = u;
+        SmsCiudad ciudad=c;        
+        
+        faceContext=FacesContext.getCurrentInstance();
+        httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
+        
+        cliente = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
         
         //Consulta de objetos
         ICiudadDao ciuDao = new ImpCiudadDao();

@@ -126,7 +126,11 @@ public class Empleado extends Usuario {
         empleados = new ArrayList<>();
         IEmpleadoDao empleadoDao = new ImpEmpleadoDao();
         empleados = empleadoDao.consultarEmpleadosDisponibles(agenda, ciudad);
-        return empleados;
+        List<SmsEmpleado> lista = new ArrayList<>();
+        for(int i = 0; i<empleados.size() ; i++){
+        lista.add(empleadoDao.consultarEmpleado(empleados.get(i).getSmsUsuario()).get(0));
+        }
+        return lista;
     }
     
 

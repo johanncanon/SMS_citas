@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
 public class Usuario {
 
     //Contexto y sesion
-    private HttpSession httpSession;
+    public HttpSession httpSession;
 
     //Atributos
     protected SmsUsuario usuario;
@@ -104,7 +104,7 @@ public class Usuario {
         usuarios = usuarioDao.consultarUsuario(usuario);
         return usuarios;
     }
-    
+
     public List<SmsUsuario> consultarUsuarioSesion(SmsUsuario u) {
         usuario = u;
         //el metodo consulta de la base de datos todos los usuarios registrados y los retorna en una lista
@@ -165,11 +165,11 @@ public class Usuario {
     }
 
     //Metodos de la sesion    
-    public String iniciarSesion(SmsUsuario u){
+    public String iniciarSesion(SmsUsuario u) {
         usuario = u;
         usuario = consultarUsuarioSesion(usuario).get(0);
         String ruta = "";
-        Rol rol = new Rol();        
+        Rol rol = new Rol();
         httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         httpSession.setAttribute("Sesion", usuario);
 
@@ -206,7 +206,6 @@ public class Usuario {
         //Desmonta el objeto usuario subido al contexto de sesion y e invalida esta.
         httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         httpSession.invalidate();
-
     }
 
     public SmsUsuario obtenerSesion() {

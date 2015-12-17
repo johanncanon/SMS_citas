@@ -19,6 +19,8 @@ import Modelo.SmsUsuario;
 import Modelo.SmsVehiculo;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.primefaces.event.FlowEvent;
 
 public class AgendaBean {
@@ -219,9 +221,8 @@ public class AgendaBean {
     //CRUD
     public void registrarAgenda() {
         //obtiene la informacion del cliente que ha iniciado sesion        
-        agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);
-        clienteView = usuarioController.obtenerSesion();
-        reservacionController.registrarReservacion(clienteView, agendaView, ciudadView, reservaView);
+        agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);        
+        reservacionController.registrarReservacion(agendaView, ciudadView, reservaView);
     }
 
     //Especificos
@@ -234,14 +235,14 @@ public class AgendaBean {
             if (ciudadView.getCiudadNombre() != null && agendaView.getAgendaFechaInicio() != null && agendaView.getAgendaFechaLlegada() != null
                     && agendaView.getAgendaHoraInicio() != null && agendaView.getAgendaHoraLlegada() != null) {
                 agendaListView = agendaController.cargarAgendas();
+                vehiculosListView.clear();
+                empleadosListView.clear();
                 if (agendaListView.isEmpty()) {
-                    vehiculosListView.clear();
-                    empleadosListView.clear();
+
                     vehiculosListView = vehiculoController.consultarVehiculosCiudad(ciudadView);
                     empleadosListView = empleadoController.consultarEmpleadosCiudad(ciudadView);
                 } else {
-                    vehiculosListView.clear();
-                    empleadosListView.clear();
+
                     vehiculosListView = vehiculoController.consultarVehiculosDisponible(agendaView, ciudadView);
                     empleadosListView = empleadoController.consultarEmpleadosDisponibles(agendaView, ciudadView);
                 }

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Desarrollo_Planit
  */
-//@WebFilter("*.xhtml")
+@WebFilter("*.xhtml")
 public class UserFilter implements Filter {
     
     FilterConfig filterConfig;
@@ -38,7 +38,7 @@ public class UserFilter implements Filter {
             return true;
         }
         
-        if (urlStr.indexOf("/javax.faces.resource/") != -1) {
+        if (urlStr.contains("/javax.faces.resource/")) {
             return true;
         }
         return false;
