@@ -154,17 +154,7 @@
                                             <p:outputLabel value="#{empleado.usuarioTelefono}"/>
                                         </p:column>
 
-                                        <p:column style="width: 35px">
-                                            <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTEmpleado :formB :formD" icon="ui-icon-pencil" action="#{empleadoBean.seleccionarCrud(1)}" title="Modificar">
-                                                <f:setPropertyActionListener value="#{empleado}" target="#{empleadoBean.usuarioView}"/>
-                                            </p:commandButton>
-                                        </p:column>
-
-                                        <p:column style="width: 35px"> 
-                                            <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTEmpleado :formB :formD" icon="ui-icon-close" action="#{empleadoBean.seleccionarCrud(2)}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{empleado}" target="#{empleadoBean.usuarioView}"/>
-                                            </p:commandButton>
-                                        </p:column>
+                                        
                                     </p:dataTable>
                                 </div>
                             </div>
