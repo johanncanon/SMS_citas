@@ -6,6 +6,8 @@
 package DAO;
 
 import Modelo.SmsAgenda;
+import Modelo.SmsEmpleado;
+import Modelo.SmsVehiculo;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -92,15 +94,15 @@ public class ImpAgendaDao implements IAgendaDao {
     }
 
     @Override
-    public List<SmsAgenda> consultarAgenda(SmsAgenda agenda) {
+    public List<SmsAgenda> consultarAgenda(SmsAgenda agenda, SmsVehiculo vehiculo, SmsEmpleado empleado) {
         Session session = null;
         List<SmsAgenda> agendas = new ArrayList<>();
 
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculo left join fetch agenda.smsEmpleado as empleado where vehiculo = '" + agenda.getSmsVehiculo().getIdVehiculo() + "' and empleado = '" + agenda.getSmsEmpleado().getIdEmpleado() + "' and "
-                    + "agenda.agendaFechaInicio = '"+ agenda.getAgendaFechaInicio() +"' and agenda.agendaFechaLlegada = '"+ agenda.getAgendaFechaLlegada() +"' and agenda.agendaHoraInicio = '"+agenda.getAgendaHoraInicio()+"' and "
-                    + "agenda.agendaHoraLlegada = '"+ agenda.getAgendaFechaLlegada() +"'");
+            Query query = session.createQuery("from SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculo left join fetch agenda.smsEmpleado as empleado where vehiculo = '" + vehiculo.getIdVehiculo() + "' and empleado = '" + empleado.getIdEmpleado() + "' and "
+                    + "agenda.agendaFechaInicio = '" + agenda.getAgendaFechaInicio() + "' and agenda.agendaFechaLlegada = '" + agenda.getAgendaFechaLlegada() + "' and agenda.agendaHoraInicio = '" + agenda.getAgendaHoraInicio() + "' and "
+                    + "agenda.agendaHoraLlegada = '" + agenda.getAgendaHoraLlegada() + "'");
             agendas = (List<SmsAgenda>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
@@ -111,5 +113,4 @@ public class ImpAgendaDao implements IAgendaDao {
         }
         return agendas;
     }
-
 }

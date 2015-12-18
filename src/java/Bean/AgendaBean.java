@@ -19,8 +19,6 @@ import Modelo.SmsUsuario;
 import Modelo.SmsVehiculo;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 import org.primefaces.event.FlowEvent;
 
 public class AgendaBean {
@@ -222,7 +220,7 @@ public class AgendaBean {
     public void registrarAgenda() {
         //obtiene la informacion del cliente que ha iniciado sesion        
         agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);        
-        reservacionController.registrarReservacion(agendaView, ciudadView, reservaView);
+        reservacionController.registrarReservacion(agendaView, ciudadView, reservaView, vehiculoView, empleadoView);
     }
 
     //Especificos

@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
 public class Usuario {
 
     //Contexto y sesion
-    public HttpSession httpSession;
+    private HttpSession httpSession;
 
     //Atributos
     protected SmsUsuario usuario;

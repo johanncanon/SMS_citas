@@ -4,22 +4,18 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </filter-mapping>   
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <servlet>
-        <servlet-name>HttpSession</servlet-name>
-        <servlet-class>Session.HttpSession</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>HttpSession</servlet-name>
-        <url-pattern>/HttpSession</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -32,7 +28,11 @@
     <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>bootstrap</param-value>
-    </context-param>
+    </context-param>  
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>Filter.LoginFilter</filter-class>
+    </filter>
     <!-- Font Awesome -->
     <mime-mapping>
         <extension>eot</extension>

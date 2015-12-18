@@ -14,8 +14,10 @@ import DAO.ImpReservacionDao;
 import Modelo.SmsAgenda;
 import Modelo.SmsCalificacion;
 import Modelo.SmsCiudad;
+import Modelo.SmsEmpleado;
 import Modelo.SmsReservacion;
 import Modelo.SmsUsuario;
+import Modelo.SmsVehiculo;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -42,9 +44,7 @@ public class Reservacion {
     
     //Constructor
     public Reservacion() {    
-    }
-    
-    
+    }       
     
     //Getters & Setter
     public SmsReservacion getReservacion() {
@@ -90,23 +90,24 @@ public class Reservacion {
     
     //Metodos
     
-    public void registrarReservacion(SmsAgenda a, SmsCiudad c, SmsReservacion r){
-        
+    public void registrarReservacion(SmsAgenda a, SmsCiudad c, SmsReservacion r, SmsVehiculo v, SmsEmpleado e){        
         reservacion = r;
-        agenda= a;
-        SmsCiudad ciudad=c;        
+        agenda = a;
+        SmsCiudad ciudad = c;
+        SmsVehiculo vehiculo = v;
+        SmsEmpleado empleado = e;
         
+        //Obtenemos la informacion de sesion del usuario autentificado
         faceContext=FacesContext.getCurrentInstance();
         httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
-        
         cliente = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
         
         //Consulta de objetos
         ICiudadDao ciuDao = new ImpCiudadDao();
         ciudad = ciuDao.consultarCiudad(ciudad).get(0);
-        
+              
         IAgendaDao agDao = new ImpAgendaDao();
-        agenda = agDao.consultarAgenda(agenda).get(0);
+        agenda = agDao.consultarAgenda(agenda, vehiculo, empleado).get(0);
         
         reservacion.setSmsCiudad(ciudad);
         reservacion.setSmsUsuario(cliente);

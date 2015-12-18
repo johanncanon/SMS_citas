@@ -6,6 +6,8 @@
 package DAO;
 
 import Modelo.SmsAgenda;
+import Modelo.SmsEmpleado;
+import Modelo.SmsVehiculo;
 import java.util.List;
 
 /**
@@ -19,5 +21,5 @@ public interface IAgendaDao {
     public void registrarAgenda(SmsAgenda agenda);
     public void modificarAgenda(SmsAgenda agenda);
     public void eliminarAgenda(SmsAgenda agenda);
-    public List<SmsAgenda> consultarAgenda(SmsAgenda agenda);    
+    public List<SmsAgenda> consultarAgenda(SmsAgenda agenda, SmsVehiculo vehiculo, SmsEmpleado empleado);    
 }

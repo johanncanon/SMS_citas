@@ -332,7 +332,7 @@ public class UsuarioBean implements Serializable {
             if (user.get(0).getUsuarioEstadoUsuario() == 1) {//Evalua el estado de la cuenta de usuario, si esta activa o inactiva
                 if (user.get(0).getUsuarioLogin().equalsIgnoreCase(usuarioView.getUsuarioLogin()) && user.get(0).getUsuarioPassword().equalsIgnoreCase(usuarioView.getUsuarioPassword())) {
                     ruta = usuarioController.iniciarSesion(usuarioView);//envia el objeto usuarioBean al metodo iniciarSesion para tomar este objeto como atributo de sesion
-                    Usuario = obtenerSesion(); 
+                    Usuario = usuarioController.obtenerSesion();
                     message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Acceso Correcto", "Bienvenid@: " + usuarioView.getUsuarioNombre());
                 } else {
                     message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseña incorrecto", null);
@@ -351,10 +351,6 @@ public class UsuarioBean implements Serializable {
         String ruta = "Login";
         usuarioController.cerrarSesion();
         return ruta;
-    }
-    
-    public SmsUsuario obtenerSesion(){        
-        return usuarioController.obtenerSesion();
-    }
+    }    
 
 }
