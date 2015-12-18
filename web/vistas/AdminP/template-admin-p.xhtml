@@ -63,9 +63,12 @@
                                 </b:thumbnail>
                                 <p:panelMenu styleClass="ui-state-default-menu">
 
+                                    <p:submenu label="Tablero Principal SMS Renta" styleClass="color-menu-1" icon="ui-icon-pencil">
+                                        <p:menuitem style="font-size: 1.2em" value="Panel Principal" action="#{pathBean.ir_PPrincipal()}" icon="ui-icon-pencil"></p:menuitem>                                        
+                                    </p:submenu>
+                                    
                                     <p:submenu label="Administradores" styleClass="color-menu-1" icon="ui-icon-pencil">
-                                        <p:menuitem style="font-size: 1.2em" value="Panel de administradores" action="#{pathBean.ir_PUsuario()}" icon="ui-icon-pencil"></p:menuitem>
-                                        
+                                        <p:menuitem style="font-size: 1.2em" value="Panel de administradores" action="#{pathBean.ir_PUsuario()}" icon="ui-icon-pencil"></p:menuitem>                                        
                                     </p:submenu>
 
                                     <p:submenu label="Reservaciones" >
@@ -80,8 +83,6 @@
                                         <p:menuitem style="font-size: 1.2em" value="Panel de Clientes" action="#{pathBean.ir_PCliente()}" icon="ui-icon-check"/>                                        
                                     </p:submenu>
                                     
-
-                                    <p:separator />
                                     <p:submenu label="Vehiculos" >
                                         <p:menuitem style="font-size: 1.2em" value="Marcas SMS Renta" action="#{pathBean.ir_PMarca()}" icon="ui-icon-home"/>
                                         <p:menuitem style="font-size: 1.2em" value="Categorias SMS Renta" action="#{pathBean.ir_PCategoria()}" icon="ui-icon-contact"/>

@@ -62,11 +62,11 @@
                                 <p:panelMenu styleClass="ui-state-default-menu" style="font-size: .8em;">
 
                                     <p:submenu label="Horario Conductor" styleClass="color-menu-1" icon="ui-icon-pencil" >
-                                        <p:menuitem style="font-size: 1.2em" value="Horario Conductor" icon="ui-icon-pencil" url="reservas/reservadmin.xhtml"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Horario Conductor" icon="ui-icon-pencil" action="#{pathBean.ir_ConductorDash()}"/>
                                     </p:submenu>
 
                                     <p:submenu label="Edicion de Perfil" >
-                                        <p:menuitem value="Datos de Perfil" url="reservas/reservadmin.xhtml"  icon="ui-icon-star" />
+                                        <p:menuitem value="Datos de Perfil" action="#{pathBean.ir_ConductorCliente()}"  icon="ui-icon-star" />
                                     </p:submenu>
 
                                 </p:panelMenu>

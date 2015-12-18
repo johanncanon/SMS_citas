@@ -10,9 +10,9 @@
 
     <ui:composition template="./temp-cliente.xhtml">
         <ui:define name="content2">
-            <b:container>
+            <b:container fluid="true">
                 <b:row>
-                    <b:column col-lg="9" col-md="9" col-xs="8" col-sm="12" >
+                    <b:column col-lg="8" col-md="8" col-xs="12" col-sm="12" >
 
                         <div class="box box-danger direct-chat direct-chat-danger mrg-cl-1" style="padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
                             <div class="box-header with-border" style="margin-bottom: 12px">
@@ -39,11 +39,16 @@
                                                 </b:selectOneMenu>
                                                 
                                                 <div style="left: 50%; position: relative;">
+                                                    
+                                                    <span class="label-cl"> </span>                                                   
+                                                </div>
+                                                
+                                                <div style="left: 50%; position: relative;">
                                                     <i class="fa fa-2x"></i>
                                                     <span class="label-cl">Lugar de recogida: </span>                                                   
                                                 </div>
                                                 <b:inputText style="width: 100%" placeholder="Lugar de recogida" required="true" requiredMessage="Indique lugar de recogida" value="#{agendaBean.reservaView.reservacionLugarLlegada}"/>
-                                            
+
                                                 <div style="left: 50%; position: relative;">
                                                     <i class="fa fa-2x"></i>
                                                     <span class="label-cl">Lugar de destino: </span>                                                   
@@ -195,20 +200,21 @@
                             </h:form>
                         </div>
                     </b:column>
-                    <b:column col-lg="4" col-md="4">
+
+                    <b:column col-lg="4" col-sm="12" col-xs="12" col-md="4">
                         <div class="box box-primary mrg-cl-2">
                             <div class="box-header with-border">
                                 <i class="fa fa-comments-o"></i>
                                 <h3 class="box-title">Anuncios Importantes:</h3>
                             </div>
 
-                            <div class="img-responsive img-thumbnail" style="padding: 20px">
-                                <p:imageSwitch effect="fade"  id="fadeEffect">
-                                    <ui:repeat value="#{sliderView.images}" var="img" id="fadeEffectImages">
-                                        <p:graphicImage style="padding: 0; margin: 0; width: 100%" name="images/pub/#{img}" id="image" />
-                                    </ui:repeat>
-                                </p:imageSwitch>
-                            </div>
+
+                            <p:imageSwitch effect="fade"  id="fadeEffect">
+                                <ui:repeat value="#{sliderView.images}" var="img" id="fadeEffectImages">
+                                    <p:graphicImage class="img-responsive img-thumbnail"  name="images/pub/#{img}" id="image" />
+                                </ui:repeat>
+                            </p:imageSwitch>
+
                         </div>
 
                         <div class="box box-widget widget-user">

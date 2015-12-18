@@ -118,7 +118,7 @@
 
                                     </div><hr/>
                                 </div>
-                                <p:commandButton id="BTVehiculo" style="width: 100%; padding: 7px"  value="#{vehiculoBean.nombre}" update=":formA:seccionDatosVehiculo :formA:seccionEstadoVehiculo :formA:BTVehiculo :formB :formC:DTVehiculos" action="#{vehiculoBean.metodo()}"/>
+                                <p:commandButton id="BTVehiculo" class="btn btn-block btn-primary"  value="#{vehiculoBean.nombre}" update=":formA:seccionDatosVehiculo :formA:seccionEstadoVehiculo :formA:BTVehiculo :formB :formC:DTVehiculos" action="#{vehiculoBean.metodo()}"/>
 
                             </div>
                         </b:column>
@@ -151,7 +151,7 @@
                                     <div class="table-responsive">
                                         <p:fileUpload mode="simple" update=":formA" value="#{vehiculoBean.archivo}"></p:fileUpload>
                                         <hr/>
-                                        <p:commandButton disabled="#{vehiculoBean.habilitarSubir}" ajax="false" action="#{vehiculoBean.upload()}" value="#{vehiculoBean.subirArchivo}" style="width: 50%"></p:commandButton>
+                                        <p:commandButton disabled="#{vehiculoBean.habilitarSubir}" ajax="false" action="#{vehiculoBean.upload()}" value="#{vehiculoBean.subirArchivo}" class="btn btn-block btn-primary"></p:commandButton>
                                     </div> 
                                 </div>
                             </div>
