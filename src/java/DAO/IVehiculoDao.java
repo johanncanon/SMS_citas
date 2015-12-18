@@ -7,6 +7,7 @@ package DAO;
 
 import Modelo.SmsAgenda;
 import Modelo.SmsCiudad;
+import Modelo.SmsEstadovehiculo;
 import Modelo.SmsVehiculo;
 import java.util.List;
 
@@ -23,5 +24,6 @@ public interface IVehiculoDao {
     public List<SmsVehiculo> consultarVehiculo(SmsVehiculo vehiculo);
     public List<SmsVehiculo> consultarVehiculosDisponibles(SmsAgenda agenda, SmsCiudad ciudad);
     public List<SmsVehiculo> consultarVehiculosCiudad(SmsCiudad ciudad);
+    //public List<SmsVehiculo> consultarVehiculoEstadoVehiculo(SmsEstadovehiculo estadoVeh);
         
 }

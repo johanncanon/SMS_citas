@@ -26,5 +26,8 @@
         <property name="estadoVehKilometraje" type="string">
             <column name="EstadoVeh_kilometraje" length="45" />
         </property>
+        <property name="fechaEstadoVehiculo" type="date">
+            <column name="Fecha_EstadoVehiculo" length="0" />
+        </property>
     </class>
 </hibernate-mapping>

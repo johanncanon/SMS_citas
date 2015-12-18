@@ -25,7 +25,7 @@ public class SmsVehiculo  implements java.io.Serializable {
      private String vehFotoRuta;
      private Set<SmsAgenda> smsAgendas = new HashSet<SmsAgenda>(0);
      private Set<SmsEstadovehiculo> smsEstadovehiculos = new HashSet<SmsEstadovehiculo>(0);
-
+     
     public SmsVehiculo() {
     }
 
