@@ -6,7 +6,9 @@
 package Controlador;
 
 import DAO.IAgendaDao;
+import DAO.IReservacionDao;
 import DAO.ImpAgendaDao;
+import DAO.ImpReservacionDao;
 import Modelo.SmsAgenda;
 import Modelo.SmsEmpleado;
 import Modelo.SmsVehiculo;
@@ -60,7 +62,7 @@ public class Agenda {
 
         //Relacion con el dao y registro de la agenda
         IAgendaDao agDao = new ImpAgendaDao();
-        agDao.registrarAgenda(agenda);//Se ejecuta la funcion del dao
+        agDao.registrarAgenda(agenda);//Se ejecuta la funcion del dao       
     }
 
     public void modificarAgenda(SmsEmpleado c, SmsVehiculo v, SmsAgenda a) {
@@ -84,5 +86,16 @@ public class Agenda {
         IAgendaDao agDao = new ImpAgendaDao();
         agDao.eliminarAgenda(agenda);//Se ejecuta la funcion del dao
     }
+    
+    
+    
+     public List<SmsAgenda> consultarAgenda(SmsAgenda a, SmsVehiculo v, SmsEmpleado e) {
+        agendas = new ArrayList();
+        agenda = a;
+        IAgendaDao agDao = new ImpAgendaDao();
+        agendas = agDao.consultarAgenda(agenda, v, e);
+        return agendas;
+    }
+    
 
 }

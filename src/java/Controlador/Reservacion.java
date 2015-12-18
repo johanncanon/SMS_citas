@@ -88,14 +88,11 @@ public class Reservacion {
     }
     
     
-    //Metodos
-    
-    public void registrarReservacion(SmsAgenda a, SmsCiudad c, SmsReservacion r, SmsVehiculo v, SmsEmpleado e){        
+    //Metodos    
+    public void registrarReservacion(SmsAgenda a, SmsCiudad c, SmsReservacion r){        
         reservacion = r;
         agenda = a;
-        SmsCiudad ciudad = c;
-        SmsVehiculo vehiculo = v;
-        SmsEmpleado empleado = e;
+        SmsCiudad ciudad = c;        
         
         //Obtenemos la informacion de sesion del usuario autentificado
         faceContext=FacesContext.getCurrentInstance();
@@ -104,11 +101,9 @@ public class Reservacion {
         
         //Consulta de objetos
         ICiudadDao ciuDao = new ImpCiudadDao();
-        ciudad = ciuDao.consultarCiudad(ciudad).get(0);
+        ciudad = ciuDao.consultarCiudad(ciudad).get(0);              
               
-        IAgendaDao agDao = new ImpAgendaDao();
-        agenda = agDao.consultarAgenda(agenda, vehiculo, empleado).get(0);
-        
+        //asignacion
         reservacion.setSmsCiudad(ciudad);
         reservacion.setSmsUsuario(cliente);
         reservacion.setSmsAgenda(agenda);
