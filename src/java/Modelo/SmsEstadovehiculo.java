@@ -1,6 +1,9 @@
 package Modelo;
 // Generated 26-nov-2015 15:26:50 by Hibernate Tools 4.3.1
 
+import java.util.Date;
+
+
 
 
 /**
@@ -16,6 +19,7 @@ public class SmsEstadovehiculo  implements java.io.Serializable {
      private String estadoVehSilleteria;
      private String estadoVehPintura;
      private String estadoVehKilometraje;
+     private Date fechaEstadoVehiculo;
 
     public SmsEstadovehiculo() {
     }
@@ -24,13 +28,22 @@ public class SmsEstadovehiculo  implements java.io.Serializable {
     public SmsEstadovehiculo(SmsVehiculo smsVehiculo) {
         this.smsVehiculo = smsVehiculo;
     }
-    public SmsEstadovehiculo(SmsVehiculo smsVehiculo, String estadoVehFrenos, String estadoVehMotor, String estadoVehSilleteria, String estadoVehPintura, String estadoVehKilometraje) {
+    public SmsEstadovehiculo(SmsVehiculo smsVehiculo, String estadoVehFrenos, String estadoVehMotor, String estadoVehSilleteria, String estadoVehPintura, String estadoVehKilometraje,Date fechaEstadoVehiculo) {
        this.smsVehiculo = smsVehiculo;
        this.estadoVehFrenos = estadoVehFrenos;
        this.estadoVehMotor = estadoVehMotor;
        this.estadoVehSilleteria = estadoVehSilleteria;
        this.estadoVehPintura = estadoVehPintura;
        this.estadoVehKilometraje = estadoVehKilometraje;
+       this.fechaEstadoVehiculo = fechaEstadoVehiculo;
+    }
+
+    public Date getFechaEstadoVehiculo() {
+        return fechaEstadoVehiculo;
+    }
+
+    public void setFechaEstadoVehiculo(Date fechaEstadoVehiculo) {
+        this.fechaEstadoVehiculo = fechaEstadoVehiculo;
     }
    
     public Integer getIdEstadoVeh() {

@@ -8,12 +8,14 @@ package Controlador;
 import Modelo.SmsVehiculo;
 import DAO.ICategoriaDao;
 import DAO.ICiudadDao;
+import DAO.IEstadoVehiculoDao;
 import DAO.IProveedorDao;
 import DAO.IReferenciaDao;
 import DAO.IUsuarioDao;
 import DAO.IVehiculoDao;
 import DAO.ImpCategoriaDao;
 import DAO.ImpCiudadDao;
+import DAO.ImpEstadoVehiculoDao;
 import DAO.ImpProveedorDao;
 import DAO.ImpReferenciaDao;
 import DAO.ImpUsuarioDao;
@@ -21,6 +23,7 @@ import DAO.ImpVehiculoDao;
 import Modelo.SmsAgenda;
 import Modelo.SmsCategoria;
 import Modelo.SmsCiudad;
+import Modelo.SmsEstadovehiculo;
 import Modelo.SmsProveedor;
 import Modelo.SmsReferencia;
 import Modelo.SmsUsuario;
@@ -34,15 +37,27 @@ import java.util.List;
 public class Vehiculo {
 
     private SmsVehiculo vehiculo;
+    private SmsEstadovehiculo estado_Vehiculo;
     private List<SmsVehiculo> vehiculos;
+    private List<SmsEstadovehiculo> estado_Vehiculos;
+
 
     public Vehiculo() {
         vehiculo = new SmsVehiculo();
+        estado_Vehiculo = new SmsEstadovehiculo();
     }
 
     //Getters & Setters
     public SmsVehiculo getVehiculo() {
         return vehiculo;
+    }
+    
+    public void setEstado_Vehiculo(SmsEstadovehiculo estado_Vehiculo) {
+        this.estado_Vehiculo = estado_Vehiculo;
+    }
+
+    public void setEstado_Vehiculos(List<SmsEstadovehiculo> estado_Vehiculos) {
+        this.estado_Vehiculos = estado_Vehiculos;
     }
 
     public void setVehiculo(SmsVehiculo vehiculo) {
@@ -159,12 +174,30 @@ public class Vehiculo {
         vehiculos = linkDao.consultarVehiculosDisponibles(agenda, ciudad);
         return vehiculos;
     }
-    
+
     public List<SmsVehiculo> consultarVehiculosCiudad(SmsCiudad c) {
-        vehiculos = new ArrayList<>();        
+        vehiculos = new ArrayList<>();
         SmsCiudad ciudad = c;
         IVehiculoDao linkDao = new ImpVehiculoDao();
         vehiculos = linkDao.consultarVehiculosCiudad(ciudad);
         return vehiculos;
     }
+    
+    /*  METODO PARA SACAR LOS DATOS DEL ESTADO VEHICULO  */
+    
+    public List<SmsEstadovehiculo> consultarEstado_Vehiculos(SmsEstadovehiculo estVehiculo){
+        
+        vehiculos = new ArrayList<>();
+        estado_Vehiculos = new ArrayList<>();
+        SmsEstadovehiculo estadoVehoculo = estVehiculo;
+        IVehiculoDao linkDao = new ImpVehiculoDao();
+        vehiculo = linkDao.consultarVehiculoEstadoVehiculo(estadoVehoculo).get(0);
+        
+        for (SmsEstadovehiculo est_Veh: vehiculo.getSmsEstadovehiculos()) {            
+            estado_Vehiculos.add(est_Veh);
+            }
+         
+        return estado_Vehiculos;
+    }
+    
 }
