@@ -14,7 +14,7 @@
                 <b:row>
                     <h:form id="formA">
 
-                        <b:column col-lg="8" col-md="7" col-sm="11" col-xs="12" >
+                        <b:column col-lg="8" col-md="8" col-sm="11" col-xs="12" >
                             <div class="box box-danger espacio-arriba">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-th-list"/>
@@ -55,9 +55,13 @@
                                             </b:selectOneMenu>
                                             <p:message for="SCiudades"/>
                                         </h:panelGrid>
-                                    </div><hr/>
-                                    <h4>Datos de sesion</h4>
-                                    <hr/>
+                                    </div>
+                                </div>
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-check-square"/>
+                                    <h4 class="box-title">Datos de Sesión</h4>
+                                </div>
+                                <div class="box-body">
                                     <div class="table-responsive">
                                         <h:panelGrid cellpadding="5" columns="3" id="seccionDatosSesion" style="width: 100%">
 
@@ -75,7 +79,7 @@
 
                                         </h:panelGrid>
                                     </div><hr/>
-                                    <p:commandButton id="BTCliente" style="width:100%" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTCliente :formC:DTClientes :formB" action="#{clienteBean.metodo()}" value="#{clienteBean.nombre}" />
+                                    <p:commandButton id="BTCliente" class="btn btn-block btn-danger" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTCliente :formC:DTClientes :formB" action="#{clienteBean.metodo()}" value="#{clienteBean.nombre}" />
                                 </div>
                             </div> 
                         </b:column>
@@ -110,7 +114,7 @@
                                         <div class="table-responsive">
                                             <p:fileUpload mode="simple" update=":formA" value="#{clienteBean.archivo}"></p:fileUpload>
                                             <hr/>
-                                            <p:commandButton disabled="#{clienteBean.habilitarSubir}" ajax="false" action="#{clienteBean.upload()}" value="#{clienteBean.subirArchivo}" style="width: 50%"></p:commandButton>
+                                            <p:commandButton disabled="#{clienteBean.habilitarSubir}" ajax="false" action="#{clienteBean.upload()}" value="#{clienteBean.subirArchivo}" class="btn btn-block btn-primary"></p:commandButton>
                                         </div>
                                     </div>
                                 </p:fragment>
@@ -120,7 +124,7 @@
 
                     <h:form id="formC">
 
-                        <b:column col-lg="12" col-md="12" col-sm="11" col-xs="12">
+                        <b:column col-lg="11" col-md="11" col-sm="11" col-xs="12">
                             <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-th-list"/>

@@ -25,9 +25,9 @@
             <b:container fluid="true">
                 <b:row><!-- MENU -->
                     <b:navBar  brandImg="../../../resources/images/logo-DASH.png"   brandHref="#"  inverse="true">
-                        
+
                         <b:navbarLinks pull="right">
-                            
+
                             <ui:include src="general/menu-responsive.xhtml"></ui:include>
                             <b:dropMenu value="Nombre del Usuario">
                                 <b:navLink value="Perfil" href="#"></b:navLink>
@@ -44,29 +44,32 @@
         </div>
 
         <b:container fluid="true">
-            <b:row>
-                <div class="men-desap">
+            <h:form>
+                <b:row>
+                    <div class="men-desap">
 
-                    <b:column col-lg="3" col-md="3" col-sm="4" col-xs="12">
-                        <div id="left">
-                            <h:form>
+                        <b:column col-lg="3" col-md="3" col-sm="4" col-xs="12">
+                            <div id="left">
                                 <p:growl autoUpdate="true"/>
                                 <b:thumbnail id="esp1">
-                                    <b:panelGrid colSpans="4,8">                                        
-                                        <img src="../../../resources/images/col-band.png" style="width: 113%; margin-left: 9px; margin-top: 16px;"/>
-                                        <f:facet name="caption"/>
-                                        <h4>Perfil</h4>
-                                        <p>Nombre: #{usuarioBean.usuario.usuarioNombre}</p>
-                                        <p>Razon Social: #{usuarioBean.usuario.usuarioRazonSocial}</p>
-                                        <p>Perfil: #{usuarioBean.usuario.smsRol.rolNombre}</p>
-                                    </b:panelGrid>
+                                    <div class="user-panel">
+                                        <div class="pull-left image" id="esp1">
+                                            <img src="../../../resources/images/col-band.png" class="img-circle" alt="User Image"/>
+                                        </div>
+                                        <div class="pull-left info">
+                                          
+                                            <p>#{usuarioBean.usuario.usuarioNombre}</p>
+                                           <!--<p>Razon Social: #{usuarioBean.usuario.usuarioRazonSocial}</p>-->
+                                            <p>Perfil: #{usuarioBean.usuario.smsRol.rolNombre}</p>
+                                        </div>
+                                    </div>
                                 </b:thumbnail>
                                 <p:panelMenu styleClass="ui-state-default-menu">
 
                                     <p:submenu label="Tablero Principal SMS Renta" styleClass="color-menu-1" icon="ui-icon-pencil">
                                         <p:menuitem style="font-size: 1.2em" value="Panel Principal" action="#{pathBean.ir_PPrincipal()}" icon="ui-icon-pencil"></p:menuitem>                                        
                                     </p:submenu>
-                                    
+
                                     <p:submenu label="Administradores" styleClass="color-menu-1" icon="ui-icon-pencil">
                                         <p:menuitem style="font-size: 1.2em" value="Panel de administradores" action="#{pathBean.ir_PUsuario()}" icon="ui-icon-pencil"></p:menuitem>                                        
                                     </p:submenu>
@@ -74,15 +77,15 @@
                                     <p:submenu label="Reservaciones" >
                                         <p:menuitem style="font-size: 1.2em" value="Panel Reserva" action="#{pathBean.ir_PReserva()}"  icon="ui-icon-star" />
                                     </p:submenu>
-                                    
-                                     <p:submenu label="Servicios" >
-                                         <p:menuitem style="font-size: 1.2em" value="Panel Servicios" action="#{pathBean.ir_PServicios()}"  icon="ui-icon-star" />
+
+                                    <p:submenu label="Servicios" >
+                                        <p:menuitem style="font-size: 1.2em" value="Panel Servicios" action="#{pathBean.ir_PServicios()}"  icon="ui-icon-star" />
                                     </p:submenu>
 
                                     <p:submenu label="Clientes">
                                         <p:menuitem style="font-size: 1.2em" value="Panel de Clientes" action="#{pathBean.ir_PCliente()}" icon="ui-icon-check"/>                                        
                                     </p:submenu>
-                                    
+
                                     <p:submenu label="Vehiculos" >
                                         <p:menuitem style="font-size: 1.2em" value="Marcas SMS Renta" action="#{pathBean.ir_PMarca()}" icon="ui-icon-home"/>
                                         <p:menuitem style="font-size: 1.2em" value="Categorias SMS Renta" action="#{pathBean.ir_PCategoria()}" icon="ui-icon-contact"/>
@@ -93,43 +96,43 @@
                                     <p:submenu label="Conductores">
                                         <p:menuitem style="font-size: 1.2em" value="Panel Conductores" action="#{pathBean.ir_PEmpleado()}" icon="ui-icon-arrowstop-1-s"/>                                        
                                     </p:submenu>
-                                    
+
                                     <p:submenu label="Proveedores">
                                         <p:menuitem style="font-size: 1.2em" value="Panel Proveedores" action="#{pathBean.ir_PProveedor()}" icon="ui-icon-star"/>
                                     </p:submenu>
-                                    
+
                                     <p:submenu label="Calificaciones">
                                         <p:menuitem style="font-size: 1.2em" value="Consultar Calificaciones" url="#" icon="ui-icon-star"/>
                                     </p:submenu>
-                                    
+
                                     <p:submenu label="Estadisticas">
                                         <p:menuitem style="font-size: 1.2em" value="Estadisticas generales de SMS Renta" action="#{pathBean.ir_PEstadisticas()}" icon="ui-icon-star"/>
                                     </p:submenu>
                                 </p:panelMenu>
-                            </h:form>
-                        </div>
-                    </b:column>
+                            </div>
+                        </b:column>
 
-                </div>
+                    </div>
 
-                <div id="content" class="left_content">
-                    <ui:insert name="content"></ui:insert>    
-                </div>
+                    <div id="content" class="left_content">
+                        <ui:insert name="content"></ui:insert>    
+                    </div>
 
-            </b:row>
-
-
-            <div id="bottom">
-                <b:row>
-                    <b:column>
-                        <div id="footer">
-                            <p>
-                                <span class="copy-r"> Copyright © 2015 | Realizado por <a href="www.planit.com.co">Planit SAS</a>.</span> Todos los derechos reservados.
-                            </p>
-                        </div>
-                    </b:column>
                 </b:row>
-            </div>
+
+
+                <div id="bottom">
+                    <b:row>
+                        <b:column>
+                            <div id="footer">
+                                <p>
+                                    <span class="copy-r"> Copyright © 2015 | Realizado por <a href="www.planit.com.co">Planit SAS</a>.</span> Todos los derechos reservados.
+                                </p>
+                            </div>
+                        </b:column>
+                    </b:row>
+                </div>
+            </h:form>
         </b:container>
 
     </h:body>

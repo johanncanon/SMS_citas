@@ -183,21 +183,6 @@ public class Vehiculo {
         return vehiculos;
     }
     
-    /*  METODO PARA SACAR LOS DATOS DEL ESTADO VEHICULO  */
-    
-    public List<SmsEstadovehiculo> consultarEstado_Vehiculos(SmsEstadovehiculo estVehiculo){
-        
-        vehiculos = new ArrayList<>();
-        estado_Vehiculos = new ArrayList<>();
-        SmsEstadovehiculo estadoVehoculo = estVehiculo;
-        IVehiculoDao linkDao = new ImpVehiculoDao();
-        vehiculo = linkDao.consultarVehiculoEstadoVehiculo(estadoVehoculo).get(0);
-        
-        for (SmsEstadovehiculo est_Veh: vehiculo.getSmsEstadovehiculos()) {            
-            estado_Vehiculos.add(est_Veh);
-            }
-         
-        return estado_Vehiculos;
-    }
+   
     
 }
