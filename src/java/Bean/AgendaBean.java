@@ -218,7 +218,7 @@ public class AgendaBean {
     //Metodos    
     //CRUD
     public void registrarAgenda() {
-               
+
         agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);
         agendaView = agendaController.consultarAgenda(agendaView, vehiculoView, empleadoView).get(0);
         reservacionController.registrarReservacion(agendaView, ciudadView, reservaView);
@@ -230,9 +230,18 @@ public class AgendaBean {
             skip = false;//reset in case user goes back
             return "confirmacion";
         } else {
-            if(event.getNewStep().equalsIgnoreCase("Vehiculo")){
-            vehiculosListView = vehiculoController.consultarVehiculosDisponible(agendaView, ciudadView);
+
+            switch (event.getNewStep()) {
+                case "Vehiculo":
+                    vehiculosListView.clear();
+                    vehiculosListView = vehiculoController.consultarVehiculosDisponible(agendaView, ciudadView);
+                    break;
+                case "Conductor":
+                    empleadosListView.clear();
+                    empleadosListView = empleadoController.consultarEmpleadosDisponibles(agendaView, ciudadView);
+                    break;
             }
+
             return event.getNewStep();
         }
     }
