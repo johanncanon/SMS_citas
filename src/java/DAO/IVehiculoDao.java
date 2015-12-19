@@ -24,6 +24,8 @@ public interface IVehiculoDao {
     public List<SmsVehiculo> consultarVehiculo(SmsVehiculo vehiculo);
     public List<SmsVehiculo> consultarVehiculosDisponibles(SmsAgenda agenda, SmsCiudad ciudad);
     public List<SmsVehiculo> consultarVehiculosCiudad(SmsCiudad ciudad);
-    //public List<SmsVehiculo> consultarVehiculoEstadoVehiculo(SmsEstadovehiculo estadoVeh);
+    public List<SmsVehiculo> consultarVehiculoEstadoVehiculo(SmsEstadovehiculo estadoVeh);
+
+    
         
 }

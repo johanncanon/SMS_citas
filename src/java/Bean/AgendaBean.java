@@ -228,23 +228,10 @@ public class AgendaBean {
     public String onFlowProcess(FlowEvent event) {
         if (skip) {
             skip = false;//reset in case user goes back
-            return "confirm";
+            return "confirmacion";
         } else {
-
-            if (ciudadView.getCiudadNombre() != null && agendaView.getAgendaFechaInicio() != null && agendaView.getAgendaFechaLlegada() != null
-                    && agendaView.getAgendaHoraInicio() != null && agendaView.getAgendaHoraLlegada() != null) {
-                agendaListView = agendaController.cargarAgendas();
-                vehiculosListView.clear();
-                empleadosListView.clear();
-                if (agendaListView.isEmpty()) {
-
-                    vehiculosListView = vehiculoController.consultarVehiculosCiudad(ciudadView);
-                    empleadosListView = empleadoController.consultarEmpleadosCiudad(ciudadView);
-                } else {
-
-                    vehiculosListView = vehiculoController.consultarVehiculosDisponible(agendaView, ciudadView);
-                    empleadosListView = empleadoController.consultarEmpleadosDisponibles(agendaView, ciudadView);
-                }
+            if(event.getNewStep().equalsIgnoreCase("Vehiculo")){
+            vehiculosListView = vehiculoController.consultarVehiculosDisponible(agendaView, ciudadView);
             }
             return event.getNewStep();
         }

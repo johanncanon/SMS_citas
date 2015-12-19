@@ -129,7 +129,8 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>AdminPPrincipal</from-outcome>
-            <to-view-id>/vistas/AdminP/general/Dashboard-Admin-Principal.xhtml</to-view-id>            
+            <to-view-id>/vistas/AdminP/general/Dashboard-Admin-Principal.xhtml</to-view-id>
+            <redirect/>            
         </navigation-case>
         <navigation-case>
             <from-outcome>AdminPPais</from-outcome>

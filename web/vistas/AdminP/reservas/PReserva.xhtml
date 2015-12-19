@@ -23,7 +23,7 @@
                             <h:form>
                                 <p:growl id="growl" sticky="true" showDetail="true"/>
                                 <p:wizard flowListener="#{agendaBean.onFlowProcess}">
-                                    
+
                                     <p:tab id="Ciudad" title="Ciudad">
                                         <b:panel title="Ingrese Ciudad de Destino"  look="primary" style="text-decoration: none">
                                             <p:messages autoUpdate="true"/>
@@ -31,7 +31,7 @@
                                                 cual será recogido por nuestro Conductor:</p>
                                             <hr/>
                                             <h:panelGrid columns="2" width="100%" cellpadding="5">
-                                                
+
                                                 <div style="left: 50%; position: relative;">
                                                     <i class="fa fa-2x fa-globe"></i>
                                                     <span class="label-cl">Ciudad: </span>                                                   
@@ -40,13 +40,13 @@
                                                     <f:selectItem itemLabel="Seleccione Ciudad" noSelectionOption="true"/>
                                                     <f:selectItems value="#{ciudadBean.nombresCiudadesListView}"/>
                                                 </b:selectOneMenu>
-                                                
+
                                                 <div style="left: 50%; position: relative;">
                                                     <i class="fa fa-2x"></i>
                                                     <span class="label-cl">Lugar de recogida: </span>                                                   
                                                 </div>
                                                 <b:inputText style="width: 100%" placeholder="Lugar de recogida" required="true" requiredMessage="Indique lugar de recogida" value="#{agendaBean.reservaView.reservacionLugarLlegada}"/>
-                                            
+
                                                 <div style="left: 50%; position: relative;">
                                                     <i class="fa fa-2x"></i>
                                                     <span class="label-cl">Lugar de destino: </span>                                                   
@@ -63,23 +63,23 @@
                                             <p style="margin-top: 12px">Aqui podrá definir la fecha de inicio del servicio y la fecha de 
                                                 final del servicio SMS:</p>
                                             <hr/>                                           
-                                                
-                                            <h:panelGrid columns="4" border="1" cellpadding="2">
-                                                <p:row>
-                                                    <p:outputLabel for="CFechaInicio" value="Fecha de Inicio:" style="font-weight: 800"/>                                                    
-                                                    <p:calendar id="CFechaInicio" style="width: 100%" value="#{agendaBean.agendaView.agendaFechaInicio}" pattern="yyyy-MM-dd" required="true"/> 
 
-                                                    <p:column><p:outputLabel for="CHoraInicio" style="font-weight: 800" value="Hora de inicio:" />
-                                                    <p:column><p:calendar id="CHoraInicio" style="width: 100%" value="#{agendaBean.agendaView.agendaHoraInicio}" required="true" pattern="HH:mm:ss" timeOnly="true"/>
-                                                </p:row>
-                                                <hr/>
-                                                <p:row>
-                                                    <p:column><p:outputLabel style="font-weight: 800" for="CFechaEntrega" value="Fecha de Entrega:" /></p:column> 
-                                                    <p:column><p:calendar id="CFechaEntrega" style="width: 100%" value="#{agendaBean.agendaView.agendaFechaLlegada}" pattern="yyyy-MM-dd" required="true"/></p:column> 
+                                            <h:panelGrid columns="4" cellpadding="2">
 
-                                                    <p:column><p:outputLabel style="font-weight: 800" for="CHoraEntrega" value="Hora de Entrega:" /></p:column> 
-                                                    <p:column><p:calendar id="CHoraEntrega"  style="width: 100%" value="#{agendaBean.agendaView.agendaHoraLlegada}" required="true" pattern="HH:mm:ss" timeOnly="true"/></p:column> 
-                                                </p:row>
+                                                <p:outputLabel for="CFechaInicio" value="Fecha de Inicio:" style="font-weight: 800"/>                                                    
+                                                <p:calendar id="CFechaInicio" style="width: 100%" value="#{agendaBean.agendaView.agendaFechaInicio}" pattern="yyyy-MM-dd" required="true"/> 
+
+                                                <p:outputLabel for="CHoraInicio" style="font-weight: 800" value="Hora de inicio:" />
+                                                <p:calendar id="CHoraInicio" style="width: 100%" value="#{agendaBean.agendaView.agendaHoraInicio}" required="true" pattern="HH:mm:ss" timeOnly="true"/>
+                                            </h:panelGrid>
+                                            <hr/>
+                                            <h:panelGrid columns="4" cellpadding="2">        
+                                                <p:outputLabel style="font-weight: 800" for="CFechaEntrega" value="Fecha de Entrega:" />
+                                                <p:calendar id="CFechaEntrega" style="width: 100%" value="#{agendaBean.agendaView.agendaFechaLlegada}" pattern="yyyy-MM-dd" required="true"/> 
+
+                                                <p:outputLabel style="font-weight: 800" for="CHoraEntrega" value="Hora de Entrega:" /> 
+                                                <p:calendar id="CHoraEntrega"  style="width: 100%" value="#{agendaBean.agendaView.agendaHoraLlegada}" required="true" pattern="HH:mm:ss" timeOnly="true"/> 
+
                                             </h:panelGrid>                                           
                                         </b:panel>
                                     </p:tab>
@@ -184,7 +184,7 @@
 
                                     <p:tab id="Confirmacion" title="Confirmación">
                                         <b:panel title="Confirmación" look="primary">
-                                            <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
+                                            <h:panelGrid id="confirmacion" columns="3" columnClasses="grid,grid,grid">
                                                 <p:outputLabel value="Placa: #{agendaBean.vehiculoView.vehPlaca}"/>
                                                 <p:outputLabel value="Conductor: #{agendaBean.empleadoView.smsUsuario.usuarioNombre}"/>
                                                 <p:inputTextarea rows="3" placeholder="Notas de la reservacion" value="#{agendaBean.reservaView.reservacionNotas}"/>

@@ -7,6 +7,7 @@ package DAO;
 
 import Modelo.SmsAgenda;
 import Modelo.SmsCiudad;
+import Modelo.SmsEstadovehiculo;
 import Modelo.SmsVehiculo;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -179,6 +180,11 @@ public class ImpVehiculoDao implements IVehiculoDao {
             }
         }
         return vehiculos;
+    }
+
+    @Override
+    public List<SmsVehiculo> consultarVehiculoEstadoVehiculo(SmsEstadovehiculo estadoVeh){
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
