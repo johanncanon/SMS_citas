@@ -112,28 +112,28 @@ public class ImpEmpleadoDao implements IEmpleadoDao {
     }
 
     @Override
-    public List<SmsEmpleado> consultarEmpleadosDisponibles(SmsAgenda agenda, SmsCiudad ciudad) {
+    public List<SmsEmpleado> consultarEmpleadosDisponibles(String fechaInicio, String fechaLlegada, String horaInicio, String horaLlegada , String ciudad) {
         Session session = null;
         List<SmsEmpleado> empleados = new ArrayList<>();
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("select empleado from SmsEmpleado as empleado, SmsAgenda as agenda left join fetch agenda.smsEmpleado as conductor "
                                             + "where " 
-                                            + "(empleado.smsUsuario.smsCiudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "' and empleado.idEmpleado not in (select ag.smsEmpleado.idEmpleado from SmsAgenda as ag)) or " 
-                                            + "(empleado.smsUsuario.smsCiudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "' and " 
+                                            + "(empleado.smsUsuario.smsCiudad.ciudadNombre = '" + ciudad + "' and empleado.idEmpleado not in (select ag.smsEmpleado.idEmpleado from SmsAgenda as ag)) or " 
+                                            + "(empleado.smsUsuario.smsCiudad.ciudadNombre = '" + ciudad + "' and " 
                                                 +"( " 
-                                                    + "(agenda.agendaFechaInicio = '" + agenda.getAgendaFechaInicio() + "' and agenda.agendaFechaLlegada = '" + agenda.getAgendaHoraLlegada() + "' and agenda.agendaFechaInicio = agenda.agendaFechaLlegada and empleado.idEmpleado in (select ag.smsEmpleado.idEmpleado from SmsAgenda as ag) and "
+                                                    + "(agenda.agendaFechaInicio = '" + fechaInicio + "' and agenda.agendaFechaLlegada = '" + horaLlegada + "' and agenda.agendaFechaInicio = agenda.agendaFechaLlegada and empleado.idEmpleado in (select ag.smsEmpleado.idEmpleado from SmsAgenda as ag) and "
                                                         + "( " 
-                                                            + "('" + agenda.getAgendaHoraLlegada() + "' < all (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsEmpleado.idEmpleado = empleado.idEmpleado)) or " 
-                                                            + "('" + agenda.getAgendaHoraInicio() + "' > all (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsEmpleado.idEmpleado = empleado.idEmpleado)) or " 
-                                                            + "((agenda.agendaHoraInicio <> '" + agenda.getAgendaHoraInicio() + "' and agenda.agendaHoraLlegada <> '" + agenda.getAgendaHoraLlegada() + "') and ('" + agenda.getAgendaHoraInicio() + "' > any (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsEmpleado.idEmpleado = empleado.idEmpleado)) and ('" + agenda.getAgendaHoraLlegada() + "' < any (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsEmpleado.idEmpleado = empleado.idEmpleado))) " 
+                                                            + "('" + horaLlegada + "' < all (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsEmpleado.idEmpleado = empleado.idEmpleado)) or " 
+                                                            + "('" + horaInicio + "' > all (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsEmpleado.idEmpleado = empleado.idEmpleado)) or " 
+                                                            + "((agenda.agendaHoraInicio <> '" + horaInicio + "' and agenda.agendaHoraLlegada <> '" + horaLlegada + "') and ('" + horaInicio + "' > any (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsEmpleado.idEmpleado = empleado.idEmpleado)) and ('" + horaLlegada + "' < any (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsEmpleado.idEmpleado = empleado.idEmpleado))) " 
                                                         + ") " 
                                                     + ") " 
                                                     + "or " 
                                                     + "( " 
-                                                        + "('" + agenda.getAgendaHoraInicio() + "' > all (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsEmpleado.idEmpleado = empleado.idEmpleado and ag.agendaFechaInicio = '" + agenda.getAgendaFechaInicio() + "')) and " 
-                                                        + "('" + agenda.getAgendaHoraLlegada() + "' < all (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsEmpleado.idEmpleado = empleado.idEmpleado and ag.agendaFechaLlegada = '" + agenda.getAgendaFechaLlegada() + "')) and " 
-                                                        + "(not exists((select ag from SmsAgenda as ag where ag.agendaFechaInicio > '" + agenda.getAgendaFechaInicio() + "' and ag.agendaFechaLlegada < '" + agenda.getAgendaFechaLlegada() + "' and ag.smsEmpleado.idEmpleado = empleado.idEmpleado) or (select ag from SmsAgenda as ag where ag.agendaFechaInicio = '" + agenda.getAgendaFechaInicio() + "' and ag.agendaFechaLlegada = '" + agenda.getAgendaFechaLlegada() + "' and ag.smsEmpleado.idEmpleado = empleado.idEmpleado))) " 
+                                                        + "('" + horaInicio + "' > all (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsEmpleado.idEmpleado = empleado.idEmpleado and ag.agendaFechaInicio = '" + fechaInicio + "')) and " 
+                                                        + "('" + horaLlegada + "' < all (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsEmpleado.idEmpleado = empleado.idEmpleado and ag.agendaFechaLlegada = '" + fechaLlegada + "')) and " 
+                                                        + "(not exists((select ag from SmsAgenda as ag where ag.agendaFechaInicio > '" + fechaInicio + "' and ag.agendaFechaLlegada < '" + fechaLlegada + "' and ag.smsEmpleado.idEmpleado = empleado.idEmpleado) or (select ag from SmsAgenda as ag where ag.agendaFechaInicio = '" + fechaInicio + "' and ag.agendaFechaLlegada = '" + fechaLlegada + "' and ag.smsEmpleado.idEmpleado = empleado.idEmpleado))) " 
                                                     + ") "
                                                 + ") "
                                             + ") group by empleado.idEmpleado");

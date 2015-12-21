@@ -217,14 +217,25 @@ public class AgendaBean {
 
     //Metodos    
     //CRUD
-    public void registrarAgenda() {
+    public void registrarAgenda(){
 
         agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);
         agendaView = agendaController.consultarAgenda(agendaView, vehiculoView, empleadoView).get(0);
         reservacionController.registrarReservacion(agendaView, ciudadView, reservaView);
+
+        //Limpieza de objetos
+        empleadoView = new SmsEmpleado();
+        vehiculoView = new SmsVehiculo();
+        agendaView = new SmsAgenda();
+        reservaView = new SmsReservacion();
+        ciudadView = new SmsCiudad();
+        vehiculosListView = new ArrayList<>();
+        empleadosListView = new ArrayList<>();
     }
+    
 
     //Especificos
+
     public String onFlowProcess(FlowEvent event) {
         if (skip) {
             skip = false;//reset in case user goes back
@@ -233,15 +244,24 @@ public class AgendaBean {
 
             switch (event.getNewStep()) {
                 case "Vehiculo":
-                    vehiculosListView.clear();
-                    vehiculosListView = vehiculoController.consultarVehiculosDisponible(agendaView, ciudadView);
+                    if (agendaController.cargarAgendas().isEmpty()) {
+                        vehiculosListView = new ArrayList<>();
+                        vehiculosListView = vehiculoController.consultarVehiculosCiudad(ciudadView);
+                    } else {
+                        vehiculosListView = new ArrayList<>();
+                        vehiculosListView = vehiculoController.consultarVehiculosDisponible(agendaView, ciudadView);
+                    }
                     break;
                 case "Conductor":
-                    empleadosListView.clear();
-                    empleadosListView = empleadoController.consultarEmpleadosDisponibles(agendaView, ciudadView);
+                    if (agendaController.cargarAgendas().isEmpty()) {
+                        empleadosListView = new ArrayList<>();
+                        empleadosListView = empleadoController.consultarEmpleadosCiudad(ciudadView);
+                    } else {
+                        empleadosListView.clear();
+                        empleadosListView = empleadoController.consultarEmpleadosDisponibles(agendaView, ciudadView);
+                    }
                     break;
             }
-
             return event.getNewStep();
         }
     }

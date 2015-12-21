@@ -94,15 +94,15 @@ public class ImpAgendaDao implements IAgendaDao {
     }
 
     @Override
-    public List<SmsAgenda> consultarAgenda(SmsAgenda agenda, SmsVehiculo vehiculo, SmsEmpleado empleado) {
+    public List<SmsAgenda> consultarAgenda(String FechaInicio, String FechaLlegada, String HoraInicio, String HoraLlegada, SmsVehiculo vehiculo, SmsEmpleado empleado) {
         Session session = null;
         List<SmsAgenda> agendas = new ArrayList<>();
 
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculo left join fetch agenda.smsEmpleado as empleado where vehiculo = '" + vehiculo.getIdVehiculo() + "' and empleado = '" + empleado.getIdEmpleado() + "' and "
-                    + "agenda.agendaFechaInicio = '" + agenda.getAgendaFechaInicio() + "' and agenda.agendaFechaLlegada = '" + agenda.getAgendaFechaLlegada() + "' and agenda.agendaHoraInicio = '" + agenda.getAgendaHoraInicio() + "' and "
-                    + "agenda.agendaHoraLlegada = '" + agenda.getAgendaHoraLlegada() + "'");
+                    + "agenda.agendaFechaInicio = '" + FechaInicio + "' and agenda.agendaFechaLlegada = '" + FechaLlegada + "' and agenda.agendaHoraInicio = '" + HoraInicio + "' and "
+                    + "agenda.agendaHoraLlegada = '" + HoraLlegada + "'");
             agendas = (List<SmsAgenda>) query.list();
         } catch (HibernateException e) {
             e.getMessage();

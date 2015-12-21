@@ -27,6 +27,7 @@ import Modelo.SmsEstadovehiculo;
 import Modelo.SmsProveedor;
 import Modelo.SmsReferencia;
 import Modelo.SmsUsuario;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -168,10 +169,18 @@ public class Vehiculo {
 
     public List<SmsVehiculo> consultarVehiculosDisponible(SmsAgenda a, SmsCiudad c) {
         vehiculos = new ArrayList<>();
-        SmsAgenda agenda = a;
-        SmsCiudad ciudad = c;
+        String ciudad = c.getCiudadNombre();
+        
+        SimpleDateFormat formatDate;
+        SimpleDateFormat formatTime;
+        formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        formatTime = new SimpleDateFormat("HH:mm:ss");
+        String FechaInicio = formatDate.format(a.getAgendaFechaInicio());
+        String FechaLlegada = formatDate.format(a.getAgendaFechaLlegada());
+        String HoraInicio = formatTime.format(a.getAgendaHoraInicio());
+        String HoraLlegada = formatTime.format(a.getAgendaHoraLlegada());
         IVehiculoDao linkDao = new ImpVehiculoDao();
-        vehiculos = linkDao.consultarVehiculosDisponibles(agenda, ciudad);
+        vehiculos = linkDao.consultarVehiculosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudad);
         return vehiculos;
     }
 

@@ -16,6 +16,7 @@ import Modelo.SmsCiudad;
 import Modelo.SmsEmpleado;
 import Modelo.SmsHojavida;
 import Modelo.SmsUsuario;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,10 +123,20 @@ public class Empleado extends Usuario {
     }
     
      public List<SmsEmpleado> consultarEmpleadosDisponibles(SmsAgenda a, SmsCiudad c) {
-        ciudad = c; SmsAgenda agenda = a;
+        ciudad = c; 
         empleados = new ArrayList<>();
+        
+        SimpleDateFormat formatDate;
+        SimpleDateFormat formatTime;
+        formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        formatTime = new SimpleDateFormat("HH:mm:ss");
+        String FechaInicio = formatDate.format(a.getAgendaFechaInicio());
+        String FechaLlegada = formatDate.format(a.getAgendaFechaLlegada());
+        String HoraInicio = formatTime.format(a.getAgendaHoraInicio());
+        String HoraLlegada = formatTime.format(a.getAgendaHoraLlegada());
+        
         IEmpleadoDao empleadoDao = new ImpEmpleadoDao();
-        empleados = empleadoDao.consultarEmpleadosDisponibles(agenda, ciudad);
+        empleados = empleadoDao.consultarEmpleadosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudad.getCiudadNombre());
         List<SmsEmpleado> lista = new ArrayList<>();
         for(int i = 0; i<empleados.size() ; i++){
         lista.add(empleadoDao.consultarEmpleado(empleados.get(i).getSmsUsuario()).get(0));

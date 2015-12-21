@@ -6,12 +6,11 @@
 package Controlador;
 
 import DAO.IAgendaDao;
-import DAO.IReservacionDao;
 import DAO.ImpAgendaDao;
-import DAO.ImpReservacionDao;
 import Modelo.SmsAgenda;
 import Modelo.SmsEmpleado;
 import Modelo.SmsVehiculo;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +92,19 @@ public class Agenda {
         agendas = new ArrayList();
         agenda = a;
         IAgendaDao agDao = new ImpAgendaDao();
-        agendas = agDao.consultarAgenda(agenda, v, e);
+        
+        SimpleDateFormat formatDate;
+        SimpleDateFormat formatTime;
+        formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        formatTime = new SimpleDateFormat("HH:mm:ss");
+        
+        //Se formatean las fechas y horas
+        String FechaInicio = formatDate.format(a.getAgendaFechaInicio());
+        String FechaLlegada = formatDate.format(a.getAgendaFechaLlegada());
+        String HoraInicio = formatTime.format(a.getAgendaHoraInicio());
+        String HoraLlegada = formatTime.format(a.getAgendaHoraLlegada());
+        
+        agendas = agDao.consultarAgenda(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, v, e);
         return agendas;
     }
     
