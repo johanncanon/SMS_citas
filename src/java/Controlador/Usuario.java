@@ -185,13 +185,13 @@ public class Usuario {
                         ruta = "AdminPPrincipal";
                         break;
                     case "Administrador Secundario":
-                        ruta = "Dashboard-Admin-Secundario.xhtml";
+                        ruta = "AdminSGeneral";
                         break;
                     case "Cliente":
                         ruta = "Dashboard-Cliente.xhtml";
                         break;
                     case "Empleado":
-                        ruta = "Dashboard-Conductor.xhtml";
+                        ruta = "ConductorDash";
                         break;
                     case "Proveedor":
                         ruta = "Dashboard-Proveedor.xhtml";

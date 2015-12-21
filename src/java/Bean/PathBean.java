@@ -128,4 +128,9 @@ public class PathBean {
     }
     
     /* / CONDUCTOR/ */
+    /* / PRUEBA/ */
+    public String ir_MenuPrueba(){
+        return "ContenidoPrueba_Menu";
+    }
+    /* / PRUEBA/ */
 }

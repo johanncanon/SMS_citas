@@ -245,5 +245,26 @@
         </navigation-case>
                 
         <!-- CONDUCTOR -->
+        <!-- Proveedor -->
+        <navigation-case>
+            <from-outcome>ProveedorDash</from-outcome>
+            <to-view-id>/vistas/Proveedor/Dash-prov.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ProveedorEstadoVehiculo</from-outcome>
+            <to-view-id>/vistas/Proveedor/estadoVehiculos.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <!-- Proveedor -->
+        <!-- Prueba -->
+        <navigation-case>
+            <from-outcome>ContenidoPrueba_Menu</from-outcome>
+            <to-view-id>/vistas/AdminS/clientes/PruebaMenu/menu.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <!-- Prueba -->
     </navigation-rule>
 </faces-config>

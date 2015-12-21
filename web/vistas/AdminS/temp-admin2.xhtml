@@ -47,20 +47,24 @@
                 <div class="men-desap">
 
                     <b:column col-lg="3" col-md="3" col-sm="4" col-xs="12">
-                        <div id="left">
-                            <h:form>
+                        <h:form>
+                            <div id="left">
                                 <p:growl autoUpdate="true"/>
                                 <b:thumbnail id="esp1">
-                                    <b:panelGrid colSpans="4,8">
-                                        <img src="../../../resources/images/col-band.png" style="width: 113%; margin-left: 9px; margin-top: 16px;"/>
-                                        <f:facet name="caption"/>
-                                        <h4>Thumbnail label</h4>
-                                        <p>Nombre: "Nombre Completo."</p>
-                                        <p>Perfil : "tipo de perfil."</p>
-                                    </b:panelGrid>
+                                    <div class="user-panel">
+                                        <div class="pull-left image" id="esp1">
+                                            <img src="../../../resources/images/col-band.png" class="img-circle" alt="User Image"/>
+                                        </div>
+                                        <div class="pull-left info">
+
+                                            <p>#{usuarioBean.usuario.usuarioNombre}</p>
+                                           <!--<p>Razon Social: #{usuarioBean.usuario.usuarioRazonSocial}</p>-->
+                                            <p>Perfil: #{usuarioBean.usuario.smsRol.rolNombre}</p>
+                                        </div>
+                                    </div>
                                 </b:thumbnail>
                                 <p:panelMenu styleClass="ui-state-default-menu">
-                                    
+
                                     <p:submenu label="Tablero Principal" >
                                         <p:menuitem style="font-size: 1.2em" value="Tablero Principal SMS Renta " action="#{pathBean.ir_SGeneral()}"  icon="ui-icon-star" />
                                     </p:submenu>
@@ -88,13 +92,13 @@
                                     <p:submenu label="Conductores SMS">
                                         <p:menuitem style="font-size: 1.2em" value="Registro de Conductor" icon="ui-icon-pencil" action="#{pathBean.ir_SEmpleados()}"/>
                                     </p:submenu>
-                                    
+
                                     <p:submenu label="Calificaciones">
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar Calificaciones" action="#{pathBean}" icon="ui-icon-star"/>
+                                        <p:menuitem style="font-size: 1.2em" value="Consultar Calificaciones" action="#{pathBean.ir_MenuPrueba()}" icon="ui-icon-star"/>
                                     </p:submenu>
                                 </p:panelMenu>
-                            </h:form>
-                        </div>
+                            </div>
+                        </h:form>
                     </b:column>
 
                 </div>

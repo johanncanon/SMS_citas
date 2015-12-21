@@ -27,7 +27,7 @@
                             </div>
                         </b:column>
 
-                        <b:column col-lg="6" col-md="6" col-sm="8" col-xs="12">
+                        <b:column col-lg="6" col-md="6" col-sm="11" col-xs="12">
                             <div class="box box-danger">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-info"/>
@@ -80,7 +80,7 @@
 
                                         </h:panelGrid>
                                     </div><hr/>
-                                    <p:commandButton id="BTEmpleado" style="width:100%" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTEmpleado :formC:DTEmpleado :formB :formD" action="#{empleadoBean.metodo()}" value="#{empleadoBean.nombre}" />
+                                    <p:commandButton id="BTEmpleado" class="btn btn-block btn-danger" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTEmpleado :formC:DTEmpleado :formB :formD" action="#{empleadoBean.metodo()}" value="#{empleadoBean.nombre}" />
 
                                 </div>
                             </div>
@@ -88,7 +88,7 @@
                     </h:form>
 
                     <h:form id="formB" enctype="multipart/form-data">
-                        <b:column col-lg="5" col-md="5" col-sm="8" col-xs="12">
+                        <b:column col-lg="5" col-md="5" col-sm="11" col-xs="12">
                             <div class="box box-primary">
                                 <p:fragment autoUpdate="true">
                                     <div class="box-header with-border">
@@ -100,7 +100,7 @@
                                         <div class="table-responsive">
                                             <p:fileUpload mode="simple" update=":formA" value="#{empleadoBean.foto}"></p:fileUpload>
                                             <hr/>
-                                            <p:commandButton disabled="#{empleadoBean.habilitarSubirFoto}" ajax="false" action="#{empleadoBean.uploadFoto()}" value="#{empleadoBean.subirFoto}" style="width: 50%"></p:commandButton>
+                                            <p:commandButton disabled="#{empleadoBean.habilitarSubirFoto}" ajax="false" action="#{empleadoBean.uploadFoto()}" value="#{empleadoBean.subirFoto}" class="btn btn-block btn-primary"></p:commandButton>
                                         </div>                                        
                                     </div>
                                 </p:fragment>
@@ -109,7 +109,7 @@
                     </h:form>
 
                     <h:form id="formD" enctype="multipart/form-data">
-                        <b:column col-lg="5" col-md="5" col-sm="6" col-xs="12">
+                        <b:column col-lg="5" col-md="5" col-sm="11" col-xs="12">
                             <div class="box box-primary">
                                 <p:fragment autoUpdate="true">
                                     <div class="box-header with-border">
@@ -121,7 +121,7 @@
                                         <div class="table-responsive">
                                             <p:fileUpload mode="simple" update=":formA" value="#{empleadoBean.archivo}"></p:fileUpload>
                                             <hr/>
-                                            <p:commandButton disabled="#{empleadoBean.habilitarSubirArchivo}" ajax="false" action="#{empleadoBean.uploadArchivo()}" value="#{empleadoBean.subirArchivo}" style="width: 50%"></p:commandButton>
+                                            <p:commandButton disabled="#{empleadoBean.habilitarSubirArchivo}" ajax="false" action="#{empleadoBean.uploadArchivo()}" value="#{empleadoBean.subirArchivo}" class="btn btn-block btn-primary"></p:commandButton>
                                         </div>
                                     </div>
                                 </p:fragment>

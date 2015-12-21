@@ -73,11 +73,18 @@
 
                                     <p:submenu label="Administradores" styleClass="color-menu-1" icon="ui-icon-pencil">
                                         <p:menuitem style="font-size: 1.2em" value="Panel de administradores" action="#{pathBean.ir_PUsuario()}" icon="ui-icon-pencil"></p:menuitem>                                        
+                                        <p:menuitem style="font-size: 1.2em" value="Rolles" action="#{pathBean.ir_PRol()}" icon="ui-icon-pencil"></p:menuitem>                                        
                                     </p:submenu>
 
                                     <p:submenu label="Reservaciones" >
                                         <p:menuitem style="font-size: 1.2em" value="Panel Reserva" action="#{pathBean.ir_PReserva()}"  icon="ui-icon-star" />
                                     </p:submenu>
+
+                                    <p:submenu label="Ubicacion del Servicio" >
+                                        <p:menuitem style="font-size: 1.2em" value="Paises" action="#{pathBean.ir_PPais()}"  icon="ui-icon-star" />
+                                        <p:menuitem style="font-size: 1.2em" value="Ciudades" action="#{pathBean.ir_PCiudad()}"  icon="ui-icon-star" />
+                                    </p:submenu>
+
 
                                     <p:submenu label="Servicios" >
                                         <p:menuitem style="font-size: 1.2em" value="Panel Servicios" action="#{pathBean.ir_PServicios()}"  icon="ui-icon-star" />
