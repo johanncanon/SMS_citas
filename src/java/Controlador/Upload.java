@@ -18,7 +18,7 @@ import org.primefaces.model.UploadedFile;
 public class Upload {
 
     UploadedFile archivo;
-    String filePath = "C:/Users/CristianCamilo/Documents/NetBeansProjects/SMS_citas/web/resources/images/upload/";
+    String filePath = "C:/prueba/";
 
     public UploadedFile getArchivo() {
         return archivo;
