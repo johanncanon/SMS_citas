@@ -44,11 +44,12 @@
         </div>
 
         <b:container fluid="true">
-            <h:form>
-                <b:row>
-                    <div class="men-desap">
 
-                        <b:column col-lg="3" col-md="3" col-sm="4" col-xs="12">
+            <b:row>
+                <div class="men-desap">
+
+                    <b:column col-lg="3" col-md="3" col-sm="4" col-xs="12">
+                        <h:form>
                             <div id="left">
                                 <p:growl autoUpdate="true"/>
                                 <b:thumbnail id="esp1">
@@ -57,7 +58,7 @@
                                             <img src="../../../resources/images/col-band.png" class="img-circle" alt="User Image"/>
                                         </div>
                                         <div class="pull-left info">
-                                          
+
                                             <p>#{usuarioBean.usuario.usuarioNombre}</p>
                                            <!--<p>Razon Social: #{usuarioBean.usuario.usuarioRazonSocial}</p>-->
                                             <p>Perfil: #{usuarioBean.usuario.smsRol.rolNombre}</p>
@@ -110,29 +111,30 @@
                                     </p:submenu>
                                 </p:panelMenu>
                             </div>
-                        </b:column>
+                        </h:form>
+                    </b:column>
 
-                    </div>
-
-                    <div id="content" class="left_content">
-                        <ui:insert name="content"></ui:insert>    
-                    </div>
-
-                </b:row>
-
-
-                <div id="bottom">
-                    <b:row>
-                        <b:column>
-                            <div id="footer">
-                                <p>
-                                    <span class="copy-r"> Copyright © 2015 | Realizado por <a href="www.planit.com.co">Planit SAS</a>.</span> Todos los derechos reservados.
-                                </p>
-                            </div>
-                        </b:column>
-                    </b:row>
                 </div>
-            </h:form>
+
+                <div id="content" class="left_content">
+                    <ui:insert name="content"></ui:insert>    
+                </div>
+
+            </b:row>
+
+
+            <div id="bottom">
+                <b:row>
+                    <b:column>
+                        <div id="footer">
+                            <p>
+                                <span class="copy-r"> Copyright © 2015 | Realizado por <a href="www.planit.com.co">Planit SAS</a>.</span> Todos los derechos reservados.
+                            </p>
+                        </div>
+                    </b:column>
+                </b:row>
+            </div>
+
         </b:container>
 
     </h:body>
