@@ -261,7 +261,7 @@
         <!-- Prueba -->
         <navigation-case>
             <from-outcome>ContenidoPrueba_Menu</from-outcome>
-            <to-view-id>/vistas/AdminS/clientes/PruebaMenu/menu.xhtml</to-view-id>
+            <to-view-id>/vistas/AdminS/clientes/PruebaMenu/conenidoPrueba.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         

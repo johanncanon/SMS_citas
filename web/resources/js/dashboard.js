@@ -8,7 +8,8 @@
 $(function () {
 
   "use strict";
-
+  
+   /*
   //Make the dashboard widgets sortable Using jquery UI
   $(".connectedSortable").sortable({
     placeholder: "sort-highlight",
@@ -25,12 +26,12 @@ $(function () {
     handle: ".handle",
     forcePlaceholderSize: true,
     zIndex: 999999
-  });
+  });*/
 
   //bootstrap WYSIHTML5 - text editor
-  $(".textarea").wysihtml5();
+  //$(".textarea").wysihtml5();
 
-  $('.daterange').daterangepicker({
+  $('.daterange').daterangepicker()({
     ranges: {
       'Today': [moment(), moment()],
       'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],

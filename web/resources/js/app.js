@@ -26,7 +26,7 @@ if (typeof jQuery === "undefined") {
  *              way to organize our code.
  */
 $.AdminLTE = {};
-
+var o;
 /* --------------------
  * - AdminLTE Options -
  * --------------------
@@ -151,7 +151,7 @@ $(function () {
   }
 
   //Easy access to options
-  var o = $.AdminLTE.options;
+  //var o = $.AdminLTE.options;
 
   //Set up the object
   _init();
@@ -163,7 +163,8 @@ $(function () {
   $.AdminLTE.tree('.sidebar');
 
   //Enable control sidebar
-  if (o.enableControlSidebar) {
+  
+  /*if (o.enableControlSidebar) {
     $.AdminLTE.controlSidebar.activate();
   }
 
@@ -204,7 +205,7 @@ $(function () {
       var box = $(this).parents('.direct-chat').first();
       box.toggleClass('direct-chat-contacts-open');
     });
-  }
+  }*/
 
   /*
    * INITIALIZE BUTTON TOGGLE
