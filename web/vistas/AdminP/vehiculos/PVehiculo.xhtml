@@ -135,30 +135,30 @@
                                 </div>
                             </div>
                         </b:column>
-                        
+
                     </h:form>
-                    
+
                     <h:form id="formB" enctype="multipart/form-data">
 
                         <b:column col-lg="3" col-md="3" col-sm="12" col-xs="12" >
                             <div class="box box-primary">
                                 <div class="box-header with-border">    
                                     <i class="fa fa-2x fa-camera"/>
-                                    <h4 class="box-title">Ingerso de Fotografía</h4>
+                                    <h4 class="box-title">Ingreso de Fotografía</h4>
                                 </div>
                                 <div class="box-body">
                                     <p:outputLabel value="#{vehiculoBean.estadoArchivo}"/>
                                     <div class="table-responsive">
-                                        <p:fileUpload mode="simple" update=":formA" value="#{vehiculoBean.archivo}"></p:fileUpload>
-                                        <hr/>
-                                        <p:commandButton disabled="#{vehiculoBean.habilitarSubir}" ajax="false" action="#{vehiculoBean.upload()}" value="#{vehiculoBean.subirArchivo}" style="width: 50%"></p:commandButton>
-                                    </div> 
+                                        <p:fileUpload id="fileIdPhoto" fileUploadListener="#{vehiculoBean.uploadPhoto}" mode="advanced" dragDropSupport="false"
+                                                      process="@this" auto="true" update=":formB" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />
+
+                                        <p:messages id="messages" autoUpdate="true" closable="true" /></div> 
                                 </div>
                             </div>
                         </b:column>
 
                     </h:form>
-                    
+
                     <h:form id="formC">
                         <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
                             <div class="box box-success">
@@ -188,7 +188,7 @@
                                         <p:column headerText="Proveedor">
                                             <h:outputText value="#{vehiculo.smsProveedor.smsUsuario.usuarioRazonSocial}" />
                                         </p:column>
-                                        
+
                                         <p:column style="width: 35px">
                                             <p:commandButton process="@this" update=":formA:seccionDatosVehiculo :formA:seccionEstadoVehiculo :formA:BTVehiculo :formB" icon="ui-icon-pencil" action="#{vehiculoBean.seleccionarCrud(1)}" title="Modificar">
                                                 <f:setPropertyActionListener value="#{vehiculo}" target="#{vehiculoBean.vehiculoView}"/>
@@ -205,7 +205,7 @@
                             </div>
                         </b:column>
                     </h:form> 
-              
+
                 </b:row>
             </b:container>
         </ui:define>
