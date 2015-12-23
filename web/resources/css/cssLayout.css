@@ -351,9 +351,17 @@ body {
     margin-top: 23px;
 }
 
+.adminLTE-espacioFrontal{
+    padding-left: 15px;
+}
+
 @media screen and (max-width: 768px){
     #EspacioB{
         margin-top: 0px;
+    }
+
+    .adminLTE-espacioFrontal{
+        padding-left: 0px !important;
     }
 }
 

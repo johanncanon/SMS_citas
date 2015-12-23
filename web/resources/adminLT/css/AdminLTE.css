@@ -61,8 +61,10 @@ body {
     -moz-transition: -moz-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
     -o-transition: -o-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
     transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
-    margin-left: 230px;
+    margin-left: 216px;
+    margin-right: -15px;
     z-index: 820;
+    margin-top: -10px;
 }
 .layout-top-nav .content-wrapper,
 .layout-top-nav .right-side,
@@ -586,7 +588,7 @@ a:focus {
     .sidebar-mini.sidebar-collapse .content-wrapper,
     .sidebar-mini.sidebar-collapse .right-side,
     .sidebar-mini.sidebar-collapse .main-footer {
-        margin-left: 50px!important;
+        margin-left: 36px!important;
         z-index: 840;
     }
     .sidebar-mini.sidebar-collapse .main-sidebar {
