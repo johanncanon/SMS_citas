@@ -101,7 +101,7 @@
                                                     <p:outputLabel value="Vehiculo Seleccionado "  />
                                                     <b:inputText placeholder="Placa del vehiculo" required="true" style="width:250px" requiredMessage="No ha seleccionado vehiculo" value="#{agendaBean.vehiculoView.vehPlaca}"/>                                                      
                                                 </h:panelGrid>
-                                                <b:commandButton value="Seleccionar nuevo vehiculo"/>
+                                                <p:commandButton action="#{agendaBean.seleccionarNuevoVehiculo}" update="@form" value="Seleccionar nuevo vehiculo"/>
                                             </div>
                                             <div class="form-group box box-danger direct-chat direct-chat-danger">                                               
                                                 <p:dataScroller var="vehiculo" mode="inline" scrollHeight="500" id="ScrollerVehiculos" value="#{agendaBean.vehiculosListView}" chunkSize="5">
@@ -115,7 +115,7 @@
 
                                                     <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
                                                         <p:graphicImage width="256" height="256" value="#{vehiculo.vehFotoRuta}" alt="Vehiculo"/>
-                                                        
+
                                                         <p:outputPanel>
                                                             <h:panelGrid columns="2" cellpadding="5">
                                                                 <h:outputText value="Placa:" />
@@ -185,12 +185,83 @@
 
                                     <p:tab id="Confirmacion" title="Confirmación">
                                         <b:panel title="Confirmación" look="primary">
-                                            <h:panelGrid id="confirmacion" columns="3" columnClasses="grid,grid,grid">
-                                                <p:outputLabel value="Placa: #{agendaBean.vehiculoView.vehPlaca}"/>
-                                                <p:outputLabel value="Conductor: #{agendaBean.empleadoView.smsUsuario.usuarioNombre}"/>
-                                                <p:inputTextarea rows="3" placeholder="Notas de la reservacion" value="#{agendaBean.reservaView.reservacionNotas}"/>
+                                            <h4>Datos de reservacion:</h4>
+                                            <h:panelGrid id="confirmacion" columns="4" columnClasses="grid,grid,grid,grid">
+                                                <p:outputLabel value="Ciudad: " style="font-weight: bold"/>
+                                                <p:outputLabel value="#{agendaBean.ciudadView.ciudadNombre}"/>
+
+                                                <p:outputLabel/>
+                                                <p:outputLabel/>
+
+                                                <p:outputLabel value="Lugar de recogida: " style="font-weight: bold"/>
+                                                <p:outputLabel value="#{agendaBean.reservaView.reservacionLugarLlegada}"/>
+
+                                                <p:outputLabel value="Lugar de destino: " style="font-weight: bold"/>
+                                                <p:outputLabel value="#{agendaBean.reservaView.reservacionLugarDestino}"/>
+
+                                                <p:outputLabel value="Fecha inicio: " style="font-weight: bold"/>
+                                                <p:outputLabel value="#{agendaBean.agendaView.agendaFechaInicio}"/>
+
+                                                <p:outputLabel value="Fecha llegada: " style="font-weight: bold"/>
+                                                <p:outputLabel value="#{agendaBean.agendaView.agendaFechaLlegada}"/>
+
+                                                <p:outputLabel value="Hora inicio: " style="font-weight: bold"/>
+                                                <p:outputLabel value="#{agendaBean.agendaView.agendaHoraInicio}"/>
+
+                                                <p:outputLabel value="Hora llegada: " style="font-weight: bold"/>
+                                                <p:outputLabel value="#{agendaBean.agendaView.agendaHoraLlegada}"/>
+
                                             </h:panelGrid>
-                                            <p:commandButton value="Registrar" action="#{agendaBean.registrarAgenda()}" update="@form" process="@this"/>
+                                            <p:separator/>
+                                            <h4>Vehiculo</h4>
+                                            <p:dataScroller var="vehiculo" mode="inline" value="#{agendaBean.vehiculoView}">                                                
+                                                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+
+                                                    <p:graphicImage width="180" height="180" value="#{vehiculo.vehFotoRuta}"/>
+
+                                                    <p:outputPanel>
+                                                        <h:panelGrid columns="2" cellpadding="5">
+                                                            <h:outputText value="Placa:" />
+                                                            <h:outputText value="#{vehiculo.vehPlaca}" style="font-weight: bold"/>
+
+                                                            <h:outputText value="Color:" />
+                                                            <h:outputText value="#{vehiculo.vehColor}" style="font-weight: bold"/>
+
+                                                            <h:outputText value="Personas:" />
+                                                            <h:outputText value="#{vehiculo.vehNumPersonas}" style="font-weight: bold"/>
+
+                                                            <h:outputText value="Maletas grandes:" />
+                                                            <h:outputText value="#{vehiculo.vehNumMalGrande}" style="font-weight: bold"/>
+
+                                                            <h:outputText value="Maletas pequeños:" />
+                                                            <h:outputText value="#{vehiculo.vehNumMalPequeña}" style="font-weight: bold"/>
+                                                        </h:panelGrid>
+                                                    </p:outputPanel>                                                        
+                                                </h:panelGrid>                                                
+                                            </p:dataScroller>
+                                            <p:separator/>
+                                            <h4>Empleado</h4>
+                                            <p:dataScroller var="empleado" value="#{agendaBean.empleadoView}">
+                                                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+
+                                                    <p:graphicImage width="180" height="180" value="#{empleado.smsUsuario.usuarioFotoRuta}"/>
+
+                                                    <p:outputPanel>
+                                                        <h:panelGrid columns="2" cellpadding="5">
+
+                                                            <h:outputText value="Nombre y apellidos:" />
+                                                            <h:outputText value="#{empleado.smsUsuario.usuarioNombre}" style="font-weight: bold"/>
+
+                                                            <h:outputText value="Identificacion" />
+                                                            <h:outputText value="#{empleado.smsUsuario.usuarioCc}" style="font-weight: bold"/>
+
+                                                        </h:panelGrid>
+                                                    </p:outputPanel>
+
+                                                </h:panelGrid>                                                
+                                            </p:dataScroller>
+                                            <p:separator/>
+                                            <center><b:commandButton value="Confirmar reservacion" action="#{agendaBean.registrarAgenda()}" style="width: 80%" update="@form"/></center>
                                         </b:panel>
                                     </p:tab>
                                 </p:wizard>

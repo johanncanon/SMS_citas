@@ -269,9 +269,21 @@ public class AgendaBean {
     public void SeleccionarVehiculo() {
         SelecVeh = true;
     }
+    
+    public void SeleccionarNuevoVehiculo(){
+        
+        vehiculoView = new SmsVehiculo();
+        SelecVeh = false;
+    }
 
     public void SeleccionarConductor() {
         SelecCon = true;
+    }
+    
+    public void SeleccionarNuevoConductor(){
+        
+        empleadoView = new SmsEmpleado();
+        SelecCon = false;
     }
 
 }
