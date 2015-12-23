@@ -142,18 +142,20 @@
 
                         <b:column col-lg="3" col-md="3" col-sm="12" col-xs="12" >
                             <div class="box box-primary">
-                                <div class="box-header with-border">    
-                                    <i class="fa fa-2x fa-camera"/>
-                                    <h4 class="box-title">Ingreso de Fotografía</h4>
-                                </div>
-                                <div class="box-body">
-                                    <p:outputLabel value="#{vehiculoBean.estadoArchivo}"/>
-                                    <div class="table-responsive">
-                                        <p:fileUpload id="fileIdPhoto" fileUploadListener="#{vehiculoBean.uploadPhoto}" mode="advanced" dragDropSupport="false"
-                                                      process="@this" auto="true" update=":formB" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />
+                                <p:fragment autoUpdate="true">
+                                    <div class="box-header with-border">    
+                                        <i class="fa fa-2x fa-camera"/>
+                                        <h4 class="box-title">Ingreso de Fotografía</h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <p:outputLabel value="#{vehiculoBean.estadoArchivo}"/>
+                                        <div class="table-responsive">
+                                            <p:fileUpload id="fileIdPhoto" fileUploadListener="#{vehiculoBean.uploadPhoto}" mode="advanced" dragDropSupport="false"
+                                                          process="@this" auto="true" update=":formB" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />
 
-                                        <p:messages id="messages" autoUpdate="true" closable="true" /></div> 
-                                </div>
+                                            <p:messages id="messages" autoUpdate="true" closable="true" /></div> 
+                                    </div>
+                                </p:fragment>
                             </div>
                         </b:column>
 

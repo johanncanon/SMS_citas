@@ -15,11 +15,13 @@ import Modelo.SmsRol;
 import Modelo.SmsUsuario;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.apache.commons.io.IOUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -45,7 +47,7 @@ public class UsuarioBean implements Serializable {
 
     //Contexto
     private FacesMessage message;
-    
+
     //Sesion
     protected SmsUsuario Usuario;
 
@@ -58,7 +60,7 @@ public class UsuarioBean implements Serializable {
     private String estadoArchivo;
     private UploadedFile archivo;
 
-    public UsuarioBean(){
+    public UsuarioBean() {
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
@@ -76,7 +78,7 @@ public class UsuarioBean implements Serializable {
     @PostConstruct
     public void init() {
         usuariosListView = usuarioController.cargarUsuarios();
-        
+
     }
 
     //Getters & Setters
@@ -207,8 +209,6 @@ public class UsuarioBean implements Serializable {
     public void setUsuario(SmsUsuario Usuario) {
         this.Usuario = Usuario;
     }
-    
-    
 
     //Declaracion de metodos
     //Metodos CRUD
@@ -219,7 +219,7 @@ public class UsuarioBean implements Serializable {
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
         habilitarSubir = false;
-        
+
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
@@ -239,13 +239,13 @@ public class UsuarioBean implements Serializable {
     }
 
     public void eliminar() {
-        usuarioController.eliminarUsuario(usuarioView);        
+        usuarioController.eliminarUsuario(usuarioView);
         usuariosListView = usuarioController.cargarUsuarios();
 
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
         habilitarSubir = false;
-        
+
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
@@ -304,22 +304,29 @@ public class UsuarioBean implements Serializable {
     }
 
     //Metodo para subir fotografias
-    public void upload() throws IOException {//Metodo para subir fotografia del usuario
-        FacesMessage message = new FacesMessage();
-        if (null != getArchivo()) {
-            fileController.UploadFile(IOUtils.toByteArray(getArchivo().getInputstream()), getArchivo().getFileName());
-            usuarioView.setUsuarioFotoNombre(getArchivo().getFileName());
-            usuarioView.setUsuarioFotoRuta(fileController.getFilePath());
-            habilitarSubir = true;
-            if (estado == 0) {//Registro
-                estadoArchivo = "Foto Subida con exito";
-            } else if (estado == 1) {//Modificacion
-                estadoArchivo = "Foto actualizada con exito";
+    public void uploadPhoto(FileUploadEvent e) throws IOException {//Metodo para subir fotografia del usuario
+        try {
+            UploadedFile uploadedPhoto = e.getFile();
+            String destination;
+
+            HashMap<String, String> map = fileController.getMapPathFotosUsuario();
+            destination = map.get("path");
+            if (null != uploadedPhoto) {
+                fileController.uploadFile(IOUtils.toByteArray(uploadedPhoto.getInputstream()), uploadedPhoto.getFileName(), destination);
+                usuarioView.setUsuarioFotoNombre(uploadedPhoto.getFileName());
+                usuarioView.setUsuarioFotoRuta(map.get("path") + uploadedPhoto.getFileName());
+                habilitarSubir = true;
+                if (estado == 0) {//Registro
+                    estadoArchivo = "Foto Subida con exito";
+                } else if (estado == 1) {//Modificacion
+                    estadoArchivo = "Foto actualizada con exito";
+                }
             }
-        } else {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione fotografia", null);
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + uploadedPhoto.getFileName() + ")  se ha guardado con exito.", ""));
+        } catch (Exception ex) {
+            ex.getMessage();
         }
+
     }
 
     //Metodos para iniciar Sesion
@@ -351,6 +358,6 @@ public class UsuarioBean implements Serializable {
         String ruta = "Login";
         usuarioController.cerrarSesion();
         return ruta;
-    }    
+    }
 
 }

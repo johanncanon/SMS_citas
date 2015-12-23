@@ -14,11 +14,13 @@ import Modelo.SmsUsuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.apache.commons.io.IOUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -296,22 +298,29 @@ public class ProveedorBean implements Serializable {
         }
     }
 
-    public void upload() throws IOException {
-        FacesMessage message = new FacesMessage();
-        if (null != getArchivo()) {
-            fileController.UploadFile(IOUtils.toByteArray(getArchivo().getInputstream()), getArchivo().getFileName());
-            usuarioView.setUsuarioFotoNombre(getArchivo().getFileName());
-            usuarioView.setUsuarioFotoRuta(fileController.getFilePath());
-            habilitarSubir = true;
-            if (estado == 0) {
-                estadoArchivo = "Foto Subida con exito";
-            } else if (estado == 1) {
-                estadoArchivo = "Foto actualizada con exito";
-            }
-        } else {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione fotografia", null);
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        }
+    public void uploadPhoto(FileUploadEvent e) throws IOException {
+        try {
+            UploadedFile uploadedPhoto = e.getFile();
+            String destination;
 
+            HashMap<String, String> map = fileController.getMapPathFotosUsuario();
+            destination = map.get("path");
+            if (null != uploadedPhoto) {
+                fileController.uploadFile(IOUtils.toByteArray(uploadedPhoto.getInputstream()), uploadedPhoto.getFileName(), destination);
+                usuarioView.setUsuarioFotoNombre(uploadedPhoto.getFileName());
+                usuarioView.setUsuarioFotoRuta(map.get("path") + uploadedPhoto.getFileName());
+                habilitarSubir = true;
+                if (estado == 0) {
+                    estadoArchivo = "Foto Subida con exito";
+                } else if (estado == 1) {
+                    estadoArchivo = "Foto actualizada con exito";
+                }
+            }
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + uploadedPhoto.getFileName() + ")  se ha guardado con exito.", ""));
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
     }
+
 }
+

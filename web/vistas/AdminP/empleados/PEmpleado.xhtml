@@ -88,23 +88,24 @@
                     </h:form>
 
                     <h:form id="formB" enctype="multipart/form-data">
-                        <b:column col-lg="5" col-md="5" col-sm="11" col-xs="12">
+                        <b:column col-lg="5" col-md="5" col-sm="11" col-xs="12" >
                             <div class="box box-primary">
                                 <p:fragment autoUpdate="true">
-                                    <div class="box-header with-border">
-                                        <i class="fa fa-2x fa-camera"/> 
+                                    <div class="box-header with-border">    
+                                        <i class="fa fa-2x fa-camera"/>
                                         <h4 class="box-title">Ingreso de Fotografía</h4>
                                     </div>
                                     <div class="box-body">
                                         <p:outputLabel value="#{empleadoBean.estadoFoto}"/>
                                         <div class="table-responsive">
-                                            <p:fileUpload mode="simple" update=":formA" value="#{empleadoBean.foto}"></p:fileUpload>
-                                            <hr/>
-                                            <p:commandButton disabled="#{empleadoBean.habilitarSubirFoto}" ajax="false" action="#{empleadoBean.uploadFoto()}" value="#{empleadoBean.subirFoto}" class="btn btn-block btn-primary"></p:commandButton>
-                                        </div>                                        
+                                            <p:fileUpload id="fileIdPhoto" fileUploadListener="#{empleadoBean.uploadPhoto}" mode="advanced" dragDropSupport="false"
+                                                          process="@this" auto="true" update=":formB" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />
+
+                                            <p:messages id="messages" autoUpdate="true" closable="true" /></div> 
                                     </div>
                                 </p:fragment>
                             </div>
+
                         </b:column>
                     </h:form>
 
@@ -119,13 +120,15 @@
                                     <div class="box-body">
                                         <p:outputLabel value="#{empleadoBean.estadoArchivo}"/>
                                         <div class="table-responsive">
-                                            <p:fileUpload mode="simple" update=":formA" value="#{empleadoBean.archivo}"></p:fileUpload>
-                                            <hr/>
-                                            <p:commandButton disabled="#{empleadoBean.habilitarSubirArchivo}" ajax="false" action="#{empleadoBean.uploadArchivo()}" value="#{empleadoBean.subirArchivo}" class="btn btn-block btn-primary"></p:commandButton>
-                                        </div>
+                                            <p:fileUpload id="fileIdDoc" fileUploadListener="#{empleadoBean.uploadDoc}" mode="advanced" dragDropSupport="false"
+                                                          process="@this" auto="true" update=":formD" sizeLimit="10000000" allowTypes="/(\.|\/)(docx|doc|pdf)$/"  />
+
+                                            <p:messages id="messages" autoUpdate="true" closable="true" />
+                                        </div> 
                                     </div>
                                 </p:fragment>
-                            </div>
+                            </div>                           
+
                         </b:column>
                     </h:form>
 

@@ -348,26 +348,7 @@ public class VehiculoBean {
             estado = 0;
             nombre = "Registrar Vehiculo";
         }
-    }
-
-   /* public void upload() throws IOException {
-        FacesMessage message = new FacesMessage();
-        if (null != getArchivo()) {
-            fileController.uploadFile(IOUtils.toByteArray(getArchivo().getInputstream()), getArchivo().getFileName(), 1);
-            vehiculoView.setVehFotoNombre(getArchivo().getFileName());
-            vehiculoView.setVehFotoRuta(fileController.getPathFotosVehiculos());
-            habilitarSubir = true;
-            if (estado == 0) {
-                estadoArchivo = "Foto Subida con exito";
-            } else if (estado == 1) {
-                estadoArchivo = "Foto actualizada con exito";
-            }
-        } else {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione fotografia", null);
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        }
-
-    }*/
+    }   
 
     public void uploadPhoto(FileUploadEvent e) throws IOException {
         try {
@@ -379,7 +360,7 @@ public class VehiculoBean {
             if (null != uploadedPhoto) {
                 fileController.uploadFile(IOUtils.toByteArray(uploadedPhoto.getInputstream()), uploadedPhoto.getFileName(), destination);
                 vehiculoView.setVehFotoNombre(uploadedPhoto.getFileName());
-                vehiculoView.setVehFotoRuta(map.get("url"));
+                vehiculoView.setVehFotoRuta(map.get("url") + uploadedPhoto.getFileName());
                 habilitarSubir = true;
                 if (estado == 0) {
                     estadoArchivo = "Foto Subida con exito";

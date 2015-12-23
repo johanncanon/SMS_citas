@@ -16,11 +16,13 @@ import Modelo.SmsUsuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.apache.commons.io.IOUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -255,7 +257,7 @@ public class EmpleadoBean implements Serializable {
     public void setEmpleadosListView(List<SmsUsuario> empleadosListView) {
         this.empleadosListView = empleadosListView;
     }
-    
+
     public void filtrar() {
         empleadosListView = new ArrayList<>();
         if (buscar == null) {
@@ -397,45 +399,57 @@ public class EmpleadoBean implements Serializable {
     }
 
     //Subida de archivos
-    public void uploadFoto() throws IOException {
-        FacesMessage message = new FacesMessage();
-        if (null != getFoto()) {
-            fileController.UploadFile(IOUtils.toByteArray(getFoto().getInputstream()), getFoto().getFileName());
-            usuarioView.setUsuarioFotoNombre(getFoto().getFileName());
-            usuarioView.setUsuarioFotoRuta(fileController.getFilePath());
-            habilitarSubirFoto = true;
-            if (estado == 0) {
-                estadoFoto = "Foto Subida con exito";
-            } else if (estado == 1) {
-                estadoFoto = "Foto actualizada con exito";
+    public void uploadPhoto(FileUploadEvent e) throws IOException {
+        try {
+            UploadedFile uploadedPhoto = e.getFile();
+            String destination;
+
+            HashMap<String, String> map = fileController.getMapPathFotosUsuario();
+            destination = map.get("path");
+            if (null != uploadedPhoto) {
+                fileController.uploadFile(IOUtils.toByteArray(uploadedPhoto.getInputstream()), uploadedPhoto.getFileName(), destination);
+                usuarioView.setUsuarioFotoNombre(uploadedPhoto.getFileName());
+                usuarioView.setUsuarioFotoRuta(map.get("url") + uploadedPhoto.getFileName());
+                habilitarSubirFoto = true;
+                if (estado == 0) {
+                    estadoFoto = "Foto Subida con exito";
+                } else if (estado == 1) {
+                    estadoFoto = "Foto actualizada con exito";
+                }
             }
-        } else {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione fotografia", null);
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + uploadedPhoto.getFileName() + ")  se ha guardado con exito.", ""));
+        } catch (Exception ex) {
+            ex.getMessage();
         }
 
     }
 
     //Subida de archivos
-    public void uploadArchivo() throws IOException {
-        FacesMessage message = new FacesMessage();
-        if (null != getArchivo()) {
-            fileController.UploadFile(IOUtils.toByteArray(getArchivo().getInputstream()), getArchivo().getFileName());
-            hojavidaView.setHojaVidaNombre(getArchivo().getFileName());
-            hojavidaView.setHojaVidaRuta(fileController.getFilePath());
-            habilitarSubirArchivo = true;
-            if (estado == 0) {
-                estadoArchivo = "Hoja de vida subida con exito";
-            } else if (estado == 1) {
-                estadoArchivo = "Hoja de vida actualizada con exito";
+    public void uploadDoc(FileUploadEvent e) throws IOException {
+        try {
+            UploadedFile uploadedDoc = e.getFile();
+            String destination;
+
+            HashMap<String, String> map = fileController.getMapPathHojasVida();
+            destination = map.get("path");
+            if (null != uploadedDoc) {
+                fileController.uploadFile(IOUtils.toByteArray(uploadedDoc.getInputstream()), uploadedDoc.getFileName(), destination);
+                hojavidaView.setHojaVidaNombre(uploadedDoc.getFileName());
+                hojavidaView.setHojaVidaRuta(map.get("url") + uploadedDoc.getFileName());
+                habilitarSubirArchivo = true;
+                if (estado == 0) {
+                    estadoArchivo = "Hoja de vida subida con exito";
+                } else if (estado == 1) {
+                    estadoArchivo = "Hoja de vida actualizada con exito";
+                }
+
+                hojaVidaController.registrarHojaVida(hojavidaView);
+                registroHojaVida = true;
             }
 
-            hojaVidaController.registrarHojaVida(hojavidaView);
-            registroHojaVida = true;
-        } else {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione Hoja de vida", null);
-            FacesContext.getCurrentInstance().addMessage(null, message);
+        FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su Hoja de vida (" + uploadedDoc.getFileName() + ")  se ha guardado con exito.", ""));
+        } catch (Exception ex) {
+            ex.getMessage();
         }
-
     }
 }

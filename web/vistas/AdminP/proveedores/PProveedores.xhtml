@@ -109,11 +109,10 @@
                                     <div class="box-body">
                                         <p:outputLabel value="#{proveedorBean.estadoArchivo}"/>
                                         <div class="table-responsive">
-                                            <p:fileUpload mode="simple" value="#{proveedorBean.archivo}"></p:fileUpload>
-                                            <hr/>
-                                            <p:commandButton disabled="#{proveedorBean.habilitarSubir}" ajax="false" action="#{proveedorBean.upload()}" value="#{proveedorBean.subirArchivo}" class="btn btn-block btn-primary"></p:commandButton>
-                                        </div>
+                                            <p:fileUpload id="fileIdPhoto" fileUploadListener="#{proveedorBean.uploadPhoto}" mode="advanced" dragDropSupport="false"
+                                                          process="@this" auto="true" update=":formB" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />
 
+                                            <p:messages id="messages" autoUpdate="true" closable="true" /></div> 
                                     </div>
                                 </p:fragment>
                             </div>

@@ -115,13 +115,13 @@
                                         <i class="fa fa-2x fa-camera"/>
                                         <h4 class="box-title">Ingreso de fotogrfía</h4>
                                     </div>
-                                    <div class="box-body">                                        
+                                    <div class="box-body">
+                                        <p:outputLabel value="#{usuarioBean.estadoArchivo}"/>
                                         <div class="table-responsive">
-                                            <p:outputLabel value="#{usuarioBean.estadoArchivo}"/>
-                                            <p:fileUpload mode="simple" update=":formA" value="#{usuarioBean.archivo}"></p:fileUpload>
-                                            <hr/>
-                                            <p:commandButton disabled="#{usuarioBean.habilitarSubir}" ajax="false" action="#{usuarioBean.upload()}" value="#{usuarioBean.subirArchivo}" class="btn btn-block btn-primary"></p:commandButton>
-                                        </div>
+                                            <p:fileUpload id="fileIdPhoto" fileUploadListener="#{usuarioBean.uploadPhoto}" mode="advanced" dragDropSupport="false"
+                                                          process="@this" auto="true" update=":formB" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />
+
+                                            <p:messages id="messages" autoUpdate="true" closable="true" /></div> 
                                     </div>
                                 </p:fragment>
                             </div>

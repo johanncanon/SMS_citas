@@ -13,11 +13,13 @@ import Modelo.SmsUsuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.apache.commons.io.IOUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -211,20 +213,20 @@ public class ClienteBean implements Serializable {
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
     }
-    
-     public void filtrar() {
+
+    public void filtrar() {
         clientesListView = new ArrayList<>();
         if (buscar == null) {
             clientesListView = clienteController.consultarClientes();
         } else {
-           clientesListView = clienteController.filtrarClientes(buscar);
+            clientesListView = clienteController.filtrarClientes(buscar);
         }
     }
 
     //Metodos propios
     public void seleccionarCrud(int i) {
-        estado = i;       
-        
+        estado = i;
+
         if (estado == 1) {//MODIFICACION
             nombre = "Modificar Cliente";
             ciudadView = clienteView.getSmsCiudad();
@@ -263,23 +265,32 @@ public class ClienteBean implements Serializable {
     }
 
     //Subida de archivos
-    public void upload() throws IOException {
-        FacesMessage message = new FacesMessage();
-        if (null != getArchivo()) {
-            fileController.UploadFile(IOUtils.toByteArray(getArchivo().getInputstream()), getArchivo().getFileName());
-            clienteView.setUsuarioFotoNombre(getArchivo().getFileName());
-            clienteView.setUsuarioFotoRuta(fileController.getFilePath());
-            habilitarSubir = true;
-            if (estado == 0) {
-                estadoArchivo = "Foto Subida con exito";
-            } else if (estado == 1) {
-                estadoArchivo = "Foto actualizada con exito";
+    
+
+    public void uploadPhoto(FileUploadEvent e) throws IOException {
+           
+        try {
+            UploadedFile uploadedPhoto = e.getFile();
+            String destination;
+
+            HashMap<String, String> map = fileController.getMapPathFotosUsuario();
+            destination = map.get("path");
+            if (null != uploadedPhoto) {
+                fileController.uploadFile(IOUtils.toByteArray(uploadedPhoto.getInputstream()), uploadedPhoto.getFileName(),destination);
+                clienteView.setUsuarioFotoNombre(uploadedPhoto.getFileName());
+                clienteView.setUsuarioFotoRuta(map.get("url") + uploadedPhoto.getFileName());
+                habilitarSubir = true;
+                if (estado == 0) {
+                    estadoArchivo = "Foto Subida con exito";
+                } else if (estado == 1) {
+                    estadoArchivo = "Foto actualizada con exito";
+                }
             }
-        } else {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione fotografia", null);
-            FacesContext.getCurrentInstance().addMessage(null, message);
+
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + uploadedPhoto.getFileName() + ")  se ha guardado con exito.", ""));
+        } catch (Exception ex) {
+            ex.getMessage();
         }
 
     }
-
 }
