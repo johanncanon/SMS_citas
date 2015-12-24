@@ -89,20 +89,26 @@
                                             <p:messages autoUpdate="true" />
                                             <p style="margin-top: 12px">Aqui podrá elegir el vehiculo que desea para su reservacion:</p>
                                             <hr/>
-                                            <div class="form-group">                                     
+                                            
+                                            <div class="form-group"> 
+                                                
                                                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                                                     <p:outputLabel value="Categoria de Vehiculo: "  />
-                                                    <b:selectOneMenu value="#{agendaBean.categoriaView.categoriaNombre}" style="width:250px">
+                                                    <p:selectOneMenu value="#{agendaBean.categoriaView.categoriaNombre}" style="width:250px">
                                                         <f:selectItem itemLabel="Seleccione categoria del vehiculo" noSelectionOption="true"/>
                                                         <f:selectItems value="#{categoriaBean.nombresCategoriasListView}"/>
-                                                    </b:selectOneMenu>                                                       
+                                                        <p:ajax event="change" listener="#{agendaBean.filtrar()}" process="@this" update="ScrollerVehiculos"/>
+                                                    </p:selectOneMenu>                                                       
                                                 </h:panelGrid>
+                                                
                                                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                                                     <p:outputLabel value="Vehiculo Seleccionado "  />
-                                                    <b:inputText placeholder="Placa del vehiculo" required="true" style="width:250px" requiredMessage="No ha seleccionado vehiculo" value="#{agendaBean.vehiculoView.vehPlaca}"/>                                                      
+                                                    <b:inputText id="TVehSelc" placeholder="Placa del vehiculo" required="true" style="width:250px" requiredMessage="No ha seleccionado vehiculo" value="#{agendaBean.vehiculoView.vehPlaca}"/>                                                      
                                                 </h:panelGrid>
-                                                <p:commandButton action="#{agendaBean.seleccionarNuevoVehiculo}" update="@form" value="Seleccionar nuevo vehiculo"/>
+                                                
+                                                <p:commandButton action="#{agendaBean.seleccionarNuevoVehiculo}" process="@this" update="TVehSelc ScrollerVehiculos" value="Seleccionar nuevo vehiculo"/>
                                             </div>
+                                            
                                             <div class="form-group box box-danger direct-chat direct-chat-danger">                                               
                                                 <p:dataScroller var="vehiculo" mode="inline" scrollHeight="500" id="ScrollerVehiculos" value="#{agendaBean.vehiculosListView}" chunkSize="5">
                                                     <f:facet name="header">
@@ -212,6 +218,7 @@
                                                 <p:outputLabel value="#{agendaBean.agendaView.agendaHoraLlegada}"/>
 
                                             </h:panelGrid>
+                                            <p:inputTextarea rows="4" style="width: 100%" value="#{agendaBean.reservaView.reservacionNotas }" placeholder="Notas u observaciones"/>
                                             <p:separator/>
                                             <h4>Vehiculo</h4>
                                             <p:dataScroller var="vehiculo" mode="inline" value="#{agendaBean.vehiculoView}">                                                

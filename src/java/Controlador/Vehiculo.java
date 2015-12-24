@@ -192,6 +192,32 @@ public class Vehiculo {
         return vehiculos;
     }
     
+    public List<SmsVehiculo> filtrarVehiculosCiudad(SmsCiudad c, SmsCategoria cat) {
+        vehiculos = new ArrayList<>();
+        SmsCiudad ciudad = c;
+        String categoria = cat.getCategoriaNombre();
+        IVehiculoDao linkDao = new ImpVehiculoDao();
+        vehiculos = linkDao.filtrarVehiculosCiudad(ciudad, categoria);
+        return vehiculos;
+    }
+    
+    public List<SmsVehiculo> filtrarVehiculosDisponibles(SmsAgenda a, SmsCiudad c, SmsCategoria cat){
+        vehiculos = new ArrayList<>();
+        String ciudad = c.getCiudadNombre();
+        String categoria =cat.getCategoriaNombre();
+        SimpleDateFormat formatDate;
+        SimpleDateFormat formatTime;
+        formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        formatTime = new SimpleDateFormat("HH:mm:ss");
+        String FechaInicio = formatDate.format(a.getAgendaFechaInicio());
+        String FechaLlegada = formatDate.format(a.getAgendaFechaLlegada());
+        String HoraInicio = formatTime.format(a.getAgendaHoraInicio());
+        String HoraLlegada = formatTime.format(a.getAgendaHoraLlegada());
+        IVehiculoDao linkDao = new ImpVehiculoDao();
+        vehiculos = linkDao.filtrarVehiculosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudad, categoria);
+        return vehiculos;
+    }
+    
    
     
 }

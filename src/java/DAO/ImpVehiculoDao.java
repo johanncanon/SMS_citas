@@ -5,9 +5,7 @@
  */
 package DAO;
 
-import Modelo.SmsAgenda;
 import Modelo.SmsCiudad;
-import Modelo.SmsEstadovehiculo;
 import Modelo.SmsVehiculo;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -127,29 +125,29 @@ public class ImpVehiculoDao implements IVehiculoDao {
     }
 
     @Override
-    public List<SmsVehiculo> consultarVehiculosDisponibles(String fechaInicio, String fechaLlegada, String horaInicio, String horaLlegada , String ciudad) {
+    public List<SmsVehiculo> consultarVehiculosDisponibles(String fechaInicio, String fechaLlegada, String horaInicio, String horaLlegada, String ciudad) {
         Session session = null;
         List<SmsVehiculo> vehiculos = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("select vehiculo from SmsVehiculo as vehiculo, SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculoAgenda " 
-                                             + "where (vehiculo.smsCiudad.ciudadNombre = '"+ciudad+"' and vehiculo.idVehiculo not in (select ag.smsVehiculo.idVehiculo from SmsAgenda as ag)) or (vehiculo.smsCiudad.ciudadNombre = '"+ciudad+"' and " 
-                                             + "(" 
-                                                    + "(agenda.agendaFechaInicio = '"+fechaInicio+"' and agenda.agendaFechaLlegada = '"+fechaLlegada+"' and agenda.agendaFechaInicio = agenda.agendaFechaLlegada and vehiculo.idVehiculo in (select ag.smsVehiculo.idVehiculo from SmsAgenda as ag) and "
-                                                       + "(" 
-                                                          + "('"+horaLlegada+"' < all (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsVehiculo = vehiculo.idVehiculo)) or "
-                                                          + "('"+horaInicio+"' > all (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsVehiculo = vehiculo.idVehiculo)) or "
-                                                          + "((agenda.agendaHoraInicio <> '"+horaInicio+"' and agenda.agendaHoraLlegada <> '"+horaLlegada+"') and ( '"+horaInicio+"' > any (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsVehiculo = vehiculo.idVehiculo)) and ('"+horaLlegada+"'  < any (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsVehiculo = vehiculo.idVehiculo)))"
-                                                       + ")" 
-                                                    + ")" 
-                                                    + "or" 
-                                                    +"(" 
-                                                       + "('"+horaInicio+"' > all (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsVehiculo.idVehiculo = vehiculo.idVehiculo and ag.agendaFechaInicio = '"+fechaInicio+"')) and "
-                                                       + "('"+horaLlegada+"' < all (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsVehiculo.idVehiculo = vehiculo.idVehiculo and ag.agendaFechaLlegada = '"+fechaLlegada+"')) and "
-                                                       + "(not exists((select ag from SmsAgenda as ag where ag.agendaFechaInicio > '"+fechaInicio+"' and ag.agendaFechaLlegada < '"+fechaLlegada+"' and ag.smsVehiculo.idVehiculo = vehiculo.idVehiculo) or (select ag from SmsAgenda as ag where ag.agendaFechaInicio = '"+fechaInicio+"' and ag.agendaFechaLlegada = '"+fechaLlegada+"' and ag.smsVehiculo.idVehiculo = vehiculo.idVehiculo)))"
-                                                    +")"
-                                              +")"
-                                              +") group by vehiculo.idVehiculo");
+            Query query = session.createQuery("select vehiculo from SmsVehiculo as vehiculo, SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculoAgenda "
+                    + "where (vehiculo.smsCiudad.ciudadNombre = '" + ciudad + "' and vehiculo.idVehiculo not in (select ag.smsVehiculo.idVehiculo from SmsAgenda as ag)) or (vehiculo.smsCiudad.ciudadNombre = '" + ciudad + "' and "
+                    + "("
+                    + "(agenda.agendaFechaInicio = '" + fechaInicio + "' and agenda.agendaFechaLlegada = '" + fechaLlegada + "' and agenda.agendaFechaInicio = agenda.agendaFechaLlegada and vehiculo.idVehiculo in (select ag.smsVehiculo.idVehiculo from SmsAgenda as ag) and "
+                    + "("
+                    + "('" + horaLlegada + "' < all (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsVehiculo = vehiculo.idVehiculo)) or "
+                    + "('" + horaInicio + "' > all (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsVehiculo = vehiculo.idVehiculo)) or "
+                    + "((agenda.agendaHoraInicio <> '" + horaInicio + "' and agenda.agendaHoraLlegada <> '" + horaLlegada + "') and ( '" + horaInicio + "' > any (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsVehiculo = vehiculo.idVehiculo)) and ('" + horaLlegada + "'  < any (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsVehiculo = vehiculo.idVehiculo)))"
+                    + ")"
+                    + ")"
+                    + "or"
+                    + "("
+                    + "('" + horaInicio + "' > all (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsVehiculo.idVehiculo = vehiculo.idVehiculo and ag.agendaFechaInicio = '" + fechaInicio + "')) and "
+                    + "('" + horaLlegada + "' < all (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsVehiculo.idVehiculo = vehiculo.idVehiculo and ag.agendaFechaLlegada = '" + fechaLlegada + "')) and "
+                    + "(not exists((select ag from SmsAgenda as ag where ag.agendaFechaInicio > '" + fechaInicio + "' and ag.agendaFechaLlegada < '" + fechaLlegada + "' and ag.smsVehiculo.idVehiculo = vehiculo.idVehiculo) or (select ag from SmsAgenda as ag where ag.agendaFechaInicio = '" + fechaInicio + "' and ag.agendaFechaLlegada = '" + fechaLlegada + "' and ag.smsVehiculo.idVehiculo = vehiculo.idVehiculo)))"
+                    + ")"
+                    + ")"
+                    + ") group by vehiculo.idVehiculo");
             vehiculos = (List<SmsVehiculo>) query.list();
 
         } catch (HibernateException e) {
@@ -181,8 +179,57 @@ public class ImpVehiculoDao implements IVehiculoDao {
     }
 
     @Override
-    public List<SmsVehiculo> consultarVehiculoEstadoVehiculo(SmsEstadovehiculo estadoVeh){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<SmsVehiculo> filtrarVehiculosDisponibles(String fechaInicio, String fechaLlegada, String horaInicio, String horaLlegada, String ciudad, String categoria) {
+        Session session = null;
+        List<SmsVehiculo> vehiculos = null;
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("select vehiculo from SmsVehiculo as vehiculo, SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculoAgenda "
+                    + "where (vehiculo.smsCategoria.categoriaNombre = '" + categoria + "' and vehiculo.smsCiudad.ciudadNombre = '" + ciudad + "' and vehiculo.idVehiculo not in (select ag.smsVehiculo.idVehiculo from SmsAgenda as ag)) or (vehiculo.smsCategoria.categoriaNombre = '" + categoria + "' and vehiculo.smsCiudad.ciudadNombre = '" + ciudad + "' and "
+                    + "("
+                    + "(agenda.agendaFechaInicio = '" + fechaInicio + "' and agenda.agendaFechaLlegada = '" + fechaLlegada + "' and agenda.agendaFechaInicio = agenda.agendaFechaLlegada and vehiculo.idVehiculo in (select ag.smsVehiculo.idVehiculo from SmsAgenda as ag) and "
+                    + "("
+                    + "('" + horaLlegada + "' < all (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsVehiculo = vehiculo.idVehiculo)) or "
+                    + "('" + horaInicio + "' > all (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsVehiculo = vehiculo.idVehiculo)) or "
+                    + "((agenda.agendaHoraInicio <> '" + horaInicio + "' and agenda.agendaHoraLlegada <> '" + horaLlegada + "') and ( '" + horaInicio + "' > any (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsVehiculo = vehiculo.idVehiculo)) and ('" + horaLlegada + "'  < any (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsVehiculo = vehiculo.idVehiculo)))"
+                    + ")"
+                    + ")"
+                    + "or"
+                    + "("
+                    + "('" + horaInicio + "' > all (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsVehiculo.idVehiculo = vehiculo.idVehiculo and ag.agendaFechaInicio = '" + fechaInicio + "')) and "
+                    + "('" + horaLlegada + "' < all (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsVehiculo.idVehiculo = vehiculo.idVehiculo and ag.agendaFechaLlegada = '" + fechaLlegada + "')) and "
+                    + "(not exists((select ag from SmsAgenda as ag where ag.agendaFechaInicio > '" + fechaInicio + "' and ag.agendaFechaLlegada < '" + fechaLlegada + "' and ag.smsVehiculo.idVehiculo = vehiculo.idVehiculo) or (select ag from SmsAgenda as ag where ag.agendaFechaInicio = '" + fechaInicio + "' and ag.agendaFechaLlegada = '" + fechaLlegada + "' and ag.smsVehiculo.idVehiculo = vehiculo.idVehiculo)))"
+                    + ")"
+                    + ")"
+                    + ") group by vehiculo.idVehiculo");
+            vehiculos = (List<SmsVehiculo>) query.list();
+
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return vehiculos;
+    }
+
+    @Override
+    public List<SmsVehiculo> filtrarVehiculosCiudad(SmsCiudad ciudad, String categoria) {
+        Session session = null;
+        List<SmsVehiculo> vehiculos = null;
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsVehiculo as vehiculo left join fetch vehiculo.smsCiudad as ciudad where ciudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "' and vehiculo.smsCategoria.categoriaNombre = '" + categoria + "'");
+            vehiculos = (List<SmsVehiculo>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return vehiculos;
     }
 
 }

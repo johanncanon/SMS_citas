@@ -217,7 +217,7 @@ public class AgendaBean {
 
     //Metodos    
     //CRUD
-    public void registrarAgenda(){
+    public void registrarAgenda() {
 
         agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);
         agendaView = agendaController.consultarAgenda(agendaView, vehiculoView, empleadoView).get(0);
@@ -232,10 +232,8 @@ public class AgendaBean {
         vehiculosListView = new ArrayList<>();
         empleadosListView = new ArrayList<>();
     }
-    
 
     //Especificos
-
     public String onFlowProcess(FlowEvent event) {
         if (skip) {
             skip = false;//reset in case user goes back
@@ -269,9 +267,9 @@ public class AgendaBean {
     public void SeleccionarVehiculo() {
         SelecVeh = true;
     }
-    
-    public void SeleccionarNuevoVehiculo(){
-        
+
+    public void SeleccionarNuevoVehiculo() {
+
         vehiculoView = new SmsVehiculo();
         SelecVeh = false;
     }
@@ -279,11 +277,32 @@ public class AgendaBean {
     public void SeleccionarConductor() {
         SelecCon = true;
     }
-    
-    public void SeleccionarNuevoConductor(){
-        
+
+    public void SeleccionarNuevoConductor() {
+
         empleadoView = new SmsEmpleado();
         SelecCon = false;
+    }
+
+    public void filtrar() {
+
+        if (categoriaView.getCategoriaNombre().isEmpty()) {
+            if (agendaController.cargarAgendas().isEmpty()) {
+                vehiculosListView = new ArrayList<>();
+                vehiculosListView = vehiculoController.consultarVehiculosCiudad(ciudadView);
+            } else {
+                vehiculosListView = new ArrayList<>();
+                vehiculosListView = vehiculoController.consultarVehiculosDisponible(agendaView, ciudadView);
+            }
+        } else {
+            if (agendaController.cargarAgendas().isEmpty()) {
+                vehiculosListView = new ArrayList<>();
+                vehiculosListView = vehiculoController.filtrarVehiculosCiudad(ciudadView, categoriaView);
+            } else {
+                vehiculosListView = new ArrayList<>();
+                vehiculosListView = vehiculoController.filtrarVehiculosDisponibles(agendaView, ciudadView, categoriaView);
+            }
+        }
     }
 
 }
