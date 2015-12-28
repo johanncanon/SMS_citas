@@ -45,7 +45,14 @@
                                                     <i class="fa fa-2x"></i>
                                                     <span class="label-cl">Lugar de recogida: </span>                                                   
                                                 </div>
-                                                <b:inputText style="width: 100%" placeholder="Lugar de recogida" required="true" requiredMessage="Indique lugar de recogida" value="#{agendaBean.reservaView.reservacionLugarLlegada}"/>
+                                                <b:selectOneMenu>
+                                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione lugar de recogida"/>
+                                                    <f:selectItems value="#{lugarBean.lugaresListView}"/>
+                                                </b:selectOneMenu>
+
+
+                                                <p:outputLabel/>
+                                                <b:commandButton value="Registrar lugar de recogida" onclick="PF('dlg2').show();"/>
 
                                                 <div style="left: 50%; position: relative;">
                                                     <i class="fa fa-2x"></i>
@@ -54,6 +61,15 @@
                                                 <b:inputText style="width: 100%" placeholder="Lugar de destino" required="true" requiredMessage="Indique lugar de destino" value="#{agendaBean.reservaView.reservacionLugarDestino}"/>
                                             </h:panelGrid>
                                         </b:panel>
+                                        
+                                        <p:dialog header="Registro Lugar" widgetVar="dlg2" height="100">                                            
+                                            <h:panelGrid columns="2" cellpadding="5"> 
+                                                <p:inputText value="Nombre del lugar"/>
+                                                <b:inputText style="width: 100%" placeholder="Lugar de recogida" required="true" requiredMessage="Indique lugar de recogida" value="#{lugarBean.lugarView.lugarNombre}"/>
+                                                <p:inputText value="Direccion"/>
+                                                <b:inputText style="width: 100%" placeholder="Direccion" required="true" requiredMessage="Indique direccion del lugar" value="#{lugarBean.lugarView.lugarDireccion}"/>
+                                            </h:panelGrid>
+                                        </p:dialog> 
                                     </p:tab>
 
                                     <p:tab id="Agendamiento" title="Agendamiento">
@@ -89,9 +105,9 @@
                                             <p:messages autoUpdate="true" />
                                             <p style="margin-top: 12px">Aqui podrá elegir el vehiculo que desea para su reservacion:</p>
                                             <hr/>
-                                            
+
                                             <div class="form-group"> 
-                                                
+
                                                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                                                     <p:outputLabel value="Categoria de Vehiculo: "  />
                                                     <p:selectOneMenu value="#{agendaBean.categoriaView.categoriaNombre}" style="width:250px">
@@ -100,15 +116,15 @@
                                                         <p:ajax event="change" listener="#{agendaBean.filtrar()}" process="@this" update="ScrollerVehiculos"/>
                                                     </p:selectOneMenu>                                                       
                                                 </h:panelGrid>
-                                                
+
                                                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                                                     <p:outputLabel value="Vehiculo Seleccionado "  />
                                                     <b:inputText id="TVehSelc" placeholder="Placa del vehiculo" required="true" style="width:250px" requiredMessage="No ha seleccionado vehiculo" value="#{agendaBean.vehiculoView.vehPlaca}"/>                                                      
                                                 </h:panelGrid>
-                                                
+
                                                 <p:commandButton action="#{agendaBean.seleccionarNuevoVehiculo}" process="@this" update="TVehSelc ScrollerVehiculos" value="Seleccionar nuevo vehiculo"/>
                                             </div>
-                                            
+
                                             <div class="form-group box box-danger direct-chat direct-chat-danger">                                               
                                                 <p:dataScroller var="vehiculo" mode="inline" scrollHeight="500" id="ScrollerVehiculos" value="#{agendaBean.vehiculosListView}" chunkSize="5">
                                                     <f:facet name="header">

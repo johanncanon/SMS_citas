@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="Modelo.SmsLugares" table="sms_lugares" catalog="bd_sms_citas" optimistic-lock="version">
+        <id name="idLugar" type="java.lang.Integer">
+            <column name="idLugar" />
+            <generator class="identity" />
+        </id>
+        <property name="lugarNombre" type="string">
+            <column name="Lugar_nombre" length="200" not-null="true" />
+        </property>
+        <property name="lugarDireccion" type="string">
+            <column name="Lugar_direccion" length="200" not-null="true" />
+        </property>
+        <many-to-one name="smsCiudad" class="Modelo.SmsCiudad" fetch="select">
+            <column name="Lugar_ciudad" not-null="true" />
+        </many-to-one>        
+    </class> 
+</hibernate-mapping>

@@ -32,5 +32,11 @@
             </key>
             <one-to-many class="Modelo.SmsReservacion" />
         </set>
+        <set name="smsLugares" table="sms_lugares" inverse="true" lazy="true" fetch="join">
+            <key>
+                <column name="Lugar_ciudad" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.SmsLugares" />
+        </set>
     </class>
 </hibernate-mapping>

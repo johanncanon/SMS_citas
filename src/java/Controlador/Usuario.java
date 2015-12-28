@@ -49,6 +49,10 @@ public class Usuario {
         ciudad = c;
         SmsRol rol = r;
 
+        MD5 md = new MD5();
+        usuario.setUsuarioPassword(md.getMD5(usuario.getUsuarioPassword()));//Se encripta la contreseña
+        usuario.setUsuarioRememberToken(md.getMD5(usuario.getUsuarioRememberToken()));
+
         //el metodo recibe los atributos, agrega al atributo ciudad del objeto usuario un objeto correspondiente, 
         //de la misma forma comprueba el rol y lo asocia, por ultimo persiste el usuario en la base de datos
         ICiudadDao ciudadDao = new ImpCiudadDao();
@@ -70,6 +74,10 @@ public class Usuario {
         ciudad = c;
         SmsRol rol = r;
 
+        MD5 md = new MD5();
+        usuario.setUsuarioPassword(md.getMD5(usuario.getUsuarioPassword()));//Se encripta la contreseña
+        usuario.setUsuarioRememberToken(md.getMD5(usuario.getUsuarioRememberToken()));
+
         //el metodo recibe el objeto usuario, con sus atributos modificados y lo persiste en la BD
         ICiudadDao ciudadDao = new ImpCiudadDao();
         ciudad = ciudadDao.consultarCiudad(ciudad).get(0);
@@ -85,7 +93,7 @@ public class Usuario {
 
     public void eliminarUsuario(SmsUsuario u) {
         usuario = u;
-        //el metodo recibe el objeto usuario se comunica con el dao y lo elimina de la base de datos
+        //el metodo recibe el objeto usuario, se comunica con el dao y lo elimina de la base de datos
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarioDao.eliminarUsuario(usuario);
     }
@@ -99,7 +107,7 @@ public class Usuario {
 
     public List<SmsUsuario> consultarUsuario(SmsUsuario u) {
         usuario = u;
-        //el metodo consulta de la base de datos todos los usuarios registrados y los retorna en una lista
+        //el metodo consulta de la base de datos toda la informacion de usuario registrado y lo retorna en una lista
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarios = usuarioDao.consultarUsuario(usuario);
         return usuarios;
@@ -107,7 +115,7 @@ public class Usuario {
 
     public List<SmsUsuario> consultarUsuarioSesion(SmsUsuario u) {
         usuario = u;
-        //el metodo consulta de la base de datos todos los usuarios registrados y los retorna en una lista
+        //el metodo consulta de la base de datos toda la informacion de un usuario mediante su nombre de sesion(Login)
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarios = usuarioDao.consultarDatosSesionUsuario(usuario);
         return usuarios;
@@ -115,7 +123,7 @@ public class Usuario {
 
     public List<SmsUsuario> consultarAdministradores() {
         usuarios = new ArrayList<>();
-        //el metodo consulta de la base de datos todos los usuarios registrados y los retorna en una lista
+        //el metodo consulta de la base de datos todos los usuarios registrados con rol administrador y los retorna en una lista
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarios = usuarioDao.consultarUsuariosAdministradores();
         return usuarios;
@@ -123,6 +131,7 @@ public class Usuario {
 
     public List<SmsUsuario> consultarClientes() {
         usuarios = new ArrayList<>();
+        //el metodo consulta de la base de datos todos los usuarios registrados con rol cliente y los retorna en una lista
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarios = usuarioDao.consultarUsuariosClientes();
         return usuarios;
@@ -130,7 +139,7 @@ public class Usuario {
 
     public List<SmsUsuario> consultarProveedores() {
         usuarios = new ArrayList<>();
-        //el metodo consulta de la base de datos todos los usuarios registrados y los retorna en una lista
+        //el metodo consulta de la base de datos todos los usuarios registrados con rol proveedor y los retorna en una lista
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarios = usuarioDao.consultarUsuariosProveedores();
         return usuarios;
@@ -138,6 +147,7 @@ public class Usuario {
 
     public List<SmsUsuario> consultarEmpleados() {
         usuarios = new ArrayList<>();
+        //el metodo consulta de la base de datos todos los usuarios registrados con rol empleado(conductor) y los retorna en una lista
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarios = usuarioDao.consultarUsuariosEmpleados();
         return usuarios;
@@ -167,7 +177,7 @@ public class Usuario {
     //Metodos de la sesion    
     public String iniciarSesion(SmsUsuario u) {
         usuario = u;
-        usuario = consultarUsuarioSesion(usuario).get(0);
+        //usuario = consultarUsuarioSesion(usuario).get(0);
         String ruta = "";
         Rol rol = new Rol();
         httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
@@ -179,7 +189,7 @@ public class Usuario {
 
         for (int i = 0; i < roles.size(); i++) {
             rolUsuario = rol.validarRol(usuario, roles.get(i));//Envia el objeto usuario y el objeto rol, para comprobar el rol del usuario que intenta loguearse
-            if (rolUsuario) {//valida si el rol es verdadero y consulta segun su valor, a cual dashboard debo direccionar al usuario
+            if (rolUsuario) {//valida si el rol es verdadero y consulta segun su valor, a cual dashboard debe direccionar al usuario
                 switch (roles.get(i).getRolNombre()) {
                     case "Administrador Principal":
                         ruta = "AdminPPrincipal";

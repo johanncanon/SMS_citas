@@ -27,5 +27,6 @@
     <mapping resource="Modelo/SmsAgenda.hbm.xml"/>
     <mapping resource="Modelo/SmsCalificacion.hbm.xml"/>
     <mapping resource="Modelo/SmsCostosServicio.hbm.xml"/>
+    <mapping resource="Modelo/SmsLugares.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

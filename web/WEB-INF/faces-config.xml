@@ -267,4 +267,9 @@
         
         <!-- Prueba -->
     </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>lugarBean</managed-bean-name>
+        <managed-bean-class>Bean.LugarBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
 </faces-config>

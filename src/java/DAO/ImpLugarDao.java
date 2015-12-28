@@ -5,10 +5,11 @@
  */
 package DAO;
 
-import Modelo.SmsReservacion;
+import Modelo.SmsLugares;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,18 +18,20 @@ import org.hibernate.Session;
  *
  * @author Desarrollo_Planit
  */
-public class ImpReservacionDao implements IReservacionDao {
+public class ImpLugarDao implements ILugarDao {
 
     private FacesMessage message;
 
     @Override
-    public List<SmsReservacion> mostrarReservaciones() {
+    public List<SmsLugares> consultarLugares() {
         Session session = null;
-        List<SmsReservacion> reservaciones = new ArrayList<>();
+        List<SmsLugares> lugares = new ArrayList<>();
+
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsCiudad");
-            reservaciones = (List<SmsReservacion>) query.list();
+            Query query = session.createQuery("from SmsLugares as lugar left join fetch lugar.smsCiudad as ciudad");
+            lugares = (List<SmsLugares>) query.list();
+
         } catch (HibernateException e) {
             e.getMessage();
         } finally {
@@ -36,18 +39,18 @@ public class ImpReservacionDao implements IReservacionDao {
                 session.close();
             }
         }
-        return reservaciones;
+        return lugares;
     }
 
     @Override
-    public void registrarReservacion(SmsReservacion reservacion) {
+    public void registrarLugar(SmsLugares lugar) {
         Session session = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.save(reservacion);
+            session.save(lugar);
             session.getTransaction().commit();
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Reservacion registrada", "");
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Lugar registrado", "");
         } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
@@ -57,17 +60,18 @@ public class ImpReservacionDao implements IReservacionDao {
                 session.close();
             }
         }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
-    public void modificarReservacion(SmsReservacion reservacion) {
+    public void modificarLugar(SmsLugares lugar) {
         Session session = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.update(reservacion);
+            session.update(lugar);
             session.getTransaction().commit();
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Reservacion modificada", "");
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Lugar modificado", "");
         } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
@@ -77,17 +81,18 @@ public class ImpReservacionDao implements IReservacionDao {
                 session.close();
             }
         }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
-    public void eliminarReservacion(SmsReservacion reservacion) {
+    public void eliminarLugar(SmsLugares lugar) {
         Session session = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.delete(reservacion);
+            session.delete(lugar);
             session.getTransaction().commit();
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Reservacion eliminada", "");
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Lugar eliminado", "");
         } catch (HibernateException e) {
             e.getMessage();
             session.getTransaction().rollback();
@@ -97,6 +102,7 @@ public class ImpReservacionDao implements IReservacionDao {
                 session.close();
             }
         }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
 }

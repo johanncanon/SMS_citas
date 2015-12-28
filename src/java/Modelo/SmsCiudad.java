@@ -17,7 +17,7 @@ public class SmsCiudad  implements java.io.Serializable {
      private Set<SmsVehiculo> smsVehiculos = new HashSet<SmsVehiculo>(0);
      private Set<SmsUsuario> smsUsuarios = new HashSet<SmsUsuario>(0);
      private Set<SmsReservacion> smsReservacions = new HashSet<SmsReservacion>(0);
-
+     private Set<SmsLugares> smsLugares = new HashSet<SmsLugares>(0);
     public SmsCiudad() {
     }
 
@@ -25,12 +25,13 @@ public class SmsCiudad  implements java.io.Serializable {
     public SmsCiudad(SmsPais smsPais) {
         this.smsPais = smsPais;
     }
-    public SmsCiudad(SmsPais smsPais, String ciudadNombre, Set<SmsVehiculo> smsVehiculos, Set<SmsUsuario> smsUsuarios, Set<SmsReservacion> smsReservacions) {
+    public SmsCiudad(SmsPais smsPais, String ciudadNombre, Set<SmsVehiculo> smsVehiculos, Set<SmsUsuario> smsUsuarios, Set<SmsReservacion> smsReservacions, Set<SmsLugares> smsLugares) {
        this.smsPais = smsPais;
        this.ciudadNombre = ciudadNombre;
        this.smsVehiculos = smsVehiculos;
        this.smsUsuarios = smsUsuarios;
        this.smsReservacions = smsReservacions;
+       this.smsLugares = smsLugares;
     }
    
     public Integer getIdCiudad() {
@@ -75,6 +76,16 @@ public class SmsCiudad  implements java.io.Serializable {
     public void setSmsReservacions(Set<SmsReservacion> smsReservacions) {
         this.smsReservacions = smsReservacions;
     }
+
+    public Set<SmsLugares> getSmsLugares() {
+        return smsLugares;
+    }
+
+    public void setSmsLugares(Set<SmsLugares> smsLugares) {
+        this.smsLugares = smsLugares;
+    }
+    
+    
 
 }
 

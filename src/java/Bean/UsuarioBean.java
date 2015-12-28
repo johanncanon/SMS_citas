@@ -5,6 +5,7 @@
  */
 package Bean;
 
+import Controlador.MD5;
 import Controlador.Upload;
 import Controlador.Rol;
 import Controlador.Usuario;
@@ -66,6 +67,7 @@ public class UsuarioBean implements Serializable {
         rolView = new SmsRol();
         usuarioController = new Usuario();
         habilitado = true;
+        Usuario = new SmsUsuario();
 
         buscar = null;
         estado = 0;
@@ -333,22 +335,26 @@ public class UsuarioBean implements Serializable {
     public String login() {
         String ruta = "/login.xhtml";
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
-        List<SmsUsuario> user = usuarioDao.consultarDatosSesionUsuario(usuarioView);//Trae de la base de datos toda la informacion de usuario
+        MD5 md = new MD5();
+        Usuario.setUsuarioPassword(md.getMD5(Usuario.getUsuarioPassword()));
+        List<SmsUsuario> user = usuarioDao.consultarDatosSesionUsuario(Usuario);//Trae de la base de datos toda la informacion de usuario
 
         if (!user.isEmpty()) {//valida si el usuario existe en la BD
             if (user.get(0).getUsuarioEstadoUsuario() == 1) {//Evalua el estado de la cuenta de usuario, si esta activa o inactiva
-                if (user.get(0).getUsuarioLogin().equalsIgnoreCase(usuarioView.getUsuarioLogin()) && user.get(0).getUsuarioPassword().equalsIgnoreCase(usuarioView.getUsuarioPassword())) {
-                    ruta = usuarioController.iniciarSesion(usuarioView);//envia el objeto usuarioBean al metodo iniciarSesion para tomar este objeto como atributo de sesion
+                if (user.get(0).getUsuarioLogin().equalsIgnoreCase(Usuario.getUsuarioLogin()) && user.get(0).getUsuarioPassword().equalsIgnoreCase(Usuario.getUsuarioPassword())) {
+                    ruta = usuarioController.iniciarSesion(user.get(0));//envia el objeto usuarioBean al metodo iniciarSesion para tomar este objeto como atributo de sesion
                     Usuario = usuarioController.obtenerSesion();
-                    message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Acceso Correcto", "Bienvenid@: " + usuarioView.getUsuarioNombre());
+                    message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Acceso Correcto", "Bienvenid@: " + Usuario.getUsuarioNombre());
                 } else {
                     message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseña incorrecto", null);
+                    Usuario = new SmsUsuario();
                 }
             } else if (user.get(0).getUsuarioEstadoUsuario() == 0) {
                 message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario inactivo, imposible iniciar sesion", null);
             }
         } else {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario no existente", null);
+            Usuario = new SmsUsuario();
         }
         FacesContext.getCurrentInstance().addMessage(null, message);
         return ruta;
