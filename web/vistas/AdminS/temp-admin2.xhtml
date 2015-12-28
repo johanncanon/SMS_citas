@@ -16,7 +16,6 @@
         <h:outputStylesheet name="./adminLT/css/skins/_all-skins.min.css"/>
         <h:outputStylesheet name="./adminLT/css/bootstrap3-wysihtml5.css"/>
 
-        <h:outputScript name="./js/jquery.min.js" />
         <h:outputScript name="./js/bootstrap.min.js" />
         <h:outputScript name="./js/bootstrap3-wysihtml5.all.min.js" />
         <h:outputScript name="./js/app.js" />
@@ -166,14 +165,10 @@
                         </div>
                     </nav>
                 </header>
-
             </div>
-
-            <b:container fluid="true" class="adminLTE-espacioFrontal">
-
+        <b:container fluid="true" class="adminLTE-espacioFrontal">
                 <div>
                     <div id="left-99">
-
                         <!-- Left side column. contains the logo and sidebar -->
                         <aside class="main-sidebar">
                             <h:form>
@@ -193,7 +188,7 @@
                                     <form action="#" method="get" class="sidebar-form">
 
                                         <div class="input-group">
-                                            <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                                            <input type="text" name="q" class="form-control" placeholder="Buscar..."/>
                                             <span class="input-group-btn">
                                                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
                                             </span>
@@ -224,216 +219,91 @@
                                                     <h:link outcome="#{pathBean.ir_SMarcas()}">
                                                         <i class="fa fa-circle-o"></i> Marcas Sms
                                                     </h:link>
-                                                    
+
                                                 </li>
                                                 <li>
                                                     <h:link outcome="#{pathBean.ir_SReferencias()}">
                                                         <i class="fa fa-circle-o"></i> Referencias Sms
                                                     </h:link>
-                                                    
+
                                                 </li>
                                                 <li>
                                                     <h:link outcome="#{pathBean.ir_SCategoria()}">
                                                         <i class="fa fa-circle-o"></i> Categorias Sms
                                                     </h:link>
-                                                    
+
                                                 </li>
                                             </ul>
                                         </li>
                                         <li class="treeview">
                                             <a href="#">
-                                                <i class="fa fa-files-o"></i>
-                                                <span>Layout Options</span>
-                                                <span class="label label-primary pull-right">4</span>
+                                                <i class="fa fa-map-marker"></i>
+                                                <span>Lugares SMS Renta</span>
                                             </a>
                                             <ul class="treeview-menu">
-                                                <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-                                                <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                                                <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                                                <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="pages/widgets.html">
-                                                <i class="fa fa-th"></i> <span>Widgets</span> <small class="label pull-right bg-green">new</small>
-                                            </a>
-                                        </li>
-                                        <li class="treeview">
-                                            <a href="#">
-                                                <i class="fa fa-pie-chart"></i>
-                                                <span>Charts</span>
-                                                <i class="fa fa-angle-left pull-right"></i>
-                                            </a>
-                                            <ul class="treeview-menu">
-                                                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-                                                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-                                                <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-                                                <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="treeview">
-                                            <a href="#">
-                                                <i class="fa fa-laptop"></i>
-                                                <span>UI Elements</span>
-                                                <i class="fa fa-angle-left pull-right"></i>
-                                            </a>
-                                            <ul class="treeview-menu">
-                                                <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-                                                <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-                                                <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-                                                <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-                                                <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-                                                <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="treeview">
-                                            <a href="#">
-                                                <i class="fa fa-edit"></i> <span>Forms</span>
-                                                <i class="fa fa-angle-left pull-right"></i>
-                                            </a>
-                                            <ul class="treeview-menu">
-                                                <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-                                                <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-                                                <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="treeview">
-                                            <a href="#">
-                                                <i class="fa fa-table"></i> <span>Tables</span>
-                                                <i class="fa fa-angle-left pull-right"></i>
-                                            </a>
-                                            <ul class="treeview-menu">
-                                                <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-                                                <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="pages/calendar.html">
-                                                <i class="fa fa-calendar"></i> <span>Calendar</span>
-                                                <small class="label pull-right bg-red">3</small>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="pages/mailbox/mailbox.html">
-                                                <i class="fa fa-envelope"></i> <span>Mailbox</span>
-                                                <small class="label pull-right bg-yellow">12</small>
-                                            </a>
-                                        </li>
-                                        <li class="treeview">
-                                            <a href="#">
-                                                <i class="fa fa-folder"></i> <span>Examples</span>
-                                                <i class="fa fa-angle-left pull-right"></i>
-                                            </a>
-                                            <ul class="treeview-menu">
-                                                <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                                                <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-                                                <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                                                <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                                                <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-                                                <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                                                <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                                                <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="treeview">
-                                            <a href="#">
-                                                <i class="fa fa-share"></i> <span>Multilevel</span>
-                                                <i class="fa fa-angle-left pull-right"></i>
-                                            </a>
-                                            <ul class="treeview-menu">
-                                                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+                                                <li class="active">
+                                                    <h:link outcome="#{pathBean.ir_SCiudad()}">                                                            
+                                                        <i class="fa fa-circle-o"></i> Ciudades
+                                                    </h:link>
+                                                </li>
                                                 <li>
-                                                    <a href="#"><i class="fa fa-circle-o"></i> Level One <i class="fa fa-angle-left pull-right"></i></a>
-                                                    <ul class="treeview-menu">
-                                                        <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                                                        <li>
-                                                            <a href="#"><i class="fa fa-circle-o"></i> Level Two <i class="fa fa-angle-left pull-right"></i></a>
-                                                            <ul class="treeview-menu">
-                                                                <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                                                <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
+                                                    <h:link outcome="#{pathBean.ir_SPais()}">
+                                                        <i class="fa fa-circle-o"></i> Paises 
+                                                    </h:link>
+
                                                 </li>
-                                                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-                                        <li class="header">LABELS</li>
-                                        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-                                        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-                                        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+                                        <li>                                                
+                                            <h:link outcome="#{pathBean.ir_SReservacion()}">
+                                                <i class="fa fa-list-alt"></i> <span>Reservaciones SMS Renta</span> 
+                                            </h:link>
+
+                                        </li>
+                                        <li class="treeview">
+                                            <h:link outcome="#{pathBean.ir_SClientes()}">
+                                                <i class="fa fa-user-plus"></i> <span>Clientes SMS Renta</span> 
+                                            </h:link>
+                                        </li>
+                                        <li class="treeview">
+                                            <h:link outcome="#{pathBean.ir_SEmpleados()}">
+                                                <i class="fa fa-tachometer"></i> <span>Conductores</span> 
+                                            </h:link>
+                                        </li>
+                                        <li class="treeview">
+                                            <h:link outcome="#{pathBean.ir_SEmpleados()}">
+                                                <i class="fa fa-star-half-o"></i> <span>Calificaciones SMS Renta</span> 
+                                            </h:link>
+                                        </li>
+                                        <li class="treeview">
+                                            <h:link outcome="#{pathBean.ir_SEmpleados()}">
+                                                <i class="fa fa-truck"></i> <span>Proveedores SMS Renta</span> 
+                                            </h:link>
+                                        </li>
+
                                     </ul>
                                 </section>
                                 <!-- /.sidebar -->
                             </h:form>
                         </aside>
-                        <!-- Content Wrapper. Contains page content -->
-
-
-
-
-                        <!-- <p:panelMenu styleClass="ui-state-default-menu">
-
-                             <p:submenu label="Tablero Principal" >
-                                 <p:menuitem style="font-size: 1.2em" value="Tablero Principal SMS Renta " action="#{pathBean.ir_SGeneral()}"  icon="ui-icon-star" />
-                             </p:submenu>
-
-                             <p:submenu label="Vehiculos" >
-                                 <p:menuitem style="font-size: 1.2em" value="Marcas SMS Renta" action="#{pathBean.ir_SMarcas()}" icon="ui-icon-home"/>
-                                 <p:menuitem style="font-size: 1.2em"  value="Categorias SMS Renta" action="#{pathBean.ir_SCategoria()}" icon="ui-icon-contact"/>
-                                 <p:menuitem style="font-size: 1.2em" value="Referencias SMS Renta" action="#{pathBean.ir_SReferencias()}" icon="ui-icon-folder-collapsed" />
-                                 <p:menuitem style="font-size: 1.2em" value="Vehiculo SMS Renta" action="#{pathBean.ir_SVehiculos()}" icon="ui-icon-person" />
-                             </p:submenu>
-
-                             <p:submenu label="Lugares SMS Renta" styleClass="color-menu-1" icon="ui-icon-pencil">
-                                 <p:menuitem style="font-size: 1.2em" value="Ciudad" icon="ui-icon-pencil" action="#{pathBean.ir_SCiudad()}"/>
-                                 <p:menuitem style="font-size: 1.2em" value="Pais" icon="ui-icon-pencil" action="#{pathBean.ir_SPais()}"/>
-                             </p:submenu>
-
-                             <p:submenu label="Reservaciones" >
-                                 <p:menuitem style="font-size: 1.2em" value="Reservar Servicio SMS " action="#{pathBean.ir_SReservacion()}"  icon="ui-icon-star" />
-                             </p:submenu>
-
-                             <p:submenu label="Clientes">
-                                 <p:menuitem style="font-size: 1.2em" value="Consultar Clientes" action="#{pathBean.ir_SClientes()}"  ajax="false" icon="ui-icon-circle-zoomin"/>
-                             </p:submenu>
-
-                             <p:submenu label="Conductores SMS">
-                                 <p:menuitem style="font-size: 1.2em" value="Registro de Conductor" icon="ui-icon-pencil" action="#{pathBean.ir_SEmpleados()}"/>
-                             </p:submenu>
-
-                             <p:submenu label="Calificaciones">
-                                 <p:menuitem style="font-size: 1.2em" value="Consultar Calificaciones" action="#{pathBean.ir_MenuPrueba()}" icon="ui-icon-star"/>
-                             </p:submenu>
-                         </p:panelMenu>-->
                     </div>
-
-                    <div id="content-123" class="content-wrapper">
+                    <div id="content-123" class="content-wrapper min-alto">
                         <ui:insert name="content1"></ui:insert>    
                     </div>
-
                 </div>
-
-
-
-                <div id="bottom">
-
-                    <b:row>
-                        <b:column>
-                            <div id="footer">
-                                <p>
-                                    <span class="copy-r"> Copyright © 2015 | Realizado por <a href="www.planit.com.co">Planit SAS</a>.</span> Todos los derechos reservados.
-                                </p>
-                            </div>
-                        </b:column>
-                    </b:row>
-                </div>
-
-
             </b:container>
-
         </div>
+        
+        <div id="bottom-12">
+
+            <footer class="main-footer" style="left: 15px; position: relative; top: 10px;
+                    ">
+                <p>
+                    <span class="copy-r"> Copyright © 2015 | Realizado por <a href="www.planit.com.co">Planit SAS</a>.</span> Todos los derechos reservados.
+                </p>
+            </footer>
+        </div>
+
     </h:body>
 
 </html>

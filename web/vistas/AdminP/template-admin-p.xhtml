@@ -14,135 +14,325 @@
         <h:outputStylesheet name="./bootstrap/css/bootstrap.css"/>
         <h:outputStylesheet name="./adminLT/css/AdminLTE.css"/>
         <h:outputStylesheet name="./adminLT/css/skins/_all-skins.min.css"/>
+        <h:outputStylesheet name="./adminLT/css/bootstrap3-wysihtml5.css"/>
+
+        <h:outputScript name="./js/bootstrap.min.js" />
+        <h:outputScript name="./js/bootstrap3-wysihtml5.all.min.js" />
+        <h:outputScript name="./js/app.js" />
 
         <title>Dashboard SMS | Administradot Principal</title>
     </h:head>
 
 
-    <h:body>
+    <h:body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
 
-        <div id="top">
-            <b:container fluid="true">
-                <b:row><!-- MENU -->
-                    <b:navBar  brandImg="../../../resources/images/logo-DASH.png"   brandHref="#"  inverse="true">
 
-                        <b:navbarLinks pull="right">
+            <div>
+                <header class="main-header">
 
-                            <ui:include src="general/menu-responsive.xhtml"></ui:include>
-                            <b:dropMenu value="Nombre del Usuario">
-                                <b:navLink value="Perfil" href="#"></b:navLink>
-                                <b:navLink></b:navLink>
-                                <b:navLink header="Sesión"></b:navLink>
-                                <h:form><p:commandButton value="Cerrar Sesion" action="#{usuarioBean.logout()}" icon="power"  style="margin-left:5%"/></h:form>                                   
+                    <a class="logo">
+                        <div class="logo-mini">
 
-                            </b:dropMenu>
-                        </b:navbarLinks>
-                    </b:navBar>
-                </b:row><!-- MENU -->
-            </b:container>
+                        </div>                  
+                        <div class="logo-lg">                            
+                            <img class="navbar-brand" src="../../../resources/images/logo-DASH.png" />
+                        </div>                  
+                    </a>
 
-        </div>
+                    <!-- Logo -->
+                    <!-- Header Navbar: style can be found in header.less -->
+                    <nav class="navbar navbar-static-top" role="navigation">
+                        <!-- Sidebar toggle button-->
+                        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                            <span class="sr-only">Toggle navigation</span>
+                        </a>
 
-        <b:container fluid="true">
+                        <div class="navbar-custom-menu">
+                            <ul class="nav navbar-nav">
 
-            <b:row>
-                <div class="men-desap">
+                                <!-- Tasks: style can be found in dropdown.less -->
+                                <li class="dropdown tasks-menu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-flag-o"></i>
+                                        <span class="label label-danger">9</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="header">You have 9 tasks</li>
+                                        <li>
+                                            <!-- inner menu: contains the actual data -->
+                                            <ul class="menu">
+                                                <li><!-- Task item -->
+                                                    <a href="#">
+                                                        <h3>
+                                                            Design some buttons
+                                                            <small class="pull-right">20%</small>
+                                                        </h3>
+                                                        <div class="progress xs">
+                                                            <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                                <span class="sr-only">20% Complete</span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li><!-- end task item -->
+                                                <li><!-- Task item -->
+                                                    <a href="#">
+                                                        <h3>
+                                                            Create a nice theme
+                                                            <small class="pull-right">40%</small>
+                                                        </h3>
+                                                        <div class="progress xs">
+                                                            <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                                <span class="sr-only">40% Complete</span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li><!-- end task item -->
+                                                <li><!-- Task item -->
+                                                    <a href="#">
+                                                        <h3>
+                                                            Some task I need to do
+                                                            <small class="pull-right">60%</small>
+                                                        </h3>
+                                                        <div class="progress xs">
+                                                            <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                                <span class="sr-only">60% Complete</span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li><!-- end task item -->
+                                                <li><!-- Task item -->
+                                                    <a href="#">
+                                                        <h3>
+                                                            Make beautiful transitions
+                                                            <small class="pull-right">80%</small>
+                                                        </h3>
+                                                        <div class="progress xs">
+                                                            <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                                <span class="sr-only">80% Complete</span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li><!-- end task item -->
+                                            </ul>
+                                        </li>
+                                        <li class="footer">
+                                            <a href="#">View all tasks</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!-- User Account: style can be found in dropdown.less -->
+                                <li class="dropdown user user-menu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                                        <span class="hidden-xs">Alexander Pierce</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <!-- User image -->
+                                        <li class="user-header">
+                                            <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                                            <p>
+                                                Alexander Pierce - Web Developer
+                                                <small>Member since Nov. 2012</small>
+                                            </p>
+                                        </li>
+                                        <!-- Menu Body -->
+                                        <li class="user-body">
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Followers</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Sales</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Friends</a>
+                                            </div>
+                                        </li>
+                                        <!-- Menu Footer-->
+                                        <li class="user-footer">
+                                            <div class="pull-left">
+                                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                            </div>
+                                            <div class="pull-right">
+                                                <h:form>
+                                                    <p:commandButton value="Cerrar Sesion" action="#{usuarioBean.logout()}" class="btn btn-default btn-flat"/>
+                                                </h:form> 
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
 
-                    <b:column col-lg="3" col-md="3" col-sm="4" col-xs="12">
-                        <h:form>
-                            <div id="left">
-                                <p:growl autoUpdate="true"/>
-                                <b:thumbnail id="esp1">
+                            </ul>
+                        </div>
+                    </nav>
+                </header>
+            </div>
+
+            <b:container fluid="true" class="adminLTE-espacioFrontal">
+
+                <div>
+                    <div id="left-99">
+                        <!-- Left side column. contains the logo and sidebar -->
+                        <aside class="main-sidebar">
+                            <h:form>
+                                <!-- sidebar: style can be found in sidebar.less -->
+                                <section class="sidebar">
+                                    <!-- Sidebar user panel -->
                                     <div class="user-panel">
-                                        <div class="pull-left image" id="esp1">
+                                        <div class="pull-left image">
                                             <img src="../../../resources/images/col-band.png" class="img-circle" alt="User Image"/>
                                         </div>
                                         <div class="pull-left info">
-
                                             <p>#{usuarioBean.usuario.usuarioNombre}</p>
-                                           <!--<p>Razon Social: #{usuarioBean.usuario.usuarioRazonSocial}</p>-->
-                                            <p>Perfil: #{usuarioBean.usuario.smsRol.rolNombre}</p>
+                                            <p>#{usuarioBean.usuario.smsRol.rolNombre}</p>
                                         </div>
                                     </div>
-                                </b:thumbnail>
-                                <p:panelMenu styleClass="ui-state-default-menu">
+                                    <!-- search form -->
+                                    <form action="#" method="get" class="sidebar-form">
 
-                                    <p:submenu label="Tablero Principal SMS Renta" styleClass="color-menu-1" icon="ui-icon-pencil">
-                                        <p:menuitem style="font-size: 1.2em" value="Panel Principal" action="#{pathBean.ir_PPrincipal()}" icon="ui-icon-pencil"></p:menuitem>                                        
-                                    </p:submenu>
+                                        <div class="input-group">
+                                            <input type="text" name="q" class="form-control" placeholder="Buscar..."/>
+                                            <span class="input-group-btn">
+                                                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                    <!-- /.search form -->
+                                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                                    <ul class="sidebar-menu">
+                                        <li class="header">Menu Principal</li>
+                                        <li>
+                                            <h:link outcome="#{pathBean.ir_PPrincipal()}">
+                                                <i class="fa fa-dashboard"></i> <span>Tablero Principal</span>
+                                            </h:link>
 
-                                    <p:submenu label="Administradores" styleClass="color-menu-1" icon="ui-icon-pencil">
-                                        <p:menuitem style="font-size: 1.2em" value="Panel de administradores" action="#{pathBean.ir_PUsuario()}" icon="ui-icon-pencil"></p:menuitem>                                        
-                                        <p:menuitem style="font-size: 1.2em" value="Rolles" action="#{pathBean.ir_PRol()}" icon="ui-icon-pencil"></p:menuitem>                                        
-                                    </p:submenu>
+                                        </li>
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fa fa-car"></i> <span>Vehiculos SMS</span> <i class="fa fa-angle-left pull-right"></i>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li class="active">
+                                                    <h:link outcome="#{pathBean.ir_PVehiculos()}">                                                            
+                                                        <i class="fa fa-circle-o"></i> Vehiculos Sms
+                                                    </h:link>
+                                                </li>
 
-                                    <p:submenu label="Reservaciones" >
-                                        <p:menuitem style="font-size: 1.2em" value="Panel Reserva" action="#{pathBean.ir_PReserva()}"  icon="ui-icon-star" />
-                                    </p:submenu>
+                                                <li>
+                                                    <h:link outcome="#{pathBean.ir_PMarca()}">
+                                                        <i class="fa fa-circle-o"></i> Marcas Sms
+                                                    </h:link>
 
-                                    <p:submenu label="Ubicacion del Servicio" >
-                                        <p:menuitem style="font-size: 1.2em" value="Paises" action="#{pathBean.ir_PPais()}"  icon="ui-icon-star" />
-                                        <p:menuitem style="font-size: 1.2em" value="Ciudades" action="#{pathBean.ir_PCiudad()}"  icon="ui-icon-star" />
-                                    </p:submenu>
+                                                </li>
+                                                <li>
+                                                    <h:link outcome="#{pathBean.ir_PReferencias()}">
+                                                        <i class="fa fa-circle-o"></i> Referencias Sms
+                                                    </h:link>
 
+                                                </li>
+                                                <li>
+                                                    <h:link outcome="#{pathBean.ir_PCategoria()}">
+                                                        <i class="fa fa-circle-o"></i> Categorias Sms
+                                                    </h:link>
 
-                                    <p:submenu label="Servicios" >
-                                        <p:menuitem style="font-size: 1.2em" value="Panel Servicios" action="#{pathBean.ir_PServicios()}"  icon="ui-icon-star" />
-                                    </p:submenu>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fa fa-user-plus"></i>
+                                                <span>Administradores</span><i class="fa fa-angle-left pull-right"></i>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li class="active">
+                                                    <h:link outcome="#{pathBean.ir_PUsuario()}">                                                            
+                                                        <i class="fa fa-circle-o"></i> Panel de Administradores
+                                                    </h:link>
+                                                </li>
+                                                <li>
+                                                    <h:link outcome="#{pathBean.ir_PRol()}">
+                                                        <i class="fa fa-circle-o"></i> Roles
+                                                    </h:link>
 
-                                    <p:submenu label="Clientes">
-                                        <p:menuitem style="font-size: 1.2em" value="Panel de Clientes" action="#{pathBean.ir_PCliente()}" icon="ui-icon-check"/>                                        
-                                    </p:submenu>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>                                                
+                                            <h:link outcome="#{pathBean.ir_PReserva()}">
+                                                <i class="fa fa-list-alt"></i> <span>Reservaciones SMS Renta</span> 
+                                            </h:link>
 
-                                    <p:submenu label="Vehiculos" >
-                                        <p:menuitem style="font-size: 1.2em" value="Marcas SMS Renta" action="#{pathBean.ir_PMarca()}" icon="ui-icon-home"/>
-                                        <p:menuitem style="font-size: 1.2em" value="Categorias SMS Renta" action="#{pathBean.ir_PCategoria()}" icon="ui-icon-contact"/>
-                                        <p:menuitem style="font-size: 1.2em" value="Referencias SMS Renta" action="#{pathBean.ir_PReferencias()}" icon="ui-icon-folder-collapsed" />
-                                        <p:menuitem style="font-size: 1.2em" value="Vehiculo SMS Renta" action="#{pathBean.ir_PVehiculos()}" icon="ui-icon-person" />
-                                    </p:submenu>
+                                        </li>
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fa fa-map-marker"></i>
+                                                <span>Lugares SMS Renta</span><i class="fa fa-angle-left pull-right"></i>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li class="active">
+                                                    <h:link outcome="#{pathBean.ir_PPais()}">                                                            
+                                                        <i class="fa fa-circle-o"></i> Ciudades
+                                                    </h:link>
+                                                </li>
+                                                <li>
+                                                    <h:link outcome="#{pathBean.ir_PPais()}">
+                                                        <i class="fa fa-circle-o"></i> Paises 
+                                                    </h:link>
 
-                                    <p:submenu label="Conductores">
-                                        <p:menuitem style="font-size: 1.2em" value="Panel Conductores" action="#{pathBean.ir_PEmpleado()}" icon="ui-icon-arrowstop-1-s"/>                                        
-                                    </p:submenu>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>                                                
+                                            <h:link outcome="#{pathBean.ir_PServicios()}">
+                                                <i class="fa fa-check-circle"></i> <span>Servicios SMS Renta</span> 
+                                            </h:link>
 
-                                    <p:submenu label="Proveedores">
-                                        <p:menuitem style="font-size: 1.2em" value="Panel Proveedores" action="#{pathBean.ir_PProveedor()}" icon="ui-icon-star"/>
-                                    </p:submenu>
+                                        </li>
+                                        <li class="treeview">
+                                            <h:link outcome="#{pathBean.ir_PCliente()}">
+                                                <i class="fa fa-user-plus"></i> <span>Clientes SMS Renta</span> 
+                                            </h:link>
+                                        </li>
 
-                                    <p:submenu label="Calificaciones">
-                                        <p:menuitem style="font-size: 1.2em" value="Consultar Calificaciones" url="#" icon="ui-icon-star"/>
-                                    </p:submenu>
+                                        <li class="treeview">
+                                            <h:link outcome="#{pathBean.ir_PEmpleado()}">
+                                                <i class="fa fa-star-half-o"></i> <span>Calificaciones SMS Renta</span> 
+                                            </h:link>
+                                        </li>
+                                        <li class="treeview">
+                                            <h:link outcome="#{pathBean.ir_PProveedor()}">
+                                                <i class="fa fa-truck"></i> <span>Proveedores SMS Renta</span> 
+                                            </h:link>
+                                        </li>
+                                        <li class="treeview">
+                                            <h:link outcome="#{pathBean.ir_PEstadisticas()}">
+                                                <i class="fa fa-bar-chart"></i> <span>Estadisticas SMS Renta</span> 
+                                            </h:link>
+                                        </li>
 
-                                    <p:submenu label="Estadisticas">
-                                        <p:menuitem style="font-size: 1.2em" value="Estadisticas generales de SMS Renta" action="#{pathBean.ir_PEstadisticas()}" icon="ui-icon-star"/>
-                                    </p:submenu>
-                                </p:panelMenu>
-                            </div>
-                        </h:form>
-                    </b:column>
-
+                                    </ul>
+                                </section>
+                                <!-- /.sidebar -->
+                            </h:form>
+                        </aside>
+                    </div>
+                    <div id="content-123" class="content-wrapper min-alto"  >
+                        <ui:insert name="content"></ui:insert>    
+                    </div>
                 </div>
+            </b:container>
+        </div>
 
-                <div id="content" class="left_content">
-                    <ui:insert name="content"></ui:insert>    
-                </div>
+        <div id="bottom-12">
 
-            </b:row>
+            <footer class="main-footer" style="left: 15px; position: relative; top: 10px;
+                    ">
+                <p>
+                    <span class="copy-r"> Copyright © 2015 | Realizado por <a href="www.planit.com.co">Planit SAS</a>.</span> Todos los derechos reservados.
+                </p>
+            </footer>
+        </div>
 
-
-            <div id="bottom">
-                <b:row>
-                    <b:column>
-                        <div id="footer">
-                            <p>
-                                <span class="copy-r"> Copyright © 2015 | Realizado por <a href="www.planit.com.co">Planit SAS</a>.</span> Todos los derechos reservados.
-                            </p>
-                        </div>
-                    </b:column>
-                </b:row>
-            </div>
-
-        </b:container>
 
     </h:body>
 

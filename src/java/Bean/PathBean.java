@@ -128,9 +128,13 @@ public class PathBean {
     }
     
     /* / CONDUCTOR/ */
-    /* / PRUEBA/ */
-    public String ir_MenuPrueba(){
-        return "ContenidoPrueba_Menu";
+    /* / PRoveedor/ */
+    
+    public String ir_ProDashboard(){
+        return "ProveedorDash";
     }
-    /* / PRUEBA/ */
+    public String ir_ProEstVehi(){
+        return "ProveedorEstadoVehiculo";
+    }
+    /* / PROVEEDOR/ */
 }

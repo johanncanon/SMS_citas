@@ -591,6 +591,9 @@ a:focus {
         margin-left: 36px!important;
         z-index: 840;
     }
+  
+    
+  
     .sidebar-mini.sidebar-collapse .main-sidebar {
         -webkit-transform: translate(0, 0);
         -ms-transform: translate(0, 0);
@@ -4691,6 +4694,12 @@ table.text-center th {
  * Misc: print
  * -----------
  */
+
+.min-alto{
+    min-height: 690px !important;
+}
+
+
 @media print {
     .no-print,
     .main-sidebar,
