@@ -75,6 +75,10 @@ public class PathBean {
     public String ir_PVehiculos() {
         return "AdminPVehiculos";
     }
+    
+    public String ir_PEdicionPerfil() {
+        return "AdminPEdicionPerfil";
+    }
     /* / ADMIN PRINCIPAL / */
     /* / ADMIN SECUNDARIO / */
 
@@ -121,14 +125,23 @@ public class PathBean {
     public String ir_SProveedor(){
         return "AdminSProveedor";
     }
+    
+    public String ir_SEdicionPerfil(){
+        return "AdminSEdicionPerfil";
+    }
 
     /* / ADMIN SECUNDARIO / */
     /* / CONDUCTOR / */
     public String ir_ConductorDash(){
         return "ConductorDash";
     }
+    
     public String ir_ConductorCliente(){
         return "ConductorCliente";
+    }
+    
+    public String ir_ConductorEdicionPerfil(){
+        return "CondEdicionPerfil";
     }
     
     /* / CONDUCTOR/ */
@@ -137,8 +150,13 @@ public class PathBean {
     public String ir_ProDashboard(){
         return "ProveedorDash";
     }
+    
     public String ir_ProEstVehi(){
         return "ProveedorEstadoVehiculo";
+    }
+    
+    public String ir_ProEdicionPerfil(){
+        return "ProveedorEdicionPerfil";
     }
     /* / PROVEEDOR/ */
 }

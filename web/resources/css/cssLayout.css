@@ -567,6 +567,19 @@ td, th {
         margin-bottom: -30px;
         margin-left: 32%;
     }
+}
 
+.logo-men-1{
+    width: 100%;
+    height: auto;
+    margin-top: 3px;
+}
 
+@media screen and (max-width: 767px){
+    .logo-men-1 {
+        max-width: 230px;
+        height: auto;
+        margin-top: 3px;
+        margin-left: 31%;
+    }
 }

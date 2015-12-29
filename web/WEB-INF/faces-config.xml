@@ -93,6 +93,11 @@
         <managed-bean-class>Bean.PathBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>lugarBean</managed-bean-name>
+        <managed-bean-class>Bean.LugarBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
@@ -177,6 +182,12 @@
             <to-view-id>/login.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminPEdicionPerfil</from-outcome>
+            <to-view-id>/vistas/AdminP/general/EdicionPerfil.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
         
         <!-- ADMIN PRINCIPAL -->   
         <!-- ADMIN SECUNDARIO --> 
@@ -234,8 +245,13 @@
             <from-outcome>AdminSProveedor</from-outcome>
             <to-view-id>/vistas/AdminS/proveedores/SProveedores.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
-        
+        </navigation-case>   
+        <navigation-case>
+            <from-outcome>AdminSEdicionPerfil</from-outcome>
+            <to-view-id>/vistas/AdminS/general/EdicionPerfil.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+         
         <!-- ADMIN SECUNDARIO -->
         <!-- CONDUCTOR -->
         <navigation-case>
@@ -246,6 +262,11 @@
         <navigation-case>
             <from-outcome>ConductorCliente</from-outcome>
             <to-view-id>/vistas/Conductor/consultar-clientes.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>CondEdicionPerfil</from-outcome>
+            <to-view-id>/vistas/Conductor/EdicionPerfil.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         
@@ -261,6 +282,11 @@
             <to-view-id>/vistas/Proveedor/estadoVehiculos.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>ProveedorEdicionPerfil</from-outcome>
+            <to-view-id>/vistas/Proveedor/EdicionPerfil.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>     
         
         <!-- Proveedor -->
         <!-- Prueba -->
@@ -269,13 +295,8 @@
             <to-view-id>/vistas/AdminS/clientes/PruebaMenu/conenidoPrueba.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-        
         <!-- Prueba -->
         
     </navigation-rule>
-    <managed-bean>
-        <managed-bean-name>lugarBean</managed-bean-name>
-        <managed-bean-class>Bean.LugarBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
+    
 </faces-config>

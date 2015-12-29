@@ -206,6 +206,7 @@ a:focus {
     margin-left: 230px;
     border: none;
     min-height: 50px;
+    height: 50px;
     border-radius: 0;
 }
 .layout-top-nav .main-header > .navbar {
@@ -591,9 +592,9 @@ a:focus {
         margin-left: 36px!important;
         z-index: 840;
     }
-  
-    
-  
+
+
+
     .sidebar-mini.sidebar-collapse .main-sidebar {
         -webkit-transform: translate(0, 0);
         -ms-transform: translate(0, 0);
@@ -1072,9 +1073,9 @@ a:focus {
 .navbar-nav > .user-menu > .dropdown-menu {
     border-top-right-radius: 0;
     border-top-left-radius: 0;
-    padding: 1px 0 0 0;
-    border-top-width: 0;
-    width: 280px;
+    padding: 0px 0px 0 0;
+    border-top-width: 1px;
+    width: 300px;
 }
 .navbar-nav > .user-menu > .dropdown-menu,
 .navbar-nav > .user-menu > .dropdown-menu > .user-body {
@@ -1082,8 +1083,8 @@ a:focus {
     border-bottom-left-radius: 4px;
 }
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
-    height: 175px;
-    padding: 10px;
+    height: 166px;
+    padding: 13px;
     text-align: center;
 }
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header > img {
@@ -4739,4 +4740,9 @@ table.text-center th {
     .table-responsive > .table tr td {
         white-space: normal!important;
     }
+}
+
+.nav-sms{
+    padding: 15px !important;
+    margin-right:  70px !important;
 }
