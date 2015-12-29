@@ -117,6 +117,10 @@ public class PathBean {
     public String ir_SReservacion(){
         return "AdminSReserva";
     }
+    
+    public String ir_SProveedor(){
+        return "AdminSProveedor";
+    }
 
     /* / ADMIN SECUNDARIO / */
     /* / CONDUCTOR / */

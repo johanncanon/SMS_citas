@@ -230,6 +230,11 @@
             <to-view-id>/vistas/AdminS/reservas/PReserva.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminSProveedor</from-outcome>
+            <to-view-id>/vistas/AdminS/proveedores/SProveedores.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>        
         
         <!-- ADMIN SECUNDARIO -->
         <!-- CONDUCTOR -->
@@ -243,7 +248,7 @@
             <to-view-id>/vistas/Conductor/consultar-clientes.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-                
+        
         <!-- CONDUCTOR -->
         <!-- Proveedor -->
         <navigation-case>
@@ -266,6 +271,7 @@
         </navigation-case>
         
         <!-- Prueba -->
+        
     </navigation-rule>
     <managed-bean>
         <managed-bean-name>lugarBean</managed-bean-name>

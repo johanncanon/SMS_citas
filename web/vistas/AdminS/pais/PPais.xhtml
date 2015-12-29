@@ -15,9 +15,8 @@
                         <h:form>
                             <p:messages id="messages" showDetail="true"/>
                             
-                            
-                                <b:column col-lg="11" col-md="11" col-sm="11" col-xs="12">
-                                    <div class="box box-info espacio-arriba">
+                            <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                                <div class="box box-info espacio-arriba">
                                         <div class="box-header with-border">
                                             <i class="fa fa-2x fa-globe"/>
                                             <h4 class="box-title">Registro de Paises</h4>
@@ -27,13 +26,11 @@
                                                 SMS Renta presta sus servicios.</p> 
                                         </div>
                                     </div>
-                                </b:column>
-
-                            <b:column col-lg="4" col-md="4" col-sm="11" col-xs="12">
+                                
                                 <div class="box box-danger">
                                     <div class="box-header with-border">
                                         <i class="fa fa-2x fa-globe"/>
-                                        <h4 class="box-title">Datos de pais</h4><hr/>
+                                        <h4 class="box-title">Datos de pais</h4>
                                     </div> 
                                     <div class="box-body">
                                         <div class="table-responsive">
@@ -41,15 +38,15 @@
                                                 <p:outputLabel value="Nombre del pais:"/>
                                                 <b:inputText placeholder="Nombre del pais"  value="#{paisBean.paisView.paisNombre}" style="width: 100%"/>                                         
                                             </h:panelGrid>
-                                        </div><hr/>
+                                        </div><br/>
                                         <p:commandButton class="btn btn-block btn-primary"  id="BTPais" action="#{paisBean.metodo()}" update="messages PPais BTPais DTPaises" value="#{paisBean.nombre}"/>                                       
                                         
                                     </div>
                                 </div>
                             </b:column>
                             
-                            <b:column col-lg="7" col-md="7" col-sm="11" col-xs="12">
-                                <div class="box box-success">
+                            <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
+                                <div class="box box-success espacio-arriba">
                                     <div class="box-header with-border">
                                         <i class="fa fa-2x fa-list-alt"/>
                                         <h4 class="box-title">Lista de ciudades</h4>
