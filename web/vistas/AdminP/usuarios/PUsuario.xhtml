@@ -12,23 +12,9 @@
         <ui:define name="content">
             <b:container fluid="true">
                 <b:row>
-                    <h:form id="formA">
-                        <b:column col-lg="11" col-md="11" col-sm="11" col-xs="12" class="espacio-arriba">
-                            <div class="box box-info">
-                                <div class="box-header with-border">
-                                    <i class="fa fa-2x fa-user-plus"/>
-                                    <h4 class="box-title">Registro de Administradores</h4>                                    
-                                </div>
-                                <div class="box-body">
-                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros usuarios y podra crear una cuenta de sesion para el ingreso al sistema,
-                                        esta cuenta podra ser de tipo administrador principal o secundario.</p> 
-
-                                </div>   
-                            </div>
-                        </b:column>
-
-                        <b:column col-lg="6" col-md="6" col-sm="11" col-xs="12">
-                            <div class="box box-danger">
+                    <b:column col-lg="6" col-md="6" col-sm="12" col-xs="12">
+                        <h:form id="formA">
+                            <div class="box box-danger espacio-arriba">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-list-alt"/>
                                     <h4 class="box-title">Datos de Administrador</h4>                                       
@@ -67,7 +53,7 @@
                                             </b:selectOneMenu>
                                             <p:message for="SCiudades"/>
                                         </h:panelGrid>
-                                        
+
                                     </div>
                                 </div>                                                               
 
@@ -105,10 +91,25 @@
                                 </div>
 
                             </div>
-                        </b:column>                          
-                    </h:form>
-                    <h:form id="formB" enctype="multipart/form-data">
-                        <b:column col-lg="5" col-md="5" col-sm="11" col-xs="12">
+                        </h:form>
+                    </b:column>                          
+
+                    <b:column col-lg="6" col-md="6" col-sm="12" col-xs="12" class="espacio-arriba">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <i class="fa fa-2x fa-user-plus"/>
+                                <h4 class="box-title">Registro de Administradores</h4>                                    
+                            </div>
+                            <div class="box-body">
+                                <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros usuarios y podra crear una cuenta de sesion para el ingreso al sistema,
+                                    esta cuenta podra ser de tipo administrador principal o secundario.</p> 
+
+                            </div>   
+                        </div>
+                    </b:column>
+
+                    <b:column col-lg="6" col-md="6" col-sm="12" col-xs="12">
+                        <h:form id="formB" enctype="multipart/form-data">
                             <div class="box box-primary">
                                 <p:fragment autoUpdate="true">
                                     <div class="box-header with-border">
@@ -125,11 +126,11 @@
                                     </div>
                                 </p:fragment>
                             </div>
-                        </b:column>
-                    </h:form>
+                        </h:form>
+                    </b:column>
 
-                    <h:form id="formC">
-                        <b:column col-lg="5" col-md="5" col-sm="11" col-xs="12">
+                    <b:column col-lg="6" col-md="6" col-sm="12" col-xs="12">
+                        <h:form id="formC">
                             <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-users"/>
@@ -164,9 +165,9 @@
 
                                 </div>
                             </div>
-                        </b:column>
+                        </h:form>
+                    </b:column>
 
-                    </h:form>
                 </b:row>
             </b:container>
         </ui:define>

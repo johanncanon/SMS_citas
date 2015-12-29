@@ -13,7 +13,18 @@
                 <b:row>
                     <h:form> 
 
-                        <b:column col-lg="7" col-md="11" col-sm="11" col-xs="12">
+                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                            <div class="box box-info espacio-arriba">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-map-marker"/>
+                                    <h4 class="box-title">Registro de Ciudades</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a las ciudades en donde
+                                        SMS Renta presta sus servicios.</p> 
+                                </div>
+                            </div>
+                            
                             <div class="box box-danger espacio-arriba">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-pencil-square-o"/>
@@ -37,23 +48,11 @@
                                     <p:commandButton class="btn btn-block btn-danger" id="BTCiudad" action="#{ciudadBean.metodo()}" update="@form" value="#{ciudadBean.nombre}"/>                                       
                                 </div>
                             </div> 
+
+                            
                         </b:column>
 
-                        <b:column col-lg="4" col-md="5" col-sm="11" col-xs="12">
-                            <div class="box box-info espacio-arriba">
-                                <div class="box-header with-border">
-                                    <i class="fa fa-2x fa-map-marker"/>
-                                    <h4 class="box-title">Registro de Ciudades</h4>
-                                </div> 
-                                <div class="box-body">
-                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a las ciudades en donde
-                                        SMS Renta presta sus servicios.</p> 
-                                </div>
-                            </div>
-                        </b:column>
-
-                        
-                        <b:column col-lg="11" col-md="6" col-sm="11" col-xs="12">
+                        <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
                             <div class="box box-success espacio-arriba">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-search"/>
@@ -92,8 +91,8 @@
                                 </div>
                             </div> 
                         </b:column>
-                        
-                        
+
+
                     </h:form> 
                 </b:row>
             </b:container>

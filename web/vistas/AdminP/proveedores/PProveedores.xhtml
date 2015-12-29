@@ -11,27 +11,10 @@
         <ui:define name="content">
             <b:container fluid="true">
                 <b:row>
-                    <h:form id="formA">
 
-
-
-                        <b:column col-lg="11" col-md="11" col-sm="11" col-xs="12" >
-                            <div class="box box-info espacio-arriba">
-                                <div class="box-header with-border">
-                                    <i class="fa fa-2x fa-truck"/>
-                                    <h4 class="box-title">Registro de Proveedores</h4>
-                                </div>
-                                <div class="box-body">
-                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros proveedores, asignar una valor
-                                        de ganancias y ademas podra crear una cuenta de sesion para el ingreso al sistema.</p> 
-                                </div>
-                            </div>
-                        </b:column>
-
-
-
-                        <b:column col-lg="7" col-md="7" col-sm="11" col-xs="12">
-                            <div class="box box-danger">
+                    <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
+                        <h:form id="formA">
+                            <div class="box box-danger espacio-arriba">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-file-text"/>
                                     <h4 class="box-title"> Datos del ProveedorR</h4>                                   
@@ -95,11 +78,22 @@
 
                                 </div>                                        
                             </div>
-                        </b:column>
-                    </h:form>
+                        </h:form>
+                    </b:column>
 
-                    <h:form id="formB" enctype="multipart/form-data">
-                        <b:column col-lg="4" col-md="4" col-sm="11" col-xs="12">
+                    <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" >
+                        <div class="box box-info espacio-arriba">
+                            <div class="box-header with-border">
+                                <i class="fa fa-2x fa-truck"/>
+                                <h4 class="box-title">Registro de Proveedores</h4>
+                            </div>
+                            <div class="box-body">
+                                <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros proveedores, asignar una valor
+                                    de ganancias y ademas podra crear una cuenta de sesion para el ingreso al sistema.</p> 
+                            </div>
+                        </div>
+
+                        <h:form id="formB" enctype="multipart/form-data">
                             <div class="box box-primary">
                                 <p:fragment autoUpdate="true">
                                     <div class="box-header with-border">
@@ -116,11 +110,11 @@
                                     </div>
                                 </p:fragment>
                             </div>
-                        </b:column>
-                    </h:form>
-                    
-                    <h:form id="formC">
-                        <b:column col-lg="11" col-md="11" col-sm="11" col-xs="12">
+                        </h:form>
+                    </b:column>
+
+                    <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                        <h:form id="formC">
                             <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-users"/>
@@ -160,11 +154,11 @@
                                             </p:commandButton>
                                         </p:column>
                                     </p:dataTable>
-                                    
+
                                 </div>
                             </div>
-                        </b:column>
-                    </h:form>
+                        </h:form>
+                    </b:column>
                 </b:row>
             </b:container>
         </ui:define>

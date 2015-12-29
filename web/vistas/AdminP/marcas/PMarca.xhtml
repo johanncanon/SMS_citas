@@ -14,44 +14,8 @@
                     <b:row>
                         <h:form>  
                             
-                            <b:column col-lg="11" col-md="11" col-sm="11" col-xs="12" >
-                                <div class="box box-info espacio-arriba">
-                                    <div class="box-header with-border">
-                                        <i class="fa fa-2x fa-tag"/>
-                                        <h3 class="box-title">Marcas SMS Renta</h3>
-                                    </div>
-                                    <div class="box-body">
-                                        <p>En este panel podra ingresar las Marcas de los vehiculos de SMS renta como 
-                                            consultar los vehiculos por sus respectivas Marcas.</p>
-
-                                    </div>
-                                </div>
-                            </b:column>
-
-                            <b:column col-lg="5" col-md="5" col-sm="11" col-xs="12">
-                                <div class="box box-danger">
-                                    <div class="box-header with-border">
-                                        <i class="fa fa-2x fa-car"/>
-                                        <h4 class="box-title">Ingreso de Marcas de Vehiculos SMS</h4>
-                                    </div> 
-                                    <div class="box-body">
-                                        <div class="table-responsive">
-
-                                            <h:panelGrid cellpadding="5" columns="3" id="PMarca" style="width: 100%">
-                                                <p:outputLabel  value="Nombre de Marca: "/>
-                                                <b:inputText placeholder="Nombre de marca" id="TNombreMrc" required="true" requiredMessage="Ingrese nombre" style="width: 100%" value="#{marcaBean.marcaView.marcaNombre}"/>
-                                                <p:message for="TNombreMrc"/>
-                                            </h:panelGrid>
-                                        </div>
-                                        <hr/>                                
-                                        <p:commandButton id="BTMarca" class="btn btn-block btn-danger" update="@form" value="#{marcaBean.nombre}" action="#{marcaBean.metodo()}"/>
-
-                                    </div>                                    
-                                </div>
-                            </b:column>
-
-                            <b:column col-lg="6" col-md="6" col-sm="11" col-xs="12">
-                                <div class="box box-success">
+                            <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
+                                <div class="box box-success espacio-arriba">
                                     <div class="box-header with-border">
                                         <i class="fa fa-2x fa-list-ol"/>
                                         <h4 class="box-title">Lista de Vehìculos SMS por Marcas</h4>
@@ -86,6 +50,44 @@
                                 </div>
                                 
                             </b:column>
+                            
+                            <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" >
+                                <div class="box box-info espacio-arriba">
+                                    <div class="box-header with-border">
+                                        <i class="fa fa-2x fa-tag"/>
+                                        <h3 class="box-title">Marcas SMS Renta</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <p>En este panel podra ingresar las Marcas de los vehiculos de SMS renta como 
+                                            consultar los vehiculos por sus respectivas Marcas.</p>
+
+                                    </div>
+                                </div>
+                            </b:column>
+
+                            <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                                <div class="box box-danger">
+                                    <div class="box-header with-border">
+                                        <i class="fa fa-2x fa-car"/>
+                                        <h4 class="box-title">Ingreso de Marcas de Vehiculos SMS</h4>
+                                    </div> 
+                                    <div class="box-body">
+                                        <div class="table-responsive">
+
+                                            <h:panelGrid cellpadding="5" columns="3" id="PMarca" style="width: 100%">
+                                                <p:outputLabel  value="Nombre de Marca: "/>
+                                                <b:inputText placeholder="Nombre de marca" id="TNombreMrc" required="true" requiredMessage="Ingrese nombre" style="width: 100%" value="#{marcaBean.marcaView.marcaNombre}"/>
+                                                <p:message for="TNombreMrc"/>
+                                            </h:panelGrid>
+                                        </div>
+                                        <hr/>                                
+                                        <p:commandButton id="BTMarca" class="btn btn-block btn-danger" update="@form" value="#{marcaBean.nombre}" action="#{marcaBean.metodo()}"/>
+
+                                    </div>                                    
+                                </div>
+                            </b:column>
+
+                            
                         </h:form> 
                     </b:row>
                 </b:container>
