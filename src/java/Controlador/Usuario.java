@@ -204,7 +204,7 @@ public class Usuario {
                         ruta = "ConductorDash";
                         break;
                     case "Proveedor":
-                        ruta = "Dashboard-Proveedor.xhtml";
+                        ruta = "ProveedorDash";
                         break;
                 }
             }
