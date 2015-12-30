@@ -159,4 +159,17 @@ public class PathBean {
         return "ProveedorEdicionPerfil";
     }
     /* / PROVEEDOR/ */
+    /* / CLIENTE/ */
+    public String ir_ClienteReservacion(){
+        return "ClienteReservacion";
+    }
+    
+    public String ir_ClienteTableroPrincipal(){
+        return "ClienteTableroPrincipal";
+    }
+    
+    public String ir_ClienteEdicionPerfil(){
+        return "ClienteEdicionPerfil";
+    }
+    /* / CLIENTE/ */
 }

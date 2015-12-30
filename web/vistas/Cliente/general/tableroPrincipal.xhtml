@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="./../temp-cliente.xhtml">
+        <ui:define name="content2">
+
+            <b:container fluid="true">
+               <b:row>
+                    <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12"  >
+                        <div class="box box-info espacio-arriba">
+                            <div class="box-header with-border">
+                                <i class="fa fa-2x fa-calendar"/>
+                                <h2 class="box-title">Calendario de Eventos <srtong>SMS Renta</srtong></h2>
+                            </div>
+                            <div class="box-body">
+                                <!-- CALENDARIO PRINCIPAL -->
+                                <ui:include src="agenda.xhtml"></ui:include>
+                            </div>
+                        </div>
+                    </b:column>
+
+
+                    <b:column col-lg="5" col-md="5" col-sm="6" col-xs="12">
+                        <div class="box box-danger espacio-arriba">
+                            <div class="box-header with-border">
+                                <i class="fa fa-2x fa-road" />
+                                <h3 class="box-title">Conductor Elegido</h3>
+                            </div>
+                            <div class="box-body">
+                                <!-- LISTA DE CONDUCTORES -->
+                                <ui:include src="conductor.xhtml"></ui:include>
+                            </div>
+                        </div>
+                    </b:column>
+
+                    <b:column col-lg="5" col-md="5" col-sm="6" col-xs="12">
+                        <div class="box box-solid bg-green-gradient ">
+                            <div class="box-header with-border">
+                                <i class="fa fa-2x fa-dashboard" />
+                                <h3 class="box-title">Tablero Principal</h3>
+                            </div>
+                            <div class="box-body">
+                                <p class="text-justify">
+                                    En el tablero principal podra ver una vista general de las actividades mas 
+                                    importates realizadas dentro de SMS Renta:<em>Horarios, clientes, Conductores, 
+                                        Vehiculos y Estadisticas.</em>
+                                </p>
+                            </div>
+                        </div>
+                    </b:column>
+
+
+                    <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" >
+                        <div class="box box-warning">
+                            <div class="box-header with-border">
+                                <i class="fa fa-2x fa-car" />
+                                <h3 class="box-title">Vehiculo escogido</h3>
+                            </div>
+                            <div class="box-body">
+                                <!-- CARUSEL DE VEHICULOS -->
+                                <ui:include src="carousel-cars.xhtml"></ui:include>
+                            </div>
+                        </div>
+                    </b:column>
+
+                  
+                </b:row>
+            </b:container>
+
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

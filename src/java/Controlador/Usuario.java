@@ -198,7 +198,7 @@ public class Usuario {
                         ruta = "AdminSGeneral";
                         break;
                     case "Cliente":
-                        ruta = "Dashboard-Cliente.xhtml";
+                        ruta = "ClienteReservacion";
                         break;
                     case "Empleado":
                         ruta = "ConductorDash";

@@ -12,10 +12,14 @@
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
         <h:outputStylesheet name="./bootstrap/css/bootstrap.css"/>
-        <h:outputStylesheet name="./bootstrap/css/bootstrap.min.css"/>
-        <h:outputStylesheet name="./bootstrap/css/prub.css"/>
-        <h:outputStylesheet name="./adminLT/css/AdminLTE.min.css"/>
+        <h:outputStylesheet name="./adminLT/css/AdminLTE.css"/>
         <h:outputStylesheet name="./adminLT/css/skins/_all-skins.css"/>
+        <h:outputStylesheet name="./adminLT/css/bootstrap3-wysihtml5.css"/>
+
+
+        <h:outputScript name="./js/bootstrap.min.js" />
+        <h:outputScript name="./js/bootstrap3-wysihtml5.all.min.js" />
+        <h:outputScript name="./js/app.js" />
 
         <script>
             $(document).ready(function () {
@@ -71,53 +75,155 @@
         <title>Dashboard SMS | Sesion de Cliente</title>
     </h:head>
 
-    <h:body>
+    <h:body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
 
-        <div id="top">
-            <b:container fluid="true">
-                <b:row><!-- MENU -->
-                    <div class="nav-cliente ">
-                        <b:navBar  brandImg="../../resources/images/logo-DASH.png" id="nav-cliente-img"  brandHref="#"  inverse="true">
-                            <b:navbarLinks pull="right">
+            <div>
+                <header class="main-header">
 
-                                <ui:include src="general/men-respn-c.xhtml"></ui:include>
-                                <b:dropMenu value="Nombre del Usuario">
-                                    <b:navLink value="Perfil" href="#"></b:navLink>
-                                    <b:navLink></b:navLink>
-                                    <b:navLink header="Sesión"></b:navLink>
-                                    <h:form><p:commandButton value="Cerrar Sesion"  icon="power"  style="margin-left:5%"/></h:form>                                   
+                    <a class="logo">
+                        <div class="logo-mini">
+                            <img class="navbar-brand " style=" margin-left: -13px" src="../../../resources/images/logo-sms-mini.png" />
+                        </div>                  
+                        <div class="logo-lg">                            
+                            <img class="navbar-brand logo-men-1" src="../../../resources/images/logo-DASH.png" />
+                        </div>                  
+                    </a>
 
-                                </b:dropMenu>
-                            </b:navbarLinks>
-                        </b:navBar>
+                    <!-- Logo -->
+                    <!-- Header Navbar: style can be found in header.less -->
+                    <nav class="navbar navbar-static-top" role="navigation">
+                        <!-- Sidebar toggle button-->
+                        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                            <span class="sr-only">Toggle navigation</span>
+                        </a>
+
+                        <div class="navbar-custom-menu">
+                            <ul class="nav navbar-nav">
+
+                                <!-- Tasks: style can be found in dropdown.less -->
+                                <li class="dropdown tasks-menu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style=" padding: 15px !important;">
+                                        <i class="fa fa-flag-o"></i>
+                                        <span class="label label-danger">9</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="header">You have 9 tasks</li>
+
+                                        <li class="footer">
+                                            <a href="#">View all tasks</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!-- User Account: style can be found in dropdown.less -->
+                                <li class="dropdown user user-menu">
+                                    <a href="#" class="dropdown-toggle nav-sms" data-toggle="dropdown">
+                                        <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                                        <span class="hidden-xs">#{usuarioBean.usuario.usuarioNombre}</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <!-- User image -->
+                                        <li class="user-header">
+                                            <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                                            <p>#{usuarioBean.usuario.usuarioNombre}<br/>
+                                                <small>#{usuarioBean.usuario.smsRol.rolNombre}</small>
+                                            </p>
+
+                                        </li>
+
+                                        <!-- Menu Footer-->
+                                        <li class="user-footer">
+                                            <div class="pull-left">
+                                                <h:form>
+                                                    <p:commandButton value="Editar Perfil" action="#{pathBean.ir_ClienteEdicionPerfil()}" class="btn btn-default btn-block "/>
+                                                </h:form>
+                                            </div>
+                                            <div class="pull-right">
+                                                <h:form>
+                                                    <p:commandButton value="Cerrar Sesion" action="#{usuarioBean.logout()}" class="btn btn-default btn-block "/>
+                                                </h:form> 
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </nav>
+                </header>
+            </div>
+
+
+            <b:container fluid="true" class="adminLTE-espacioFrontal">
+
+                <div>
+                    <div id="left-123">
+                        <!-- Left side column. contains the logo and sidebar -->
+                        <aside class="main-sidebar">
+                            <h:form>
+                                <!-- sidebar: style can be found in sidebar.less -->
+                                <section class="sidebar">
+                                    <!-- Sidebar user panel -->
+                                    <div class="user-panel">
+                                        <div class="pull-left image">
+                                            <img src="../../../resources/images/col-band.png" class="img-circle" alt="User Image"/>
+                                        </div>
+                                        <div class="pull-left info">
+                                            <p>#{usuarioBean.usuario.usuarioNombre}</p>
+                                            <p>#{usuarioBean.usuario.smsRol.rolNombre}</p>
+                                        </div>
+                                    </div>
+                                    <!-- search form -->
+                                    <form action="#" method="get" class="sidebar-form">
+
+                                        <div class="input-group">
+                                            <input type="text" name="q" class="form-control" placeholder="Buscar..."/>
+                                            <span class="input-group-btn">
+                                                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                    <!-- /.search form -->
+                                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                                    <ul class="sidebar-menu">
+                                        <li class="header">Menu Principal</li>
+                                        <li>
+                                            <h:link outcome="#{pathBean.ir_ClienteTableroPrincipal()}">
+                                                <i class="fa fa-dashboard"></i> <span>Tablero Principal</span>
+                                            </h:link>
+                                        </li>
+                                        
+                                        <li>
+                                            <h:link outcome="#{pathBean.ir_ClienteReservacion()}">
+                                                <i class="fa fa-list-alt"></i> <span>Reservacion SMS Renta</span>
+                                            </h:link>
+                                        </li>
+                                        <li>
+                                            <h:link outcome="#{pathBean.ir_ClienteEdicionPerfil()}">
+                                                <i class="fa fa-wrench"></i> <span>Datos de Përfil</span>
+                                            </h:link>
+                                        </li>
+                                    </ul>
+                                </section>
+                                <!-- /.sidebar -->
+                            </h:form>
+                        </aside>
                     </div>
-                </b:row><!-- MENU -->
-            </b:container>
 
-        </div>
-
-
-        <b:container fluid="true">
-            <b:row>
-                
-                    <div id="content" class="left-content-cliente">
+                    <div id="content" class="content-wrapper">
                         <ui:insert name="content2"></ui:insert>    
                     </div>
-                
-            </b:row>
-
-            <div id="bottom">
-                <b:row>
-                    <b:column>
-                        <div id="footer">
-                            <p>
-                                <span class="copy-r"> Copyright © 2015 | Realizado por <a href="www.planit.com.co">Planit SAS</a>.</span> Todos los derechos reservados.
-                            </p>
-                        </div>
-                    </b:column>
-                </b:row>
-            </div>
-        </b:container>
+                </div>
+            </b:container>
+        </div>
+        
+        <div id="bottom-12">
+            <footer class="main-footer" style="left: 15px; position: relative; top: 10px;">
+                <p>
+                    <span class="copy-r"> Copyright © 2015 | Realizado por <a href="www.planit.com.co">Planit SAS</a>.</span> Todos los derechos reservados.
+                </p>
+            </footer>
+        </div>
 
     </h:body>
 

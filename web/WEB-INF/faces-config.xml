@@ -296,7 +296,23 @@
             <redirect/>
         </navigation-case>
         <!-- Prueba -->
-        
+        <!-- CLIENTE -->
+        <navigation-case>
+            <from-outcome>ClienteReservacion</from-outcome>
+            <to-view-id>/vistas/Cliente/dash-prueba-cliente.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ClienteTableroPrincipal</from-outcome>
+            <to-view-id>/vistas/Cliente/general/tableroPrincipal.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ClienteEdicionPerfil</from-outcome>
+            <to-view-id>/vistas/Cliente/EdicionPerfil.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <!-- CLIENTE -->
     </navigation-rule>
     
 </faces-config>
