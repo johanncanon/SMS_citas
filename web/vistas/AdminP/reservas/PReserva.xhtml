@@ -45,14 +45,8 @@
                                                     <i class="fa fa-2x"></i>
                                                     <span class="label-cl">Lugar de recogida: </span>                                                   
                                                 </div>
-                                                <b:selectOneMenu>
-                                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione lugar de recogida"/>
-                                                    <f:selectItems value="#{lugarBean.lugaresListView}"/>
-                                                </b:selectOneMenu>
+                                                <b:inputText style="width: 100%" placeholder="Lugar de recogida" required="true" requiredMessage="Indique lugar de recogida" value="#{agendaBean.reservaView.reservacionLugarLlegada}"/>
 
-
-                                                <p:outputLabel/>
-                                                <b:commandButton value="Registrar lugar de recogida" onclick="PF('dlg2').show();"/>
 
                                                 <div style="left: 50%; position: relative;">
                                                     <i class="fa fa-2x"></i>
@@ -60,16 +54,7 @@
                                                 </div>
                                                 <b:inputText style="width: 100%" placeholder="Lugar de destino" required="true" requiredMessage="Indique lugar de destino" value="#{agendaBean.reservaView.reservacionLugarDestino}"/>
                                             </h:panelGrid>
-                                        </b:panel>
-                                        
-                                        <p:dialog header="Registro Lugar" widgetVar="dlg2" height="100">                                            
-                                            <h:panelGrid columns="2" cellpadding="5"> 
-                                                <p:inputText value="Nombre del lugar"/>
-                                                <b:inputText style="width: 100%" placeholder="Lugar de recogida" required="true" requiredMessage="Indique lugar de recogida" value="#{lugarBean.lugarView.lugarNombre}"/>
-                                                <p:inputText value="Direccion"/>
-                                                <b:inputText style="width: 100%" placeholder="Direccion" required="true" requiredMessage="Indique direccion del lugar" value="#{lugarBean.lugarView.lugarDireccion}"/>
-                                            </h:panelGrid>
-                                        </p:dialog> 
+                                        </b:panel>                                        
                                     </p:tab>
 
                                     <p:tab id="Agendamiento" title="Agendamiento">
@@ -80,22 +65,24 @@
                                                 final del servicio SMS:</p>
                                             <hr/>                                           
 
-                                            <h:panelGrid columns="4" cellpadding="2">
-
-                                                <p:outputLabel for="CFechaInicio" value="Fecha de Inicio:" style="font-weight: 800"/>                                                    
+                                            <h:panelGrid columns="3" cellpadding="2">
+                                                <p:outputLabel for="CFechaInicio" value="Fecha de Inicio:" style="font-weight: 800; width: 180px;"/>                                                    
                                                 <p:calendar id="CFechaInicio" style="width: 100%" value="#{agendaBean.agendaView.agendaFechaInicio}" pattern="yyyy-MM-dd" required="true"/> 
+                                                <p:message for="CFechaInicio"/>
 
-                                                <p:outputLabel for="CHoraInicio" style="font-weight: 800" value="Hora de inicio:" />
+                                                <p:outputLabel for="CHoraInicio" style="font-weight: 800; width: 180px" value="Hora de inicio:" />
                                                 <p:calendar id="CHoraInicio" style="width: 100%" value="#{agendaBean.agendaView.agendaHoraInicio}" required="true" pattern="HH:mm:ss" timeOnly="true"/>
+                                                <p:message for="CHoraInicio"/>
                                             </h:panelGrid>
                                             <hr/>
-                                            <h:panelGrid columns="4" cellpadding="2">        
-                                                <p:outputLabel style="font-weight: 800" for="CFechaEntrega" value="Fecha de Entrega:" />
-                                                <p:calendar id="CFechaEntrega" style="width: 100%" value="#{agendaBean.agendaView.agendaFechaLlegada}" pattern="yyyy-MM-dd" required="true"/> 
+                                            <h:panelGrid columns="3" cellpadding="2">        
+                                                <p:outputLabel style="font-weight: 800; width: 180px;" for="CFechaEntrega" value="Fecha de Entrega:" />
+                                                <p:calendar id="CFechaEntrega" style="width: 100%" value="#{agendaBean.agendaView.agendaFechaLlegada}" pattern="yyyy-MM-dd" required="true"/>
+                                                <p:message for="CFechaEntrega"/>
 
-                                                <p:outputLabel style="font-weight: 800" for="CHoraEntrega" value="Hora de Entrega:" /> 
+                                                <p:outputLabel style="font-weight: 800; width: 180px" for="CHoraEntrega" value="Hora de Entrega:" /> 
                                                 <p:calendar id="CHoraEntrega"  style="width: 100%" value="#{agendaBean.agendaView.agendaHoraLlegada}" required="true" pattern="HH:mm:ss" timeOnly="true"/> 
-
+                                                <p:message for="CHoraEntrega"/>
                                             </h:panelGrid>                                           
                                         </b:panel>
                                     </p:tab>
