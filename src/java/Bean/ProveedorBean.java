@@ -49,6 +49,7 @@ public class ProveedorBean implements Serializable {
     //Variables
     private String buscar;
     private Boolean habilitarEditarSesion;
+    private Boolean habilitarRegistroSesion;
     private String pass;
 
     public ProveedorBean() {
@@ -62,7 +63,7 @@ public class ProveedorBean implements Serializable {
 
         buscar = null;
         habilitarEditarSesion = false;
-
+        habilitarRegistroSesion = false;
     }
 
     @PostConstruct
@@ -157,14 +158,7 @@ public class ProveedorBean implements Serializable {
         this.fileController = fileController;
     }
 
-    public void filtrar() {
-        proveedoresListView = new ArrayList<>();
-        if (buscar == null) {
-            proveedoresListView = proveedorController.consultarProveedores();
-        } else {
-            proveedoresListView = proveedorController.filtrarProveedores(buscar);
-        }
-    }
+    
 
     public SmsUsuario getModUsuarioView() {
         return modUsuarioView;
@@ -181,6 +175,16 @@ public class ProveedorBean implements Serializable {
     public void setHabilitarEditarSesion(Boolean habilitarEditarSesion) {
         this.habilitarEditarSesion = habilitarEditarSesion;
     }
+
+    public Boolean getHabilitarRegistroSesion() {
+        return habilitarRegistroSesion;
+    }
+
+    public void setHabilitarRegistroSesion(Boolean habilitarRegistroSesion) {
+        this.habilitarRegistroSesion = habilitarRegistroSesion;
+    }
+    
+    
     
     
 
@@ -243,6 +247,14 @@ public class ProveedorBean implements Serializable {
         modUsuarioView = new SmsUsuario();
     }
 
+    public void filtrar() {
+        proveedoresListView = new ArrayList<>();
+        if (buscar == null) {
+            proveedoresListView = proveedorController.consultarProveedores();
+        } else {
+            proveedoresListView = proveedorController.filtrarProveedores(buscar);
+        }
+    }
     //Metodos propios
     public String irModificarProveedores() {
         proveedorView = proveedorController.consultarProveedor(modUsuarioView).get(0);
@@ -271,5 +283,13 @@ public class ProveedorBean implements Serializable {
         habilitarEditarSesion = false;
         modUsuarioView.setUsuarioPassword(pass);
         modUsuarioView.setUsuarioRememberToken(pass);
+    }
+    
+    public void habilitarRegistro() {
+        habilitarRegistroSesion = true;
+    }
+
+    public void deshabilitarRegistro() {
+        habilitarRegistroSesion = false;
     }
 }

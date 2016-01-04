@@ -76,11 +76,15 @@
                                     </div>
                                     <div class="box-header with-border">
                                         <i class="fa fa-2x fa-check-square"/>
-                                        <h4 class="box-title">Datos de Sesión</h4>                                        
+                                        <h4 class="box-title">Datos de Sesión</h4>
+                                        <br/><br/> 
+                                        <p:commandLink value="Editar datos de sesion">
+                                            <p:ajax listener="#{proveedorBean.habilitarRegistro()}" event="click" update="@form"/>
+                                        </p:commandLink>
                                     </div>
                                     <div class="box-body">
                                         <div class="table-responsive"> 
-                                            <h:panelGrid columns="2" id="seccionDatosSesion"  cellpadding="2"  style="width: 100%">
+                                            <h:panelGrid columns="2" rendered="#{proveedorBean.habilitarRegistroSesion}" id="seccionDatosSesion"  cellpadding="2"  style="width: 100%">
 
                                                 <p:outputLabel value="Login: "/>
                                                 <b:inputText style="width: 100%" maxlength="60" validator="regLoginValidator" placeholder="Login de sesion" value="#{proveedorBean.usuarioView.usuarioLogin}"></b:inputText>
@@ -94,7 +98,11 @@
                                                 <b:inputSecret label="Repita Contraseña" style="width: 100%" maxlength="20" validator="repeatPasswordValidator" placeholder="Repita contraseña de sesion" value="#{proveedorBean.usuarioView.usuarioRememberToken}">
                                                     <f:attribute name="password" value="#{ProvPass.value}"/>
                                                     <f:validateLength minimum="6"/>
-                                                </b:inputSecret>                               
+                                                </b:inputSecret>
+
+                                                <p:commandLink value="Cerrar">
+                                                    <p:ajax event="click" listener="#{proveedorBean.deshabilitarRegistro()}" update="@form"/>
+                                                </p:commandLink>
 
                                             </h:panelGrid>                                        
                                         </div><hr/>                                    

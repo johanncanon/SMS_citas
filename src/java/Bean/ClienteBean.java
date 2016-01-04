@@ -15,8 +15,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -38,6 +36,7 @@ public class ClienteBean implements Serializable {
     //Variables    
     private String buscar;
     private Boolean habilitarEditarSesion;
+    private Boolean habilitarRegistroSesion;
     private String pass;
     
     public ClienteBean() {
@@ -49,6 +48,7 @@ public class ClienteBean implements Serializable {
         modClienteView = new SmsUsuario();        
         buscar = null;
         habilitarEditarSesion = false;
+        habilitarRegistroSesion = false;
         }
 
     @PostConstruct
@@ -128,6 +128,14 @@ public class ClienteBean implements Serializable {
 
     public void setHabilitarEditarSesion(Boolean habilitarEditarSesion) {
         this.habilitarEditarSesion = habilitarEditarSesion;
+    }
+
+    public Boolean getHabilitarRegistroSesion() {
+        return habilitarRegistroSesion;
+    }
+
+    public void setHabilitarRegistroSesion(Boolean habilitarRegistroSesion) {
+        this.habilitarRegistroSesion = habilitarRegistroSesion;
     }
 
     
@@ -223,6 +231,14 @@ public class ClienteBean implements Serializable {
         habilitarEditarSesion = false;
         modClienteView.setUsuarioPassword(pass);
         modClienteView.setUsuarioRememberToken(pass);
+    }
+    
+    public void habilitarRegistro() {
+        habilitarRegistroSesion = true;
+    }
+
+    public void deshabilitarRegistro() {
+        habilitarRegistroSesion = false;
     }
     
 

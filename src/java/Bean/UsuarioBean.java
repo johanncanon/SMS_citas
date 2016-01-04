@@ -57,6 +57,7 @@ public class UsuarioBean implements Serializable {
     //Variables
     private String buscar;
     private Boolean habilitarEditarSesion;
+    private Boolean habilitarRegistroSesion;
     private String pass;
 
     public UsuarioBean() {
@@ -70,6 +71,7 @@ public class UsuarioBean implements Serializable {
 
         buscar = null;
         habilitarEditarSesion = false;
+        habilitarRegistroSesion = false;
     }
 
     @PostConstruct
@@ -192,14 +194,22 @@ public class UsuarioBean implements Serializable {
         modUsuarioView = new SmsUsuario();
     }
 
+    public Boolean getHabilitarRegistroSesion() {
+        return habilitarRegistroSesion;
+    }
+
+    public void setHabilitarRegistroSesion(Boolean habilitarRegistroSesion) {
+        this.habilitarRegistroSesion = habilitarRegistroSesion;
+    }
+
     public String modificar() {
         MD5 md = new MD5();
-        
-        if(habilitarEditarSesion){ // en caso de modificar las contraseñas estas se encriptan de nuevo
+
+        if (habilitarEditarSesion) { // en caso de modificar las contraseñas estas se encriptan de nuevo
             modUsuarioView.setUsuarioPassword(md.getMD5(modUsuarioView.getUsuarioPassword()));
             modUsuarioView.setUsuarioRememberToken(md.getMD5(modUsuarioView.getUsuarioRememberToken()));
         }
-        
+
         usuarioController.modificarUsuario(modUsuarioView, ciudadView, rolView);
         usuariosListView = usuarioController.consultarAdministradores();
 
@@ -208,7 +218,7 @@ public class UsuarioBean implements Serializable {
         rolView = new SmsRol();
         modUsuarioView = new SmsUsuario();
         habilitarEditarSesion = false;
-        
+
         String ruta = "RAdminPUsuario";
         return ruta;
     }
@@ -263,7 +273,15 @@ public class UsuarioBean implements Serializable {
         modUsuarioView.setUsuarioRememberToken(pass);
     }
 
+    public void habilitarRegistro() {
+        habilitarRegistroSesion = true;
+    }
+
+    public void deshabilitarRegistro() {
+        habilitarRegistroSesion = false;
+    }
 //Metodos para iniciar Sesion
+
     public String login() {
         String ruta = "/login.xhtml";
         IUsuarioDao usuarioDao = new ImpUsuarioDao();

@@ -50,6 +50,7 @@ public class EmpleadoBean implements Serializable {
 
     private String buscar;
     private Boolean habilitarEditarSesion;
+    private Boolean habilitarRegistroSesion;
     private String pass;
 
     private Boolean habilitarSubirFoto;
@@ -78,6 +79,7 @@ public class EmpleadoBean implements Serializable {
 
         buscar = null;
         habilitarEditarSesion = false;
+        habilitarRegistroSesion = false;
         estado = 0;
 
         habilitarSubirArchivo = false;
@@ -273,6 +275,14 @@ public class EmpleadoBean implements Serializable {
         this.habilitarEditarSesion = habilitarEditarSesion;
     }
 
+    public Boolean getHabilitarRegistroSesion() {
+        return habilitarRegistroSesion;
+    }
+
+    public void setHabilitarRegistroSesion(Boolean habilitarRegistroSesion) {
+        this.habilitarRegistroSesion = habilitarRegistroSesion;
+    }
+
     //Metodos que se comunican con el controlador    
     public void registrar() {
 
@@ -393,7 +403,7 @@ public class EmpleadoBean implements Serializable {
         modUsuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         hojavidaView = new SmsHojavida();
-        
+
         estadoFoto = "Foto sin subir";
         subirFoto = "Subir Fotografia";
         habilitarSubirFoto = false;
@@ -402,7 +412,6 @@ public class EmpleadoBean implements Serializable {
         subirArchivo = "Subir Hoja de vida";
         habilitarSubirArchivo = false;
         registroHojaVida = false;
-       
 
         habilitarEditarSesion = false;
         String ruta = "AdminPEmpleado";
@@ -420,6 +429,14 @@ public class EmpleadoBean implements Serializable {
         habilitarEditarSesion = false;
         modUsuarioView.setUsuarioPassword(pass);
         modUsuarioView.setUsuarioRememberToken(pass);
+    }
+
+    public void habilitarRegistro() {
+        habilitarRegistroSesion = true;
+    }
+
+    public void deshabilitarRegistro() {
+        habilitarRegistroSesion = false;
     }
 
     //Subida de archivos

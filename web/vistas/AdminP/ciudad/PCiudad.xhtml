@@ -83,11 +83,16 @@
                                         </p:column>
 
                                         <p:column style="width: 35px"> 
-                                            <p:commandLink process="@this" update="@form" class="fa fa-close btn btn-block btn-danger" style="color: white" action="#{ciudadBean.seleccionarCrud(2)}" title="Eliminar">
+                                            <p:commandLink process="@this" update="@form" class="fa fa-trash btn btn-block btn-danger" style="color: white" action="#{ciudadBean.seleccionarCrud(2)}" title="Eliminar">
                                                 <f:setPropertyActionListener value="#{ciudades}" target="#{ciudadBean.ciudadView}"/>
+                                                <p:confirm header="Confirmacion" message="Esta seguro que desea eliminar esta ciudad?" icon="ui-icon-alert" /> 
                                             </p:commandLink>
                                         </p:column>
-                                    </p:dataTable>                                
+                                    </p:dataTable>    
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <b:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" look="success" iconAwesome="fa fa-check" />
+                                        <b:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" look="danger" iconAwesome="fa fa-close" />
+                                    </p:confirmDialog>
                                 </div>
                             </div> 
                         </b:column>

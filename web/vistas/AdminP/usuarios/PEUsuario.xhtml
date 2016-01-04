@@ -111,7 +111,13 @@
                                                     <f:attribute name="password" value="#{MUsuarioPass.value}"/>
                                                 </b:inputSecret>
                                                 <p:message for="TRemPassUsu"/>
-
+                                                
+                                                <p:commandLink value="Cerrar">
+                                                    <p:ajax event="click" listener="#{usuarioBean.deshabilitarEdicion()}" update="@form"/>
+                                                </p:commandLink>
+                                            </h:panelGrid>
+                                            
+                                            <h:panelGrid columns="3" style="width: 100%">
                                                 <p:outputLabel value="Perfil:* "/>
                                                 <b:selectOneMenu required="true" requiredMessage="Seleccion tipo de usuario" id="SPerfiles" style="width: 100%" value="#{usuarioBean.rolView.rolNombre}">
                                                     <f:selectItem itemLabel="Seleccione tipo de perfil"/>
@@ -119,12 +125,9 @@
                                                     <f:selectItem itemLabel="Administrador Secundario" itemValue="Administrador Secundario"/>
                                                 </b:selectOneMenu>
                                                 <p:message for="SPerfiles"/>
-                                                
-                                                <p:commandLink value="Cancelar Edicion">
-                                                    <p:ajax event="click" listener="#{usuarioBean.deshabilitarEdicion()}" update="@form"/>
-                                                </p:commandLink>
                                             </h:panelGrid>
-                                        </div><hr/>
+                                        </div><hr/>                                      
+                                                
                                         <h:panelGrid columns="2" width="100%">
                                             <p:commandButton style="width: 100%" id="BTModUsuario" ajax="true" class="btn btn-block btn-success" update="@form" action="#{usuarioBean.modificar()}" value="Modificar Administrador" />
                                             <p:commandButton style="width: 100%" id="BTCancel" ajax="true" class="btn btn-block btn-danger" action="#{usuarioBean.regresar()}" value="Regresar" />                                            
