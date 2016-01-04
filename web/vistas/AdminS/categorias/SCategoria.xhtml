@@ -10,35 +10,12 @@
 
     <ui:composition template="./../temp-admin2.xhtml">
         <ui:define name="content1">
-            <b:container fluid="true">
+             <b:container fluid="true">
                 <b:row>
+
                     <h:form>
-
-                        <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
-                            <div class="box box-danger espacio-arriba">
-                                <div class="box-header with-border">
-                                    <i class="fa fa-2x fa-upload"/>
-                                    <h4 class="box-title">Ingreso de Categorias de Vehiculos SMS</h4>
-                                </div> 
-                                <div class="box-body">
-                                    <div class="table-responsive">
-                                        <h:panelGrid id="PCategoria" columns="3" style="width: 100%" cellpadding="5">
-                                            <p:outputLabel  value="Nombre de Categoria: "/>
-                                            <b:inputText id="TNombreCat" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre de categoria" value="#{categoriaBean.categoriaView.categoriaNombre}"/>
-                                            <p:message for="TNombreCat"/>
-
-                                            <p:outputLabel value="Descripción de Categoria: "/>
-                                            <p:inputTextarea style="width: 100%" id="TDescCat" placeholder="Descripcion" value="#{categoriaBean.categoriaView.categoriaDescripcion}"/>
-                                            <p:message for="TDescCat"/>
-                                        </h:panelGrid>
-                                    </div>
-                                    <p:commandButton id="BTCategoria" class="btn btn-block btn-primary" update="@form" value="#{categoriaBean.nombre}" action="#{categoriaBean.metodo()}"/>
-                                </div>                                  
-
-                            </div>
-                        </b:column>
-
-                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                        <p:messages id="msg" autoUpdate="true" closable="true"/>
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
                             <div class="box box-info espacio-arriba">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-tags"/>
@@ -52,13 +29,36 @@
                             </div>
                         </b:column>
 
-                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                            <div class="box box-danger">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-upload"/>
+                                    <h4 class="box-title">Ingreso de Categorias</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <h:panelGrid id="PCategoria" columns="3" style="width: 100%" cellpadding="5">
+                                            <p:outputLabel for="TNombreCat" value="Nombre de Categoria: "/>
+                                            <b:inputText maxlength="50" id="TNombreCat" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre de categoria" value="#{categoriaBean.categoriaView.categoriaNombre}"/>
+                                            <p:message for="TNombreCat"/>
+
+                                            <p:outputLabel for="TDescCat" value="Descripción de Categoria: "/>
+                                            <p:inputTextarea maxlength="150" style="width: 100%" id="TDescCat" placeholder="Descripcion" value="#{categoriaBean.categoriaView.categoriaDescripcion}"/>
+                                            <p:message for="TDescCat"/>
+                                        </h:panelGrid>
+                                    </div>
+                                    <p:commandButton id="BTCategoria" class="btn btn-block btn-danger" update="msg PCategoria DTCategoria BTCategoria" value="#{categoriaBean.nombre}" action="#{categoriaBean.metodo()}"/>
+                                </div>                                 
+                            </div>
+                        </b:column>                        
+
+                        <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
                             <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-list"/>
                                     <h4 class="box-title">Lista de Categorias</h4>
                                 </div>
-                                
+
                                 <div class="box-body">
                                     <b:inputText placeholder="Buscar" value="#{categoriaBean.buscar}" style="width: 100%">
                                         <p:ajax event="keyup" listener="#{categoriaBean.filtrar()}"  process="@this" update="DTCategoria"/>
@@ -75,11 +75,14 @@
                                         <p:column headerText="Descripcion">
                                             <h:outputText value="#{Categorias.categoriaDescripcion}" />
                                         </p:column>
+                                        
+                                    </p:dataTable>
                                     
-                                    </p:dataTable>                                                                   
-
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <b:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" look="success" iconAwesome="fa fa-check" />
+                                        <b:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" look="danger" iconAwesome="fa fa-close" />
+                                    </p:confirmDialog>
                                 </div>
-
                             </div>
                         </b:column>
                     </h:form> 

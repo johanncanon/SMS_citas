@@ -129,6 +129,10 @@ public class PathBean {
     public String ir_SEdicionPerfil(){
         return "AdminSEdicionPerfil";
     }
+    
+    public String ir_SServicios(){
+        return "AdminSServicios";
+    }
 
     /* / ADMIN SECUNDARIO / */
     /* / CONDUCTOR / */
