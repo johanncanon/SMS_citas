@@ -73,15 +73,11 @@
 
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-check-circle"/>
-                                    <h4 class="box-title">Datos de sesion</h4>
-                                    <br/><br/> 
-                                    <p:commandLink value="Editar datos de sesion">
-                                        <p:ajax listener="#{usuarioBean.habilitarRegistro()}" event="click" update="@form"/>
-                                    </p:commandLink>
+                                    <h4 class="box-title">Datos de sesion</h4>                                    
                                 </div>
                                 <div class="box-body">
                                     <div class="table-responsive">                                       
-                                        <h:panelGrid cellpadding="5" rendered="#{usuarioBean.habilitarRegistroSesion}" columns="3" id="seccionDatosSesion" style="width: 100%">
+                                        <h:panelGrid cellpadding="5" columns="3" id="seccionDatosSesion" style="width: 100%">
 
                                             <p:outputLabel value="Login: "/>
                                             <b:inputText id="TLoginUsu" validator="regLoginValidator" maxlength="60" style="width: 100%" value="#{usuarioBean.usuarioView.usuarioLogin}" placeholder="Login de sesion"></b:inputText>
@@ -98,14 +94,11 @@
                                                 <f:validateLength minimum="6"/>
                                                 <f:attribute name="password" value="#{UsuarioPass.value}"/>
                                             </b:inputSecret>
-                                            <p:message for="TRemPassUsu"/>                                           
+                                            <p:message for="TRemPassUsu"/>                                          
 
-                                            <p:commandLink value="Cerrar">
-                                                <p:ajax event="click" listener="#{usuarioBean.deshabilitarRegistro()}" update="@form"/>
-                                            </p:commandLink>
                                         </h:panelGrid><hr/>
                                         <h:panelGrid columns="3" width="100%">
-                                        <p:outputLabel value="Perfil:* "/>
+                                            <p:outputLabel value="Perfil:* "/>
                                             <b:selectOneMenu required="true" requiredMessage="Seleccion tipo de usuario" id="SPerfiles" style="width: 100%" value="#{usuarioBean.rolView.rolNombre}">
                                                 <f:selectItem itemLabel="Seleccione tipo de perfil"/>
                                                 <f:selectItem itemLabel="Administrador Principal" itemValue="Administrador Principal"/>

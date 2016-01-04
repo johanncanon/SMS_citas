@@ -25,6 +25,7 @@ public class ClienteBean implements Serializable {
     //Objetos necesario para vista
     protected SmsUsuario clienteView;
     protected SmsUsuario modClienteView;
+    protected SmsUsuario auxClienteView;
     protected List<SmsUsuario> clientesListView;
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
@@ -35,21 +36,21 @@ public class ClienteBean implements Serializable {
 
     //Variables    
     private String buscar;
-    private Boolean habilitarEditarSesion;
-    private Boolean habilitarRegistroSesion;
+    private Boolean habilitarEditarSesion;  
     private String pass;
-    
+   
+
     public ClienteBean() {
         clienteView = new SmsUsuario();
+        auxClienteView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
         clienteController = new Cliente();
         fileController = new Upload();
-        modClienteView = new SmsUsuario();        
+        modClienteView = new SmsUsuario();
         buscar = null;
-        habilitarEditarSesion = false;
-        habilitarRegistroSesion = false;
-        }
+        habilitarEditarSesion = false;        
+    }
 
     @PostConstruct
     public void init() {
@@ -105,15 +106,15 @@ public class ClienteBean implements Serializable {
     public void setFileController(Upload fileController) {
         this.fileController = fileController;
     }
-    
+
     public String getBuscar() {
         return buscar;
     }
 
     public void setBuscar(String buscar) {
         this.buscar = buscar;
-    }    
-  
+    }
+
     public SmsUsuario getModClienteView() {
         return modClienteView;
     }
@@ -128,25 +129,20 @@ public class ClienteBean implements Serializable {
 
     public void setHabilitarEditarSesion(Boolean habilitarEditarSesion) {
         this.habilitarEditarSesion = habilitarEditarSesion;
-    }
+    }   
 
-    public Boolean getHabilitarRegistroSesion() {
-        return habilitarRegistroSesion;
-    }
+   
 
-    public void setHabilitarRegistroSesion(Boolean habilitarRegistroSesion) {
-        this.habilitarRegistroSesion = habilitarRegistroSesion;
-    }
-
+    
     
     //Metodos     
     public void registrar() {
         //asignamos un rol al usuario
         rolView.setRolNombre("Cliente");
-        
+
         //asignamos al usuario la imagen de perfil default
         clienteView.setUsuarioFotoRuta(fileController.getPathDefaultUsuario());
-        
+
         //registramos el usuario y recargamos la lista de clientes
         clienteController.registrarUsuario(clienteView, ciudadView, rolView);
         clientesListView = clienteController.consultarClientes();
@@ -159,33 +155,33 @@ public class ClienteBean implements Serializable {
     }
 
     public String modificar() {
-        
+
         MD5 md = new MD5();
-        
+
         //se asigna un rol al usuario
         rolView.setRolNombre("Cliente");
-                
-        if(habilitarEditarSesion){ // en caso de modificar las contraseñas estas se encriptan de nuevo
+
+        if (habilitarEditarSesion) { // en caso de modificar las contraseñas estas se encriptan de nuevo
             modClienteView.setUsuarioPassword(md.getMD5(modClienteView.getUsuarioPassword()));
             modClienteView.setUsuarioRememberToken(md.getMD5(modClienteView.getUsuarioRememberToken()));
         }
-        
+
         //Se modifica el usuario y se recarga la lista de clientes
         clienteController.modificarUsuario(modClienteView, ciudadView, rolView);
         clientesListView = clienteController.consultarClientes();
-       
+
         //se limpian objetos
         clienteView = new SmsUsuario();
         modClienteView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
         habilitarEditarSesion = false;
-        
+
         String ruta = "RAdminPCliente";
         return ruta;
     }
 
-    public void eliminar() {       
+    public void eliminar() {
         clienteController.eliminarUsuario(clienteView);
         clientesListView = clienteController.consultarClientes();
 
@@ -207,41 +203,32 @@ public class ClienteBean implements Serializable {
     //Metodos propios
     public String irModificarCliente() {
         ciudadView = modClienteView.getSmsCiudad();
-        rolView = modClienteView.getSmsRol();      
-        
+        rolView = modClienteView.getSmsRol();
+
         String ruta = "AdminPECliente";
         return ruta;
     }
 
-    public String regresar() {               
-        modClienteView = new SmsUsuario();        
+    public String regresar() {
+        modClienteView = new SmsUsuario();
         habilitarEditarSesion = false;
         String ruta = "AdminPCliente";
         return ruta;
     }
-    
-    public void habilitarEdicion(){
+
+    public void habilitarEdicion() {
         habilitarEditarSesion = true;
         pass = modClienteView.getUsuarioPassword();
         modClienteView.setUsuarioPassword(null);
         modClienteView.setUsuarioRememberToken(null);
     }
 
-    public void deshabilitarEdicion(){
+    public void deshabilitarEdicion() {
         habilitarEditarSesion = false;
         modClienteView.setUsuarioPassword(pass);
         modClienteView.setUsuarioRememberToken(pass);
     }
-    
-    public void habilitarRegistro() {
-        habilitarRegistroSesion = true;
-    }
 
-    public void deshabilitarRegistro() {
-        habilitarRegistroSesion = false;
-    }
-    
-
-    
+   
 
 }

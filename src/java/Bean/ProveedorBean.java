@@ -48,9 +48,9 @@ public class ProveedorBean implements Serializable {
 
     //Variables
     private String buscar;
-    private Boolean habilitarEditarSesion;
-    private Boolean habilitarRegistroSesion;
+    private Boolean habilitarEditarSesion;   
     private String pass;
+    
 
     public ProveedorBean() {
         usuarioView = new SmsUsuario();
@@ -62,8 +62,7 @@ public class ProveedorBean implements Serializable {
         fileController = new Upload();
 
         buscar = null;
-        habilitarEditarSesion = false;
-        habilitarRegistroSesion = false;
+        habilitarEditarSesion = false;       
     }
 
     @PostConstruct
@@ -158,8 +157,6 @@ public class ProveedorBean implements Serializable {
         this.fileController = fileController;
     }
 
-    
-
     public SmsUsuario getModUsuarioView() {
         return modUsuarioView;
     }
@@ -175,18 +172,7 @@ public class ProveedorBean implements Serializable {
     public void setHabilitarEditarSesion(Boolean habilitarEditarSesion) {
         this.habilitarEditarSesion = habilitarEditarSesion;
     }
-
-    public Boolean getHabilitarRegistroSesion() {
-        return habilitarRegistroSesion;
-    }
-
-    public void setHabilitarRegistroSesion(Boolean habilitarRegistroSesion) {
-        this.habilitarRegistroSesion = habilitarRegistroSesion;
-    }
-    
-    
-    
-    
+   
 
     //Metodos    
     public void registrar() {
@@ -230,14 +216,14 @@ public class ProveedorBean implements Serializable {
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         modUsuarioView = new SmsUsuario();
-        
+
         String ruta = "RAdminPProveedores";
         return ruta;
- 
+
     }
 
     public void eliminar() {
-       
+
         proveedorController.eliminarUsuario(usuarioView);
         proveedoresListView = proveedorController.consultarProveedores();
 
@@ -255,7 +241,9 @@ public class ProveedorBean implements Serializable {
             proveedoresListView = proveedorController.filtrarProveedores(buscar);
         }
     }
+
     //Metodos propios
+
     public String irModificarProveedores() {
         proveedorView = proveedorController.consultarProveedor(modUsuarioView).get(0);
         ciudadView = modUsuarioView.getSmsCiudad();
@@ -283,13 +271,5 @@ public class ProveedorBean implements Serializable {
         habilitarEditarSesion = false;
         modUsuarioView.setUsuarioPassword(pass);
         modUsuarioView.setUsuarioRememberToken(pass);
-    }
-    
-    public void habilitarRegistro() {
-        habilitarRegistroSesion = true;
-    }
-
-    public void deshabilitarRegistro() {
-        habilitarRegistroSesion = false;
-    }
+    }   
 }

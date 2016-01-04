@@ -49,9 +49,9 @@ public class EmpleadoBean implements Serializable {
     private int estado; //Controla la operacion a realizar   
 
     private String buscar;
-    private Boolean habilitarEditarSesion;
-    private Boolean habilitarRegistroSesion;
+    private Boolean habilitarEditarSesion;   
     private String pass;
+   
 
     private Boolean habilitarSubirFoto;
     private String subirFoto;
@@ -78,8 +78,7 @@ public class EmpleadoBean implements Serializable {
         hojaVidaController = new HojaVida();
 
         buscar = null;
-        habilitarEditarSesion = false;
-        habilitarRegistroSesion = false;
+        habilitarEditarSesion = false;       
         estado = 0;
 
         habilitarSubirArchivo = false;
@@ -274,14 +273,7 @@ public class EmpleadoBean implements Serializable {
     public void setHabilitarEditarSesion(Boolean habilitarEditarSesion) {
         this.habilitarEditarSesion = habilitarEditarSesion;
     }
-
-    public Boolean getHabilitarRegistroSesion() {
-        return habilitarRegistroSesion;
-    }
-
-    public void setHabilitarRegistroSesion(Boolean habilitarRegistroSesion) {
-        this.habilitarRegistroSesion = habilitarRegistroSesion;
-    }
+    
 
     //Metodos que se comunican con el controlador    
     public void registrar() {
@@ -290,6 +282,8 @@ public class EmpleadoBean implements Serializable {
         usuarioView.setUsuarioRazonSocial("SMS Renta");
         usuarioView.setUsuarioNit("");
         rolView.setRolNombre("Empleado");
+        
+       
 
         empleadoController.registrarUsuario(usuarioView, ciudadView, rolView);
         empleadoController.registrarEmpleado(usuarioView, hojavidaView);
@@ -430,14 +424,7 @@ public class EmpleadoBean implements Serializable {
         modUsuarioView.setUsuarioPassword(pass);
         modUsuarioView.setUsuarioRememberToken(pass);
     }
-
-    public void habilitarRegistro() {
-        habilitarRegistroSesion = true;
-    }
-
-    public void deshabilitarRegistro() {
-        habilitarRegistroSesion = false;
-    }
+   
 
     //Subida de archivos
     public void uploadPhoto(FileUploadEvent e) throws IOException {

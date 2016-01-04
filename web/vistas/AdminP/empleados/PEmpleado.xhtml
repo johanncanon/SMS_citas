@@ -65,15 +65,11 @@
                                 </div>
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-check-square"/>
-                                    <h4 class="box-title">Datos de Sesión</h4>
-                                    <br/><br/>
-                                    <p:commandLink value="Editar datos de sesion">
-                                        <p:ajax listener="#{empleadoBean.habilitarRegistro()}" event="click" update="@form"/>
-                                    </p:commandLink>
+                                    <h4 class="box-title">Datos de Sesión</h4>                                                                      
                                 </div>
                                 <div class="box-body">
                                     <div class="table-responsive">    
-                                        <h:panelGrid cellpadding="5" rendered="#{empleadoBean.habilitarRegistroSesion}" columns="3" id="seccionDatosSesion" style="width: 100%">
+                                        <h:panelGrid cellpadding="5" columns="3" id="seccionDatosSesion" style="width: 100%">
 
                                             <p:outputLabel value="Login: "/>
                                             <b:inputText id="TLoginEmp" maxlength="60" validator="regLoginValidator" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioLogin}" placeholder="Login de sesion">
@@ -92,10 +88,7 @@
                                                 <f:attribute name="password" value="#{ConPass.value}"/>
                                             </b:inputSecret>
                                             <p:message for="TRemPassEmp"/>
-
-                                            <p:commandLink value="Cerrar">
-                                                <p:ajax event="click" listener="#{empleadoBean.deshabilitarRegistro()}" update="@form"/>
-                                            </p:commandLink>
+                                           
                                         </h:panelGrid>
                                     </div><hr/>
                                     <p:commandButton id="BTEmpleado" class="btn btn-block btn-danger" update=":formA:msg :formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTEmpleado :formC:DTEmpleado :formB:TEstadoFoto :formB:fileIdPhoto :formD:TEstadoArchivo :formD:fileIdDoc" action="#{empleadoBean.registrar()}" value="Registrar Conductor" />

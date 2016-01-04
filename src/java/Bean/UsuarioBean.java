@@ -7,24 +7,18 @@ package Bean;
 
 import Controlador.MD5;
 import Controlador.Upload;
-import Controlador.Rol;
 import Controlador.Usuario;
 import DAO.IUsuarioDao;
 import DAO.ImpUsuarioDao;
 import Modelo.SmsCiudad;
 import Modelo.SmsRol;
 import Modelo.SmsUsuario;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import org.apache.commons.io.IOUtils;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -56,9 +50,9 @@ public class UsuarioBean implements Serializable {
 
     //Variables
     private String buscar;
-    private Boolean habilitarEditarSesion;
-    private Boolean habilitarRegistroSesion;
+    private Boolean habilitarEditarSesion;   
     private String pass;
+    private String login;
 
     public UsuarioBean() {
         usuarioView = new SmsUsuario();
@@ -70,8 +64,7 @@ public class UsuarioBean implements Serializable {
         Usuario = new SmsUsuario();
 
         buscar = null;
-        habilitarEditarSesion = false;
-        habilitarRegistroSesion = false;
+        habilitarEditarSesion = false;       
     }
 
     @PostConstruct
@@ -193,14 +186,7 @@ public class UsuarioBean implements Serializable {
         rolView = new SmsRol();
         modUsuarioView = new SmsUsuario();
     }
-
-    public Boolean getHabilitarRegistroSesion() {
-        return habilitarRegistroSesion;
-    }
-
-    public void setHabilitarRegistroSesion(Boolean habilitarRegistroSesion) {
-        this.habilitarRegistroSesion = habilitarRegistroSesion;
-    }
+    
 
     public String modificar() {
         MD5 md = new MD5();
@@ -272,14 +258,7 @@ public class UsuarioBean implements Serializable {
         modUsuarioView.setUsuarioPassword(pass);
         modUsuarioView.setUsuarioRememberToken(pass);
     }
-
-    public void habilitarRegistro() {
-        habilitarRegistroSesion = true;
-    }
-
-    public void deshabilitarRegistro() {
-        habilitarRegistroSesion = false;
-    }
+   
 //Metodos para iniciar Sesion
 
     public String login() {
