@@ -8,6 +8,7 @@ package Bean;
 import Controlador.Agenda;
 import Controlador.Empleado;
 import Controlador.Reservacion;
+import Controlador.SendEmail;
 import Controlador.Usuario;
 import Controlador.Vehiculo;
 import Modelo.SmsAgenda;
@@ -46,6 +47,7 @@ public class AgendaBean {
     Vehiculo vehiculoController;
     Empleado empleadoController;
     Usuario usuarioController;
+    SendEmail emailController;
 
     public AgendaBean() {
 
@@ -66,6 +68,7 @@ public class AgendaBean {
         agendaController = new Agenda();
         reservacionController = new Reservacion();
         usuarioController = new Usuario();
+        emailController = new SendEmail();
 
         SelecVeh = false;
         SelecCon = false;
@@ -231,6 +234,7 @@ public class AgendaBean {
         ciudadView = new SmsCiudad();
         vehiculosListView = new ArrayList<>();
         empleadosListView = new ArrayList<>();
+        emailController.sendEmail();
     }
 
     //Especificos

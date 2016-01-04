@@ -12,8 +12,8 @@
             <b:container fluid="true">
                 <b:row>
                     <h:form>                        
-
-                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                        <p:messages id="msg" closable="true"/>
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
                             <div class="box box-info espacio-arriba">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-briefcase"/>
@@ -23,8 +23,11 @@
                                     <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a los diferentes tipos de servicios
                                         que presta SMS Renta.</p> 
                                 </div>
-                            </div>
-                             <div class="box box-danger">
+                            </div>                            
+                        </b:column>
+
+                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                            <div class="box box-danger">
                                 <div class="box-header with-border">                              
                                     <i class="fa fa-2x fa-list-alt"/>
                                     <h4 class="box-title">Datos de Servicios</h4>
@@ -47,9 +50,9 @@
                                 </div>                               
                             </div>
                         </b:column>
-                        
+
                         <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
-                            <div class="box box-success espacio-arriba">
+                            <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-shopping-cart"/>
                                     <h4 class="box-title">Servicios SMS Renta</h4>
@@ -73,22 +76,27 @@
                                         </p:column>
 
                                         <p:column style="width: 35px">
-                                            <p:commandButton icon="ui-icon-pencil" process="@this" update="@form" action="#{serviciosBean.seleccionarCRUD(1)}" title="Modificar">
+                                            <p:commandLink style="color: white" class="fa fa-pencil btn btn-block btn-success" process="@this" update="@form" action="#{serviciosBean.seleccionarCRUD(1)}" title="Modificar">
                                                 <f:setPropertyActionListener value="#{servicio}" target="#{serviciosBean.servicioView}"/>
-                                            </p:commandButton>
+                                            </p:commandLink>
                                         </p:column>
 
                                         <p:column style="width: 35px">
-                                            <p:commandButton icon="ui-icon-close" process="@this" update="@form" action="#{serviciosBean.seleccionarCRUD(2)}" title="Eliminar">
+                                            <p:commandLink style="color: white" class="fa fa-trash btn btn-block btn-danger" process="@this" update="@form" action="#{serviciosBean.eliminar()}" title="Eliminar">
                                                 <f:setPropertyActionListener value="#{servicio}" target="#{serviciosBean.servicioView}"/>
-                                            </p:commandButton>
+                                                <p:confirm header="Confirmacion" message="Esta seguro que desea eliminar este cliente?" icon="ui-icon-alert" /> 
+                                            </p:commandLink>
                                         </p:column>
                                     </p:dataTable>                                
-                                    
+
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <b:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" look="success" iconAwesome="fa fa-check" />
+                                        <b:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" look="danger" iconAwesome="fa fa-close" />
+                                    </p:confirmDialog>
                                 </div>                             
                             </div>
                         </b:column>
-                        
+
                     </h:form> 
                 </b:row>
             </b:container>

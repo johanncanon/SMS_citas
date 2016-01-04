@@ -8,14 +8,12 @@ package Controlador;
 import Modelo.SmsVehiculo;
 import DAO.ICategoriaDao;
 import DAO.ICiudadDao;
-import DAO.IEstadoVehiculoDao;
 import DAO.IProveedorDao;
 import DAO.IReferenciaDao;
 import DAO.IUsuarioDao;
 import DAO.IVehiculoDao;
 import DAO.ImpCategoriaDao;
 import DAO.ImpCiudadDao;
-import DAO.ImpEstadoVehiculoDao;
 import DAO.ImpProveedorDao;
 import DAO.ImpReferenciaDao;
 import DAO.ImpUsuarioDao;
@@ -94,7 +92,7 @@ public class Vehiculo {
 
         //Consulta proveedor
         IProveedorDao provDao = new ImpProveedorDao();
-        proveedor = provDao.consultarProveedores(usuario).get(0);
+        proveedor = provDao.consultarProveedor(usuario).get(0);
         vehiculo.setSmsProveedor(proveedor);
 
         //Consulta ciudad
@@ -130,7 +128,7 @@ public class Vehiculo {
 
         //Consulta proveedor
         IProveedorDao provDao = new ImpProveedorDao();
-        proveedor = provDao.consultarProveedores(usuario).get(0);
+        proveedor = provDao.consultarProveedor(usuario).get(0);
         vehiculo.setSmsProveedor(proveedor);
 
         //Consulta ciudad

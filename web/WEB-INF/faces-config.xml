@@ -111,7 +111,7 @@
             <from-outcome>AdminPCliente</from-outcome>
             <to-view-id>/vistas/AdminP/clientes/PClientes.xhtml</to-view-id>
             <redirect/>            
-        </navigation-case>
+        </navigation-case>      
         <navigation-case>
             <from-outcome>AdminPCiudad</from-outcome>
             <to-view-id>/vistas/AdminP/ciudad/PCiudad.xhtml</to-view-id>
@@ -127,6 +127,7 @@
             <to-view-id>/vistas/AdminP/empleados/PEmpleado.xhtml</to-view-id>
             <redirect/>            
         </navigation-case>
+        
         <navigation-case>
             <from-outcome>AdminPEstadisticas</from-outcome>
             <to-view-id>/vistas/AdminP/estadisticas/PEstadisticas.xhtml</to-view-id>
@@ -313,6 +314,57 @@
             <redirect/>
         </navigation-case>
         <!-- CLIENTE -->
+        
+        <navigation-case>
+            <from-outcome>AdminPEUsuario</from-outcome>
+            <to-view-id>/vistas/AdminP/usuarios/PEUsuario.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminPEProveedores</from-outcome>
+            <to-view-id>/vistas/AdminP/proveedores/PEProveedores.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminPEEmpleado</from-outcome>
+            <to-view-id>/vistas/AdminP/empleados/PEEmpleado.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
-    
+    <navigation-rule>
+        <from-view-id>/vistas/AdminP/clientes/PClientes.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>AdminPECliente</from-outcome>
+            <to-view-id>/vistas/AdminP/clientes/PEClientes.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>            
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/vistas/AdminP/clientes/PEClientes.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>RAdminPCliente</from-outcome>
+            <to-view-id>/vistas/AdminP/clientes/PClientes.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/vistas/AdminP/usuarios/PEUsuario.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>RAdminPUsuario</from-outcome>
+            <to-view-id>/vistas/AdminP/usuarios/PUsuario.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/vistas/AdminP/proveedores/PEProveedores.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>RAdminPProveedores</from-outcome>
+            <to-view-id>/vistas/AdminP/proveedores/PProveedores.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/vistas/AdminP/empleados/PEEmpleado.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>RAdminPEmpleado</from-outcome>
+            <to-view-id>/vistas/AdminP/empleados/PEmpleado.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

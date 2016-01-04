@@ -140,7 +140,6 @@ public class ImpUsuarioDao implements IUsuarioDao {
         return usuarios;
     }
 
-    
     @Override
     public List<SmsUsuario> consultarUsuariosAdministradores() {
         Session session = null;
@@ -221,7 +220,7 @@ public class ImpUsuarioDao implements IUsuarioDao {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsUsuario as usuario left join fetch usuario.smsRol as rol left join fetch usuario.smsCiudad as ciudad where "
                     + "(usuario.usuarioNombre LIKE '%" + valor + "%' or usuario.usuarioCc LIKE '%" + valor + "%' or usuario.usuarioEmail LIKE '%" + valor + "%' or usuario.usuarioTelefono LIKE '%" + valor + "%' or "
-                    + "ciudad.ciudadNombre LIKE '" + valor + "') and rol.rolNombre = 'Empleado'");
+                    + "ciudad.ciudadNombre LIKE '%" + valor + "%') and rol.rolNombre = 'Empleado'");
             usuarios = (List<SmsUsuario>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
@@ -232,7 +231,7 @@ public class ImpUsuarioDao implements IUsuarioDao {
         }
         return usuarios;
     }
-    
+
     @Override
     public List<SmsUsuario> filtrarUsuariosProveedores(String valor) {
         Session session = null;
@@ -241,7 +240,7 @@ public class ImpUsuarioDao implements IUsuarioDao {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsUsuario as usuario left join fetch usuario.smsRol as rol left join fetch usuario.smsCiudad as ciudad where "
                     + "(usuario.usuarioNombre LIKE '%" + valor + "%' or usuario.usuarioCc LIKE '%" + valor + "%' or usuario.usuarioEmail LIKE '%" + valor + "%' or usuario.usuarioTelefono LIKE '%" + valor + "%' or "
-                    + "ciudad.ciudadNombre LIKE '" + valor + "') and rol.rolNombre = 'Proveedor'");
+                    + "ciudad.ciudadNombre LIKE '%" + valor + "%') and rol.rolNombre = 'Proveedor'");
             usuarios = (List<SmsUsuario>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
@@ -252,7 +251,7 @@ public class ImpUsuarioDao implements IUsuarioDao {
         }
         return usuarios;
     }
-    
+
     @Override
     public List<SmsUsuario> filtrarUsuariosClientes(String valor) {
         Session session = null;
@@ -261,7 +260,45 @@ public class ImpUsuarioDao implements IUsuarioDao {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("from SmsUsuario as usuario left join fetch usuario.smsRol as rol left join fetch usuario.smsCiudad as ciudad where "
                     + "(usuario.usuarioNombre LIKE '%" + valor + "%' or usuario.usuarioCc LIKE '%" + valor + "%' or usuario.usuarioEmail LIKE '%" + valor + "%' or usuario.usuarioTelefono LIKE '%" + valor + "%' or "
-                    + "ciudad.ciudadNombre LIKE '" + valor + "') and rol.rolNombre = 'Cliente'");
+                    + "ciudad.ciudadNombre LIKE '%" + valor + "%') and rol.rolNombre = 'Cliente'");
+            usuarios = (List<SmsUsuario>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return usuarios;
+    }
+
+    @Override
+    public List<SmsUsuario> filtrarUsuariosAdministradores(String valor) {
+        Session session = null;
+        List<SmsUsuario> usuarios = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsUsuario as usuario left join fetch usuario.smsRol as rol left join fetch usuario.smsCiudad as ciudad where "
+                    + "(usuario.usuarioNombre LIKE '%" + valor + "%' or usuario.usuarioCc LIKE '%" + valor + "%' or usuario.usuarioEmail LIKE '%" + valor + "%' or usuario.usuarioTelefono LIKE '%" + valor + "%' or "
+                    + "ciudad.ciudadNombre LIKE '%" + valor + "%') and (rol.rolNombre = 'Administrador Principal' or rol.rolNombre = 'Administrador Secundario')");
+            usuarios = (List<SmsUsuario>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return usuarios;
+    }
+
+    @Override
+    public List<SmsUsuario> verificarLoginDisponible(String valor) {
+        Session session = null;
+        List<SmsUsuario> usuarios = null;
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsUsuario as usuario where usuario.usuarioLogin = '" + valor + "'");
             usuarios = (List<SmsUsuario>) query.list();
         } catch (HibernateException e) {
             e.getMessage();

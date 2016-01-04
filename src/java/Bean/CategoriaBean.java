@@ -150,20 +150,14 @@ public class CategoriaBean implements Serializable {
             modificar();
             estado = 0;
             nombre = "Registrar Categoria";
-        } else if (estado == 2) {
-            eliminar();
-            estado = 0;
-            nombre = "Registrar Categoria";
-        }
+        } 
     }
 
     public void seleccionarCRUD(int i) {
         estado = i;
         if (estado == 1) {
             nombre = "Modificar Categoria";
-        } else if (estado == 2) {
-            nombre = "Eliminar Categoria";
-        }
+        } 
     }
 
 }

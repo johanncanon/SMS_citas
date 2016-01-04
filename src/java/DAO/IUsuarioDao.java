@@ -40,4 +40,8 @@ public interface IUsuarioDao {
     public List<SmsUsuario> filtrarUsuariosProveedores(String valor);
 
     public List<SmsUsuario> filtrarUsuariosClientes(String valor);
+    
+    public List<SmsUsuario> filtrarUsuariosAdministradores(String valor);
+    
+    public List<SmsUsuario> verificarLoginDisponible(String valor);
 }

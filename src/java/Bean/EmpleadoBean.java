@@ -33,6 +33,7 @@ public class EmpleadoBean implements Serializable {
 
     //objetos necesarios en vista
     protected SmsUsuario usuarioView;
+    protected SmsUsuario modUsuarioView;
     protected SmsEmpleado empleadoView;
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
@@ -45,14 +46,19 @@ public class EmpleadoBean implements Serializable {
     protected Upload fileController;
 
     //Variables
-    private int estado; //Controla la operacion a realizar
-    private String nombre;
+    private int estado; //Controla la operacion a realizar   
+
     private String buscar;
+    private Boolean habilitarEditarSesion;
+    private String pass;
+
     private Boolean habilitarSubirFoto;
     private String subirFoto;
     private String estadoFoto;
+
     private UploadedFile archivo;
     private UploadedFile foto;
+
     private Boolean habilitarSubirArchivo;
     private String subirArchivo;
     private String estadoArchivo;
@@ -60,6 +66,7 @@ public class EmpleadoBean implements Serializable {
 
     public EmpleadoBean() {
         usuarioView = new SmsUsuario();
+        modUsuarioView = new SmsUsuario();
         empleadoView = new SmsEmpleado();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
@@ -70,8 +77,8 @@ public class EmpleadoBean implements Serializable {
         hojaVidaController = new HojaVida();
 
         buscar = null;
+        habilitarEditarSesion = false;
         estado = 0;
-        nombre = "Registrar Empleado";
 
         habilitarSubirArchivo = false;
         subirFoto = "Subir fotografia";
@@ -178,14 +185,6 @@ public class EmpleadoBean implements Serializable {
         this.estado = estado;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getBuscar() {
         return buscar;
     }
@@ -258,17 +257,26 @@ public class EmpleadoBean implements Serializable {
         this.empleadosListView = empleadosListView;
     }
 
-    public void filtrar() {
-        empleadosListView = new ArrayList<>();
-        if (buscar == null) {
-            empleadosListView = empleadoController.consultarEmpleados();
-        } else {
-            empleadosListView = empleadoController.filtrarEmpleados(buscar);
-        }
+    public SmsUsuario getModUsuarioView() {
+        return modUsuarioView;
+    }
+
+    public void setModUsuarioView(SmsUsuario modUsuarioView) {
+        this.modUsuarioView = modUsuarioView;
+    }
+
+    public Boolean getHabilitarEditarSesion() {
+        return habilitarEditarSesion;
+    }
+
+    public void setHabilitarEditarSesion(Boolean habilitarEditarSesion) {
+        this.habilitarEditarSesion = habilitarEditarSesion;
     }
 
     //Metodos que se comunican con el controlador    
     public void registrar() {
+
+        //Asignamos al conductor los registro de la empresa
         usuarioView.setUsuarioRazonSocial("SMS Renta");
         usuarioView.setUsuarioNit("");
         rolView.setRolNombre("Empleado");
@@ -292,10 +300,10 @@ public class EmpleadoBean implements Serializable {
         empleadosListView = empleadoController.consultarEmpleados();
     }
 
-    public void modificar() {
+    public String modificar() {
         rolView.setRolNombre("Empleado");
-        empleadoController.modificarUsuario(usuarioView, ciudadView, rolView);
-        empleadoController.modificarEmpleado(usuarioView, hojavidaView, empleadoView);
+        empleadoController.modificarUsuario(modUsuarioView, ciudadView, rolView);
+        empleadoController.modificarEmpleado(modUsuarioView, hojavidaView, empleadoView);
 
         estadoFoto = "Foto sin subir";
         subirFoto = "Subir Fotografia";
@@ -306,13 +314,16 @@ public class EmpleadoBean implements Serializable {
         habilitarSubirArchivo = false;
         registroHojaVida = false;
 
-        usuarioView = new SmsUsuario();
+        modUsuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
         empleadoView = new SmsEmpleado();
         hojavidaView = new SmsHojavida();
 
         empleadosListView = empleadoController.consultarEmpleados();
+        estado = 0;
+        String ruta = "RAdminPEmpleado";
+        return ruta;
     }
 
     public void eliminar() {
@@ -336,66 +347,79 @@ public class EmpleadoBean implements Serializable {
         empleadosListView = empleadoController.consultarEmpleados();
     }
 
-    //Metodos propios
-    public void seleccionarCrud(int i) {
-        estado = i;
-
-        if (estado == 1) {//MODIFICACION
-            nombre = "Modificar Empleado";
-            ciudadView = usuarioView.getSmsCiudad();
-            rolView = usuarioView.getSmsRol();
-
-            empleadoView = empleadoController.consultarEmpleado(usuarioView).get(0);
-            if (empleadoView.getSmsHojavida() != null) {
-                hojavidaView = empleadoView.getSmsHojavida();
-            }
-
-            if (usuarioView.getUsuarioFotoNombre() != null && usuarioView.getUsuarioFotoRuta() != null) {
-                subirFoto = "Modificar Fotografia";
-                estadoFoto = "Foto subida:" + usuarioView.getUsuarioFotoNombre();
-                habilitarSubirFoto = false;
-            } else {
-                subirFoto = "Subir Fotografia";
-                habilitarSubirFoto = false;
-            }
-
-            if (hojavidaView.getHojaVidaNombre() != null && hojavidaView.getHojaVidaRuta() != null) {
-                subirArchivo = "Modificar Hoja de vida";
-                estadoArchivo = "Hoja subida:" + hojavidaView.getHojaVidaNombre();
-                habilitarSubirArchivo = false;
-            } else {
-                subirArchivo = "Subir Hoja vida";
-                habilitarSubirArchivo = false;
-            }
-        } else if (estado == 2) {//ELIMINACION
-            nombre = "Eliminar Empleado";
-            ciudadView = usuarioView.getSmsCiudad();
-            rolView = usuarioView.getSmsRol();
-
-            empleadoView = empleadoController.consultarEmpleado(usuarioView).get(0);
-            if (empleadoView.getSmsHojavida() != null) {
-                hojavidaView = empleadoView.getSmsHojavida();
-            }
-
-            subirFoto = "Subir Fotografia";
-            habilitarSubirFoto = true;
-            subirArchivo = "Subir Hoja vida";
-            habilitarSubirArchivo = true;
+    public void filtrar() {
+        empleadosListView = new ArrayList<>();
+        if (buscar == null) {
+            empleadosListView = empleadoController.consultarEmpleados();
+        } else {
+            empleadosListView = empleadoController.filtrarEmpleados(buscar);
         }
     }
 
-    public void metodo() {
-        if (estado == 0) {
-            registrar();
-        } else if (estado == 1) {
-            modificar();
-            estado = 0;
-            nombre = "Registrar Empleado";
-        } else if (estado == 2) {
-            eliminar();
-            estado = 0;
-            nombre = "Registrar Empleado";
+    //Metodos propios
+    public String irModificarEmpleados() {
+        estado = 1;
+
+        ciudadView = modUsuarioView.getSmsCiudad();
+        rolView = modUsuarioView.getSmsRol();
+        empleadoView = empleadoController.consultarEmpleado(modUsuarioView).get(0);
+
+        if (empleadoView.getSmsHojavida() != null) {
+            hojavidaView = empleadoView.getSmsHojavida();
         }
+
+        if (modUsuarioView.getUsuarioFotoNombre() != null || modUsuarioView.getUsuarioFotoRuta() != null) {
+            subirFoto = "Modificar Fotografia";
+            estadoFoto = "Foto subida:" + modUsuarioView.getUsuarioFotoNombre();
+            habilitarSubirFoto = false;
+        } else {
+            subirFoto = "Subir Fotografia";
+            habilitarSubirFoto = false;
+        }
+
+        if (hojavidaView.getHojaVidaNombre() != null && hojavidaView.getHojaVidaRuta() != null) {
+            subirArchivo = "Modificar Hoja de vida";
+            estadoArchivo = "Hoja subida:" + hojavidaView.getHojaVidaNombre();
+            habilitarSubirArchivo = false;
+        } else {
+            subirArchivo = "Subir Hoja vida";
+            habilitarSubirArchivo = false;
+        }
+        String ruta = "AdminPEEmpleado";
+        return ruta;
+    }
+
+    public String regresar() {
+        modUsuarioView = new SmsUsuario();
+        ciudadView = new SmsCiudad();
+        hojavidaView = new SmsHojavida();
+        
+        estadoFoto = "Foto sin subir";
+        subirFoto = "Subir Fotografia";
+        habilitarSubirFoto = false;
+
+        estadoArchivo = "Hoja de vida sin subir";
+        subirArchivo = "Subir Hoja de vida";
+        habilitarSubirArchivo = false;
+        registroHojaVida = false;
+       
+
+        habilitarEditarSesion = false;
+        String ruta = "AdminPEmpleado";
+        return ruta;
+    }
+
+    public void habilitarEdicion() {
+        habilitarEditarSesion = true;
+        pass = modUsuarioView.getUsuarioPassword();
+        modUsuarioView.setUsuarioPassword(null);
+        modUsuarioView.setUsuarioRememberToken(null);
+    }
+
+    public void deshabilitarEdicion() {
+        habilitarEditarSesion = false;
+        modUsuarioView.setUsuarioPassword(pass);
+        modUsuarioView.setUsuarioRememberToken(pass);
     }
 
     //Subida de archivos
@@ -410,6 +434,8 @@ public class EmpleadoBean implements Serializable {
                 fileController.uploadFile(IOUtils.toByteArray(uploadedPhoto.getInputstream()), uploadedPhoto.getFileName(), destination);
                 usuarioView.setUsuarioFotoNombre(uploadedPhoto.getFileName());
                 usuarioView.setUsuarioFotoRuta(map.get("url") + uploadedPhoto.getFileName());
+                modUsuarioView.setUsuarioFotoNombre(uploadedPhoto.getFileName());
+                modUsuarioView.setUsuarioFotoRuta(map.get("url") + uploadedPhoto.getFileName());
                 habilitarSubirFoto = true;
                 if (estado == 0) {
                     estadoFoto = "Foto Subida con exito";
@@ -447,7 +473,7 @@ public class EmpleadoBean implements Serializable {
                 registroHojaVida = true;
             }
 
-        FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su Hoja de vida (" + uploadedDoc.getFileName() + ")  se ha guardado con exito.", ""));
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su Hoja de vida (" + uploadedDoc.getFileName() + ")  se ha guardado con exito.", ""));
         } catch (Exception ex) {
             ex.getMessage();
         }

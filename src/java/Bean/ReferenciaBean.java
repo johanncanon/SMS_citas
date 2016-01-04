@@ -21,35 +21,35 @@ public class ReferenciaBean implements Serializable {
 
     //Objetos de vista
     private SmsReferencia referenciaView;
-    private List<SmsReferencia> referenciasListView;    
+    private List<SmsReferencia> referenciasListView;
     private List<String> nombresReferenciaListView;
     private SmsMarca marcaView;
 
     //Relacion con el controlador
     private Referencia referenciaController;
-    
-     //Variables
+
+    //Variables
     private int estado; //Controla la operacion a realizar
     private String nombre;
     private String buscar;
-    
+
     public ReferenciaBean() {
-        referenciaView = new SmsReferencia();        
+        referenciaView = new SmsReferencia();
         referenciaController = new Referencia();
         referenciasListView = new ArrayList<>();
         nombresReferenciaListView = new ArrayList<>();
-        marcaView = new SmsMarca();   
-        
+        marcaView = new SmsMarca();
+
         buscar = null;
         estado = 0;
         nombre = "Registrar Referencia";
-    }    
-    
+    }
+
     @PostConstruct
-    public void init(){
+    public void init() {
         referenciasListView = referenciaController.cargarReferencias();
     }
-    
+
     //Getters & Setters
     public SmsMarca getMarcaView() {
         return marcaView;
@@ -60,13 +60,13 @@ public class ReferenciaBean implements Serializable {
     }
 
     public Referencia getReferenciaController() {
-        
+
         return referenciaController;
     }
 
     public void setReferenciaController(Referencia referenciaController) {
         this.referenciaController = referenciaController;
-    }   
+    }
 
     public SmsReferencia getReferenciaView() {
         return referenciaView;
@@ -76,7 +76,7 @@ public class ReferenciaBean implements Serializable {
         this.referenciaView = referenciaView;
     }
 
-    public List<SmsReferencia> getReferenciasListView() {        
+    public List<SmsReferencia> getReferenciasListView() {
         return referenciasListView;
     }
 
@@ -85,7 +85,7 @@ public class ReferenciaBean implements Serializable {
     }
 
     public List<String> getNombresReferenciaListView() {
-        nombresReferenciaListView = new ArrayList<>();        
+        nombresReferenciaListView = new ArrayList<>();
         referenciasListView = referenciaController.cargarReferencias();
         for (int i = 0; i < referenciasListView.size(); i++) {
             nombresReferenciaListView.add(referenciasListView.get(i).getReferenciaNombre());
@@ -95,7 +95,7 @@ public class ReferenciaBean implements Serializable {
 
     public void setNombresReferenciaListView(List<String> nombresReferenciaListView) {
         this.nombresReferenciaListView = nombresReferenciaListView;
-    }   
+    }
 
     public SmsMarca getMarcasView() {
         return marcaView;
@@ -128,9 +128,7 @@ public class ReferenciaBean implements Serializable {
     public void setBuscar(String buscar) {
         this.buscar = buscar;
     }
-    
-    
-    
+
 
     /* METODOS DEL BEAN
      ********************************************************************************/
@@ -142,9 +140,8 @@ public class ReferenciaBean implements Serializable {
     }
 
     public void eliminar() {
-        referenciaController.eliminarReferencia(referenciaView, marcaView);
+        referenciaController.eliminarReferencia(referenciaView);
         referenciaView = new SmsReferencia();
-        marcaView = new SmsMarca();
         referenciasListView = referenciaController.cargarReferencias();
     }
 
@@ -153,8 +150,8 @@ public class ReferenciaBean implements Serializable {
         referenciaView = new SmsReferencia();
         marcaView = new SmsMarca();
         referenciasListView = referenciaController.cargarReferencias();
-    }    
-    
+    }
+
     public void filtrar() {
         referenciasListView = new ArrayList<>();
         if (buscar == null) {
@@ -163,16 +160,14 @@ public class ReferenciaBean implements Serializable {
             referenciasListView = referenciaController.filtrarReferencias(buscar);
         }
     }
+
     //Metodos Propios
+
     public void metodo() {
         if (estado == 0) {
             registrar();
         } else if (estado == 1) {
             modificar();
-            estado = 0;
-            nombre = "Registrar Referencia";
-        } else if (estado == 2) {
-            eliminar();
             estado = 0;
             nombre = "Registrar Referencia";
         }
@@ -183,11 +178,7 @@ public class ReferenciaBean implements Serializable {
         if (estado == 1) {
             marcaView = referenciaView.getSmsMarca();
             nombre = "Modificar Referencia";
-        } else if (estado == 2) {
-            marcaView = referenciaView.getSmsMarca();
-            nombre = "Eliminar Referencia";
         }
     }
-    
-    
+
 }

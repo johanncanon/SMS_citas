@@ -133,7 +133,7 @@ public class RolBean {
     }
 
     public void modificar() {
-        asignarPermiso();
+        
         rolController.modificarRol(rolView);
         rolView = new SmsRol();
         rolesListView = rolController.cargarRoles();
@@ -146,7 +146,7 @@ public class RolBean {
         rolesListView = rolController.cargarRoles();
         permisosSeleccionados.clear();
     }
-    
+
     public void filtrar() {
         rolesListView = new ArrayList<>();
         if (buscar == null) {
@@ -159,35 +159,27 @@ public class RolBean {
     //Definicion de metodos para asignacion de permisos a un rol
     public void asignarPermiso() {
         permisosListView = new ArrayList<>();
-        for (int i = 0; i < permisosSeleccionados.size(); i++) {
-            permisosListView.add(permisoController.consultarPermiso(permisosSeleccionados.get(i)).get(0));
-            rolView.getSmsPermisoses().add(permisosListView.get(i));
+        for (int i = 0; i < permisosSeleccionados.size(); i++) {           
+            rolView.getSmsPermisoses().add(permisoController.consultarPermiso(permisosSeleccionados.get(i)).get(0));
         }
     }
 
     //Metodos propios
     public void seleccionarCrud(int i) {
         estado = i;
+        permisosSeleccionados.clear();
         if (estado == 1) {
             nombre = "Modificar Rol";
             List<SmsPermisos> permisos = permisoController.cargarPermisos();
+            List<SmsRol> rolPermisos = rolController.consultarRol(rolView);
             String valor;
             for (int b = 0; b < permisos.size(); b++) {
-                valor = permisoController.validarPermiso(rolView, permisos.get(b));
+                valor = permisoController.validarPermiso(rolPermisos.get(0), permisos.get(b));
                 if (valor != null) {
                     permisosSeleccionados.add(valor);
                 }
             }
-        } else if (estado == 2) {
-            nombre = "Eliminar Rol";
-            List<SmsPermisos> permisos = permisoController.cargarPermisos();
-            String valor;
-            for (int b = 0; b < permisos.size(); b++) {
-                valor = permisoController.validarPermiso(rolView, permisos.get(b));
-                if (valor != null) {
-                    permisosSeleccionados.add(valor);
-                }
-            }
+
         }
     }
 

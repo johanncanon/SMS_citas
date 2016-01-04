@@ -157,19 +157,13 @@ public class MarcaBean implements Serializable {
             modificar();
             estado = 0;
             nombre = "Registrar Marca";
-        } else if (estado == 2) {
-            eliminar();
-            estado = 0;
-            nombre = "Registrar Marca";
-        }
+        } 
     }
 
     public void seleccionarCRUD(int i) {
         estado = i;
         if (estado == 1) {
             nombre = "Modificar Marca";            
-        } else if (estado == 2) {
-            nombre = "Eliminar Marca";            
-        }
+        } 
     }
 }

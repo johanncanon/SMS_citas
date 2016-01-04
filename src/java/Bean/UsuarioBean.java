@@ -16,6 +16,7 @@ import Modelo.SmsRol;
 import Modelo.SmsUsuario;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -34,6 +35,7 @@ public class UsuarioBean implements Serializable {
 
     //Instanciacion de los objetos    
     protected SmsUsuario usuarioView;
+    protected SmsUsuario modUsuarioView;
     protected List<SmsUsuario> usuariosListView;
 
     protected SmsCiudad ciudadView;
@@ -53,16 +55,13 @@ public class UsuarioBean implements Serializable {
     protected SmsUsuario Usuario;
 
     //Variables
-    private int estado; //Controla la operacion a realizar
-    private String nombre;
     private String buscar;
-    private Boolean habilitarSubir;
-    private String subirArchivo;
-    private String estadoArchivo;
-    private UploadedFile archivo;
+    private Boolean habilitarEditarSesion;
+    private String pass;
 
     public UsuarioBean() {
         usuarioView = new SmsUsuario();
+        modUsuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
         usuarioController = new Usuario();
@@ -70,17 +69,12 @@ public class UsuarioBean implements Serializable {
         Usuario = new SmsUsuario();
 
         buscar = null;
-        estado = 0;
-        nombre = "Registrar Usuario";
-        habilitarSubir = false;
-        subirArchivo = "Subir fotografia";
-        estadoArchivo = "Foto sin subir";
+        habilitarEditarSesion = false;
     }
 
     @PostConstruct
     public void init() {
-        usuariosListView = usuarioController.cargarUsuarios();
-
+        usuariosListView = usuarioController.consultarAdministradores();
     }
 
     //Getters & Setters
@@ -140,60 +134,12 @@ public class UsuarioBean implements Serializable {
         this.message = message;
     }
 
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getBuscar() {
         return buscar;
     }
 
     public void setBuscar(String buscar) {
         this.buscar = buscar;
-    }
-
-    public Boolean getHabilitarSubir() {
-        return habilitarSubir;
-    }
-
-    public void setHabilitarSubir(Boolean habilitarSubir) {
-        this.habilitarSubir = habilitarSubir;
-    }
-
-    public String getSubirArchivo() {
-        return subirArchivo;
-    }
-
-    public void setSubirArchivo(String subirArchivo) {
-        this.subirArchivo = subirArchivo;
-    }
-
-    public String getEstadoArchivo() {
-        return estadoArchivo;
-    }
-
-    public void setEstadoArchivo(String estadoArchivo) {
-        this.estadoArchivo = estadoArchivo;
-    }
-
-    public UploadedFile getArchivo() {
-        return archivo;
-    }
-
-    public void setArchivo(UploadedFile archivo) {
-        this.archivo = archivo;
     }
 
     public Upload getFileController() {
@@ -212,126 +158,112 @@ public class UsuarioBean implements Serializable {
         this.Usuario = Usuario;
     }
 
+    public SmsUsuario getModUsuarioView() {
+        return modUsuarioView;
+    }
+
+    public void setModUsuarioView(SmsUsuario modUsuarioView) {
+        this.modUsuarioView = modUsuarioView;
+    }
+
+    public Boolean getHabilitarEditarSesion() {
+        return habilitarEditarSesion;
+    }
+
+    public void setHabilitarEditarSesion(Boolean habilitarEditarSesion) {
+        this.habilitarEditarSesion = habilitarEditarSesion;
+    }
+
     //Declaracion de metodos
     //Metodos CRUD
     public void registrar() {
+
+        //asignamos al usuario la imagen de perfil default
+        usuarioView.setUsuarioFotoRuta(fileController.getPathDefaultUsuario());
+
+        //registramos el usuario y recargamos la lista de clientes
         usuarioController.registrarUsuario(usuarioView, ciudadView, rolView);
-        usuariosListView = usuarioController.cargarUsuarios();
+        usuariosListView = usuarioController.consultarAdministradores();
 
-        estadoArchivo = "Foto sin subir";
-        subirArchivo = "Subir Fotografia";
-        habilitarSubir = false;
-
+        //limpiamos objetos
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
+        modUsuarioView = new SmsUsuario();
     }
 
-    public void modificar() {
-        usuarioController.modificarUsuario(usuarioView, ciudadView, rolView);
-        usuariosListView = usuarioController.cargarUsuarios();
-
-        estadoArchivo = "Foto sin subir";
-        subirArchivo = "Subir Fotografia";
-        habilitarSubir = false;
+    public String modificar() {
+        MD5 md = new MD5();
+        
+        if(habilitarEditarSesion){ // en caso de modificar las contraseñas estas se encriptan de nuevo
+            modUsuarioView.setUsuarioPassword(md.getMD5(modUsuarioView.getUsuarioPassword()));
+            modUsuarioView.setUsuarioRememberToken(md.getMD5(modUsuarioView.getUsuarioRememberToken()));
+        }
+        
+        usuarioController.modificarUsuario(modUsuarioView, ciudadView, rolView);
+        usuariosListView = usuarioController.consultarAdministradores();
 
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
+        modUsuarioView = new SmsUsuario();
+        habilitarEditarSesion = false;
+        
+        String ruta = "RAdminPUsuario";
+        return ruta;
     }
 
     public void eliminar() {
         usuarioController.eliminarUsuario(usuarioView);
-        usuariosListView = usuarioController.cargarUsuarios();
-
-        estadoArchivo = "Foto sin subir";
-        subirArchivo = "Subir Fotografia";
-        habilitarSubir = false;
+        usuariosListView = usuarioController.consultarAdministradores();
 
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
+        modUsuarioView = new SmsUsuario();
+    }
+
+    public void filtrar() {
+        usuariosListView = new ArrayList<>();
+        if (buscar == null) {
+            usuariosListView = usuarioController.consultarAdministradores();
+        } else {
+            usuariosListView = usuarioController.filtrarAdministrador(buscar);
+        }
     }
 
     //Metodos propios
-    public void seleccionarCrud(int i) {
-        estado = i;
-        Rol rolController = new Rol();
-        List<SmsRol> roles = rolController.cargarRoles();
-        boolean rol;
-        if (estado == 1) {//MODIFICACION
-            nombre = "Modificar Usuario";
-            usuarioView = usuarioController.consultarUsuario(usuarioView).get(0);//Recargamos el usuario para tener acceso a los datos de ciudad
-            ciudadView = usuarioView.getSmsCiudad();
+    public String irModificarAdministrador() {
+        ciudadView = modUsuarioView.getSmsCiudad();
+        rolView = modUsuarioView.getSmsRol();
 
-            for (int b = 0; b < roles.size(); b++) {
-                rol = rolController.validarRol(usuarioView, roles.get(b));
-                if (rol) {
-                    rolView = roles.get(b);
-                }
-            }
-
-            if (usuarioView.getUsuarioFotoNombre() != null && usuarioView.getUsuarioFotoRuta() != null) {
-                subirArchivo = "Modificar Fotografia";
-                habilitarSubir = false;
-            } else {
-                subirArchivo = "Subir Fotografia";
-                estadoArchivo = "Foto sin subir";
-                habilitarSubir = false;
-            }
-
-        } else if (estado == 2) {//ELIMINACION
-            nombre = "Eliminar Proveedor";
-            usuarioView = usuarioController.consultarUsuario(usuarioView).get(0);
-            ciudadView = usuarioView.getSmsCiudad();
-
-            subirArchivo = "Subir Fotografia";
-            estadoArchivo = "Foto sin subir";
-            habilitarSubir = true;
-        }
+        String ruta = "AdminPEUsuario";
+        return ruta;
     }
 
-    public void metodo() {
-        if (estado == 0) {
-            registrar();
-        } else if (estado == 1) {
-            modificar();
-            estado = 0;
-            nombre = "Registrar Usuario";
-        } else if (estado == 2) {
-            eliminar();
-            estado = 0;
-            nombre = "Registrar Usuario";
-        }
+    public String regresar() {
+        modUsuarioView = new SmsUsuario();
+        ciudadView = new SmsCiudad();
+        rolView = new SmsRol();
+        habilitarEditarSesion = false;
+        String ruta = "AdminPUsuario";
+        return ruta;
     }
 
-    //Metodo para subir fotografias
-    public void uploadPhoto(FileUploadEvent e) throws IOException {//Metodo para subir fotografia del usuario
-        try {
-            UploadedFile uploadedPhoto = e.getFile();
-            String destination;
-
-            HashMap<String, String> map = fileController.getMapPathFotosUsuario();
-            destination = map.get("path");
-            if (null != uploadedPhoto) {
-                fileController.uploadFile(IOUtils.toByteArray(uploadedPhoto.getInputstream()), uploadedPhoto.getFileName(), destination);
-                usuarioView.setUsuarioFotoNombre(uploadedPhoto.getFileName());
-                usuarioView.setUsuarioFotoRuta(map.get("path") + uploadedPhoto.getFileName());
-                habilitarSubir = true;
-                if (estado == 0) {//Registro
-                    estadoArchivo = "Foto Subida con exito";
-                } else if (estado == 1) {//Modificacion
-                    estadoArchivo = "Foto actualizada con exito";
-                }
-            }
-            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + uploadedPhoto.getFileName() + ")  se ha guardado con exito.", ""));
-        } catch (Exception ex) {
-            ex.getMessage();
-        }
-
+    public void habilitarEdicion() {
+        habilitarEditarSesion = true;
+        pass = modUsuarioView.getUsuarioPassword();
+        modUsuarioView.setUsuarioPassword(null);
+        modUsuarioView.setUsuarioRememberToken(null);
     }
 
-    //Metodos para iniciar Sesion
+    public void deshabilitarEdicion() {
+        habilitarEditarSesion = false;
+        modUsuarioView.setUsuarioPassword(pass);
+        modUsuarioView.setUsuarioRememberToken(pass);
+    }
+
+//Metodos para iniciar Sesion
     public String login() {
         String ruta = "/login.xhtml";
         IUsuarioDao usuarioDao = new ImpUsuarioDao();

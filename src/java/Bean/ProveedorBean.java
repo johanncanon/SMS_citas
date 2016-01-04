@@ -5,6 +5,7 @@
  */
 package Bean;
 
+import Controlador.MD5;
 import Controlador.Upload;
 import Controlador.Proveedor;
 import Modelo.SmsCiudad;
@@ -31,6 +32,7 @@ public class ProveedorBean implements Serializable {
 
     //Objetos necesarios para vista
     protected SmsUsuario usuarioView;
+    protected SmsUsuario modUsuarioView;
     protected SmsProveedor proveedorView;
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
@@ -45,15 +47,13 @@ public class ProveedorBean implements Serializable {
     private List<String> nombresProveedoresView;
 
     //Variables
-    private int estado; //Controla la operacion a realizar
-    private String nombre;
     private String buscar;
-    private Boolean habilitarSubir;
-    private String subirArchivo;
-    private String estadoArchivo;
+    private Boolean habilitarEditarSesion;
+    private String pass;
 
     public ProveedorBean() {
         usuarioView = new SmsUsuario();
+        modUsuarioView = new SmsUsuario();
         proveedorView = new SmsProveedor();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
@@ -61,11 +61,8 @@ public class ProveedorBean implements Serializable {
         fileController = new Upload();
 
         buscar = null;
-        estado = 0;
-        nombre = "Registrar Proveedor";
-        habilitarSubir = false;
-        subirArchivo = "Subir fotografia";
-        estadoArchivo = "Foto sin subir";
+        habilitarEditarSesion = false;
+
     }
 
     @PostConstruct
@@ -136,22 +133,6 @@ public class ProveedorBean implements Serializable {
         this.nombresProveedoresView = nombresProveedoresView;
     }
 
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getBuscar() {
         return buscar;
     }
@@ -176,30 +157,6 @@ public class ProveedorBean implements Serializable {
         this.fileController = fileController;
     }
 
-    public String getSubirArchivo() {
-        return subirArchivo;
-    }
-
-    public void setSubirArchivo(String subirArchivo) {
-        this.subirArchivo = subirArchivo;
-    }
-
-    public Boolean getHabilitarSubir() {
-        return habilitarSubir;
-    }
-
-    public void setHabilitarSubir(Boolean habilitarSubir) {
-        this.habilitarSubir = habilitarSubir;
-    }
-
-    public String getEstadoArchivo() {
-        return estadoArchivo;
-    }
-
-    public void setEstadoArchivo(String estadoArchivo) {
-        this.estadoArchivo = estadoArchivo;
-    }
-
     public void filtrar() {
         proveedoresListView = new ArrayList<>();
         if (buscar == null) {
@@ -209,17 +166,38 @@ public class ProveedorBean implements Serializable {
         }
     }
 
+    public SmsUsuario getModUsuarioView() {
+        return modUsuarioView;
+    }
+
+    public void setModUsuarioView(SmsUsuario modUsuarioView) {
+        this.modUsuarioView = modUsuarioView;
+    }
+
+    public Boolean getHabilitarEditarSesion() {
+        return habilitarEditarSesion;
+    }
+
+    public void setHabilitarEditarSesion(Boolean habilitarEditarSesion) {
+        this.habilitarEditarSesion = habilitarEditarSesion;
+    }
+    
+    
+
     //Metodos    
     public void registrar() {
+        //asignamos un rol al usuario
         rolView.setRolNombre("Proveedor");
+
+        //asignamos al usuario la imagen de perfil default
+        usuarioView.setUsuarioFotoRuta(fileController.getPathDefaultUsuario());
+
+        //registramos el usuario y recargamos la lista de clientes
         proveedorController.registrarUsuario(usuarioView, ciudadView, rolView);
         proveedorController.registrarProveedor(proveedorView, usuarioView);
         proveedoresListView = proveedorController.consultarProveedores();
 
-        estadoArchivo = "Foto sin subir";
-        subirArchivo = "Subir Fotografia";
-        habilitarSubir = false;
-
+        //Limpiamos objetos
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         proveedorView = new SmsProveedor();
@@ -227,100 +205,71 @@ public class ProveedorBean implements Serializable {
 
     }
 
-    public void modificar() {
+    public String modificar() {
+        MD5 md = new MD5();
+
+        //se asigna un rol al usuario
         rolView.setRolNombre("Proveedor");
-        proveedorController.modificarUsuario(usuarioView, ciudadView, rolView);
-        proveedorController.modificarProveedor(proveedorView, usuarioView);
+
+        if (habilitarEditarSesion) { // en caso de modificar las contraseñas estas se encriptan de nuevo
+            modUsuarioView.setUsuarioPassword(md.getMD5(modUsuarioView.getUsuarioPassword()));
+            modUsuarioView.setUsuarioRememberToken(md.getMD5(modUsuarioView.getUsuarioRememberToken()));
+        }
+
+        //Se modifica el usuario y se recarga la lista de proveedores
+        proveedorController.modificarUsuario(modUsuarioView, ciudadView, rolView);
+        proveedorController.modificarProveedor(proveedorView, modUsuarioView);
         proveedoresListView = proveedorController.consultarProveedores();
 
+        //Se limpian objetos
         proveedorView = new SmsProveedor();
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
-
-        estadoArchivo = "Foto sin subir";
-        subirArchivo = "Subir Fotografia";
-        habilitarSubir = false;
+        modUsuarioView = new SmsUsuario();
+        
+        String ruta = "RAdminPProveedores";
+        return ruta;
+ 
     }
 
     public void eliminar() {
-        proveedorController.eliminarProveedor(proveedorView);
+       
         proveedorController.eliminarUsuario(usuarioView);
+        proveedoresListView = proveedorController.consultarProveedores();
+
         proveedorView = new SmsProveedor();
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
-
-        estadoArchivo = "Foto sin subir";
-        subirArchivo = "Subir Fotografia";
-        habilitarSubir = false;
-
-        proveedoresListView = proveedorController.consultarProveedores();
+        modUsuarioView = new SmsUsuario();
     }
 
     //Metodos propios
-    public void seleccionarCrud(int i) {
-        estado = i;
-        if (estado == 1) {
-            nombre = "Modificar Proveedor";
+    public String irModificarProveedores() {
+        proveedorView = proveedorController.consultarProveedor(modUsuarioView).get(0);
+        ciudadView = modUsuarioView.getSmsCiudad();
+        rolView = modUsuarioView.getSmsRol();
 
-            proveedorView = proveedorController.consultarProveedor(usuarioView).get(0);
-            ciudadView = usuarioView.getSmsCiudad();
-
-            if (usuarioView.getUsuarioFotoNombre() != null && usuarioView.getUsuarioFotoRuta() != null) {
-                subirArchivo = "Modificar Fotografia";
-                estadoArchivo = "Foto subida:" + usuarioView.getUsuarioFotoNombre();
-                habilitarSubir = false;
-            } else {
-                subirArchivo = "Subir Fotografia";
-                habilitarSubir = false;
-            }
-        } else if (estado == 2) {
-            nombre = "Eliminar Proveedor";
-
-            proveedorView = proveedorController.consultarProveedor(usuarioView).get(0);
-            ciudadView = usuarioView.getSmsCiudad();
-
-            subirArchivo = "Subir Fotografia";
-            habilitarSubir = true;
-        }
+        String ruta = "AdminPEProveedores";
+        return ruta;
     }
 
-    public void metodo() {
-        if (estado == 0) {
-            registrar();
-        } else if (estado == 1) {
-            modificar();
-            estado = 0;
-            nombre = "Registrar Proveedor";
-        } else if (estado == 2) {
-            eliminar();
-            estado = 0;
-            nombre = "Registrar Proveedor";
-        }
+    public String regresar() {
+        modUsuarioView = new SmsUsuario();
+        habilitarEditarSesion = false;
+        String ruta = "AdminPProveedores";
+        return ruta;
     }
 
-    public void uploadPhoto(FileUploadEvent e) throws IOException {
-        try {
-            UploadedFile uploadedPhoto = e.getFile();
-            String destination;
-
-            HashMap<String, String> map = fileController.getMapPathFotosUsuario();
-            destination = map.get("path");
-            if (null != uploadedPhoto) {
-                fileController.uploadFile(IOUtils.toByteArray(uploadedPhoto.getInputstream()), uploadedPhoto.getFileName(), destination);
-                usuarioView.setUsuarioFotoNombre(uploadedPhoto.getFileName());
-                usuarioView.setUsuarioFotoRuta(map.get("path") + uploadedPhoto.getFileName());
-                habilitarSubir = true;
-                if (estado == 0) {
-                    estadoArchivo = "Foto Subida con exito";
-                } else if (estado == 1) {
-                    estadoArchivo = "Foto actualizada con exito";
-                }
-            }
-            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + uploadedPhoto.getFileName() + ")  se ha guardado con exito.", ""));
-        } catch (Exception ex) {
-            ex.getMessage();
-        }
+    public void habilitarEdicion() {
+        habilitarEditarSesion = true;
+        pass = modUsuarioView.getUsuarioPassword();
+        modUsuarioView.setUsuarioPassword(null);
+        modUsuarioView.setUsuarioRememberToken(null);
     }
 
+    public void deshabilitarEdicion() {
+        habilitarEditarSesion = false;
+        modUsuarioView.setUsuarioPassword(pass);
+        modUsuarioView.setUsuarioRememberToken(pass);
+    }
 }
-

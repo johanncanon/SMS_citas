@@ -9,6 +9,7 @@ import Controlador.Pais;
 import Modelo.SmsPais;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 
 public class PaisBean {
 
@@ -20,18 +21,25 @@ public class PaisBean {
     //Relacion con el controlador
     protected Pais paisController;
 
-     //Variables
+    //Variables
     private int estado; //Controla la operacion a realizar
     private String nombre;
-    
+    private String buscar;
+
     public PaisBean() {
         paisView = new SmsPais();
         paisesListView = new ArrayList<>();
         nombrePaisesListView = new ArrayList<>();
         paisController = new Pais();
-        
+        buscar = null;
         estado = 0;
         nombre = "Registrar Pais";
+    }
+    
+    @PostConstruct
+    public void init(){
+        paisesListView = new ArrayList<>();
+        paisesListView = paisController.cargarPaises();
     }
 
     //Getters & Setters
@@ -44,8 +52,6 @@ public class PaisBean {
     }
 
     public List<SmsPais> getPaisesListView() {
-        paisesListView = new ArrayList<>();
-        paisesListView = paisController.cargarPaises();
         return paisesListView;
     }
 
@@ -72,7 +78,7 @@ public class PaisBean {
 
     public void setPaisController(Pais paisController) {
         this.paisController = paisController;
-    }    
+    }
 
     public int getEstado() {
         return estado;
@@ -88,32 +94,50 @@ public class PaisBean {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }   
-    
+    }
+
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+
     
     //Metodos que se comunicar con el controlador    
-    public void registrar(){
+    public void registrar() {
         paisController.registrarPais(paisView);
+        paisesListView = paisController.cargarPaises();
         paisView = new SmsPais();
     }
-    
-    public void modificar(){
+
+    public void modificar() {
         paisController.modificarPais(paisView);
+        paisesListView = paisController.cargarPaises();
         paisView = new SmsPais();
     }
-    
-    public void eliminar(){
+
+    public void eliminar() {
         paisController.eliminarPais(paisView);
+        paisesListView = paisController.cargarPaises();
         paisView = new SmsPais();
     }
     
+    public void filtrar() {
+        paisesListView = new ArrayList<>();
+        if (buscar == null) {
+            paisesListView = paisController.cargarPaises();
+        } else {
+            paisesListView = paisController.filtrarPaises(buscar);
+        }
+    }
+
     //Metodos Propios
     public void seleccionarCrud(int i) {
-        estado = i;        
-        if (estado == 1) {           
+        estado = i;
+        if (estado == 1) {
             nombre = "Modificar Pais";
-        } else if (estado == 2) {
-            nombre = "Eliminar Pais";            
         }
     }
 
@@ -124,14 +148,7 @@ public class PaisBean {
             modificar();
             estado = 0;
             nombre = "Registrar Pais";
-        } else if (estado == 2) {
-            eliminar();
-            estado = 0;
-            nombre = "Registrar Pais";
         }
     }
-    
-    
-    
 
 }

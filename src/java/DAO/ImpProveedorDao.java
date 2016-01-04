@@ -93,7 +93,7 @@ public class ImpProveedorDao implements IProveedorDao {
     }
 
     @Override
-    public List<SmsProveedor> consultarProveedores(SmsUsuario usuario) {
+    public List<SmsProveedor> consultarProveedor(SmsUsuario usuario) {
         Session session = null;
         List<SmsProveedor> Proveedores = new ArrayList<>();
         try {

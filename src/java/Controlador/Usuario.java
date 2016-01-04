@@ -73,11 +73,6 @@ public class Usuario {
         usuario = u;
         ciudad = c;
         SmsRol rol = r;
-
-        MD5 md = new MD5();
-        usuario.setUsuarioPassword(md.getMD5(usuario.getUsuarioPassword()));//Se encripta la contreseña
-        usuario.setUsuarioRememberToken(md.getMD5(usuario.getUsuarioRememberToken()));
-
         //el metodo recibe el objeto usuario, con sus atributos modificados y lo persiste en la BD
         ICiudadDao ciudadDao = new ImpCiudadDao();
         ciudad = ciudadDao.consultarCiudad(ciudad).get(0);
@@ -171,6 +166,13 @@ public class Usuario {
         usuarios = new ArrayList<>();
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarios = usuarioDao.filtrarUsuariosProveedores(valor);
+        return usuarios;
+    }
+    
+    public List<SmsUsuario> filtrarAdministrador(String valor) {
+        usuarios = new ArrayList<>();
+        IUsuarioDao usuarioDao = new ImpUsuarioDao();
+        usuarios = usuarioDao.filtrarUsuariosAdministradores(valor);
         return usuarios;
     }
 

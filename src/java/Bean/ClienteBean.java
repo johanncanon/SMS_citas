@@ -7,19 +7,15 @@ package Bean;
 
 import Controlador.Upload;
 import Controlador.Cliente;
+import Controlador.MD5;
 import Modelo.SmsCiudad;
 import Modelo.SmsRol;
 import Modelo.SmsUsuario;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import org.apache.commons.io.IOUtils;
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -30,6 +26,7 @@ public class ClienteBean implements Serializable {
 
     //Objetos necesario para vista
     protected SmsUsuario clienteView;
+    protected SmsUsuario modClienteView;
     protected List<SmsUsuario> clientesListView;
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
@@ -38,32 +35,25 @@ public class ClienteBean implements Serializable {
     protected Cliente clienteController;
     protected Upload fileController;
 
-    //Variables
-    private int estado; //Controla la operacion a realizar
-    private String nombre;
+    //Variables    
     private String buscar;
-    private Boolean habilitarSubir;
-    private String subirArchivo;
-    private String estadoArchivo;
-    private UploadedFile archivo;
-
+    private Boolean habilitarEditarSesion;
+    private String pass;
+    
     public ClienteBean() {
         clienteView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
         clienteController = new Cliente();
         fileController = new Upload();
-
+        modClienteView = new SmsUsuario();        
         buscar = null;
-        estado = 0;
-        nombre = "Registrar Cliente";
-        habilitarSubir = false;
-        subirArchivo = "Subir fotografia";
-        estadoArchivo = "Foto sin subir";
-    }
+        habilitarEditarSesion = false;
+        }
 
     @PostConstruct
     public void init() {
+        clientesListView = new ArrayList<>();
         clientesListView = clienteController.consultarClientes();
     }
 
@@ -115,103 +105,86 @@ public class ClienteBean implements Serializable {
     public void setFileController(Upload fileController) {
         this.fileController = fileController;
     }
-
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
+    
     public String getBuscar() {
         return buscar;
     }
 
     public void setBuscar(String buscar) {
         this.buscar = buscar;
+    }    
+  
+    public SmsUsuario getModClienteView() {
+        return modClienteView;
     }
 
-    public Boolean getHabilitarSubir() {
-        return habilitarSubir;
+    public void setModClienteView(SmsUsuario modClienteView) {
+        this.modClienteView = modClienteView;
     }
 
-    public void setHabilitarSubir(Boolean habilitarSubir) {
-        this.habilitarSubir = habilitarSubir;
+    public Boolean getHabilitarEditarSesion() {
+        return habilitarEditarSesion;
     }
 
-    public String getSubirArchivo() {
-        return subirArchivo;
+    public void setHabilitarEditarSesion(Boolean habilitarEditarSesion) {
+        this.habilitarEditarSesion = habilitarEditarSesion;
     }
 
-    public void setSubirArchivo(String subirArchivo) {
-        this.subirArchivo = subirArchivo;
-    }
-
-    public String getEstadoArchivo() {
-        return estadoArchivo;
-    }
-
-    public void setEstadoArchivo(String estadoArchivo) {
-        this.estadoArchivo = estadoArchivo;
-    }
-
-    public UploadedFile getArchivo() {
-        return archivo;
-    }
-
-    public void setArchivo(UploadedFile archivo) {
-        this.archivo = archivo;
-    }
-
+    
     //Metodos     
     public void registrar() {
+        //asignamos un rol al usuario
         rolView.setRolNombre("Cliente");
+        
+        //asignamos al usuario la imagen de perfil default
+        clienteView.setUsuarioFotoRuta(fileController.getPathDefaultUsuario());
+        
+        //registramos el usuario y recargamos la lista de clientes
         clienteController.registrarUsuario(clienteView, ciudadView, rolView);
         clientesListView = clienteController.consultarClientes();
 
-        estadoArchivo = "Foto sin subir";
-        subirArchivo = "Subir Fotografia";
-        habilitarSubir = false;
-
+        //limpiamos objetos
         clienteView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
+        modClienteView = new SmsUsuario();
     }
 
-    public void modificar() {
+    public String modificar() {
+        
+        MD5 md = new MD5();
+        
+        //se asigna un rol al usuario
         rolView.setRolNombre("Cliente");
-        clienteController.modificarUsuario(clienteView, ciudadView, rolView);
+                
+        if(habilitarEditarSesion){ // en caso de modificar las contraseñas estas se encriptan de nuevo
+            modClienteView.setUsuarioPassword(md.getMD5(modClienteView.getUsuarioPassword()));
+            modClienteView.setUsuarioRememberToken(md.getMD5(modClienteView.getUsuarioRememberToken()));
+        }
+        
+        //Se modifica el usuario y se recarga la lista de clientes
+        clienteController.modificarUsuario(modClienteView, ciudadView, rolView);
         clientesListView = clienteController.consultarClientes();
-
-        estadoArchivo = "Foto sin subir";
-        subirArchivo = "Subir Fotografia";
-        habilitarSubir = false;
-
+       
+        //se limpian objetos
         clienteView = new SmsUsuario();
+        modClienteView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
+        habilitarEditarSesion = false;
+        
+        String ruta = "RAdminPCliente";
+        return ruta;
     }
 
-    public void eliminar() {
+    public void eliminar() {       
         clienteController.eliminarUsuario(clienteView);
         clientesListView = clienteController.consultarClientes();
 
-        estadoArchivo = "Foto sin subir";
-        subirArchivo = "Subir Fotografia";
-        habilitarSubir = false;
-
         clienteView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
+        modClienteView = new SmsUsuario();
     }
 
     public void filtrar() {
@@ -224,73 +197,35 @@ public class ClienteBean implements Serializable {
     }
 
     //Metodos propios
-    public void seleccionarCrud(int i) {
-        estado = i;
-
-        if (estado == 1) {//MODIFICACION
-            nombre = "Modificar Cliente";
-            ciudadView = clienteView.getSmsCiudad();
-            rolView = clienteView.getSmsRol();
-
-            if (clienteView.getUsuarioFotoNombre() != null && clienteView.getUsuarioFotoRuta() != null) {
-                subirArchivo = "Modificar Fotografia";
-                estadoArchivo = "Foto subida:" + clienteView.getUsuarioFotoNombre();
-                habilitarSubir = false;
-            } else {
-                subirArchivo = "Subir Fotografia";
-                habilitarSubir = false;
-            }
-        } else if (estado == 2) {//ELIMINACION
-            nombre = "Eliminar Cliente";
-            ciudadView = clienteView.getSmsCiudad();
-            rolView = clienteView.getSmsRol();
-
-            subirArchivo = "Subir Fotografia";
-            habilitarSubir = true;
-        }
+    public String irModificarCliente() {
+        ciudadView = modClienteView.getSmsCiudad();
+        rolView = modClienteView.getSmsRol();      
+        
+        String ruta = "AdminPECliente";
+        return ruta;
     }
 
-    public void metodo() {
-        if (estado == 0) {
-            registrar();
-        } else if (estado == 1) {
-            modificar();
-            estado = 0;
-            nombre = "Registrar Cliente";
-        } else if (estado == 2) {
-            eliminar();
-            estado = 0;
-            nombre = "Registrar Cliente";
-        }
+    public String regresar() {               
+        modClienteView = new SmsUsuario();        
+        habilitarEditarSesion = false;
+        String ruta = "AdminPCliente";
+        return ruta;
+    }
+    
+    public void habilitarEdicion(){
+        habilitarEditarSesion = true;
+        pass = modClienteView.getUsuarioPassword();
+        modClienteView.setUsuarioPassword(null);
+        modClienteView.setUsuarioRememberToken(null);
     }
 
-    //Subida de archivos
+    public void deshabilitarEdicion(){
+        habilitarEditarSesion = false;
+        modClienteView.setUsuarioPassword(pass);
+        modClienteView.setUsuarioRememberToken(pass);
+    }
     
 
-    public void uploadPhoto(FileUploadEvent e) throws IOException {
-           
-        try {
-            UploadedFile uploadedPhoto = e.getFile();
-            String destination;
+    
 
-            HashMap<String, String> map = fileController.getMapPathFotosUsuario();
-            destination = map.get("path");
-            if (null != uploadedPhoto) {
-                fileController.uploadFile(IOUtils.toByteArray(uploadedPhoto.getInputstream()), uploadedPhoto.getFileName(),destination);
-                clienteView.setUsuarioFotoNombre(uploadedPhoto.getFileName());
-                clienteView.setUsuarioFotoRuta(map.get("url") + uploadedPhoto.getFileName());
-                habilitarSubir = true;
-                if (estado == 0) {
-                    estadoArchivo = "Foto Subida con exito";
-                } else if (estado == 1) {
-                    estadoArchivo = "Foto actualizada con exito";
-                }
-            }
-
-            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + uploadedPhoto.getFileName() + ")  se ha guardado con exito.", ""));
-        } catch (Exception ex) {
-            ex.getMessage();
-        }
-
-    }
 }

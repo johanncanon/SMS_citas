@@ -114,11 +114,7 @@ public class ServiciosBean {
             modificar();
             estado = 0;
             nombre = "Registrar Servicio";
-        } else if (estado == 2) {
-            eliminar();
-            estado = 0;
-            nombre = "Registrar Servicio";
-        }
+        } 
 
     }
 
@@ -126,8 +122,6 @@ public class ServiciosBean {
         estado = i;
         if (estado == 1) {
             nombre = "Modificar Servicio";
-        } else if (estado == 2) {
-            nombre = "Eliminar Servicio";
         }
     }
 

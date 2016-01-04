@@ -57,7 +57,7 @@ public class Referencia {
      ** Metodos que se comunican con el Bean *************************************
      */
     public void modificarReferencia(SmsReferencia ref, SmsMarca marc) {
-        this.referencia = ref;
+        referencia = ref;
         marca = marc;
         referencia.setSmsMarca(marca);
 
@@ -65,17 +65,15 @@ public class Referencia {
         linkDao.modificarReferencia(referencia);
     }
 
-    public void eliminarReferencia(SmsReferencia ref, SmsMarca marc) {
-        this.referencia = ref;
-        marca = marc;
-        referencia.setSmsMarca(marca);
-
+    public void eliminarReferencia(SmsReferencia ref) {
+        referencia = ref;
+        
         IReferenciaDao linkDao = new ImpReferenciaDao();
         linkDao.eliminarReferencia(referencia);
     }
 
     public void registrarReferencia(SmsReferencia ref, SmsMarca marc) {
-        this.referencia = ref;marca = marc;
+        referencia = ref; marca = marc;
         
         Marca marcaController = new Marca();        
         marca = marcaController.consultarMarca(marca).get(0);

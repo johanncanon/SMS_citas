@@ -13,9 +13,9 @@
             <b:container fluid="true">
                 <b:row>
                     <h:form>
+                        <p:messages id="messages" closable="true"/>
 
-                        <p:messages id="messages" showDetail="true"/>
-                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
                             <div class="box box-info espacio-arriba">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-globe"/>
@@ -26,7 +26,10 @@
                                         SMS Renta presta sus servicios.</p> 
                                 </div>
                             </div>
-                            
+                        </b:column>
+
+                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+
                             <div class="box box-danger">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-globe"/>
@@ -39,19 +42,21 @@
                                             <b:inputText placeholder="Nombre del pais"  value="#{paisBean.paisView.paisNombre}" style="width: 100%"/>                                         
                                         </h:panelGrid>
                                     </div> <br/>
-                                        <p:commandButton class="btn btn-block btn-danger" id="BTPais" action="#{paisBean.metodo()}" update="messages PPais BTPais DTPaises" value="#{paisBean.nombre}"/>                                       
+                                    <p:commandButton class="btn btn-block btn-danger" id="BTPais" action="#{paisBean.metodo()}" update="messages PPais BTPais DTPaises" value="#{paisBean.nombre}"/>                                       
                                 </div>
                             </div>
                         </b:column>
 
                         <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
-                            <div class="box box-success espacio-arriba">
+                            <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-list-alt"/>
-                                    <h4 class="box-title">Lista de ciudades</h4>
+                                    <h4 class="box-title">Lista de Paises</h4>
                                 </div> 
                                 <div class="box-body">
-                                    <b:inputText placeholder="Buscar" id="SearchPais" style="width: 100%"/>
+                                    <b:inputText placeholder="Buscar" value="#{paisBean.buscar}" style="width: 100%">
+                                        <p:ajax event="keyup" listener="#{paisBean.filtrar()}" process="@this" update="DTPaises"/>                                    
+                                    </b:inputText>
                                     <hr/>
                                     <p:dataTable id="DTPaises" emptyMessage="Ciudades no registradas" var="paises" value="#{paisBean.paisesListView}" 
                                                  rows="5"
@@ -63,22 +68,26 @@
                                         </p:column>
 
                                         <p:column style="width: 35px">
-                                            <p:commandButton icon="ui-icon-pencil" action="#{paisBean.seleccionarCrud(1)}" title="Modificar">
+                                            <p:commandLink style="color: white" class="fa fa-pencil btn btn-block btn-success" process="@this" update="@form" action="#{paisBean.seleccionarCrud(1)}" title="Modificar">
                                                 <f:setPropertyActionListener value="#{paises}" target="#{paisBean.paisView}"/>
-                                            </p:commandButton>
+                                            </p:commandLink>
                                         </p:column>
 
                                         <p:column style="width: 35px"> 
-                                            <p:commandButton icon="ui-icon-close" action="#{paisBean.seleccionarCrud(2)}" title="Eliminar">
+                                            <p:commandLink style="color: white" class="fa fa-trash btn btn-block btn-danger" process="@this" update="@form" action="#{paisBean.eliminar()}" title="Eliminar">
                                                 <f:setPropertyActionListener value="#{paises}" target="#{paisBean.paisView}"/>
-                                            </p:commandButton>
+                                                <p:confirm header="Confirmacion" message="Esta seguro que desea eliminar este cliente?" icon="ui-icon-alert" /> 
+                                            </p:commandLink>
                                         </p:column>
                                     </p:dataTable> 
 
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <b:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" look="success" iconAwesome="fa fa-check" />
+                                        <b:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" look="danger" iconAwesome="fa fa-close" />
+                                    </p:confirmDialog>
                                 </div>                                   
                             </div>
                         </b:column>
-
                     </h:form> 
                 </b:row>
             </b:container>

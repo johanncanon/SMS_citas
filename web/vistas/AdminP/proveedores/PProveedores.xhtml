@@ -11,13 +11,29 @@
         <ui:define name="content">
             <b:container fluid="true">
                 <b:row>
+                    <h:form id="formulario">
+                        <p:messages closable="true" id="msg"/>
+                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" >
 
-                    <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
-                        <h:form id="formA">
+                            <div class="box box-info espacio-arriba">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-truck"/>
+                                    <h4 class="box-title">Registro de Proveedores</h4>
+                                </div>
+                                <div class="box-body">
+                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros proveedores, asignar una valor
+                                        de ganancias y ademas podra crear una cuenta de sesion para el ingreso al sistema.</p> 
+                                </div>
+                            </div>
+
+                        </b:column>
+
+                        <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
+
                             <div class="box box-danger espacio-arriba">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-file-text"/>
-                                    <h4 class="box-title"> Datos del ProveedorR</h4>                                   
+                                    <h4 class="box-title"> Datos del Proveedor</h4>                                   
                                 </div> 
                                 <div class="box-body">
                                     <div class="table-responsive">
@@ -27,23 +43,23 @@
                                             <p:message for="TNombreApProv"/>
 
                                             <p:outputLabel value="CC: " />
-                                            <b:inputText id="TCcProv" placeholder="Cedula de ciudadania" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioCc}"></b:inputText>
+                                            <b:inputText maxlength="45" id="TCcProv" placeholder="Cedula de ciudadania" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioCc}"></b:inputText>
                                             <p:message for="TCcProv"/>
 
                                             <p:outputLabel value="Telefono: "/>
-                                            <b:inputText id="TTelProv" placeholder="Numero de telefono fijo o celular" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioTelefono}"></b:inputText> 
+                                            <b:inputText maxlength="45" id="TTelProv" placeholder="Numero de telefono fijo o celular" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioTelefono}"></b:inputText> 
                                             <p:message for="TTelProv"/>
 
                                             <p:outputLabel value="Email: *"/>
-                                            <b:inputText id="TEmailProv" required="true" requiredMessage="Ingrese email" placeholder="Direccion de correo electronico" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioEmail}"></b:inputText>
+                                            <b:inputText maxlength="100" validator="emailValidator" id="TEmailProv" required="true" requiredMessage="Ingrese email" placeholder="Direccion de correo electronico" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioEmail}"></b:inputText>
                                             <p:message for="TEmailProv"/>
 
                                             <p:outputLabel value="Razon social: "/>
-                                            <b:inputText id="TRazSocProv" placeholder="Nombre de la empresa" style="width: 100%"  value="#{proveedorBean.usuarioView.usuarioRazonSocial}"></b:inputText>
+                                            <b:inputText maxlength="100" id="TRazSocProv" placeholder="Nombre de la empresa" style="width: 100%"  value="#{proveedorBean.usuarioView.usuarioRazonSocial}"></b:inputText>
                                             <p:message for="TRazSocProv"/>
 
                                             <p:outputLabel value="Nit: "/>
-                                            <b:inputText id="TNitProv" placeholder="Nit de la empresa" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioNit}"></b:inputText>
+                                            <b:inputText maxlength="45" id="TNitProv" placeholder="Nit de la empresa" style="width: 100%" value="#{proveedorBean.usuarioView.usuarioNit}"></b:inputText>
                                             <p:message for="TNitProv"/>
 
                                             <p:outputLabel value="Valor Ganancia: *"/>
@@ -57,64 +73,39 @@
                                             </b:selectOneMenu>
                                             <p:message for="SCiudades"/>
                                         </h:panelGrid>
-                                    </div><hr/>
-                                    <h4>Datos de sesion</h4>
-                                    <hr/>      
-                                    <div class="table-responsive"> 
-                                        <h:panelGrid columns="2" id="seccionDatosSesion"  cellpadding="2"  style="width: 100%">
-
-                                            <p:outputLabel value="Login: "/>
-                                            <b:inputText style="width: 100%" placeholder="Login de sesion" value="#{proveedorBean.usuarioView.usuarioLogin}"></b:inputText>
-
-                                            <p:outputLabel value="Contraseña: "/>
-                                            <b:inputSecret style="width: 100%" placeholder="Contraseña de sesion" value="#{proveedorBean.usuarioView.usuarioPassword}"></b:inputSecret>
-
-                                            <p:outputLabel value="Repita contraseña: "/>
-                                            <b:inputSecret style="width: 100%" placeholder="Repita contraseña de sesion" value="#{proveedorBean.usuarioView.usuarioRememberToken}"></b:inputSecret>                               
-
-                                        </h:panelGrid>                                        
-                                    </div><hr/>                                    
-                                    <p:commandButton id="BTProveedor" class="btn btn-block btn-danger" update=":formA:seccionDatosUsuario :formB :formA:seccionDatosSesion :formA:BTProveedor :formC:DTProveedores" action="#{proveedorBean.metodo()}" value="#{proveedorBean.nombre}" />
-
-                                </div>                                        
-                            </div>
-                        </h:form>
-                    </b:column>
-
-                    <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" >
-                        <div class="box box-info espacio-arriba">
-                            <div class="box-header with-border">
-                                <i class="fa fa-2x fa-truck"/>
-                                <h4 class="box-title">Registro de Proveedores</h4>
-                            </div>
-                            <div class="box-body">
-                                <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros proveedores, asignar una valor
-                                    de ganancias y ademas podra crear una cuenta de sesion para el ingreso al sistema.</p> 
-                            </div>
-                        </div>
-
-                        <h:form id="formB" enctype="multipart/form-data">
-                            <div class="box box-primary">
-                                <p:fragment autoUpdate="true">
+                                    </div>
                                     <div class="box-header with-border">
-                                        <i class="fa fa-2x fa-camera"/>    
-                                        <h4 class="box-title">Ingreso de Fotografía</h4>
+                                        <i class="fa fa-2x fa-check-square"/>
+                                        <h4 class="box-title">Datos de Sesión</h4>                                        
                                     </div>
                                     <div class="box-body">
-                                        <p:outputLabel value="#{proveedorBean.estadoArchivo}"/>
-                                        <div class="table-responsive">
-                                            <p:fileUpload id="fileIdPhoto" fileUploadListener="#{proveedorBean.uploadPhoto}" mode="advanced" dragDropSupport="false"
-                                                          process="@this" auto="true" update=":formB" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />
+                                        <div class="table-responsive"> 
+                                            <h:panelGrid columns="2" id="seccionDatosSesion"  cellpadding="2"  style="width: 100%">
 
-                                            <p:messages id="messages" autoUpdate="true" closable="true" /></div> 
-                                    </div>
-                                </p:fragment>
+                                                <p:outputLabel value="Login: "/>
+                                                <b:inputText style="width: 100%" maxlength="60" validator="regLoginValidator" placeholder="Login de sesion" value="#{proveedorBean.usuarioView.usuarioLogin}"></b:inputText>
+
+                                                <p:outputLabel value="Contraseña: "/>
+                                                <b:inputSecret label="Contraseña" style="width: 100%" binding="#{ProvPass}" maxlength="20" placeholder="Contraseña de sesion" value="#{proveedorBean.usuarioView.usuarioPassword}">
+                                                    <f:validateLength minimum="6"/>
+                                                </b:inputSecret>
+
+                                                <p:outputLabel value="Repita contraseña: "/>
+                                                <b:inputSecret label="Repita Contraseña" style="width: 100%" maxlength="20" validator="repeatPasswordValidator" placeholder="Repita contraseña de sesion" value="#{proveedorBean.usuarioView.usuarioRememberToken}">
+                                                    <f:attribute name="password" value="#{ProvPass.value}"/>
+                                                    <f:validateLength minimum="6"/>
+                                                </b:inputSecret>                               
+
+                                            </h:panelGrid>                                        
+                                        </div><hr/>                                    
+                                        <p:commandButton id="BTProveedor" class="btn btn-block btn-danger" update="@form" action="#{proveedorBean.registrar()}" value="Registrar Proveedor" />
+                                    </div>                                        
+                                </div>
                             </div>
-                        </h:form>
-                    </b:column>
+                        </b:column>
 
-                    <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
-                        <h:form id="formC">
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+
                             <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-users"/>
@@ -143,22 +134,26 @@
                                         </p:column>
 
                                         <p:column style="width: 35px">
-                                            <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formB :formA:seccionDatosSesion :formA:BTProveedor" icon="ui-icon-pencil" action="#{proveedorBean.seleccionarCrud(1)}" title="Modificar">
-                                                <f:setPropertyActionListener value="#{proveedor}" target="#{proveedorBean.usuarioView}"/>
-                                            </p:commandButton>
+                                            <p:commandLink style="color: white" class="fa fa-pencil btn btn-block btn-success" process="@this"  action="#{proveedorBean.irModificarProveedores()}" title="Modificar">
+                                                <f:setPropertyActionListener value="#{proveedor}" target="#{proveedorBean.modUsuarioView}"/>
+                                            </p:commandLink>
                                         </p:column>
 
                                         <p:column style="width: 35px"> 
-                                            <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formB :formA:seccionDatosSesion :formA:BTProveedor" icon="ui-icon-close" action="#{proveedorBean.seleccionarCrud(2)}" title="Eliminar">
+                                            <p:commandLink style="color: white" class="fa fa-trash btn btn-block btn-danger" process="@this" update=":formulario:msg DTProveedores" action="#{proveedorBean.eliminar()}" title="Eliminar">
                                                 <f:setPropertyActionListener value="#{proveedor}" target="#{proveedorBean.usuarioView}"/>
-                                            </p:commandButton>
+                                                <p:confirm header="Confirmacion" message="Esta seguro que desea eliminar este Proveedor?" icon="ui-icon-alert" /> 
+                                            </p:commandLink>
                                         </p:column>
                                     </p:dataTable>
-
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <b:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" look="success" iconAwesome="fa fa-check" />
+                                        <b:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" look="danger" iconAwesome="fa fa-close" />
+                                    </p:confirmDialog>
                                 </div>
                             </div>
-                        </h:form>
-                    </b:column>
+                        </b:column>
+                    </h:form>
                 </b:row>
             </b:container>
         </ui:define>

@@ -142,9 +142,7 @@ public class PermisosBean implements Serializable {
         estado = i;
         if (estado == 1) {            
             nombre = "Modificar Permiso";
-        } else if (estado == 2) {            
-            nombre = "Eliminar Permiso";
-        }
+        } 
     }
 
     public void metodo() {
@@ -154,11 +152,7 @@ public class PermisosBean implements Serializable {
             modificar();
             estado = 0;
             nombre = "Registrar Permiso";
-        } else if (estado == 2) {
-            eliminar();
-            estado = 0;
-            nombre = "Registrar Permiso";
-        }
+        } 
     }
 
 }

@@ -13,6 +13,7 @@
             <b:container fluid="true">
                 <b:row>
                     <h:form id="formA">
+                        <p:messages id="msg" closable="true"/>
 
                         <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
                             <div class="box box-info espacio-arriba">
@@ -42,15 +43,15 @@
                                             <p:message for="TNombreApEmp"/>
 
                                             <p:outputLabel value="CC: " />
-                                            <b:inputText id="TCcEmp" placeholder="Cedula de ciudadania" value="#{empleadoBean.usuarioView.usuarioCc}" style="width: 100%" ></b:inputText>
+                                            <b:inputText id="TCcEmp" maxlength="45" placeholder="Cedula de ciudadania" value="#{empleadoBean.usuarioView.usuarioCc}" style="width: 100%" ></b:inputText>
                                             <p:message for="TCcEmp"/>
 
                                             <p:outputLabel value="Telefono: "/>
-                                            <b:inputText id="TTelEmp" placeholder="Numero de telefono fijo o celular" value="#{empleadoBean.usuarioView.usuarioTelefono}" style="width: 100%" ></b:inputText> 
+                                            <b:inputText id="TTelEmp" maxlength="45" placeholder="Numero de telefono fijo o celular" value="#{empleadoBean.usuarioView.usuarioTelefono}" style="width: 100%" ></b:inputText> 
                                             <p:message for="TTelEmp"/>
 
                                             <p:outputLabel value="Email:* "/>
-                                            <b:inputText id="TEmailEmp" required="true" requiredMessage="Ingrese Email valido" placeholder="Direccion de correo electronico" value="#{empleadoBean.usuarioView.usuarioEmail}" style="width: 100%" ></b:inputText>
+                                            <b:inputText id="TEmailEmp" maxlength="100" validator="emailValidator" required="true" requiredMessage="Ingrese Email valido" placeholder="Direccion de correo electronico" value="#{empleadoBean.usuarioView.usuarioEmail}" style="width: 100%" ></b:inputText>
                                             <p:message for="TEmailEmp"/>
 
                                             <p:outputLabel value="Ciudad:* "/>
@@ -60,35 +61,45 @@
                                             </b:selectOneMenu>
                                             <p:message for="SCiudades"/>
                                         </h:panelGrid>
-                                    </div><hr/>
-                                    <h4>Datos de sesion</h4>
-                                    <hr/>
-                                    <div class="table-responsive">
+                                    </div>
+                                </div>
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-check-square"/>
+                                    <h4 class="box-title">Datos de Sesión</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="table-responsive">    
                                         <h:panelGrid cellpadding="5" columns="3" id="seccionDatosSesion" style="width: 100%">
 
                                             <p:outputLabel value="Login: "/>
-                                            <b:inputText id="TLoginEmp" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioLogin}" placeholder="Login de sesion"></b:inputText>
+                                            <b:inputText id="TLoginEmp" maxlength="60" validator="regLoginValidator" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioLogin}" placeholder="Login de sesion">
+                                            </b:inputText>
                                             <p:message for="TLoginEmp"/>
 
                                             <p:outputLabel value="Contraseña: "/>
-                                            <b:inputSecret id="TPassEmp" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioPassword}" placeholder="Contraseña de sesion"></b:inputSecret>
+                                            <b:inputSecret label="Contraseña" id="TPassEmp" maxlength="20" binding="#{ConPass}" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioPassword}" placeholder="Contraseña de sesion">
+                                                <f:validateLength minimum="6"/>
+                                            </b:inputSecret>
                                             <p:message for="TPassEmp"/>
 
                                             <p:outputLabel value="Repita contraseña: "/>
-                                            <b:inputSecret id="TRemPassEmp" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioRememberToken}" placeholder="Repita contraseña de sesion" ></b:inputSecret>
+                                            <b:inputSecret label="Repita contraseña" validator="repeatPasswordValidator" id="TRemPassEmp" maxlength="20" style="width: 100%" value="#{empleadoBean.usuarioView.usuarioRememberToken}" placeholder="Repita contraseña de sesion" >
+                                                <f:validateLength minimum="6"/>
+                                                <f:attribute name="password" value="#{ConPass.value}"/>
+                                            </b:inputSecret>
                                             <p:message for="TRemPassEmp"/>
 
                                         </h:panelGrid>
                                     </div><hr/>
-                                    <p:commandButton id="BTEmpleado" class="btn btn-block btn-danger" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTEmpleado :formC:DTEmpleado :formB :formD" action="#{empleadoBean.metodo()}" value="#{empleadoBean.nombre}" />
-
+                                    <p:commandButton id="BTEmpleado" class="btn btn-block btn-danger" update=":formA:msg :formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTEmpleado :formC:DTEmpleado :formB:TEstadoFoto :formB:fileIdPhoto :formD:TEstadoArchivo :formD:fileIdDoc" action="#{empleadoBean.registrar()}" value="Registrar Conductor" />
                                 </div>
                             </div>
                         </b:column>   
                     </h:form>
 
                     <h:form id="formB" enctype="multipart/form-data">
-                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" >
+                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" >                            
+
                             <div class="box box-primary">
                                 <p:fragment autoUpdate="true">
                                     <div class="box-header with-border">    
@@ -96,12 +107,12 @@
                                         <h4 class="box-title">Ingreso de Fotografía</h4>
                                     </div>
                                     <div class="box-body">
-                                        <p:outputLabel value="#{empleadoBean.estadoFoto}"/>
+                                        <p:outputLabel id="TEstadoFoto" value="#{empleadoBean.estadoFoto}"/>
                                         <div class="table-responsive">
                                             <p:fileUpload id="fileIdPhoto" fileUploadListener="#{empleadoBean.uploadPhoto}" mode="advanced" dragDropSupport="false"
                                                           process="@this" auto="true" update=":formB" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />
 
-                                            <p:messages id="messages" autoUpdate="true" closable="true" /></div> 
+                                            <p:messages id="messages" closable="true" /></div> 
                                     </div>
                                 </p:fragment>
                             </div>
@@ -118,12 +129,12 @@
                                         <h4 class="box-title">Ingreso Hoja de Vida</h4>
                                     </div>
                                     <div class="box-body">
-                                        <p:outputLabel value="#{empleadoBean.estadoArchivo}"/>
+                                        <p:outputLabel id="TEstadoArchivo" value="#{empleadoBean.estadoArchivo}"/>
                                         <div class="table-responsive">
                                             <p:fileUpload id="fileIdDoc" fileUploadListener="#{empleadoBean.uploadDoc}" mode="advanced" dragDropSupport="false"
                                                           process="@this" auto="true" update=":formD" sizeLimit="10000000" allowTypes="/(\.|\/)(docx|doc|pdf)$/"  />
 
-                                            <p:messages id="messages" autoUpdate="true" closable="true" />
+                                            <p:messages id="messages" closable="true" />
                                         </div> 
                                     </div>
                                 </p:fragment>
@@ -137,13 +148,16 @@
                             <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-users"/>
-                                    <h4 class="box-title">Empleados SMS Renta</h4><hr/>                                        
+                                    <h4 class="box-title">Empleados SMS Renta</h4>                                     
                                 </div>
                                 <div class="box-body">
                                     <b:inputText placeholder="Buscar" value="#{empleadoBean.buscar}" style=" width: 100%">
                                         <p:ajax event="keyup" listener="#{empleadoBean.filtrar()}" process="@this" update="DTEmpleado"/>
                                     </b:inputText>
-                                    <p:dataTable id="DTEmpleado" var="empleado" emptyMessage="Empleados no registrados" value="#{empleadoBean.empleadosListView}">
+                                    <p:dataTable id="DTEmpleado" var="empleado" emptyMessage="Empleados no registrados" value="#{empleadoBean.empleadosListView}" rows="5"
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
                                         <p:column headerText="Nombre y apellido">
                                             <p:outputLabel value="#{empleado.usuarioNombre}"/>
                                         </p:column>
@@ -157,29 +171,23 @@
                                         </p:column>
 
                                         <p:column style="width: 35px">
-                                            <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTEmpleado :formB :formD" icon="ui-icon-pencil" action="#{empleadoBean.seleccionarCrud(1)}" title="Modificar">
-                                                <f:setPropertyActionListener value="#{empleado}" target="#{empleadoBean.usuarioView}"/>
-                                            </p:commandButton>
+                                            <p:commandLink style="color: white" class="fa fa-pencil btn btn-block btn-success" process="@this" action="#{empleadoBean.irModificarEmpleados()}" title="Modificar">
+                                                <f:setPropertyActionListener value="#{empleado}" target="#{empleadoBean.modUsuarioView}"/>
+                                            </p:commandLink>
                                         </p:column>
 
                                         <p:column style="width: 35px"> 
-                                            <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTEmpleado :formB :formD" icon="ui-icon-close" action="#{empleadoBean.seleccionarCrud(2)}" title="Eliminar">
+                                            <p:commandLink style="color: white" class="fa fa-trash btn btn-block btn-danger" process="@this" update=":formA:msg :formA:seccionDatosUsuario :formC :formA:seccionDatosSesion :formA:BTEmpleado :formB:TEstadoFoto :formB:fileIdPhoto :formD:TEstadoArchivo :formD:fileIdDoc" action="#{empleadoBean.eliminar()}" title="Eliminar">
                                                 <f:setPropertyActionListener value="#{empleado}" target="#{empleadoBean.usuarioView}"/>
-                                            </p:commandButton>
-                                        </p:column>
-
-                                        <p:column style="width: 35px">
-                                            <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTEmpleado :formB :formD" icon="ui-icon-pencil" action="#{empleadoBean.seleccionarCrud(1)}" title="Modificar">
-                                                <f:setPropertyActionListener value="#{empleado}" target="#{empleadoBean.usuarioView}"/>
-                                            </p:commandButton>
-                                        </p:column>
-
-                                        <p:column style="width: 35px"> 
-                                            <p:commandButton process="@this" update=":formA:seccionDatosUsuario :formA:seccionDatosSesion :formA:BTEmpleado :formB :formD" icon="ui-icon-close" action="#{empleadoBean.seleccionarCrud(2)}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{empleado}" target="#{empleadoBean.usuarioView}"/>
-                                            </p:commandButton>
-                                        </p:column>
+                                                <p:confirm header="Confirmacion" message="Esta seguro que desea eliminar este conductor?" icon="ui-icon-alert" /> 
+                                            </p:commandLink>
+                                        </p:column>                                        
                                     </p:dataTable>
+
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <b:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" look="success" iconAwesome="fa fa-check" />
+                                        <b:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" look="danger" iconAwesome="fa fa-close" />
+                                    </p:confirmDialog>
                                 </div>
                             </div>
                         </b:column>

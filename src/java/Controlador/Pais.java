@@ -71,6 +71,13 @@ public class Pais {
         paises = paisDao.mostrarPaises();
         return paises;
     }
+    
+    public List<SmsPais> filtrarPaises(String valor) {
+        paises = new ArrayList<>();
+        IPaisDao paisDao = new ImpPaisDao();
+        paises = paisDao.filtrarPais(valor);
+        return paises;
+    }
 
     //Metodos
     public SmsPais validarPais(SmsCiudad ciudad) {
@@ -81,7 +88,6 @@ public class Pais {
                 pais = paises.get(i);
             }
         }
-
         return pais;
     }
 }

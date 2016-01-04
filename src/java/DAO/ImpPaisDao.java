@@ -18,10 +18,10 @@ import org.hibernate.Session;
  *
  * @author Desarrollo_Planit
  */
-public class ImpPaisDao implements IPaisDao{
+public class ImpPaisDao implements IPaisDao {
 
     private FacesMessage message;
-    
+
     @Override
     public List<SmsPais> mostrarPaises() {
         Session session = null;
@@ -57,12 +57,13 @@ public class ImpPaisDao implements IPaisDao{
             if (session != null) {
                 session.close();
             }
-        }FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
     public void modificarPais(SmsPais pais) {
-       Session session = null;
+        Session session = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
@@ -77,7 +78,8 @@ public class ImpPaisDao implements IPaisDao{
             if (session != null) {
                 session.close();
             }
-        }FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
@@ -97,12 +99,13 @@ public class ImpPaisDao implements IPaisDao{
             if (session != null) {
                 session.close();
             }
-        }FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     @Override
     public List<SmsPais> consultarPais(SmsPais pais) {
-         Session session = null;
+        Session session = null;
         List<SmsPais> paises = new ArrayList<>();
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
@@ -117,5 +120,23 @@ public class ImpPaisDao implements IPaisDao{
         }
         return paises;
     }
-    
+
+    @Override
+    public List<SmsPais> filtrarPais(String valor) {
+        Session session = null;
+        List<SmsPais> paises = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsPais as pais where pais.paisNombre LIKE '%" + valor + "%'");
+            paises = (List<SmsPais>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return paises;
+    }
+
 }

@@ -30,7 +30,7 @@ public class ImpRolDao implements IRolDao{
         
         try{
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsRol as rol left join fetch rol.smsPermisoses as permisos");
+            Query query = session.createQuery("from SmsRol as rol left join fetch rol.smsPermisoses as permisos group by rol.idRol");
             roles = (List<SmsRol>) query.list();
             
         }catch(HibernateException e){
@@ -41,6 +41,7 @@ public class ImpRolDao implements IRolDao{
             }
         }return roles;
     }
+        
 
     @Override
     public void registrarRol(SmsRol Rol) {
@@ -129,7 +130,7 @@ public class ImpRolDao implements IRolDao{
         List<SmsRol> roles = new ArrayList<>();
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsRol as rol left join fetch rol.smsPermisoses as permisos where rol.rolNombre Like '%" + valor + "%'");
+            Query query = session.createQuery("from SmsRol as rol left join fetch rol.smsPermisoses as permisos where rol.rolNombre Like '%" + valor + "%'  group by rol.idRol");
             roles = (List<SmsRol>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
