@@ -49,12 +49,14 @@ public class UsuarioBean implements Serializable {
     protected SmsUsuario Usuario;
 
     //Variables
+    private SmsCiudad ciudadUsuario;
     private String buscar;
     private Boolean habilitarEditarSesion;   
     private String pass;
     private String login;
 
     public UsuarioBean() {
+        ciudadUsuario = new SmsCiudad();
         usuarioView = new SmsUsuario();
         modUsuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
@@ -73,6 +75,16 @@ public class UsuarioBean implements Serializable {
     }
 
     //Getters & Setters
+
+    public SmsCiudad getCiudadUsuario() {
+        return ciudadUsuario;
+    }
+
+    public void setCiudadUsuario(SmsCiudad ciudadUsuario) {
+        this.ciudadUsuario = ciudadUsuario;
+    }
+    
+    
     public List<SmsUsuario> getUsuariosListView() {
         return usuariosListView;
     }

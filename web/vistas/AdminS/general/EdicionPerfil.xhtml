@@ -63,13 +63,13 @@
                                     <i class="fa fa-2x fa-check-square"/>
                                     <h4 class="box-title">Datos de Sesión</h4>
                                     <br/><br/> 
-                                    <p:commandLink value="Editar datos de sesion">
-                                        <p:ajax listener="#{proveedorBean.habilitarRegistro()}" event="click" update="@form"/>
-                                    </p:commandLink>
+                                    <!--<p:commandLink value="Editar datos de sesion">
+                                        <p:ajax  event="click" update="@form"/>
+                                    </p:commandLink>-->
                                 </div>
                                 <div class="box-body">
                                     <div class="table-responsive"> 
-                                        <h:panelGrid columns="2" rendered="#{proveedorBean.habilitarRegistroSesion}" id="seccionDatosSesion"  cellpadding="2"  style="width: 100%">
+                                        <h:panelGrid columns="2" rendered="" id="seccionDatosSesion"  cellpadding="2"  style="width: 100%">
 
                                             <p:outputLabel value="Login: "/>
                                             <b:inputText style="width: 100%" maxlength="60" validator="regLoginValidator" placeholder="Login de sesion" value="#{usuarioBean.usuarioView.usuarioLogin}"></b:inputText>
@@ -86,7 +86,7 @@
                                             </b:inputSecret>
 
                                             <p:commandLink value="Cerrar">
-                                                <p:ajax event="click" listener="#{proveedorBean.deshabilitarRegistro()}" update="@form"/>
+                                                <p:ajax event="click"  update="@form"/>
                                             </p:commandLink>
 
                                         </h:panelGrid>                                        
@@ -97,7 +97,7 @@
                         </div>
                     </b:column>
 
-                    <b:column col-lg="4">
+                    <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
                         <div class="box box-solid bg-green-gradient espacio-arriba">
                             <div class="box-header ui-sortable-handle">
                                 <i class="fa fa-user-plus"/>
