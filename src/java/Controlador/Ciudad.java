@@ -36,8 +36,6 @@ public class Ciudad {
     }
 
     public List<SmsCiudad> getCiudades() {
-        ICiudadDao linkDao = new ImpCiudadDao();
-        ciudades = linkDao.mostrarCiudades();
         return ciudades;
     }
 

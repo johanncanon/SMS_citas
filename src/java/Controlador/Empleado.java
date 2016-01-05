@@ -105,7 +105,14 @@ public class Empleado extends Usuario {
         IHojaVidaDao hojaDao = new ImpHojaVidaDao();
         hojaDao.eliminarHojaVida(hojaVida);
     }   
-        
+    
+    public List<SmsEmpleado> mostrarEmpleados(){
+        empleados = new ArrayList<>();
+        IEmpleadoDao linkDAO = new ImpEmpleadoDao();
+        empleados = linkDAO.mostrarEmpleados();
+       return empleados; 
+    }
+    
     public List<SmsEmpleado> consultarEmpleado(SmsUsuario u) {
         usuario = u;
         empleados = new ArrayList<>();
