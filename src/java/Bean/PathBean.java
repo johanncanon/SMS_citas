@@ -133,6 +133,14 @@ public class PathBean {
     public String ir_SServicios(){
         return "AdminSServicios";
     }
+    
+    public String ir_SRoll(){
+        return "AdminSRoll";
+    }
+    
+    public String ir_SSAdministradores(){
+        return "AdminSAdministradores";
+    }
 
     /* / ADMIN SECUNDARIO / */
     /* / CONDUCTOR / */

@@ -8,12 +8,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
-    <ui:composition template="./../template-admin-p.xhtml">
-        <ui:define name="content">
+     <ui:composition template="./../temp-admin2.xhtml">
+        <ui:define name="content1">
             <b:container fluid="true">
                 <b:row>
                     <h:form id="formulario">
                         <p:messages id="msg" closable="true"/>
+
+
 
                         <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
                             <div class="box box-danger espacio-arriba">
@@ -135,18 +137,7 @@
                                             <p:outputLabel value="#{usuario.usuarioEmail}"/>
                                         </p:column>
 
-                                        <p:column style="width: 35px">
-                                            <p:commandLink style="color: white" class="fa fa-pencil btn btn-block btn-success" process="@this" action="#{usuarioBean.irModificarAdministrador()}" title="Modificar">
-                                                <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.modUsuarioView}"/>
-                                            </p:commandLink>
-                                        </p:column>
-
-                                        <p:column style="width: 35px"> 
-                                            <p:commandLink style="color: white" class="fa fa-trash btn btn-block btn-danger" process="@this" update=":formulario:msg DTUsuarios" action="#{usuarioBean.eliminar()}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuarioView}"/>
-                                                <p:confirm header="Confirmacion" message="Esta seguro que desea eliminar este administrador?" icon="ui-icon-alert" /> 
-                                            </p:commandLink>
-                                        </p:column>
+                                        
                                     </p:dataTable>
 
                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
