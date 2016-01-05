@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -90,6 +89,18 @@ public class Upload {
         
         try {
             String path = "/resources/images/upload/Usuario/Default.png";
+            return path;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
+        
+    }
+    
+    public static String getPathDefaultVehiculo() {
+        
+        try {
+            String path = "/resources/images/upload/Vehiculos/Default.png";
             return path;
         } catch (Exception e) {
             e.getMessage();

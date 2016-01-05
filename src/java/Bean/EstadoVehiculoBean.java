@@ -20,6 +20,7 @@ import DAO.ImpEstadoVehiculoDao;
 
 public class EstadoVehiculoBean {
 
+    
     private SmsEstadovehiculo estVehView;
     private List<SmsEstadovehiculo> estVehiculosView;
        

@@ -117,6 +117,8 @@ public class Vehiculo {
         SmsCiudad ciudad = ci;
         SmsReferencia referencia = r;
         vehiculo = v;
+        
+        
 
         IUsuarioDao usuDao = new ImpUsuarioDao();
         usuario = usuDao.consultarUsuario(usuario).get(0);

@@ -10,6 +10,7 @@ import DAO.ImpEstadoVehiculoDao;
 import Modelo.SmsEstadovehiculo;
 import Modelo.SmsVehiculo;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,6 +59,11 @@ public class EstadoVehiculo {
      */
     public void registrarEstVeh(SmsEstadovehiculo estV) {
         estVehiculo = estV;
+
+        //Obtenemos fecha actual en la cual se registra el estado del vehiculo
+        java.util.Date fecha = new Date();
+        estVehiculo.setFechaEstadoVehiculo(fecha);
+
         IEstadoVehiculoDao linkDao = new ImpEstadoVehiculoDao();
         linkDao.registrarEstadoVehiculo(estVehiculo);
     }

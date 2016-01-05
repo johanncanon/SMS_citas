@@ -12,16 +12,10 @@ import Modelo.SmsCiudad;
 import Modelo.SmsProveedor;
 import Modelo.SmsRol;
 import Modelo.SmsUsuario;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import org.apache.commons.io.IOUtils;
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**

@@ -244,15 +244,28 @@ public class VehiculoBean {
 
     //Definicion de metodos VEHICULO
     public void registrar() {
+
+        //En caso de subir NO una fotografia del vehiculo, el sistema asigna al vehiculo una fotografia default
+        if (vehiculoView.getVehFotoRuta() == null && vehiculoView.getVehFotoNombre() == null) {
+            String ruta = fileController.getPathDefaultVehiculo();
+            vehiculoView.setVehFotoRuta(ruta);
+            vehiculoView.setVehFotoNombre("Default.png");
+        }
+
+        //Registramos el vehiculo
         vehiculoController.registrarVehiculo(categoriaView, usuarioView, ciudadView, refenciaView, vehiculoView);
+
+        //consultamos el vehiculo recien registrado
         vehiculoView = vehiculoController.consultarVehiculo(vehiculoView).get(0);
-        estadoVehiculoView.setSmsVehiculo(vehiculoView);
-        estadoVehiculoController.registrarEstVeh(estadoVehiculoView);
+        estadoVehiculoView.setSmsVehiculo(vehiculoView); //relaciomos el vehiculo con los valores asignados en la seccion de estado
+
+        estadoVehiculoController.registrarEstVeh(estadoVehiculoView);//registramos el estado
 
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
         habilitarSubir = false;
 
+        //limpiamos objetos
         refenciaView = new SmsReferencia();
         categoriaView = new SmsCategoria();
         proveedorView = new SmsProveedor();
@@ -260,14 +273,17 @@ public class VehiculoBean {
         vehiculoView = new SmsVehiculo();
         usuarioView = new SmsUsuario();
         estadoVehiculoView = new SmsEstadovehiculo();
+
         vehiculosListView = vehiculoController.cargarVehiculos();
     }
 
     public void modificar() {
         vehiculoController.modificarVehiculo(categoriaView, usuarioView, ciudadView, refenciaView, vehiculoView);
+
         vehiculoView = vehiculoController.consultarVehiculo(vehiculoView).get(0);
         estadoVehiculoView.setSmsVehiculo(vehiculoView);
-        estadoVehiculoController.modificarEstVeh(estadoVehiculoView);
+
+        estadoVehiculoController.registrarEstVeh(estadoVehiculoView);
 
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
@@ -317,7 +333,7 @@ public class VehiculoBean {
                 subirArchivo = "Subir Fotografia";
                 habilitarSubir = false;
             }
-        } 
+        }
     }
 
     public void metodo() {
@@ -327,8 +343,8 @@ public class VehiculoBean {
             modificar();
             estado = 0;
             nombre = "Registrar Vehiculo";
-        } 
-    }   
+        }
+    }
 
     public void uploadPhoto(FileUploadEvent e) throws IOException {
         try {
