@@ -26,9 +26,9 @@ public class SendEmail {
         properties.setProperty("mail.smtp.host", "smtp.gmail.com");
         properties.setProperty("mail.smtp.starttls.enable", "true");
         properties.setProperty("mail.smtp.port", "587");
-        properties.put("mail.smtp.user", "camilorevenant@gmail.com");
+        properties.put("mail.smtp.user", "smsrenta@gmail.com");
         properties.put("mail.smtp.auth", "true");
-        session = Session.getInstance(properties);
+        session = Session.getDefaultInstance(properties);
     }
 
     public void sendEmail() {
@@ -36,12 +36,19 @@ public class SendEmail {
         init();
         try {
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("desarrollo@planit.com.co"));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress("desarrollo@planit.com.co"));
+            
+            //quien envia
+            message.setFrom(new InternetAddress("smsrenta@gmail.com"));
+            
+            // a donde se envia
+            message.addRecipient(
+                    Message.RecipientType.TO, 
+                    new InternetAddress("smsrenta@gmail.com"));
             message.setSubject("Prueba");
             message.setText("Texto enviado desde SMSRenta");
+            
             Transport t = session.getTransport("smtp");
-            t.connect((String) properties.get("mail.smtp.user"), "94060401823");
+            t.connect("smtp.gmail.com",(String) properties.get("mail.smtp.user"), "Smsrenta2016");
             t.sendMessage(message, message.getAllRecipients());
             t.close();
         } catch (MessagingException me) {

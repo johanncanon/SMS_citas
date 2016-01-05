@@ -19,33 +19,36 @@ import javax.faces.validator.ValidatorException;
  *
  * @author Desarrollo_Planit
  */
-@FacesValidator("dateValidator")
-public class dateValidator implements Validator {
+@FacesValidator("dateEndValidator")
+public class dateEndValidator implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date fechaActual = new Date();
-        String fechaInicio = sdf.format((Date) value);
+        String fechaInicio = sdf.format((Date) component.getAttributes().get("fechaInicio"));
+        String fechaEntrega = sdf.format((Date) value);
         String fActual = sdf.format(fechaActual);
-        
         Date fInicio = new Date();
+        Date fEntrega = new Date();
         Date fAct = new Date();
-    
+
         try {
             fInicio = sdf.parse(fechaInicio);
+            fEntrega = sdf.parse(fechaEntrega);
             fAct = sdf.parse(fActual);
         } catch (ParseException pe) {
             pe.getMessage();
         }
-        
-        if (fInicio.before(fAct)) {
+        if (fInicio.after(fAct) || fInicio.equals(fAct)) {
+            if (fEntrega.before(fInicio)) {
                 FacesMessage message = new FacesMessage();
-                message.setSummary("La fecha de inicio es anterior a la fecha actual");
+                message.setSummary("La fecha de entrega es anterior a la de inicio");
                 message.setSeverity(FacesMessage.SEVERITY_ERROR);
                 throw new ValidatorException(message);
             }
+        }
     }
 
 }

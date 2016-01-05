@@ -225,7 +225,8 @@ public class AgendaBean {
         agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);
         agendaView = agendaController.consultarAgenda(agendaView, vehiculoView, empleadoView).get(0);
         reservacionController.registrarReservacion(agendaView, ciudadView, reservaView);
-
+        emailController.sendEmail();
+        
         //Limpieza de objetos
         empleadoView = new SmsEmpleado();
         vehiculoView = new SmsVehiculo();
@@ -234,7 +235,7 @@ public class AgendaBean {
         ciudadView = new SmsCiudad();
         vehiculosListView = new ArrayList<>();
         empleadosListView = new ArrayList<>();
-        emailController.sendEmail();
+        
     }
 
     //Especificos
