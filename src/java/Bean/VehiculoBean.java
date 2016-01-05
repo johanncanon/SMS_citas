@@ -286,10 +286,6 @@ public class VehiculoBean {
     public void eliminar() {
         vehiculoController.eliminarVehiculo(vehiculoView);
 
-        estadoArchivo = "Foto sin subir";
-        subirArchivo = "Subir Fotografia";
-        habilitarSubir = false;
-
         refenciaView = new SmsReferencia();
         categoriaView = new SmsCategoria();
         proveedorView = new SmsProveedor();
@@ -304,7 +300,6 @@ public class VehiculoBean {
     //Metodos propios
     public void seleccionarCrud(int i) {
         estado = i;
-
         if (estado == 1) {//MODIFICACION
             nombre = "Modificar Vehiculo";
             ciudadView = vehiculoView.getSmsCiudad();
@@ -322,18 +317,7 @@ public class VehiculoBean {
                 subirArchivo = "Subir Fotografia";
                 habilitarSubir = false;
             }
-        } else if (estado == 2) {//ELIMINACION
-            nombre = "Eliminar Vehiculo";
-            ciudadView = vehiculoView.getSmsCiudad();
-            refenciaView = vehiculoView.getSmsReferencia();
-            categoriaView = vehiculoView.getSmsCategoria();
-            proveedorView = vehiculoView.getSmsProveedor();
-            estadoVehiculoView = estadoVehiculoController.consultarEstado(vehiculoView).get(0);
-            usuarioView = usuarioController.consultarUsuario(proveedorView.getSmsUsuario()).get(0);
-            subirArchivo = "Subir Fotografia";
-            estadoArchivo = "Foto subida:" + vehiculoView.getVehFotoNombre();
-            habilitarSubir = true;
-        }
+        } 
     }
 
     public void metodo() {
@@ -343,11 +327,7 @@ public class VehiculoBean {
             modificar();
             estado = 0;
             nombre = "Registrar Vehiculo";
-        } else if (estado == 2) {
-            eliminar();
-            estado = 0;
-            nombre = "Registrar Vehiculo";
-        }
+        } 
     }   
 
     public void uploadPhoto(FileUploadEvent e) throws IOException {

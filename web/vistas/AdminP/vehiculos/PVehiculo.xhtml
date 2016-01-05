@@ -12,7 +12,8 @@
             <b:container fluid="true">
                 <b:row>
                     <h:form id="formA">
-
+                        <p:messages closable="true" id="msg"/>
+                        
                         <b:column col-lg="8" col-md="8" col-sm="12" col-xs="12" >
                             <div class="box box-danger espacio-arriba">
                                 <div class="box-header with-border">   
@@ -120,7 +121,7 @@
                                 </div>
                                 <p:commandButton id="BTVehiculo" class="btn btn-block btn-danger"  value="#{vehiculoBean.nombre}" update=":formA:seccionDatosVehiculo :formA:seccionEstadoVehiculo :formA:BTVehiculo :formB :formC:DTVehiculos" action="#{vehiculoBean.metodo()}"/>
                                 <p:messages id="messages" autoUpdate="true" closable="true" />
-                            
+
                             </div>
                         </b:column>  
                     </h:form>
@@ -160,7 +161,6 @@
                                 </p:fragment>
                             </div>
                         </b:column>
-
                     </h:form>
 
                     <h:form id="formC">
@@ -194,17 +194,23 @@
                                         </p:column>
 
                                         <p:column style="width: 35px">
-                                            <p:commandButton process="@this" update=":formA:seccionDatosVehiculo :formA:seccionEstadoVehiculo :formA:BTVehiculo :formB" icon="ui-icon-pencil" action="#{vehiculoBean.seleccionarCrud(1)}" title="Modificar">
+                                            <p:commandLink style="color: white" class="fa fa-pencil btn btn-block btn-success" process="@this" update=":formA:seccionDatosVehiculo :formA:seccionEstadoVehiculo :formA:BTVehiculo :formB" action="#{vehiculoBean.seleccionarCrud(1)}" title="Modificar">
                                                 <f:setPropertyActionListener value="#{vehiculo}" target="#{vehiculoBean.vehiculoView}"/>
-                                            </p:commandButton>
+                                            </p:commandLink>
                                         </p:column>
 
                                         <p:column style="width: 35px"> 
-                                            <p:commandButton process="@this" update=":formA:seccionDatosVehiculo :formA:seccionEstadoVehiculo :formA:BTVehiculo :formB" icon="ui-icon-close" action="#{vehiculoBean.seleccionarCrud(2)}" title="Eliminar">
+                                            <p:commandLink style="color: white" class="fa fa-trash btn btn-block btn-danger" process="@this" update=":formA:msg :formC:DTVehiculos" action="#{vehiculoBean.eliminar()}" title="Eliminar">
                                                 <f:setPropertyActionListener value="#{vehiculo}" target="#{vehiculoBean.vehiculoView}"/>
-                                            </p:commandButton>
+                                                <p:confirm header="Confirmacion" message="Esta seguro que desea eliminar este cliente?" icon="ui-icon-alert" /> 
+                                            </p:commandLink>
                                         </p:column>  
                                     </p:dataTable>
+
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <b:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" look="success" iconAwesome="fa fa-check" />
+                                        <b:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" look="danger" iconAwesome="fa fa-close" />
+                                    </p:confirmDialog>
                                 </div>
                             </div>
                         </b:column>
