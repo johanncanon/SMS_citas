@@ -11,6 +11,7 @@ import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
@@ -18,49 +19,70 @@ import javax.faces.validator.ValidatorException;
  *
  * @author Desarrollo_Planit
  */
-public class timeEndValidator implements Validator{
+@FacesValidator("timeEndValidator")
+public class timeEndValidator implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        Date fechaActual = new Date();
+        SimpleDateFormat sdft = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        
+        Date fecha = new Date();
+        Date hora = new Date();
+
         String fechaInicio = sdf.format((Date) component.getAttributes().get("fechaInicio"));
-        String fechaEntrega = sdf.format((Date) value);
-        String fActual = sdf.format(fechaActual);
+        String fechaEntrega = sdf.format((Date) component.getAttributes().get("fechaEntrega"));
+        String horaInicio = sdft.format((Date) component.getAttributes().get("horaInicio"));
+        String horaEntrega = sdft.format((Date) value);
+
+        String horaActual = sdft.format(hora);
+        String fechaActual = sdf.format(fecha);
+
         Date fInicio = new Date();
         Date fEntrega = new Date();
-        Date fAct = new Date();
+        Date hInicio = new Date();
+        Date hEntrega = new Date();
+        Date hActual = new Date();
+        Date fActual = new Date();
 
-       
         try {
             fInicio = sdf.parse(fechaInicio);
             fEntrega = sdf.parse(fechaEntrega);
-            fAct = sdf.parse(fActual);
+            hInicio = sdft.parse(horaInicio);
+            hEntrega = sdft.parse(horaEntrega);
+            hActual = sdft.parse(horaActual);
+            fActual = sdf.parse(fechaActual);
         } catch (ParseException pe) {
             pe.getMessage();
         }
-        switch (fInicio.compareTo(fAct)) {
-            case -1://menor 
-                FacesMessage message = new FacesMessage();
-                message.setSummary("La fecha de inicio es anterior a la fecha actual");
-                message.setSeverity(FacesMessage.SEVERITY_ERROR);
-                throw new ValidatorException(message);
 
-            case 0://iguales
-                if (fEntrega.before(fInicio)) {
-                    message = new FacesMessage();
-                    message.setSummary("La fecha de entrega es anterior a la de inicio");
+        if (fEntrega.after(fInicio) || fEntrega.equals(fInicio)) {
+
+            if (fInicio.equals(fActual)) {
+                if (hInicio.before(hActual)) {
+                    FacesMessage message = new FacesMessage();
+                    message.setSummary("La hora de inicio es anterior a la hora actual");
+                    message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                    throw new ValidatorException(message);
+                } else {
+                    if (hEntrega.before(hInicio) || hEntrega.equals(hInicio)) {
+                        FacesMessage message = new FacesMessage();
+                        message.setSummary("La hora de entrega es anterior o igual a la hora de inicio");
+                        message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                        throw new ValidatorException(message);
+                    }
+                }
+
+            } else if (fInicio.after(fActual)) {
+                if (hEntrega.before(hInicio) || hEntrega.equals(hInicio)) {
+                    FacesMessage message = new FacesMessage();
+                    message.setSummary("La hora de entrega es anterior o igual a la hora de inicio");
                     message.setSeverity(FacesMessage.SEVERITY_ERROR);
                     throw new ValidatorException(message);
                 }
-            case 1://mayor
-                if (fEntrega.before(fInicio)) {
-                    message = new FacesMessage();
-                    message.setSummary("La fecha de entrega es anterior a la de inicio");
-                    message.setSeverity(FacesMessage.SEVERITY_ERROR);
-                    throw new ValidatorException(message);
-                }
-        }    }
-    
+            }
+
+        }
+    }
 }

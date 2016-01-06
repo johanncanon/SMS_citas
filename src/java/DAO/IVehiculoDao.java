@@ -6,7 +6,6 @@
 package DAO;
 
 import Modelo.SmsCiudad;
-import Modelo.SmsEstadovehiculo;
 import Modelo.SmsVehiculo;
 import java.util.List;
 

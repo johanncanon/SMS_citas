@@ -130,7 +130,7 @@ public class ImpVehiculoDao implements IVehiculoDao {
         List<SmsVehiculo> vehiculos = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("select vehiculo from SmsVehiculo as vehiculo, SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculoAgenda "
+            Query query = session.createQuery("select vehiculo, vehiculo.smsReferencia.referenciaNombre, vehiculo.smsReferencia.smsMarca.marcaNombre from SmsVehiculo as vehiculo, SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculoAgenda  "
                     + "where (vehiculo.smsCiudad.ciudadNombre = '" + ciudad + "' and vehiculo.idVehiculo not in (select ag.smsVehiculo.idVehiculo from SmsAgenda as ag)) or (vehiculo.smsCiudad.ciudadNombre = '" + ciudad + "' and "
                     + "("
                     + "(agenda.agendaFechaInicio = '" + fechaInicio + "' and agenda.agendaFechaLlegada = '" + fechaLlegada + "' and agenda.agendaFechaInicio = agenda.agendaFechaLlegada and vehiculo.idVehiculo in (select ag.smsVehiculo.idVehiculo from SmsAgenda as ag) and "
@@ -166,7 +166,7 @@ public class ImpVehiculoDao implements IVehiculoDao {
         List<SmsVehiculo> vehiculos = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsVehiculo as vehiculo left join fetch vehiculo.smsCiudad as ciudad where ciudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "'");
+            Query query = session.createQuery("from SmsVehiculo as vehiculo left join fetch vehiculo.smsCiudad as ciudad left join fetch vehiculo.smsReferencia as referencia left join fetch referencia.smsMarca where ciudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "'");
             vehiculos = (List<SmsVehiculo>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
@@ -184,7 +184,7 @@ public class ImpVehiculoDao implements IVehiculoDao {
         List<SmsVehiculo> vehiculos = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("select vehiculo from SmsVehiculo as vehiculo, SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculoAgenda "
+            Query query = session.createQuery("select vehiculo, vehiculo.smsReferencia.referenciaNombre, vehiculo.smsReferencia.smsMarca.marcaNombre from SmsVehiculo as vehiculo, SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculoAgenda "
                     + "where (vehiculo.smsCategoria.categoriaNombre = '" + categoria + "' and vehiculo.smsCiudad.ciudadNombre = '" + ciudad + "' and vehiculo.idVehiculo not in (select ag.smsVehiculo.idVehiculo from SmsAgenda as ag)) or (vehiculo.smsCategoria.categoriaNombre = '" + categoria + "' and vehiculo.smsCiudad.ciudadNombre = '" + ciudad + "' and "
                     + "("
                     + "(agenda.agendaFechaInicio = '" + fechaInicio + "' and agenda.agendaFechaLlegada = '" + fechaLlegada + "' and agenda.agendaFechaInicio = agenda.agendaFechaLlegada and vehiculo.idVehiculo in (select ag.smsVehiculo.idVehiculo from SmsAgenda as ag) and "
@@ -220,7 +220,7 @@ public class ImpVehiculoDao implements IVehiculoDao {
         List<SmsVehiculo> vehiculos = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsVehiculo as vehiculo left join fetch vehiculo.smsCiudad as ciudad where ciudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "' and vehiculo.smsCategoria.categoriaNombre = '" + categoria + "'");
+            Query query = session.createQuery("from SmsVehiculo as vehiculo left join fetch vehiculo.smsCiudad as ciudad left join fetch vehiculo.smsReferencia as referencia left join fetch referencia.smsMarca where ciudad.ciudadNombre = '" + ciudad.getCiudadNombre() + "' and vehiculo.smsCategoria.categoriaNombre = '" + categoria + "'");
             vehiculos = (List<SmsVehiculo>) query.list();
         } catch (HibernateException e) {
             e.getMessage();

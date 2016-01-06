@@ -72,23 +72,24 @@
                                                 <p:message for="CFechaInicio"/>
 
                                                 <p:outputLabel for="CHoraInicio" style="font-weight: 800; width: 180px" value="Hora de inicio:" />
-                                                <p:calendar id="CHoraInicio" style="width: 100%" value="#{agendaBean.agendaView.agendaHoraInicio}" pattern="HH:mm:ss" required="true" timeOnly="true">
-                                                    <f:convertDateTime pattern="HH:mm:ss" type="time"/>
+                                                <p:calendar id="CHoraInicio" style="width: 100%" binding="#{HInicio}" value="#{agendaBean.agendaView.agendaHoraInicio}" pattern="HH:mm:ss" required="true" timeOnly="true">
+                                                   
                                                 </p:calendar>
                                                 <p:message for="CHoraInicio"/>
                                             </h:panelGrid>
                                             <hr/>
                                             <h:panelGrid columns="3" cellpadding="2">        
                                                 <p:outputLabel style="font-weight: 800; width: 180px;" for="CFechaEntrega" value="Fecha de Entrega:" />
-                                                <p:calendar id="CFechaEntrega" style="width: 100%" validator="dateEndValidator" pattern="yyyy-mm-dd" value="#{agendaBean.agendaView.agendaFechaLlegada}" required="true">
-                                                   
+                                                <p:calendar id="CFechaEntrega" style="width: 100%" binding="#{FEntrega}" validator="dateEndValidator" pattern="yyyy-mm-dd" value="#{agendaBean.agendaView.agendaFechaLlegada}" required="true">
                                                     <f:attribute name="fechaInicio" value="#{FInicio.value}"/>
                                                 </p:calendar>
                                                 <p:message for="CFechaEntrega"/>
 
                                                 <p:outputLabel style="font-weight: 800; width: 180px" for="CHoraEntrega" value="Hora de Entrega:" /> 
-                                                <p:calendar id="CHoraEntrega"  style="width: 100%" value="#{agendaBean.agendaView.agendaHoraLlegada}" pattern="HH:mm:ss" required="true" timeOnly="true">
-                                                    <f:convertDateTime  pattern="HH:mm:ss" type="time"/>
+                                                <p:calendar id="CHoraEntrega" validator="timeEndValidator"  style="width: 100%" value="#{agendaBean.agendaView.agendaHoraLlegada}" pattern="HH:mm:ss" required="true" timeOnly="true">
+                                                    <f:attribute name="fechaInicio" value="#{FInicio.value}"/>
+                                                    <f:attribute name="fechaEntrega" value="#{FEntrega.value}"/>
+                                                    <f:attribute name="horaInicio" value="#{HInicio.value}"/>                                                    
                                                 </p:calendar> 
                                                 <p:message for="CHoraEntrega"/>
                                             </h:panelGrid>                                           
@@ -134,7 +135,14 @@
                                                         <p:graphicImage width="256" height="256" value="#{vehiculo.vehFotoRuta}" alt="Vehiculo"/>
 
                                                         <p:outputPanel>
-                                                            <h:panelGrid columns="2" cellpadding="5">
+                                                            <h:panelGrid columns="2" cellpadding="5">                                                              
+
+                                                                <h:outputText value="Marca:" />
+                                                                <h:outputText value="#{vehiculo.smsReferencia.smsMarca.marcaNombre}" style="font-weight: bold"/>
+
+                                                                <h:outputText value="Referencia:" />
+                                                                <h:outputText value="#{vehiculo.smsReferencia.referenciaNombre}" style="font-weight: bold"/>
+
                                                                 <h:outputText value="Placa:" />
                                                                 <h:outputText value="#{vehiculo.vehPlaca}" style="font-weight: bold"/>
 
@@ -247,6 +255,13 @@
 
                                                     <p:outputPanel>
                                                         <h:panelGrid columns="2" cellpadding="5">
+
+                                                            <h:outputText value="Marca:" />
+                                                            <h:outputText value="#{vehiculo.smsReferencia.smsMarca.marcaNombre}" style="font-weight: bold"/>
+
+                                                            <h:outputText value="Referencia:" />
+                                                            <h:outputText value="#{vehiculo.smsReferencia.referenciaNombre}" style="font-weight: bold"/>
+
                                                             <h:outputText value="Placa:" />
                                                             <h:outputText value="#{vehiculo.vehPlaca}" style="font-weight: bold"/>
 
