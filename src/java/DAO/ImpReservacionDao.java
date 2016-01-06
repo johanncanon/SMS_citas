@@ -6,6 +6,7 @@
 package DAO;
 
 import Modelo.SmsReservacion;
+import Modelo.SmsUsuario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -27,7 +28,7 @@ public class ImpReservacionDao implements IReservacionDao {
         List<SmsReservacion> reservaciones = new ArrayList<>();
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsCiudad");
+            Query query = session.createQuery("from SmsReservacion");
             reservaciones = (List<SmsReservacion>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
@@ -98,5 +99,28 @@ public class ImpReservacionDao implements IReservacionDao {
             }
         }
     }
+    
+    //METODO PARA SACAR LAS CIUDADES RESERVADAS POR CLIENTE CONSULTADO
+    @Override
+    public List<SmsReservacion> mostrarCiudadReservacion(SmsUsuario usuarioID) {
+        Session session = null;
+        List<SmsReservacion> resevacion = null;
+
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsReservacion as reservacion left join fetch reservacion.smsUsuario as usuario left join fetch usuario.smsCiudad as ciudad left join fetch usuario.idUsuario as idUsuario where idUsuario = '" +  usuarioID.getIdUsuario() + "'");
+            resevacion = (List<SmsReservacion>) query.list();
+
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return resevacion;
+    }
+    
+    
 
 }
