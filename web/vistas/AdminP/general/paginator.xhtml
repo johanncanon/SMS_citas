@@ -12,13 +12,13 @@
     <h:form>
         <p:dataTable value="#{empleadoBean.empleadosListView}" var="condictores"  paginator="true" rows="10" styleClass="paginated">
 
-            <p:column headerText="ID Cond">
+            <p:column headerText="ID ">
                 <h:outputText value="#{condictores.idUsuario}" />
             </p:column>
-            <p:column headerText="Nombre Conductor">
+            <p:column headerText="Nombre ">
                 <h:outputText value="#{condictores.usuarioNombre}" />
             </p:column>
-            <p:column headerText="Teléfono Conductor">
+            <p:column headerText="Teléfono">
                 <h:outputText value="#{condictores.usuarioTelefono}" />
             </p:column>
 

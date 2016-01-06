@@ -36,7 +36,8 @@
                                                     <i class="fa fa-2x fa-globe"></i>
                                                     <span class="label-cl">Ciudad: </span>                                                   
                                                 </div>
-                                                <b:selectOneMenu requiredMessage="Indique ciudad donde quiere solicitar el servicio"  required="true" style="width: 100%" value="#{agendaBean.ciudadView.ciudadNombre}">
+                                                <b:selectOneMenu requiredMessage="Indique ciudad donde quiere solicitar el servicio"  
+                                                                 required="true" style="width: 100%" value="#{agendaBean.ciudadView.ciudadNombre}">
                                                     <f:selectItem itemLabel="Seleccione Ciudad" noSelectionOption="true"/>
                                                     <f:selectItems value="#{ciudadBean.nombresCiudadesListView}"/>
                                                 </b:selectOneMenu>

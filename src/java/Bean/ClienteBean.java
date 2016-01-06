@@ -8,6 +8,7 @@ package Bean;
 import Controlador.Upload;
 import Controlador.Cliente;
 import Controlador.MD5;
+import Modelo.SmsAgenda;
 import Modelo.SmsCiudad;
 import Modelo.SmsRol;
 import Modelo.SmsUsuario;
@@ -29,6 +30,8 @@ public class ClienteBean implements Serializable {
     protected List<SmsUsuario> clientesListView;
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
+    //variable para sacar las ciudades de la reservacion
+    private SmsAgenda ciudadReservacion;
 
     //Relacion con el controlador
     protected Cliente clienteController;
@@ -41,6 +44,7 @@ public class ClienteBean implements Serializable {
    
 
     public ClienteBean() {
+        ciudadReservacion = new SmsAgenda();
         clienteView = new SmsUsuario();
         auxClienteView = new SmsUsuario();
         ciudadView = new SmsCiudad();
@@ -59,6 +63,16 @@ public class ClienteBean implements Serializable {
     }
 
     //Getters & Setters
+
+    public SmsAgenda getCiudadReservacion() {
+        return ciudadReservacion;
+    }
+
+    public void setCiudadReservacion(SmsAgenda ciudadReservacion) {
+        this.ciudadReservacion = ciudadReservacion;
+    }
+    
+    
     public SmsUsuario getClienteView() {
         return clienteView;
     }
