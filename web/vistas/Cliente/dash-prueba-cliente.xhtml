@@ -66,30 +66,29 @@
 
                                             <h:panelGrid columns="3" cellpadding="2">
                                                 <p:outputLabel for="CFechaInicio"  value="Fecha de Inicio:" style="font-weight: 800; width: 180px;"/>                                                    
-                                                <p:calendar id="CFechaInicio" validator="dateValidator" style="width: 100%" binding="#{FInicio}" value="#{agendaBean.agendaView.agendaFechaInicio}" pattern="yyyy-MM-dd" required="true">
-                                                    <f:convertDateTime pattern="yyyy-MM-dd"/>
-                                                      
+                                                <p:calendar id="CFechaInicio" style="width: 100%" binding="#{FInicio}" pattern="yyyy-mm-dd" value="#{agendaBean.agendaView.agendaFechaInicio}" required="true">
+
                                                 </p:calendar> 
                                                 <p:message for="CFechaInicio"/>
 
                                                 <p:outputLabel for="CHoraInicio" style="font-weight: 800; width: 180px" value="Hora de inicio:" />
-                                                <p:calendar id="CHoraInicio" style="width: 100%" value="#{agendaBean.agendaView.agendaHoraInicio}" required="true" pattern="HH:mm:ss" timeOnly="true">
-                                                    <f:convertDateTime pattern="HH:mm:ss"/>
+                                                <p:calendar id="CHoraInicio" style="width: 100%" value="#{agendaBean.agendaView.agendaHoraInicio}" pattern="HH:mm:ss" required="true" timeOnly="true">
+                                                    <f:convertDateTime pattern="HH:mm:ss" type="time"/>
                                                 </p:calendar>
                                                 <p:message for="CHoraInicio"/>
                                             </h:panelGrid>
                                             <hr/>
                                             <h:panelGrid columns="3" cellpadding="2">        
                                                 <p:outputLabel style="font-weight: 800; width: 180px;" for="CFechaEntrega" value="Fecha de Entrega:" />
-                                                <p:calendar id="CFechaEntrega" style="width: 100%" validator="dateEndValidator" value="#{agendaBean.agendaView.agendaFechaLlegada}" pattern="yyyy-MM-dd" required="true">
-                                                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                                                <p:calendar id="CFechaEntrega" style="width: 100%" validator="dateEndValidator" pattern="yyyy-mm-dd" value="#{agendaBean.agendaView.agendaFechaLlegada}" required="true">
+                                                   
                                                     <f:attribute name="fechaInicio" value="#{FInicio.value}"/>
                                                 </p:calendar>
                                                 <p:message for="CFechaEntrega"/>
 
                                                 <p:outputLabel style="font-weight: 800; width: 180px" for="CHoraEntrega" value="Hora de Entrega:" /> 
-                                                <p:calendar id="CHoraEntrega"  style="width: 100%" value="#{agendaBean.agendaView.agendaHoraLlegada}" required="true" pattern="HH:mm:ss" timeOnly="true">
-                                                    <f:convertDateTime pattern="HH:mm:ss"/>
+                                                <p:calendar id="CHoraEntrega"  style="width: 100%" value="#{agendaBean.agendaView.agendaHoraLlegada}" pattern="HH:mm:ss" required="true" timeOnly="true">
+                                                    <f:convertDateTime  pattern="HH:mm:ss" type="time"/>
                                                 </p:calendar> 
                                                 <p:message for="CHoraEntrega"/>
                                             </h:panelGrid>                                           

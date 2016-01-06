@@ -41,14 +41,29 @@ public class dateEndValidator implements Validator {
         } catch (ParseException pe) {
             pe.getMessage();
         }
-        if (fInicio.after(fAct) || fInicio.equals(fAct)) {
-            if (fEntrega.before(fInicio)) {
+        switch (fInicio.compareTo(fAct)) {
+            case -1://menor 
                 FacesMessage message = new FacesMessage();
-                message.setSummary("La fecha de entrega es anterior a la de inicio");
+                message.setSummary("La fecha de inicio es anterior a la fecha actual");
                 message.setSeverity(FacesMessage.SEVERITY_ERROR);
                 throw new ValidatorException(message);
-            }
+
+            case 0://iguales
+                if (fEntrega.before(fInicio)) {
+                    message = new FacesMessage();
+                    message.setSummary("La fecha de entrega es anterior a la de inicio");
+                    message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                    throw new ValidatorException(message);
+                }
+            case 1://mayor
+                if (fEntrega.before(fInicio)) {
+                    message = new FacesMessage();
+                    message.setSummary("La fecha de entrega es anterior a la de inicio");
+                    message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                    throw new ValidatorException(message);
+                }
         }
+
     }
 
 }
