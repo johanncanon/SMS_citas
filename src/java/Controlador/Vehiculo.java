@@ -175,10 +175,12 @@ public class Vehiculo {
         SimpleDateFormat formatTime;
         formatDate = new SimpleDateFormat("yyyy-MM-dd");
         formatTime = new SimpleDateFormat("HH:mm:ss");
+        
         String FechaInicio = formatDate.format(a.getAgendaFechaInicio());
         String FechaLlegada = formatDate.format(a.getAgendaFechaLlegada());
         String HoraInicio = formatTime.format(a.getAgendaHoraInicio());
         String HoraLlegada = formatTime.format(a.getAgendaHoraLlegada());
+        
         IVehiculoDao linkDao = new ImpVehiculoDao();
         vehiculos = linkDao.consultarVehiculosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudad);
         return vehiculos;

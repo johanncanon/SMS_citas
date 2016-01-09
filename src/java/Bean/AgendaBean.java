@@ -220,7 +220,7 @@ public class AgendaBean {
 
     //Metodos    
     //CRUD
-    public void registrarAgenda() {
+    public String registrarAgendaCliente() {
 
         agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);
         agendaView = agendaController.consultarAgenda(agendaView, vehiculoView, empleadoView).get(0);
@@ -236,6 +236,8 @@ public class AgendaBean {
         vehiculosListView = new ArrayList<>();
         empleadosListView = new ArrayList<>();
 
+        String Ruta = "ClienteReservacion";
+        return Ruta;
     }
 
     //Especificos

@@ -90,7 +90,6 @@
                                             <p:messages autoUpdate="true" />
                                             <p style="margin-top: 12px">Aqui podrá elegir el vehiculo que desea para su reservacion:</p>
                                             <hr/>
-
                                             <div class="form-group"> 
 
                                                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
@@ -107,7 +106,7 @@
                                                     <b:inputText id="TVehSelc" placeholder="Placa del vehiculo" required="true" style="width:250px" requiredMessage="No ha seleccionado vehiculo" value="#{agendaBean.vehiculoView.vehPlaca}"/>                                                      
                                                 </h:panelGrid>
 
-                                                <p:commandButton action="#{agendaBean.seleccionarNuevoVehiculo}" process="@this" update="TVehSelc ScrollerVehiculos" value="Seleccionar nuevo vehiculo"/>
+                                                <p:commandButton action="#{agendaBean.seleccionarNuevoVehiculo}" process="@this" update="@form" value="Seleccionar nuevo vehiculo"/>
                                             </div>
 
                                             <div class="form-group box box-danger direct-chat direct-chat-danger">                                               
@@ -122,7 +121,7 @@
 
                                                     <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
                                                         <p:graphicImage width="256" height="256" value="#{vehiculo.vehFotoRuta}" alt="Vehiculo"/>
-
+                                                        
                                                         <p:outputPanel>
                                                             <h:panelGrid columns="2" cellpadding="5">
                                                                 <h:outputText value="Placa:" />
@@ -145,7 +144,9 @@
                                                                 </p:commandButton>
                                                             </h:panelGrid>
                                                         </p:outputPanel>
+                                                        
                                                     </h:panelGrid>
+                                                    
                                                     <p:separator/>
                                                 </p:dataScroller>                                                
                                             </div>
@@ -238,12 +239,6 @@
                                                     <p:outputPanel>
                                                         <h:panelGrid columns="2" cellpadding="5">
 
-                                                            <h:outputText value="Marca:" />
-                                                            <h:outputText value="#{vehiculo.smsReferencia.smsMarca.marcaNombre}" style="font-weight: bold"/>
-
-                                                            <h:outputText value="Referencia:" />
-                                                            <h:outputText value="#{vehiculo.smsReferencia.referenciaNombre}" style="font-weight: bold"/>
-
                                                             <h:outputText value="Placa:" />
                                                             <h:outputText value="#{vehiculo.vehPlaca}" style="font-weight: bold"/>
 
@@ -284,7 +279,7 @@
                                                 </h:panelGrid>                                                
                                             </p:dataScroller>
                                             <p:separator/>
-                                            <center><b:commandButton value="Confirmar reservacion" action="#{agendaBean.registrarAgenda()}" style="width: 80%" update="@form"/></center>
+                                            <center><b:commandButton value="Confirmar reservacion" action="#{agendaBean.registrarAgendaCliente()}" style="width: 80%" update="@form"/></center>
                                         </b:panel>
                                     </p:tab>
                                 </p:wizard>
