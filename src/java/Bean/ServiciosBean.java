@@ -6,6 +6,7 @@
 package Bean;
 
 import Controlador.Servicio;
+import Modelo.SmsCostosServicio;
 import Modelo.SmsServicios;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class ServiciosBean {
 
     //Objetos necesarios
     protected SmsServicios servicioView;
+    protected SmsServicios DServicioView;
     protected List<SmsServicios> serviciosListView;
     protected List<String> nombreServiciosListView;
 
@@ -35,14 +37,15 @@ public class ServiciosBean {
         servicioView = new SmsServicios();
         serviciosListView = new ArrayList<>();
         nombreServiciosListView = new ArrayList<>();
-        
+        DServicioView = new SmsServicios();
         buscar = null;
         estado = 0;
         nombre = "Registrar Servicio";
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
+        serviciosListView = new ArrayList<>();
         serviciosListView = servicioController.cargarServicio();
     }
 
@@ -55,7 +58,7 @@ public class ServiciosBean {
         this.servicioView = servicioView;
     }
 
-    public List<SmsServicios> getServiciosListView() {        
+    public List<SmsServicios> getServiciosListView() {
         return serviciosListView;
     }
 
@@ -72,6 +75,12 @@ public class ServiciosBean {
     }
 
     public List<String> getNombreServiciosListView() {
+        nombreServiciosListView = new ArrayList<>();
+        serviciosListView = new ArrayList<>();
+        serviciosListView = servicioController.cargarServicio();
+        for (int i = 0; i < serviciosListView.size(); i++) {
+            nombreServiciosListView.add(serviciosListView.get(i).getServiciosNombre());        
+        }
         return nombreServiciosListView;
     }
 
@@ -103,8 +112,14 @@ public class ServiciosBean {
     public void setBuscar(String buscar) {
         this.buscar = buscar;
     }
-    
-    
+
+    public SmsServicios getDServicioView() {
+        return DServicioView;
+    }
+
+    public void setDServicioView(SmsServicios DServicioView) {
+        this.DServicioView = DServicioView;
+    }
 
     //Metodos Propios
     public void metodo() {
@@ -114,7 +129,7 @@ public class ServiciosBean {
             modificar();
             estado = 0;
             nombre = "Registrar Servicio";
-        } 
+        }
 
     }
 
@@ -139,11 +154,16 @@ public class ServiciosBean {
     }
 
     public void eliminar() {
-        servicioController.eliminarServicio(servicioView);
-        servicioView = new SmsServicios();
+        servicioController.eliminarServicio(DServicioView);
+        if (servicioView.equals(DServicioView)) {
+            nombre = "Modificar Servicio";
+            estado = 0;
+            servicioView = new SmsServicios();
+        }
+        DServicioView = new SmsServicios();
         serviciosListView = servicioController.cargarServicio();
     }
-    
+
     public void filtrar() {
         serviciosListView = new ArrayList<>();
         if (buscar == null) {

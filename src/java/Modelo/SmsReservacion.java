@@ -17,6 +17,7 @@ public class SmsReservacion  implements java.io.Serializable {
      private String reservacionLugarLlegada;
      private String reservacionLugarDestino;
      private String reservacionNotas;
+     private Integer reservacionCosto;
      private Set<SmsCalificacion> smsCalificacions = new HashSet<SmsCalificacion>(0);
 
     public SmsReservacion() {
@@ -28,7 +29,7 @@ public class SmsReservacion  implements java.io.Serializable {
         this.smsCiudad = smsCiudad;
         this.smsUsuario = smsUsuario;
     }
-    public SmsReservacion(SmsAgenda smsAgenda, SmsCiudad smsCiudad, SmsUsuario smsUsuario, String reservacionLugarLlegada, String reservacionLugarDestino, String reservacionNotas, Set<SmsCalificacion> smsCalificacions) {
+    public SmsReservacion(SmsAgenda smsAgenda, SmsCiudad smsCiudad, SmsUsuario smsUsuario, String reservacionLugarLlegada, String reservacionLugarDestino, String reservacionNotas, int reservacionCosto, Set<SmsCalificacion> smsCalificacions) {
        this.smsAgenda = smsAgenda;
        this.smsCiudad = smsCiudad;
        this.smsUsuario = smsUsuario;
@@ -36,6 +37,7 @@ public class SmsReservacion  implements java.io.Serializable {
        this.reservacionLugarDestino = reservacionLugarDestino;
        this.reservacionNotas = reservacionNotas;
        this.smsCalificacions = smsCalificacions;
+       this.reservacionCosto = reservacionCosto;
     }
    
     public Integer getIdReservacion() {
@@ -94,6 +96,15 @@ public class SmsReservacion  implements java.io.Serializable {
     public void setSmsCalificacions(Set<SmsCalificacion> smsCalificacions) {
         this.smsCalificacions = smsCalificacions;
     }
+
+    public Integer getReservacionCosto() {
+        return reservacionCosto;
+    }
+
+    public void setReservacionCosto(Integer reservacionCosto) {
+        this.reservacionCosto = reservacionCosto;
+    }
+    
 
 
 

@@ -200,8 +200,8 @@
                                         </p:column>
 
                                         <p:column style="width: 35px"> 
-                                            <p:commandLink style="color: white" class="fa fa-trash btn btn-block btn-danger" process="@this" update=":formA:msg :formC:DTVehiculos" action="#{vehiculoBean.eliminar()}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{vehiculo}" target="#{vehiculoBean.vehiculoView}"/>
+                                            <p:commandLink style="color: white" class="fa fa-trash btn btn-block btn-danger" process="@this" update=":formA :formB :formC" action="#{vehiculoBean.eliminar()}" title="Eliminar">
+                                                <f:setPropertyActionListener value="#{vehiculo}" target="#{vehiculoBean.DVehiculoView}"/>
                                                 <p:confirm header="Confirmacion" message="Esta seguro que desea eliminar este vehiculo?" icon="ui-icon-alert" /> 
                                             </p:commandLink>
                                         </p:column>  

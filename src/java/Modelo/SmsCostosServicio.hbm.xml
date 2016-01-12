@@ -4,9 +4,9 @@
 <!-- Generated 26-nov-2015 15:26:56 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Modelo.SmsCostosServicio" table="sms_costos_servicio" catalog="bd_sms_citas" optimistic-lock="version">
-        <id name="idSmsCostosServicio" type="int">
+        <id name="idSmsCostosServicio" type="java.lang.Integer">
             <column name="idSMS_Costos_servicio" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <many-to-one name="smsCategoria" class="Modelo.SmsCategoria" fetch="join">
             <column name="SMS_Categoria_idCategoria" not-null="true" />

@@ -31,26 +31,17 @@
                                             <hr/>
                                             <h:panelGrid columns="2" width="100%" cellpadding="5">
 
-                                                <div style="left: 50%; position: relative;">
-                                                    <i class="fa fa-2x fa-globe"></i>
-                                                    <span class="label-cl">Ciudad: </span>                                                   
-                                                </div>
+                                                <p:outputLabel value="Ciudad:" class="fa fa-2x fa-globe"/>
                                                 <b:selectOneMenu requiredMessage="Indique ciudad donde quiere solicitar el servicio"  required="true" style="width: 100%" value="#{agendaBean.ciudadView.ciudadNombre}">
                                                     <f:selectItem itemLabel="Seleccione Ciudad" noSelectionOption="true"/>
                                                     <f:selectItems value="#{ciudadBean.nombresCiudadesListView}"/>
                                                 </b:selectOneMenu>
 
-                                                <div style="left: 50%; position: relative;">
-                                                    <i class="fa fa-2x"></i>
-                                                    <span class="label-cl">Lugar de recogida: </span>                                                   
-                                                </div>
+                                                <p:outputLabel value="Lugar de recogida:" class="fa fa-2x fa-building"/>
                                                 <b:inputText style="width: 100%" placeholder="Lugar de recogida" required="true" requiredMessage="Indique lugar de recogida" value="#{agendaBean.reservaView.reservacionLugarLlegada}"/>
 
 
-                                                <div style="left: 50%; position: relative;">
-                                                    <i class="fa fa-2x"></i>
-                                                    <span class="label-cl">Lugar de destino: </span>                                                   
-                                                </div>
+                                                <p:outputLabel value="Lugar de destino:" class="fa fa-2x fa-building-o"/>
                                                 <b:inputText style="width: 100%" placeholder="Lugar de destino" required="true" requiredMessage="Indique lugar de destino" value="#{agendaBean.reservaView.reservacionLugarDestino}"/>
                                             </h:panelGrid>
                                         </b:panel>                                        
@@ -63,7 +54,15 @@
                                                 final del servicio SMS:</p>
                                             <hr/>                                           
 
-                                            <h:panelGrid columns="2" cellpadding="2">
+                                            
+                                            
+                                            <h:panelGrid columns="2" cellpadding="2">                                                  
+                                                <p:outputLabel for="SServicio" value="Tipo de servicio" style="font-weight: 800;"/>
+                                                <b:selectOneMenu id="SServicio" required="true" value="#{agendaBean.servicioView.serviciosNombre}">
+                                                    <f:selectItem itemLabel="Seleccione tipo de servicio" noSelectionOption="true" />
+                                                    <f:selectItems value="#{serviciosBean.nombreServiciosListView}"/>
+                                                </b:selectOneMenu>
+                                                
                                                 <p:outputLabel for="CFechaInicio"  value="Fecha de Inicio:" style="font-weight: 800; width: 180px;"/>                                                    
                                                 <p:calendar id="CFechaInicio" style="width: 100%" binding="#{FInicio}" pattern="yyyy-MM-dd" value="#{agendaBean.agendaView.agendaFechaInicio}" required="true"/>
 
@@ -124,6 +123,13 @@
                                                         
                                                         <p:outputPanel>
                                                             <h:panelGrid columns="2" cellpadding="5">
+                                                                
+                                                                <h:outputText value="Marca:" />
+                                                                <h:outputText value="#{vehiculo.smsReferencia.smsMarca.marcaNombre}" style="font-weight: bold"/>
+                                                                                                                                
+                                                                <h:outputText value="Referencia:" />
+                                                                <h:outputText value="#{vehiculo.smsReferencia.referenciaNombre}" style="font-weight: bold"/>
+                                                                
                                                                 <h:outputText value="Placa:" />
                                                                 <h:outputText value="#{vehiculo.vehPlaca}" style="font-weight: bold"/>
 
@@ -198,8 +204,8 @@
                                                 <p:outputLabel value="Ciudad: " style="font-weight: bold"/>
                                                 <p:outputLabel value="#{agendaBean.ciudadView.ciudadNombre}"/>
 
-                                                <p:outputLabel/>
-                                                <p:outputLabel/>
+                                                <p:outputLabel value="Costo" style="font-weight: bold"/>
+                                                <p:outputLabel value="#{agendaBean.reservaView.reservacionCosto}"/>
 
                                                 <p:outputLabel value="Lugar de recogida: " style="font-weight: bold"/>
                                                 <p:outputLabel value="#{agendaBean.reservaView.reservacionLugarLlegada}"/>

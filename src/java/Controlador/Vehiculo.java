@@ -27,6 +27,8 @@ import Modelo.SmsReferencia;
 import Modelo.SmsUsuario;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,7 +42,6 @@ public class Vehiculo {
     private List<SmsVehiculo> vehiculos;
     private List<SmsEstadovehiculo> estado_Vehiculos;
 
-
     public Vehiculo() {
         vehiculo = new SmsVehiculo();
         estado_Vehiculo = new SmsEstadovehiculo();
@@ -50,7 +51,7 @@ public class Vehiculo {
     public SmsVehiculo getVehiculo() {
         return vehiculo;
     }
-    
+
     public void setEstado_Vehiculo(SmsEstadovehiculo estado_Vehiculo) {
         this.estado_Vehiculo = estado_Vehiculo;
     }
@@ -117,8 +118,6 @@ public class Vehiculo {
         SmsCiudad ciudad = ci;
         SmsReferencia referencia = r;
         vehiculo = v;
-        
-        
 
         IUsuarioDao usuDao = new ImpUsuarioDao();
         usuario = usuDao.consultarUsuario(usuario).get(0);
@@ -170,19 +169,34 @@ public class Vehiculo {
     public List<SmsVehiculo> consultarVehiculosDisponible(SmsAgenda a, SmsCiudad c) {
         vehiculos = new ArrayList<>();
         String ciudad = c.getCiudadNombre();
+
+        Calendar calInicio = Calendar.getInstance();
+        calInicio.setTime(a.getAgendaHoraInicio());
+        calInicio.add(Calendar.HOUR, -1);
+        calInicio.add(Calendar.MINUTE, -59);
+
+        Calendar calLlegada = Calendar.getInstance();
+        calLlegada.setTime(a.getAgendaHoraLlegada());
+        calLlegada.add(Calendar.HOUR, 1);
+        calLlegada.add(Calendar.MINUTE, 59);
         
+        Date hespacioInicio = calInicio.getTime();
+        Date hespacioLlegada = calLlegada.getTime();
+
         SimpleDateFormat formatDate;
         SimpleDateFormat formatTime;
         formatDate = new SimpleDateFormat("yyyy-MM-dd");
         formatTime = new SimpleDateFormat("HH:mm:ss");
-        
+
         String FechaInicio = formatDate.format(a.getAgendaFechaInicio());
         String FechaLlegada = formatDate.format(a.getAgendaFechaLlegada());
         String HoraInicio = formatTime.format(a.getAgendaHoraInicio());
         String HoraLlegada = formatTime.format(a.getAgendaHoraLlegada());
-        
+        String espacioinicio = formatTime.format(hespacioInicio);
+        String espacioLlegada = formatTime.format(hespacioLlegada);
+
         IVehiculoDao linkDao = new ImpVehiculoDao();
-        vehiculos = linkDao.consultarVehiculosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudad);
+        vehiculos = linkDao.consultarVehiculosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudad, espacioinicio, espacioLlegada);
         return vehiculos;
     }
 
@@ -193,7 +207,7 @@ public class Vehiculo {
         vehiculos = linkDao.consultarVehiculosCiudad(ciudad);
         return vehiculos;
     }
-    
+
     public List<SmsVehiculo> filtrarVehiculosCiudad(SmsCiudad c, SmsCategoria cat) {
         vehiculos = new ArrayList<>();
         SmsCiudad ciudad = c;
@@ -202,11 +216,23 @@ public class Vehiculo {
         vehiculos = linkDao.filtrarVehiculosCiudad(ciudad, categoria);
         return vehiculos;
     }
-    
-    public List<SmsVehiculo> filtrarVehiculosDisponibles(SmsAgenda a, SmsCiudad c, SmsCategoria cat){
+
+    public List<SmsVehiculo> filtrarVehiculosDisponibles(SmsAgenda a, SmsCiudad c, SmsCategoria cat) {
         vehiculos = new ArrayList<>();
         String ciudad = c.getCiudadNombre();
-        String categoria =cat.getCategoriaNombre();
+        String categoria = cat.getCategoriaNombre();
+
+        Calendar calInicio = Calendar.getInstance();
+        calInicio.setTime(a.getAgendaHoraInicio());
+        calInicio.add(Calendar.HOUR, -2);
+
+        Calendar calLlegada = Calendar.getInstance();
+        calLlegada.setTime(a.getAgendaHoraLlegada());
+        calLlegada.add(Calendar.HOUR, 2);
+
+        Date hespacioInicio = calInicio.getTime();
+        Date hespacioLlegada = calLlegada.getTime();
+
         SimpleDateFormat formatDate;
         SimpleDateFormat formatTime;
         formatDate = new SimpleDateFormat("yyyy-MM-dd");
@@ -215,11 +241,12 @@ public class Vehiculo {
         String FechaLlegada = formatDate.format(a.getAgendaFechaLlegada());
         String HoraInicio = formatTime.format(a.getAgendaHoraInicio());
         String HoraLlegada = formatTime.format(a.getAgendaHoraLlegada());
+        String espacioinicio = formatTime.format(hespacioInicio);
+        String espacioLlegada = formatTime.format(hespacioLlegada);
+
         IVehiculoDao linkDao = new ImpVehiculoDao();
-        vehiculos = linkDao.filtrarVehiculosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudad, categoria);
+        vehiculos = linkDao.filtrarVehiculosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudad, categoria, espacioinicio, espacioLlegada);
         return vehiculos;
     }
-    
-   
-    
+
 }

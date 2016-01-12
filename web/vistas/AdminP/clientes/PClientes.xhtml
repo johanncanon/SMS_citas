@@ -143,8 +143,8 @@
                                         </p:column>
 
                                         <p:column style="width: 35px"> 
-                                            <p:commandLink style="color: white" class="fa fa-trash btn btn-block btn-danger" process="@this" update=":formulario:msg DTClientes" action="#{clienteBean.eliminar()}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.clienteView}"/>
+                                            <p:commandLink style="color: white" class="fa fa-trash btn btn-block btn-danger" process="@this" update="@form" action="#{clienteBean.eliminar()}" title="Eliminar">
+                                                <f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.DClienteView}"/>
                                                 <p:confirm header="Confirmacion" message="Esta seguro que desea eliminar este cliente?" icon="ui-icon-alert" /> 
                                             </p:commandLink>
                                         </p:column>

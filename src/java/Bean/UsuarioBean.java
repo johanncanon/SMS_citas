@@ -29,6 +29,7 @@ public class UsuarioBean implements Serializable {
 
     //Instanciacion de los objetos    
     protected SmsUsuario usuarioView;
+    protected SmsUsuario DUsuarioView;
     protected SmsUsuario modUsuarioView;
     protected List<SmsUsuario> usuariosListView;
 
@@ -51,12 +52,13 @@ public class UsuarioBean implements Serializable {
     //Variables
     private SmsCiudad ciudadUsuario;
     private String buscar;
-    private Boolean habilitarEditarSesion;   
+    private Boolean habilitarEditarSesion;
     private String pass;
     private String login;
 
     public UsuarioBean() {
         ciudadUsuario = new SmsCiudad();
+        DUsuarioView = new SmsUsuario();
         usuarioView = new SmsUsuario();
         modUsuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
@@ -66,7 +68,7 @@ public class UsuarioBean implements Serializable {
         Usuario = new SmsUsuario();
 
         buscar = null;
-        habilitarEditarSesion = false;       
+        habilitarEditarSesion = false;
     }
 
     @PostConstruct
@@ -75,7 +77,6 @@ public class UsuarioBean implements Serializable {
     }
 
     //Getters & Setters
-
     public SmsCiudad getCiudadUsuario() {
         return ciudadUsuario;
     }
@@ -83,8 +84,7 @@ public class UsuarioBean implements Serializable {
     public void setCiudadUsuario(SmsCiudad ciudadUsuario) {
         this.ciudadUsuario = ciudadUsuario;
     }
-    
-    
+
     public List<SmsUsuario> getUsuariosListView() {
         return usuariosListView;
     }
@@ -181,13 +181,21 @@ public class UsuarioBean implements Serializable {
         this.habilitarEditarSesion = habilitarEditarSesion;
     }
 
+    public SmsUsuario getDUsuarioView() {
+        return DUsuarioView;
+    }
+
+    public void setDUsuarioView(SmsUsuario DUsuarioView) {
+        this.DUsuarioView = DUsuarioView;
+    }
+
     //Declaracion de metodos
     //Metodos CRUD
     public void registrar() {
 
         //asignamos al usuario la imagen de perfil default
         usuarioView.setUsuarioFotoRuta(fileController.getPathDefaultUsuario());
-
+        usuarioView.setUsuarioFotoNombre(fileController.getNameDefaultUsuario());
         //registramos el usuario y recargamos la lista de clientes
         usuarioController.registrarUsuario(usuarioView, ciudadView, rolView);
         usuariosListView = usuarioController.consultarAdministradores();
@@ -198,7 +206,6 @@ public class UsuarioBean implements Serializable {
         rolView = new SmsRol();
         modUsuarioView = new SmsUsuario();
     }
-    
 
     public String modificar() {
         MD5 md = new MD5();
@@ -222,13 +229,12 @@ public class UsuarioBean implements Serializable {
     }
 
     public void eliminar() {
-        usuarioController.eliminarUsuario(usuarioView);
+        usuarioController.eliminarUsuario(DUsuarioView);
         usuariosListView = usuarioController.consultarAdministradores();
-
-        usuarioView = new SmsUsuario();
-        ciudadView = new SmsCiudad();
-        rolView = new SmsRol();
-        modUsuarioView = new SmsUsuario();
+        if (usuarioView.equals(DUsuarioView)) {
+            usuarioView = new SmsUsuario();
+        }
+        DUsuarioView = new SmsUsuario();
     }
 
     public void filtrar() {
@@ -270,9 +276,8 @@ public class UsuarioBean implements Serializable {
         modUsuarioView.setUsuarioPassword(pass);
         modUsuarioView.setUsuarioRememberToken(pass);
     }
-   
-//Metodos para iniciar Sesion
 
+//Metodos para iniciar Sesion
     public String login() {
         String ruta = "/login.xhtml";
         IUsuarioDao usuarioDao = new ImpUsuarioDao();

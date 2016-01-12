@@ -21,6 +21,7 @@ public class PermisosBean implements Serializable {
     //Objetos de vista
     private List<SmsPermisos> permisosListView;
     private SmsPermisos permisoView;
+    private SmsPermisos DPermisoView;
     private List<String> nombresPermisosListView;
 
     //relacion con el controlador
@@ -30,13 +31,14 @@ public class PermisosBean implements Serializable {
     private int estado; //Controla la operacion a realizar
     private String nombre;
     private String buscar;
-    
+
     public PermisosBean() {
         permisoView = new SmsPermisos();
+        DPermisoView = new SmsPermisos();
         permisosListView = new ArrayList<>();
         nombresPermisosListView = new ArrayList<>();
         permisoController = new Permiso();
-        
+
         buscar = null;
         estado = 0;
         nombre = "Registrar Permiso";
@@ -108,7 +110,14 @@ public class PermisosBean implements Serializable {
         this.buscar = buscar;
     }
 
-    
+    public SmsPermisos getDPermisoView() {
+        return DPermisoView;
+    }
+
+    public void setDPermisoView(SmsPermisos DPermisoView) {
+        this.DPermisoView = DPermisoView;
+    }
+
     //Definicion de metodos CRUD    
     public void registrar() {
         permisoController.registrarPermiso(permisoView);
@@ -123,11 +132,16 @@ public class PermisosBean implements Serializable {
     }
 
     public void eliminar() {
-        permisoController.eliminarPermiso(permisoView);
-        permisoView = new SmsPermisos();
+        permisoController.eliminarPermiso(DPermisoView);
+        if (permisoView.equals(DPermisoView)) {
+            permisoView = new SmsPermisos();
+            estado = 0;
+            nombre = "Registrar Permiso";        
+        }
+        DPermisoView = new SmsPermisos();
         permisosListView = permisoController.cargarPermisos();
     }
-    
+
     public void filtrar() {
         permisosListView = new ArrayList<>();
         if (buscar == null) {
@@ -136,13 +150,13 @@ public class PermisosBean implements Serializable {
             permisosListView = permisoController.filtrarPermiso(buscar);
         }
     }
-    
+
     //Metodos propios
     public void seleccionarCrud(int i) {
         estado = i;
-        if (estado == 1) {            
+        if (estado == 1) {
             nombre = "Modificar Permiso";
-        } 
+        }
     }
 
     public void metodo() {
@@ -152,7 +166,7 @@ public class PermisosBean implements Serializable {
             modificar();
             estado = 0;
             nombre = "Registrar Permiso";
-        } 
+        }
     }
 
 }

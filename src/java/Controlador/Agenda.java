@@ -99,10 +99,10 @@ public class Agenda {
         formatTime = new SimpleDateFormat("HH:mm:ss");
         
         //Se formatean las fechas y horas
-        String FechaInicio = formatDate.format(a.getAgendaFechaInicio());
-        String FechaLlegada = formatDate.format(a.getAgendaFechaLlegada());
-        String HoraInicio = formatTime.format(a.getAgendaHoraInicio());
-        String HoraLlegada = formatTime.format(a.getAgendaHoraLlegada());
+        String FechaInicio = formatDate.format(agenda.getAgendaFechaInicio());
+        String FechaLlegada = formatDate.format(agenda.getAgendaFechaLlegada());
+        String HoraInicio = formatTime.format(agenda.getAgendaHoraInicio());
+        String HoraLlegada = formatTime.format(agenda.getAgendaHoraLlegada());
         
         agendas = agDao.consultarAgenda(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, v, e);
         return agendas;

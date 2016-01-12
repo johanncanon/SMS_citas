@@ -79,6 +79,10 @@ public class PathBean {
     public String ir_PEdicionPerfil() {
         return "AdminPEdicionPerfil";
     }
+    
+    public String ir_PCostosServicios() {
+        return "AdminPCostosServicios";
+    }
     /* / ADMIN PRINCIPAL / */
     /* / ADMIN SECUNDARIO / */
 

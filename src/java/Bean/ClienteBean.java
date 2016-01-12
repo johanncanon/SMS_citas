@@ -25,9 +25,10 @@ public class ClienteBean implements Serializable {
 
     //Objetos necesario para vista
     protected SmsUsuario clienteView;
+    protected SmsUsuario DClienteView;
     protected SmsUsuario modClienteView;
-    protected SmsUsuario auxClienteView;
     protected List<SmsUsuario> clientesListView;
+    protected List<String> nombresClientesListView;
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
     //variable para sacar las ciudades de la reservacion
@@ -39,21 +40,21 @@ public class ClienteBean implements Serializable {
 
     //Variables    
     private String buscar;
-    private Boolean habilitarEditarSesion;  
+    private Boolean habilitarEditarSesion;
     private String pass;
-   
 
     public ClienteBean() {
         ciudadReservacion = new SmsAgenda();
+        DClienteView = new SmsUsuario();
         clienteView = new SmsUsuario();
-        auxClienteView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
+        nombresClientesListView = new ArrayList<>();
         clienteController = new Cliente();
         fileController = new Upload();
         modClienteView = new SmsUsuario();
         buscar = null;
-        habilitarEditarSesion = false;        
+        habilitarEditarSesion = false;
     }
 
     @PostConstruct
@@ -63,7 +64,6 @@ public class ClienteBean implements Serializable {
     }
 
     //Getters & Setters
-
     public SmsAgenda getCiudadReservacion() {
         return ciudadReservacion;
     }
@@ -71,8 +71,7 @@ public class ClienteBean implements Serializable {
     public void setCiudadReservacion(SmsAgenda ciudadReservacion) {
         this.ciudadReservacion = ciudadReservacion;
     }
-    
-    
+
     public SmsUsuario getClienteView() {
         return clienteView;
     }
@@ -143,12 +142,30 @@ public class ClienteBean implements Serializable {
 
     public void setHabilitarEditarSesion(Boolean habilitarEditarSesion) {
         this.habilitarEditarSesion = habilitarEditarSesion;
-    }   
+    }
 
-   
+    public SmsUsuario getDClienteView() {
+        return DClienteView;
+    }
 
-    
-    
+    public void setDClienteView(SmsUsuario DClienteView) {
+        this.DClienteView = DClienteView;
+    }
+
+    public List<String> getNombresClientesListView() {
+        nombresClientesListView = new ArrayList<>();
+        clientesListView = new ArrayList<>();
+        clientesListView = clienteController.consultarClientes();
+        for (int i = 0; i < clientesListView.size(); i++) {
+            nombresClientesListView.add(clientesListView.get(i).getUsuarioNombre());
+        }
+        return nombresClientesListView;
+    }
+
+    public void setNombresClientesListView(List<String> nombresClientesListView) {
+        this.nombresClientesListView = nombresClientesListView;
+    }
+
     //Metodos     
     public void registrar() {
         //asignamos un rol al usuario
@@ -156,6 +173,7 @@ public class ClienteBean implements Serializable {
 
         //asignamos al usuario la imagen de perfil default
         clienteView.setUsuarioFotoRuta(fileController.getPathDefaultUsuario());
+        clienteView.setUsuarioFotoNombre(fileController.getNameDefaultUsuario());
 
         //registramos el usuario y recargamos la lista de clientes
         clienteController.registrarUsuario(clienteView, ciudadView, rolView);
@@ -196,12 +214,15 @@ public class ClienteBean implements Serializable {
     }
 
     public void eliminar() {
-        clienteController.eliminarUsuario(clienteView);
+        clienteController.eliminarUsuario(DClienteView);
         clientesListView = clienteController.consultarClientes();
 
-        clienteView = new SmsUsuario();
-        ciudadView = new SmsCiudad();
-        rolView = new SmsRol();
+        if (clienteView.equals(DClienteView)) {
+            clienteView = new SmsUsuario();
+            ciudadView = new SmsCiudad();
+            rolView = new SmsRol();
+        }
+        DClienteView = new SmsUsuario();
         modClienteView = new SmsUsuario();
     }
 
@@ -242,7 +263,5 @@ public class ClienteBean implements Serializable {
         modClienteView.setUsuarioPassword(pass);
         modClienteView.setUsuarioRememberToken(pass);
     }
-
-   
 
 }

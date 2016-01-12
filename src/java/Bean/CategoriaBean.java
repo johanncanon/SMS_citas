@@ -16,6 +16,7 @@ public class CategoriaBean implements Serializable {
 
     //Objeto de vista
     private SmsCategoria categoriaView;
+    private SmsCategoria DCategoriaView;//La D hace alucion a delete, este objeto se usara para eliminar los registros de la BD
     private List<SmsCategoria> categoriasListView;
     private List<String> nombresCategoriasListView;
 
@@ -29,6 +30,7 @@ public class CategoriaBean implements Serializable {
 
     public CategoriaBean() {//CONSTRUCTOR
         categoriaView = new SmsCategoria();
+        DCategoriaView = new SmsCategoria();                
         categoriasListView = new ArrayList<>();
         nombresCategoriasListView = new ArrayList<>();
         
@@ -106,6 +108,16 @@ public class CategoriaBean implements Serializable {
         this.buscar = buscar;
     }
 
+    public SmsCategoria getDCategoriaView() {
+        return DCategoriaView;
+    }
+
+    public void setDCategoriaView(SmsCategoria DCategoriaView) {
+        this.DCategoriaView = DCategoriaView;
+    }
+    
+    
+
     //METODOS QUE DEVUELVEN DATOS PARA VISTAS
     public void modificar() {
         //TRAER LA INFORMACION DE LA VISTA Y PASARLA AL PARAMETRO CORRESPODIENTE 
@@ -128,8 +140,13 @@ public class CategoriaBean implements Serializable {
     public void eliminar() {
         //TRAER LA INFORMACION DE LA VISTA Y PASARLA AL PARAMETRO CORRESPODIENTE 
         //DE LA CLASE DEL PAQUETE CONTROLADOR
-        categoriaController.eliminarCategoria(categoriaView);
+        categoriaController.eliminarCategoria(DCategoriaView);
+        if(categoriaView.equals(DCategoriaView)){
         categoriaView = new SmsCategoria();
+        nombre = "Registrar Categoria";
+        estado = 0;
+        }
+        DCategoriaView = new SmsCategoria();
         categoriasListView = categoriaController.cargarCategorias();
     }
 

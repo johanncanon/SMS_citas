@@ -30,6 +30,7 @@ public class VehiculoBean {
 
     //Objetos de vista 
     private SmsVehiculo vehiculoView;
+    private SmsVehiculo DVehiculoView;
     private List<SmsVehiculo> vehiculosListView;
     private List<String> PlacasVehiculosListView;
     private SmsUsuario usuarioView;
@@ -58,6 +59,7 @@ public class VehiculoBean {
     public VehiculoBean() {
         vehiculoController = new Vehiculo();
         vehiculoView = new SmsVehiculo();
+        DVehiculoView = new SmsVehiculo();
         categoriaView = new SmsCategoria();
         ciudadView = new SmsCiudad();
         proveedorView = new SmsProveedor();
@@ -242,6 +244,15 @@ public class VehiculoBean {
         this.usuarioController = usuarioController;
     }
 
+    public SmsVehiculo getDVehiculoView() {
+        return DVehiculoView;
+    }
+
+    public void setDVehiculoView(SmsVehiculo DVehiculoView) {
+        this.DVehiculoView = DVehiculoView;
+    }
+
+    
     //Definicion de metodos VEHICULO
     public void registrar() {
 
@@ -300,16 +311,24 @@ public class VehiculoBean {
     }
 
     public void eliminar() {
-        vehiculoController.eliminarVehiculo(vehiculoView);
-
+        vehiculoController.eliminarVehiculo(DVehiculoView);
+        
+        if(vehiculoView.equals(DVehiculoView)){
+        usuarioView = new SmsUsuario();
         refenciaView = new SmsReferencia();
         categoriaView = new SmsCategoria();
         proveedorView = new SmsProveedor();
         ciudadView = new SmsCiudad();
-        vehiculoView = new SmsVehiculo();
-        usuarioView = new SmsUsuario();
+        vehiculoView = new SmsVehiculo();       
         estadoVehiculoView = new SmsEstadovehiculo();
-
+        nombre = "Registrar Vehiculo";
+        estado = 0;
+        estadoArchivo = "Foto sin subir";
+        subirArchivo = "Subir Fotografia";
+        habilitarSubir = false;
+        }
+        
+        DVehiculoView = new SmsVehiculo();
         vehiculosListView = vehiculoController.cargarVehiculos();
     }
 

@@ -8,16 +8,16 @@
             <column name="idVehiculo" />
             <generator class="identity" />
         </id>
-        <many-to-one name="smsCategoria" class="Modelo.SmsCategoria" fetch="select">
+        <many-to-one name="smsCategoria" class="Modelo.SmsCategoria" fetch="join">
             <column name="Veh_categoria" not-null="true" />
         </many-to-one>
-        <many-to-one name="smsCiudad" class="Modelo.SmsCiudad" fetch="select">
+        <many-to-one name="smsCiudad" class="Modelo.SmsCiudad" lazy="false" fetch="select">
             <column name="Veh_idCiudad" not-null="true" />
         </many-to-one>
-        <many-to-one name="smsProveedor" class="Modelo.SmsProveedor" fetch="select">
+        <many-to-one name="smsProveedor" class="Modelo.SmsProveedor" lazy="false" fetch="select">
             <column name="Veh_idProveedor" not-null="true" />
         </many-to-one>
-        <many-to-one name="smsReferencia" class="Modelo.SmsReferencia" fetch="select">
+        <many-to-one name="smsReferencia" class="Modelo.SmsReferencia" lazy="false" fetch="select">
             <column name="Veh_idReferencia" not-null="true" />
         </many-to-one>
         <property name="vehPlaca" type="string">

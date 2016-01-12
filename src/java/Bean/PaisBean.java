@@ -15,6 +15,7 @@ public class PaisBean {
 
     //Objetos de vista
     protected SmsPais paisView;
+    protected SmsPais DPaisView;
     protected List<SmsPais> paisesListView;
     protected List<String> nombrePaisesListView;
 
@@ -28,6 +29,7 @@ public class PaisBean {
 
     public PaisBean() {
         paisView = new SmsPais();
+        DPaisView = new SmsPais();
         paisesListView = new ArrayList<>();
         nombrePaisesListView = new ArrayList<>();
         paisController = new Pais();
@@ -35,9 +37,9 @@ public class PaisBean {
         estado = 0;
         nombre = "Registrar Pais";
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         paisesListView = new ArrayList<>();
         paisesListView = paisController.cargarPaises();
     }
@@ -104,7 +106,14 @@ public class PaisBean {
         this.buscar = buscar;
     }
 
-    
+    public SmsPais getDPaisView() {
+        return DPaisView;
+    }
+
+    public void setDPaisView(SmsPais DPaisView) {
+        this.DPaisView = DPaisView;
+    }
+
     //Metodos que se comunicar con el controlador    
     public void registrar() {
         paisController.registrarPais(paisView);
@@ -119,11 +128,17 @@ public class PaisBean {
     }
 
     public void eliminar() {
-        paisController.eliminarPais(paisView);
+        paisController.eliminarPais(DPaisView);
+        if (paisView.equals(DPaisView)) {
+            paisView = new SmsPais();
+            nombre = "Registrar Pais";
+            estado = 0;
+        }
+
         paisesListView = paisController.cargarPaises();
-        paisView = new SmsPais();
+        DPaisView = new SmsPais();
     }
-    
+
     public void filtrar() {
         paisesListView = new ArrayList<>();
         if (buscar == null) {

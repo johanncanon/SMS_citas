@@ -20,6 +20,7 @@ public class CiudadBean {
 
     //Objetos de vista
     private SmsCiudad ciudadView;
+    private SmsCiudad DCiudadView;
     private List<SmsCiudad> ciudadesListView;
     private List<String> nombresCiudadesListView;
     protected SmsPais paisView;
@@ -34,6 +35,7 @@ public class CiudadBean {
 
     public CiudadBean() {
         ciudadView = new SmsCiudad();
+        DCiudadView = new SmsCiudad();
         ciudadesListView = new ArrayList<>();
         nombresCiudadesListView = new ArrayList<>();
         ciudadController = new Ciudad();
@@ -46,7 +48,7 @@ public class CiudadBean {
 
     @PostConstruct
     public void init() {
-        ciudadesListView = ciudadController.getCiudades();
+        ciudadesListView = ciudadController.cargarCiudades();
     }
 
     //Getters & Setters    
@@ -117,17 +119,22 @@ public class CiudadBean {
 
     public void setBuscar(String buscar) {
         this.buscar = buscar;
-    }    
-    
+    }
+
+    public SmsCiudad getDCiudadView() {
+        return DCiudadView;
+    }
+
+    public void setDCiudadView(SmsCiudad DCiudadView) {
+        this.DCiudadView = DCiudadView;
+    }
+
     //Metodos propios
     public void seleccionarCrud(int i) {
         estado = i;
         if (estado == 1) {
             paisView.setPaisNombre(ciudadView.getSmsPais().getPaisNombre());
             nombre = "Modificar Ciudad";
-        } else if (estado == 2) {
-            paisView.setPaisNombre(ciudadView.getSmsPais().getPaisNombre());
-            nombre = "Eliminar Ciudad";
         }
     }
 
@@ -138,10 +145,6 @@ public class CiudadBean {
             modificar();
             estado = 0;
             nombre = "Registrar Ciudad";
-        } else if (estado == 2) {
-            eliminar();
-            estado = 0;
-            nombre = "Registrar Ciudad";
         }
     }
 
@@ -150,23 +153,27 @@ public class CiudadBean {
         ciudadController.registrarCiudad(ciudadView, paisView);
         ciudadView = new SmsCiudad();
         paisView = new SmsPais();
-        ciudadesListView = ciudadController.getCiudades();
+        ciudadesListView = ciudadController.cargarCiudades();
     }
 
     public void modificar() {
         ciudadController.modificarCiudad(ciudadView, paisView);
         ciudadView = new SmsCiudad();
         paisView = new SmsPais();
-        ciudadesListView = ciudadController.getCiudades();
+        ciudadesListView = ciudadController.cargarCiudades();
     }
 
     public void eliminar() {
-        ciudadController.eliminarCiudad(ciudadView);
-        ciudadView = new SmsCiudad();
-        paisView = new SmsPais();
-        ciudadesListView = ciudadController.getCiudades();
+        ciudadController.eliminarCiudad(DCiudadView);
+        if(ciudadView.equals(DCiudadView)){
+        ciudadView.equals(DCiudadView);
+        nombre = "Registrar Ciudad";
+        estado = 0;
+        }
+        DCiudadView = new SmsCiudad();
+        ciudadesListView = ciudadController.cargarCiudades();
     }
-    
+
     public void filtrar() {
         ciudadesListView = new ArrayList<>();
         if (buscar == null) {

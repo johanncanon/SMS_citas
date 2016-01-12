@@ -64,7 +64,6 @@
                                             </p:column>
                                         </p:row>
                                     </h:panelGrid>
-
                                 </div>
                             </div>
                         </b:column>
@@ -149,7 +148,7 @@
 
                                         <p:column style="width: 35px">
                                             <p:commandLink style="color: white" class="fa fa-trash btn btn-block btn-danger" process="@this" update="@form" action="#{permisosBean.eliminar()}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{permiso}" target="#{permisosBean.permisoView}"/>
+                                                <f:setPropertyActionListener value="#{permiso}" target="#{permisosBean.DPermisoView}"/>
                                                 <p:confirm header="Confirmacion" message="Esta seguro que desea eliminar este Permiso?" icon="ui-icon-alert" /> 
                                             </p:commandLink>
                                         </p:column>  

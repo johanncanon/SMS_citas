@@ -83,8 +83,8 @@
                                         </p:column>
 
                                         <p:column style="width: 35px"> 
-                                            <p:commandLink process="@this" update="@form" class="fa fa-trash btn btn-block btn-danger" style="color: white" action="#{ciudadBean.seleccionarCrud(2)}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{ciudades}" target="#{ciudadBean.ciudadView}"/>
+                                            <p:commandLink process="@this" update="@form" class="fa fa-trash btn btn-block btn-danger" style="color: white" action="#{ciudadBean.eliminar()}" title="Eliminar">
+                                                <f:setPropertyActionListener value="#{ciudades}" target="#{ciudadBean.DCiudadView}"/>
                                                 <p:confirm header="Confirmacion" message="Esta seguro que desea eliminar esta ciudad?" icon="ui-icon-alert" /> 
                                             </p:commandLink>
                                         </p:column>

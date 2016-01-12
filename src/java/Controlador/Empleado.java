@@ -18,6 +18,8 @@ import Modelo.SmsHojavida;
 import Modelo.SmsUsuario;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -94,11 +96,14 @@ public class Empleado extends Usuario {
         empleadoDao.modificarEmpleado(empleado);
     }
 
-    public void eliminarEmpleado(SmsUsuario u, SmsHojavida h, SmsEmpleado e) {
+    public void eliminarEmpleado(SmsUsuario u) {
         usuario = u;
-        hojaVida = h;
-        empleado = e;
+        
+        IEmpleadoDao empleadoDao = new ImpEmpleadoDao();
+        empleado = empleadoDao.consultarEmpleado(usuario).get(0);
 
+        hojaVida = empleado.getSmsHojavida();
+        
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         usuarioDao.eliminarUsuario(usuario);
 
@@ -142,8 +147,25 @@ public class Empleado extends Usuario {
         String HoraInicio = formatTime.format(a.getAgendaHoraInicio());
         String HoraLlegada = formatTime.format(a.getAgendaHoraLlegada());
         
+        Calendar calInicio = Calendar.getInstance();
+        calInicio.setTime(a.getAgendaHoraInicio());
+        calInicio.add(Calendar.HOUR, -1);
+        calInicio.add(Calendar.MINUTE, -59);
+
+        Calendar calLlegada = Calendar.getInstance();
+        calLlegada.setTime(a.getAgendaHoraLlegada());
+        calLlegada.add(Calendar.HOUR, 1);
+        calLlegada.add(Calendar.MINUTE, 59);
+        
+        Date hespacioInicio = calInicio.getTime();
+        Date hespacioLlegada = calLlegada.getTime();
+
+        String espacioinicio = formatTime.format(hespacioInicio);
+        String espacioLlegada = formatTime.format(hespacioLlegada);
+
+        
         IEmpleadoDao empleadoDao = new ImpEmpleadoDao();
-        empleados = empleadoDao.consultarEmpleadosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudad.getCiudadNombre());
+        empleados = empleadoDao.consultarEmpleadosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudad.getCiudadNombre(), espacioinicio, espacioLlegada);
         List<SmsEmpleado> lista = new ArrayList<>();
         for(int i = 0; i<empleados.size() ; i++){
         lista.add(empleadoDao.consultarEmpleado(empleados.get(i).getSmsUsuario()).get(0));

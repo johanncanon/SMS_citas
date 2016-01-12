@@ -22,6 +22,7 @@ public class RolBean {
     //Instancia de objetos necesarios
     protected List<SmsRol> rolesListView;
     protected SmsRol rolView;
+    protected SmsRol DRolView;
     protected List<String> permisosSeleccionados;
     protected List<SmsPermisos> permisosListView;
 
@@ -36,6 +37,7 @@ public class RolBean {
 
     public RolBean() {
         rolView = new SmsRol();
+        DRolView = new SmsRol();
         rolesListView = new ArrayList<>();
         rolController = new Rol();
         permisoController = new Permiso();
@@ -123,6 +125,14 @@ public class RolBean {
         this.buscar = buscar;
     }
 
+    public SmsRol getDRolView() {
+        return DRolView;
+    }
+
+    public void setDRolView(SmsRol DRolView) {
+        this.DRolView = DRolView;
+    }
+
     //Definicion de motodos CRUD    
     public void registrar() {
         asignarPermiso();
@@ -133,7 +143,7 @@ public class RolBean {
     }
 
     public void modificar() {
-        
+
         rolController.modificarRol(rolView);
         rolView = new SmsRol();
         rolesListView = rolController.cargarRoles();
@@ -141,8 +151,13 @@ public class RolBean {
     }
 
     public void eliminar() {
-        rolController.eliminarRol(rolView);
-        rolView = new SmsRol();
+        rolController.eliminarRol(DRolView);
+        if (rolView.equals(DRolView)) {
+            rolView = new SmsRol();
+            estado = 0;
+            nombre = "Registrar Rol";
+        }
+        DRolView = new SmsRol();
         rolesListView = rolController.cargarRoles();
         permisosSeleccionados.clear();
     }
@@ -159,7 +174,7 @@ public class RolBean {
     //Definicion de metodos para asignacion de permisos a un rol
     public void asignarPermiso() {
         permisosListView = new ArrayList<>();
-        for (int i = 0; i < permisosSeleccionados.size(); i++) {           
+        for (int i = 0; i < permisosSeleccionados.size(); i++) {
             rolView.getSmsPermisoses().add(permisoController.consultarPermiso(permisosSeleccionados.get(i)).get(0));
         }
     }

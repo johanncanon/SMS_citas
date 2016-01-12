@@ -21,6 +21,7 @@ public class ReferenciaBean implements Serializable {
 
     //Objetos de vista
     private SmsReferencia referenciaView;
+    private SmsReferencia DReferenciaView;
     private List<SmsReferencia> referenciasListView;
     private List<String> nombresReferenciaListView;
     private SmsMarca marcaView;
@@ -34,6 +35,7 @@ public class ReferenciaBean implements Serializable {
     private String buscar;
 
     public ReferenciaBean() {
+        DReferenciaView = new SmsReferencia();
         referenciaView = new SmsReferencia();
         referenciaController = new Referencia();
         referenciasListView = new ArrayList<>();
@@ -129,6 +131,15 @@ public class ReferenciaBean implements Serializable {
         this.buscar = buscar;
     }
 
+    public SmsReferencia getDReferenciaView() {
+        return DReferenciaView;
+    }
+
+    public void setDReferenciaView(SmsReferencia DReferenciaView) {
+        this.DReferenciaView = DReferenciaView;
+    }
+    
+    
 
     /* METODOS DEL BEAN
      ********************************************************************************/
@@ -140,8 +151,13 @@ public class ReferenciaBean implements Serializable {
     }
 
     public void eliminar() {
-        referenciaController.eliminarReferencia(referenciaView);
+        referenciaController.eliminarReferencia(DReferenciaView);
+        if(referenciaView.equals(DReferenciaView)){
         referenciaView = new SmsReferencia();
+        nombre = "Registrar Referencia";
+        estado = 0;
+        }
+        DReferenciaView = new SmsReferencia();
         referenciasListView = referenciaController.cargarReferencias();
     }
 

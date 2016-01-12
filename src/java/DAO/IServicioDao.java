@@ -16,6 +16,7 @@ public interface IServicioDao {
     
     //Declaracion de metodos
     public List<SmsServicios> mostrarServicios();
+    public List<SmsServicios> ConsultarServicio(SmsServicios servicio);
     public void registrarServicio(SmsServicios servicio);
     public void modificarServicio(SmsServicios servicio);
     public void eliminarServicio(SmsServicios servicio);

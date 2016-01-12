@@ -64,7 +64,6 @@
                                             </p:column>
                                         </p:row>
                                     </h:panelGrid>
-
                                 </div>
                             </div>
                         </b:column>
@@ -83,13 +82,23 @@
                                         <p:column headerText="Rol">
                                             <p:outputLabel value="#{rol.rolNombre}"/>
                                         </p:column>                                      
+                                        <p:column style="width: 35px">
+                                            <p:commandLink style="color: white" class="fa fa-pencil btn btn-block btn-success" process="@this" update="@form" action="#{rolBean.seleccionarCrud(1)}" title="Modificar">
+                                                <f:setPropertyActionListener value="#{rol}" target="#{rolBean.rolView}"/>
+                                            </p:commandLink>
+                                        </p:column>
 
+                                        <p:column style="width: 35px">
+                                            <p:commandLink style="color: white" class="fa fa-trash btn btn-block btn-danger" process="@this" update="@form" action="#{rolBean.eliminar()}" title="Eliminar">
+                                                <f:setPropertyActionListener value="#{rol}" target="#{rolBean.rolView}"/>
+                                                <p:confirm header="Confirmacion" message="Esta seguro que desea eliminar este rol?" icon="ui-icon-alert" /> 
+                                            </p:commandLink>
+                                        </p:column>  
                                     </p:dataTable>
                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                                         <b:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" look="success" iconAwesome="fa fa-check" />
                                         <b:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" look="danger" iconAwesome="fa fa-close" />
                                     </p:confirmDialog>
-                                    <br/>
                                 </div>
                             </div>
                         </b:column>
@@ -131,16 +140,15 @@
                                         <p:column headerText="Descripcion">
                                             <p:outputLabel value="#{permiso.permisosDescripcion}"/>
                                         </p:column>
-
+                                        
                                     </p:dataTable>
-                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                        <b:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" look="success" iconAwesome="fa fa-check" />
-                                        <b:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" look="danger" iconAwesome="fa fa-close" />
-                                    </p:confirmDialog>
-                                    <br/>
+                                    
                                 </div>
                             </div>
                         </b:column>
+
+
+
 
 
                     </h:form>

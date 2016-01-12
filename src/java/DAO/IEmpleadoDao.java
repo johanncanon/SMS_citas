@@ -28,7 +28,7 @@ public interface IEmpleadoDao {
 
     public List<SmsEmpleado> consultarEmpleado(SmsUsuario usuario);
 
-    public List<SmsEmpleado> consultarEmpleadosDisponibles(String fechaInicio, String fechaLlegada, String horaInicio, String horaLlegada , String ciudad);
+    public List<SmsEmpleado> consultarEmpleadosDisponibles(String fechaInicio, String fechaLlegada, String horaInicio, String horaLlegada , String ciudad, String espacioInicio, String espacioLlegada);
     
     public List<SmsEmpleado> consultarEmpleadosCiudad(SmsCiudad ciudad);
 }

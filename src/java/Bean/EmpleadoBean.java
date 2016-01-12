@@ -35,6 +35,7 @@ public class EmpleadoBean implements Serializable {
     protected SmsUsuario usuarioView;
     protected SmsUsuario modUsuarioView;
     protected SmsEmpleado empleadoView;
+    protected SmsUsuario DUsuarioView;
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
     protected SmsHojavida hojavidaView;
@@ -69,6 +70,7 @@ public class EmpleadoBean implements Serializable {
         usuarioView = new SmsUsuario();
         modUsuarioView = new SmsUsuario();
         empleadoView = new SmsEmpleado();
+        DUsuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
         hojavidaView = new SmsHojavida();
@@ -273,6 +275,15 @@ public class EmpleadoBean implements Serializable {
     public void setHabilitarEditarSesion(Boolean habilitarEditarSesion) {
         this.habilitarEditarSesion = habilitarEditarSesion;
     }
+
+    public SmsUsuario getDUsuarioView() {
+        return DUsuarioView;
+    }
+
+    public void setDUsuarioView(SmsUsuario DUsuarioView) {
+        this.DUsuarioView = DUsuarioView;
+    }
+    
     
 
     //Metodos que se comunican con el controlador    
@@ -283,8 +294,14 @@ public class EmpleadoBean implements Serializable {
         usuarioView.setUsuarioNit("");
         rolView.setRolNombre("Empleado");
         
-       
-
+        if(usuarioView.getUsuarioFotoRuta()== null && hojavidaView.getHojaVidaRuta() == null){
+        //asignamos al usuario la imagen de perfil default
+        usuarioView.setUsuarioFotoRuta(fileController.getPathDefaultUsuario());
+        usuarioView.setUsuarioFotoNombre(fileController.getNameDefaultUsuario());
+        hojavidaView.setHojaVidaNombre(fileController.getNameDefaultHojasVida());
+        hojavidaView.setHojaVidaRuta(fileController.getPathDefaultHojasVida());
+        }
+        hojaVidaController.registrarHojaVida(hojavidaView);
         empleadoController.registrarUsuario(usuarioView, ciudadView, rolView);
         empleadoController.registrarEmpleado(usuarioView, hojavidaView);
 
@@ -300,7 +317,8 @@ public class EmpleadoBean implements Serializable {
         usuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
-
+        empleadoView = new SmsEmpleado();
+        hojavidaView = new SmsHojavida();
         empleadosListView = empleadoController.consultarEmpleados();
     }
 
@@ -331,18 +349,9 @@ public class EmpleadoBean implements Serializable {
     }
 
     public void eliminar() {
-        empleadoController.eliminarEmpleado(usuarioView, hojavidaView, empleadoView);
-
-        estadoFoto = "Foto sin subir";
-        subirFoto = "Subir Fotografia";
-        habilitarSubirFoto = false;
-
-        estadoArchivo = "Hoja de vida sin subir";
-        subirArchivo = "Subir Hoja de vida";
-        habilitarSubirArchivo = false;
-        registroHojaVida = false;
-
-        usuarioView = new SmsUsuario();
+        empleadoController.eliminarEmpleado(DUsuarioView);
+        
+        DUsuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
         empleadoView = new SmsEmpleado();

@@ -21,7 +21,6 @@ import org.primefaces.model.UploadedFile;
 public class Upload {
 
     UploadedFile archivo;
-    
 
     //Getters & Setters
     public UploadedFile getArchivo() {
@@ -34,7 +33,7 @@ public class Upload {
 
     //Metodos
     public static String getPath() {
-        try {            
+        try {
             ExternalContext tmpEC;
 
             tmpEC = FacesContext.getCurrentInstance().getExternalContext();
@@ -84,9 +83,9 @@ public class Upload {
         }
         return null;
     }
-    
+
     public static String getPathDefaultUsuario() {
-        
+
         try {
             String path = "/resources/images/upload/Usuario/Default.png";
             return path;
@@ -94,11 +93,55 @@ public class Upload {
             e.getMessage();
         }
         return null;
-        
     }
-    
+
+    public static String getNameDefaultUsuario() {
+
+        try {
+            String path = "Default.png";
+            return path;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
+    }
+
+    public static String getNameDefaultVehiculo() {
+
+        try {
+            String path = "Default.png";
+            return path;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
+    }
+
+    public static String getNameDefaultHojasVida() {
+
+        try {
+            String path = "Default.pdf";
+            return path;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
+    }
+
+    public static String getPathDefaultHojasVida() {
+
+        try {
+            String path = "/resources/images/upload/HojasVida/Default.pdf";
+            return path;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
+
+    }
+
     public static String getPathDefaultVehiculo() {
-        
+
         try {
             String path = "/resources/images/upload/Vehiculos/Default.png";
             return path;
@@ -106,7 +149,7 @@ public class Upload {
             e.getMessage();
         }
         return null;
-        
+
     }
 
     public static String getPathFotosVehiculos() {

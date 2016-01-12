@@ -107,6 +107,7 @@
             <to-view-id>/vistas/AdminP/usuarios/PUsuario.xhtml</to-view-id>
             <redirect/>            
         </navigation-case>
+        
         <navigation-case>
             <from-outcome>AdminPCliente</from-outcome>
             <to-view-id>/vistas/AdminP/clientes/PClientes.xhtml</to-view-id>
@@ -345,6 +346,10 @@
             <to-view-id>/vistas/AdminP/empleados/PEEmpleado.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminPCostosServicios</from-outcome>
+            <to-view-id>/vistas/AdminP/servicios/PCostosServicios.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/vistas/AdminP/clientes/PClientes.xhtml</from-view-id>
@@ -383,5 +388,32 @@
         </navigation-case>
         
         
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/vistas/Cliente/dash-prueba-cliente.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>RetornarReservacion</from-outcome>
+            <to-view-id>/vistas/Cliente/dash-prueba-cliente.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>costosServicioBean</managed-bean-name>
+        <managed-bean-class>Bean.CostosServicioBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+    <navigation-rule>
+        <from-view-id>/vistas/AdminP/reservas/PReserva.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>RetornarReservacionAdminP</from-outcome>
+            <to-view-id>/vistas/AdminP/reservas/PReserva.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/vistas/AdminS/reservas/PReserva.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>RetornarReservacionAdminS</from-outcome>
+            <to-view-id>/vistas/AdminS/reservas/PReserva.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 </faces-config>
