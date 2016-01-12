@@ -13,12 +13,17 @@ import DAO.ImpUsuarioDao;
 import Modelo.SmsCiudad;
 import Modelo.SmsRol;
 import Modelo.SmsUsuario;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.apache.commons.io.IOUtils;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -32,7 +37,7 @@ public class UsuarioBean implements Serializable {
     protected SmsUsuario DUsuarioView;
     protected SmsUsuario modUsuarioView;
     protected List<SmsUsuario> usuariosListView;
-
+    protected SmsCiudad ciudadUsuario;
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
 
@@ -50,11 +55,14 @@ public class UsuarioBean implements Serializable {
     protected SmsUsuario Usuario;
 
     //Variables
-    private SmsCiudad ciudadUsuario;
     private String buscar;
     private Boolean habilitarEditarSesion;
     private String pass;
-    private String login;
+
+    private Boolean habilitarSubirFoto;
+    private String subirFoto;
+    private String estadoFoto;
+    private UploadedFile foto;
 
     public UsuarioBean() {
         ciudadUsuario = new SmsCiudad();
@@ -67,6 +75,10 @@ public class UsuarioBean implements Serializable {
         habilitado = true;
         Usuario = new SmsUsuario();
 
+        habilitarSubirFoto = false;
+        subirFoto = "Subir fotografia";
+        estadoFoto = "Foto sin subir";
+        
         buscar = null;
         habilitarEditarSesion = false;
     }
@@ -189,6 +201,38 @@ public class UsuarioBean implements Serializable {
         this.DUsuarioView = DUsuarioView;
     }
 
+    public Boolean getHabilitarSubirFoto() {
+        return habilitarSubirFoto;
+    }
+
+    public void setHabilitarSubirFoto(Boolean habilitarSubirFoto) {
+        this.habilitarSubirFoto = habilitarSubirFoto;
+    }
+
+    public String getSubirFoto() {
+        return subirFoto;
+    }
+
+    public void setSubirFoto(String subirFoto) {
+        this.subirFoto = subirFoto;
+    }
+
+    public String getEstadoFoto() {
+        return estadoFoto;
+    }
+
+    public void setEstadoFoto(String estadoFoto) {
+        this.estadoFoto = estadoFoto;
+    }
+
+    public UploadedFile getFoto() {
+        return foto;
+    }
+
+    public void setFoto(UploadedFile foto) {
+        this.foto = foto;
+    }
+
     //Declaracion de metodos
     //Metodos CRUD
     public void registrar() {
@@ -206,13 +250,44 @@ public class UsuarioBean implements Serializable {
         rolView = new SmsRol();
         modUsuarioView = new SmsUsuario();
     }
-    
-    public void modificarUsuario(SmsUsuario u, SmsCiudad c){
-        Usuario = u;
-        ciudadView = c;
-        usuarioController.modificarUsuarioCrud(Usuario, ciudadView);
-        Usuario = new SmsUsuario();
-        ciudadView = new SmsCiudad();
+
+    public String modificarUsuario() {
+
+        String ruta = "";
+
+        MD5 md = new MD5();
+
+        if (habilitarEditarSesion) { // en caso de modificar las contraseñas estas se encriptan de nuevo
+            modUsuarioView.setUsuarioPassword(md.getMD5(modUsuarioView.getUsuarioPassword()));
+            modUsuarioView.setUsuarioRememberToken(md.getMD5(modUsuarioView.getUsuarioRememberToken()));
+        }
+
+        usuarioController.modificarUsuarioCrud(modUsuarioView, ciudadUsuario);
+        modUsuarioView = new SmsUsuario();
+        ciudadUsuario = new SmsCiudad();
+       
+        estadoFoto = "Foto sin subir";
+        subirFoto = "Subir Fotografia";
+        habilitarSubirFoto = false;
+        
+        switch (Usuario.getSmsRol().getIdRol()) {
+            case 1:
+                ruta = "AdminPEdicionPerfil";
+                break;
+            case 2:
+                ruta = "AdminSEdicionPerfil";
+                break;
+            case 3:
+                ruta = "ClienteEdicionPerfil";
+                break;
+            case 4:
+                ruta = "CondEdicionPerfil";
+                break;
+            case 5:
+                ruta = "ProveedorEdicionPerfil";
+                break;
+        }
+        return ruta;
     }
 
     public String modificar() {
@@ -258,7 +333,6 @@ public class UsuarioBean implements Serializable {
     public String irModificarAdministrador() {
         ciudadView = modUsuarioView.getSmsCiudad();
         rolView = modUsuarioView.getSmsRol();
-
         String ruta = "AdminPEUsuario";
         return ruta;
     }
@@ -285,7 +359,7 @@ public class UsuarioBean implements Serializable {
         modUsuarioView.setUsuarioRememberToken(pass);
     }
 
-//Metodos para iniciar Sesion
+    //Metodos para iniciar Sesion
     public String login() {
         String ruta = "/login.xhtml";
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
@@ -320,4 +394,52 @@ public class UsuarioBean implements Serializable {
         return ruta;
     }
 
+    public String editarPerfil() {
+        modUsuarioView = Usuario;
+        ciudadUsuario = Usuario.getSmsCiudad();
+        estadoFoto = "Foto subida:" + modUsuarioView.getUsuarioFotoNombre();
+        String ruta = "";
+        switch (Usuario.getSmsRol().getIdRol()) {
+            case 1:
+                ruta = "AdminPEdicionPerfil";
+                break;
+            case 2:
+                ruta = "AdminSEdicionPerfil";
+                break;
+            case 3:
+                ruta = "ClienteEdicionPerfil";
+                break;
+            case 4:
+                ruta = "CondEdicionPerfil";
+                break;
+            case 5:
+                ruta = "ProveedorEdicionPerfil";
+                break;
+        }
+
+        return ruta;
+    }
+
+    //Subida de archivos
+    public void uploadPhoto(FileUploadEvent e) throws IOException {
+        try {
+            UploadedFile uploadedPhoto = e.getFile();
+            String destination;
+
+            HashMap<String, String> map = fileController.getMapPathFotosUsuario();
+            destination = map.get("path");
+            if (null != uploadedPhoto) {
+                fileController.uploadFile(IOUtils.toByteArray(uploadedPhoto.getInputstream()), uploadedPhoto.getFileName(), destination);
+                modUsuarioView.setUsuarioFotoNombre(uploadedPhoto.getFileName());
+                modUsuarioView.setUsuarioFotoRuta(map.get("url") + uploadedPhoto.getFileName());                
+                habilitarSubirFoto = true;
+                estadoFoto = "Foto actualizada con exito";
+
+            }
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + uploadedPhoto.getFileName() + ")  se ha guardado con exito.", ""));
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
+
+    }
 }

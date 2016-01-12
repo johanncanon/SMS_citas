@@ -258,14 +258,15 @@ public class Usuario {
     public void modificarUsuarioCrud(SmsUsuario u, SmsCiudad c){
         usuario = u;
         ciudad = c;     
-        ICiudadDao linkDao = new ImpCiudadDao();
-        linkDao.registrarCiudad(ciudad);
-        ciudad = new SmsCiudad();
+        ICiudadDao linkDao = new ImpCiudadDao();        
+        ciudad = linkDao.consultarCiudad(ciudad).get(0);
         /*****************************************/
+        
+        usuario.setSmsCiudad(ciudad);
         IUsuarioDao LinkDao = new ImpUsuarioDao();
         LinkDao.modificarUsuario(usuario);
         /*****************************************/
-        usuario = new SmsUsuario();
+        
     }
    
 }
