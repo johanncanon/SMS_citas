@@ -73,6 +73,7 @@ public class SendEmail {
             t.sendMessage(message, message.getAllRecipients());
             t.close();
         } catch (MessagingException me) {
+            me.getMessage();
             //Aqui se deberia o mostrar un mensaje de error o en lugar
             //de no hacer nada con la excepcion, lanzarla para que el modulo
             //superior la capture y avise al usuario con un popup, por ejemplo.
@@ -104,6 +105,7 @@ public class SendEmail {
             t.sendMessage(message, message.getAllRecipients());
             t.close();
         } catch (MessagingException me) {
+            me.getMessage();
             //Aqui se deberia o mostrar un mensaje de error o en lugar
             //de no hacer nada con la excepcion, lanzarla para que el modulo
             //superior la capture y avise al usuario con un popup, por ejemplo.
@@ -134,6 +136,7 @@ public class SendEmail {
             t.sendMessage(message, message.getAllRecipients());
             t.close();
         } catch (MessagingException me) {
+            me.getMessage();
             //Aqui se deberia o mostrar un mensaje de error o en lugar
             //de no hacer nada con la excepcion, lanzarla para que el modulo
             //superior la capture y avise al usuario con un popup, por ejemplo.
