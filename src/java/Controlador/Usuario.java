@@ -30,17 +30,45 @@ public class Usuario {
 
     //Atributos
     protected SmsUsuario usuario;
+    protected SmsUsuario usuarioView;
     protected List<SmsUsuario> usuarios;
 
     //Relaciones con otras clases
     protected SmsCiudad ciudad;//asociacion
+    protected SmsRol roll;//asociacion
     protected List<String> listaRoles;//agregacion   
 
     public Usuario() {
+        usuarioView = new SmsUsuario();
         usuario = new SmsUsuario();
         ciudad = new SmsCiudad();
         usuarios = new ArrayList<>();
         listaRoles = new ArrayList<>();
+        roll = new SmsRol();
+    }
+
+    public SmsUsuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(SmsUsuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public SmsCiudad getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(SmsCiudad ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public SmsRol getRoll() {
+        return roll;
+    }
+
+    public void setRoll(SmsRol roll) {
+        this.roll = roll;
     }
 
     //Metodos CRUD 
@@ -225,4 +253,19 @@ public class Usuario {
         usuario = (SmsUsuario) httpSession.getAttribute("Sesion");
         return usuario;
     }
+    
+    /* |METODO PARA MODIFICAR USUARIO */
+    public void modificarUsuarioCrud(SmsUsuario u, SmsCiudad c){
+        usuario = u;
+        ciudad = c;     
+        ICiudadDao linkDao = new ImpCiudadDao();
+        linkDao.registrarCiudad(ciudad);
+        ciudad = new SmsCiudad();
+        /*****************************************/
+        IUsuarioDao LinkDao = new ImpUsuarioDao();
+        LinkDao.modificarUsuario(usuario);
+        /*****************************************/
+        usuario = new SmsUsuario();
+    }
+   
 }

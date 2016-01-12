@@ -20,10 +20,10 @@ import DAO.ImpEstadoVehiculoDao;
 
 public class EstadoVehiculoBean {
 
-    
     private SmsEstadovehiculo estVehView;
+    private EstadoVehiculo estadoVehiculo;
     private List<SmsEstadovehiculo> estVehiculosView;
-       
+
     /**
      * Creates a new instance of EstadoVehiculoBean
      */
@@ -35,9 +35,6 @@ public class EstadoVehiculoBean {
     /**
      * *************************************
      */
-       
-    private EstadoVehiculo estadoVehiculo;
-    
     public SmsEstadovehiculo getEstVehView() {
         return estVehView;
     }
@@ -67,22 +64,19 @@ public class EstadoVehiculoBean {
     /**
      * ************************************
      */
-    
     public void registrar() {
         estadoVehiculo.registrarEstVeh(estVehView);
         estVehView = new SmsEstadovehiculo();
     }
-    
-    public void modificar(){
+
+    public void modificar() {
         estadoVehiculo.modificarEstVeh(estVehView);
         estVehView = new SmsEstadovehiculo();
     }
-    
-    public void eliminar(){
+
+    public void eliminar() {
         estadoVehiculo.eliminarEstVeh(estVehView);
         estVehView = new SmsEstadovehiculo();
     }
-    
-    
 
 }

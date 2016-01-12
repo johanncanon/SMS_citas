@@ -15,7 +15,7 @@
 
             <b:container fluid="true">
                 <h:form>
-                    
+
                     <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
 
                         <div class="box box-danger espacio-arriba">
@@ -56,47 +56,53 @@
                                             <f:selectItems value="#{ciudadBean.nombresCiudadesListView}"/>
                                         </b:selectOneMenu>
                                         <p:message for="SCiudades"/>
-                                        
+
                                     </h:panelGrid>
                                 </div>
                                 <div class="box-header with-border">
-                                    <i class="fa fa-2x fa-check-square"/>
-                                    <h4 class="box-title">Datos de Sesión</h4>
-                                    <br/><br/> 
+                                    <i class="fa fa-2x fa-check-circle"/>
+                                    <h4 class="box-title">Datos de sesion</h4>  
+                                    <br/><br/>
                                     <p:commandLink value="Editar datos de sesion">
-                                        <p:ajax  event="click" update="@form"/>
+                                        <p:ajax listener="#{usuarioBean.habilitarEdicion()}" event="click" update="@form"/>
                                     </p:commandLink>
                                 </div>
                                 <div class="box-body">
-                                    <div class="table-responsive"> 
-                                        <h:panelGrid columns="2" rendered="#" id="seccionDatosSesion"  cellpadding="2"  style="width: 100%">
+                                    <div class="table-responsive">                                       
+                                        <h:panelGrid rendered="#{usuarioBean.habilitarEditarSesion}" cellpadding="5" columns="3" id="seccionDatosSesion" style="width: 100%">
 
                                             <p:outputLabel value="Login: "/>
-                                            <b:inputText style="width: 100%" maxlength="60" validator="regLoginValidator" placeholder="Login de sesion" value="#{usuarioBean.usuarioView.usuarioLogin}"></b:inputText>
+                                            <b:inputText id="TLoginUsu" maxlength="60" style="width: 100%" value="#{usuarioBean.modUsuarioView.usuarioLogin}" placeholder="Login de sesion"></b:inputText>
+                                           <!-- <p:message for="TLoginUsu"/>-->
 
                                             <p:outputLabel value="Contraseña: "/>
-                                            <b:inputSecret label="Contraseña" style="width: 100%" binding="#{UserPass}" maxlength="20" placeholder="Contraseña de sesion" value="#{usuarioBean.usuarioView.usuarioPassword}">
+                                            <b:inputSecret label="Contraseña" binding="#{MUsuarioPass}" id="TPassUsu" maxlength="20" style="width: 100%" value="#{usuarioBean.modUsuarioView.usuarioPassword}" placeholder="Contraseña de sesion">
                                                 <f:validateLength minimum="6"/>
                                             </b:inputSecret>
+                                            <!--<p:message for="TPassUsu"/>-->
 
                                             <p:outputLabel value="Repita contraseña: "/>
-                                            <b:inputSecret label="Repita Contraseña" style="width: 100%" maxlength="20" validator="repeatPasswordValidator" placeholder="Repita contraseña de sesion" value="#{usuarioBean.usuarioView.usuarioRememberToken}">
-                                                <f:attribute name="password" value="#{UserPass.value}"/>
+                                            <b:inputSecret label="Repita Contraseña" validator="repeatPasswordValidator" id="TRemPassUsu" maxlength="20" style="width: 100%" value="#{usuarioBean.modUsuarioView.usuarioRememberToken}" placeholder="Repita contraseña de sesion" >
                                                 <f:validateLength minimum="6"/>
+                                                <f:attribute name="password" value="#{MUsuarioPass.value}"/>
                                             </b:inputSecret>
+                                           <!-- <p:message for="TRemPassUsu"/>-->
 
                                             <p:commandLink value="Cerrar">
-                                                <p:ajax event="click"  update="@form"/>
+                                                <p:ajax event="click" listener="#{usuarioBean.deshabilitarEdicion()}" update="@form"/>
                                             </p:commandLink>
+                                        </h:panelGrid>
 
-                                        </h:panelGrid>                                        
-                                    </div><hr/>                                    
-                                    <p:commandButton id="BTProveedor" class="btn btn-block btn-danger" update="@form" action="#{usuarioBean.modificar()}" value="Editar Perfil" />
+                                    </div><hr/>                                      
+
+                                    <h:panelGrid columns="2" width="100%">
+                                        <p:commandButton id="BTModUsuario"  class="btn btn-block btn-success" update="@form" action="#{usuarioBean.modificarUsuario()}" value="Modificar Administrador" />
+                                    </h:panelGrid>
                                 </div>                                        
                             </div>
                         </div>
                     </b:column>
-                    
+
                     <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
                         <div class="box box-solid bg-green-gradient espacio-arriba">
                             <div class="box-header ui-sortable-handle">
@@ -115,7 +121,7 @@
                         </div>
                     </b:column>
 
-                  
+
                 </h:form>
             </b:container>
 

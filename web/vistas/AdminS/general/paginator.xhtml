@@ -7,41 +7,26 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-   
 
-        <h:form>
-            <p:dataList value="#{dataListView.cars3}" var="car" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated">
-               
-                <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px">
-                    <f:setPropertyActionListener value="#{car}" target="#{dataListView.selectedCar}" />
-                    <h:outputText value="#{car.brand}, #{car.year}" />
-                </p:commandLink>
-                <h:outputText value="#{car.brand}, #{car.year}" style="display:inline-block"/>
-            </p:dataList>
 
-            <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
-                <p:outputPanel id="carDetail" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty dataListView.selectedCar}" columnClasses="label,value">
-                        <f:facet name="header">
-                            <p:graphicImage /> 
-                        </f:facet>
+    <h:form>
+        <p:dataTable value="#{empleadoBean.empleadosListView}" var="condictores"  paginator="true" rows="10" styleClass="paginated">
 
-                        <h:outputText value="Id:" />
-                        <h:outputText value="#{dataListView.selectedCar.id}" />
+            <p:column headerText="ID ">
+                <h:outputText value="#{condictores.idUsuario}" />
+            </p:column>
+            <p:column headerText="Nombre ">
+                <h:outputText value="#{condictores.usuarioNombre}" />
+            </p:column>
+            <p:column headerText="Teléfono">
+                <h:outputText value="#{condictores.usuarioTelefono}" />
+            </p:column>
 
-                        <h:outputText value="Year" />
-                        <h:outputText value="#{dataListView.selectedCar.year}" />
+        </p:dataTable>
 
-                        <h:outputText value="Color:" />
-                        <h:outputText value="#{dataListView.selectedCar.color}" style="color:#{dataListView.selectedCar.color}"/>
 
-                        <h:outputText value="Price" />
-                        <h:outputText value="$#{dataListView.selectedCar.price}" />
-                    </p:panelGrid>
-                </p:outputPanel>
-            </p:dialog>
-        </h:form>
+    </h:form> 
 
-   
+
 </html>
 

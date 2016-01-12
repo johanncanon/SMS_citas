@@ -206,6 +206,14 @@ public class UsuarioBean implements Serializable {
         rolView = new SmsRol();
         modUsuarioView = new SmsUsuario();
     }
+    
+    public void modificarUsuario(SmsUsuario u, SmsCiudad c){
+        Usuario = u;
+        ciudadView = c;
+        usuarioController.modificarUsuarioCrud(Usuario, ciudadView);
+        Usuario = new SmsUsuario();
+        ciudadView = new SmsCiudad();
+    }
 
     public String modificar() {
         MD5 md = new MD5();

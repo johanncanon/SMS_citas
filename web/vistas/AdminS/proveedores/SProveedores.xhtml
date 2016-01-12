@@ -14,20 +14,7 @@
 
                     <h:form id="formulario">
                         <p:messages closable="true" id="msg"/>
-                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" >
-
-                            <div class="box box-info espacio-arriba">
-                                <div class="box-header with-border">
-                                    <i class="fa fa-2x fa-truck"/>
-                                    <h4 class="box-title">Registro de Proveedores</h4>
-                                </div>
-                                <div class="box-body">
-                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros proveedores, asignar una valor
-                                        de ganancias y ademas podra crear una cuenta de sesion para el ingreso al sistema.</p> 
-                                </div>
-                            </div>
-
-                        </b:column>
+                        
 
                         <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
 
@@ -78,7 +65,7 @@
                                     <div class="box-header with-border">
                                         <i class="fa fa-2x fa-check-square"/>
                                         <h4 class="box-title">Datos de Sesión</h4>
-                                        
+
                                     </div>
                                     <div class="box-body">
                                         <div class="table-responsive"> 
@@ -97,13 +84,28 @@
                                                     <f:attribute name="password" value="#{ProvPass.value}"/>
                                                     <f:validateLength minimum="6"/>
                                                 </b:inputSecret>
-                                              
+
                                             </h:panelGrid>                                        
                                         </div><hr/>                                    
                                         <p:commandButton id="BTProveedor" class="btn btn-block btn-danger" update="@form" action="#{proveedorBean.registrar()}" value="Registrar Proveedor" />
                                     </div>                                        
                                 </div>
                             </div>
+                        </b:column>
+                        
+                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" >
+
+                            <div class="box box-info espacio-arriba">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-truck"/>
+                                    <h4 class="box-title">Registro de Proveedores</h4>
+                                </div>
+                                <div class="box-body">
+                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros proveedores, asignar una valor
+                                        de ganancias y ademas podra crear una cuenta de sesion para el ingreso al sistema.</p> 
+                                </div>
+                            </div>
+
                         </b:column>
 
                         <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
@@ -134,14 +136,14 @@
                                         <p:column headerText="Email">
                                             <p:outputLabel value="#{proveedor.usuarioEmail}"/>
                                         </p:column>
-                                       
+
                                     </p:dataTable>
-                                    
+
                                 </div>
                             </div>
                         </b:column>
                     </h:form>
-                   
+
                 </b:row>
             </b:container>
         </ui:define>

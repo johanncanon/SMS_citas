@@ -7,25 +7,27 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <h:body>
+    <h:form>
+        <p:dataTable var="clien" value="#{clienteBean.clientesListView}">
+            <p:column headerText="Id">
+                <h:outputText value="#{clien.idUsuario}" />
+            </p:column>
 
-        <h:form>
-            <p:dataTable var="car" value="#{dtBasicView.cars}">
-                <p:column headerText="Id">
-                    <h:outputText value="#{car.id}" />
-                </p:column>
+            <p:column headerText="Nombres">
+                <h:outputText value="#{clien.usuarioNombre}" />
+            </p:column>
 
-                <p:column headerText="Year">
-                    <h:outputText value="#{car.year}" />
-                </p:column>
+            <p:column headerText="Ciudad Origen">
+                <h:outputText value="#{clien.smsCiudad.ciudadNombre}" />
+            </p:column>
 
-                <p:column headerText="Brand">
-                    <h:outputText value="#{car.brand}" />
-                </p:column>
+            <!-- <p:column headerText="Ciudad Servicio">
+                 <h:outputText value="#{agendaBean.ciudadView.ciudadNombre}" />
+             </p:column>-->
 
-            </p:dataTable>
-        </h:form>
+        </p:dataTable>
+    </h:form>
 
-    </h:body>
+
 </html>
 
