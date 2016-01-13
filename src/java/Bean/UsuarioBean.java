@@ -5,12 +5,16 @@
  */
 package Bean;
 
+import Controlador.Empleado;
+import Controlador.HojaVida;
 import Controlador.MD5;
 import Controlador.Upload;
 import Controlador.Usuario;
 import DAO.IUsuarioDao;
 import DAO.ImpUsuarioDao;
 import Modelo.SmsCiudad;
+import Modelo.SmsEmpleado;
+import Modelo.SmsHojavida;
 import Modelo.SmsRol;
 import Modelo.SmsUsuario;
 import java.io.IOException;
@@ -36,10 +40,12 @@ public class UsuarioBean implements Serializable {
     protected SmsUsuario usuarioView;
     protected SmsUsuario DUsuarioView;
     protected SmsUsuario modUsuarioView;
+    protected SmsEmpleado modEmpleadoView;
     protected List<SmsUsuario> usuariosListView;
     protected SmsCiudad ciudadUsuario;
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
+    protected SmsHojavida hojavidaView;
 
     //Controles de componentes
     boolean habilitado;
@@ -47,6 +53,8 @@ public class UsuarioBean implements Serializable {
     //Relacion con el controlador
     protected Usuario usuarioController;
     protected Upload fileController;
+    protected HojaVida hojaVidaController;
+    protected Empleado empleadoController;
 
     //Contexto
     private FacesMessage message;
@@ -60,9 +68,10 @@ public class UsuarioBean implements Serializable {
     private String pass;
 
     private Boolean habilitarSubirFoto;
-    private String subirFoto;
     private String estadoFoto;
-    private UploadedFile foto;
+
+    private Boolean habilitarSubirArchivo;
+    private String estadoArchivo;
 
     public UsuarioBean() {
         ciudadUsuario = new SmsCiudad();
@@ -74,13 +83,13 @@ public class UsuarioBean implements Serializable {
         usuarioController = new Usuario();
         habilitado = true;
         Usuario = new SmsUsuario();
-
+        fileController = new Upload();
         habilitarSubirFoto = false;
-        subirFoto = "Subir fotografia";
-        estadoFoto = "Foto sin subir";
-        
         buscar = null;
         habilitarEditarSesion = false;
+        modEmpleadoView = new SmsEmpleado();
+        empleadoController = new Empleado();
+        hojaVidaController = new HojaVida();
     }
 
     @PostConstruct
@@ -209,14 +218,6 @@ public class UsuarioBean implements Serializable {
         this.habilitarSubirFoto = habilitarSubirFoto;
     }
 
-    public String getSubirFoto() {
-        return subirFoto;
-    }
-
-    public void setSubirFoto(String subirFoto) {
-        this.subirFoto = subirFoto;
-    }
-
     public String getEstadoFoto() {
         return estadoFoto;
     }
@@ -225,12 +226,36 @@ public class UsuarioBean implements Serializable {
         this.estadoFoto = estadoFoto;
     }
 
-    public UploadedFile getFoto() {
-        return foto;
+    public SmsHojavida getHojavidaView() {
+        return hojavidaView;
     }
 
-    public void setFoto(UploadedFile foto) {
-        this.foto = foto;
+    public void setHojavidaView(SmsHojavida hojavidaView) {
+        this.hojavidaView = hojavidaView;
+    }
+
+    public Boolean getHabilitarSubirArchivo() {
+        return habilitarSubirArchivo;
+    }
+
+    public void setHabilitarSubirArchivo(Boolean habilitarSubirArchivo) {
+        this.habilitarSubirArchivo = habilitarSubirArchivo;
+    }
+
+    public String getEstadoArchivo() {
+        return estadoArchivo;
+    }
+
+    public void setEstadoArchivo(String estadoArchivo) {
+        this.estadoArchivo = estadoArchivo;
+    }
+
+    public SmsEmpleado getModEmpleadoView() {
+        return modEmpleadoView;
+    }
+
+    public void setModEmpleadoView(SmsEmpleado modEmpleadoView) {
+        this.modEmpleadoView = modEmpleadoView;
     }
 
     //Declaracion de metodos
@@ -254,7 +279,6 @@ public class UsuarioBean implements Serializable {
     public String modificarUsuario() {
 
         String ruta = "";
-
         MD5 md = new MD5();
 
         if (habilitarEditarSesion) { // en caso de modificar las contraseñas estas se encriptan de nuevo
@@ -263,13 +287,13 @@ public class UsuarioBean implements Serializable {
         }
 
         usuarioController.modificarUsuarioCrud(modUsuarioView, ciudadUsuario);
-        modUsuarioView = new SmsUsuario();
-        ciudadUsuario = new SmsCiudad();
-       
-        estadoFoto = "Foto sin subir";
-        subirFoto = "Subir Fotografia";
-        habilitarSubirFoto = false;
-        
+
+        if (Usuario.getSmsRol().getIdRol() == 4) {
+            modEmpleadoView = empleadoController.consultarEmpleado(Usuario).get(0);
+            empleadoController.modificarEmpleado(modUsuarioView, hojavidaView, modEmpleadoView);
+            estadoArchivo = "Hoja subida:" + hojavidaView.getHojaVidaNombre();
+        }
+
         switch (Usuario.getSmsRol().getIdRol()) {
             case 1:
                 ruta = "AdminPEdicionPerfil";
@@ -398,6 +422,7 @@ public class UsuarioBean implements Serializable {
         modUsuarioView = Usuario;
         ciudadUsuario = Usuario.getSmsCiudad();
         estadoFoto = "Foto subida:" + modUsuarioView.getUsuarioFotoNombre();
+       
         String ruta = "";
         switch (Usuario.getSmsRol().getIdRol()) {
             case 1:
@@ -410,6 +435,9 @@ public class UsuarioBean implements Serializable {
                 ruta = "ClienteEdicionPerfil";
                 break;
             case 4:
+                modEmpleadoView = empleadoController.consultarEmpleado(modUsuarioView).get(0);
+                hojavidaView = modEmpleadoView.getSmsHojavida();
+                estadoArchivo = "Hoja subida:" + hojavidaView.getHojaVidaNombre();
                 ruta = "CondEdicionPerfil";
                 break;
             case 5:
@@ -431,15 +459,36 @@ public class UsuarioBean implements Serializable {
             if (null != uploadedPhoto) {
                 fileController.uploadFile(IOUtils.toByteArray(uploadedPhoto.getInputstream()), uploadedPhoto.getFileName(), destination);
                 modUsuarioView.setUsuarioFotoNombre(uploadedPhoto.getFileName());
-                modUsuarioView.setUsuarioFotoRuta(map.get("url") + uploadedPhoto.getFileName());                
+                modUsuarioView.setUsuarioFotoRuta(map.get("url") + uploadedPhoto.getFileName());
                 habilitarSubirFoto = true;
                 estadoFoto = "Foto actualizada con exito";
-
             }
             FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + uploadedPhoto.getFileName() + ")  se ha guardado con exito.", ""));
         } catch (Exception ex) {
             ex.getMessage();
         }
+    }
 
+    //Subida de archivos
+    public void uploadDoc(FileUploadEvent e) throws IOException {
+        try {
+            UploadedFile uploadedDoc = e.getFile();
+            String destination;
+
+            HashMap<String, String> map = fileController.getMapPathHojasVida();
+            destination = map.get("path");
+            if (null != uploadedDoc) {
+                fileController.uploadFile(IOUtils.toByteArray(uploadedDoc.getInputstream()), uploadedDoc.getFileName(), destination);
+                hojavidaView.setHojaVidaNombre(uploadedDoc.getFileName());
+                hojavidaView.setHojaVidaRuta(map.get("url") + uploadedDoc.getFileName());
+                estadoArchivo = "Hoja de vida actualizada con exito";
+
+                hojaVidaController.registrarHojaVida(hojavidaView);
+            }
+
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su Hoja de vida (" + uploadedDoc.getFileName() + ")  se ha guardado con exito.", ""));
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
     }
 }

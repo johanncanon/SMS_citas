@@ -32,7 +32,7 @@ public class CarouselDashBean {
         imagenes = new ArrayList<String>();
         for (int i = 1; i <= 5; i++) {
 
-            if (imagenes. == true) {
+            if (imagenes.isEmpty()) {
                 imagenes.add("img-a-" + i + ".jpg");
             } 
             else if (imagenes.equals("img-m") == true) {

@@ -109,22 +109,65 @@
                                     debido a errores de digitación al principio del registro, o de actualizaciones de datos 
                                     como el teléfono, el correo, etc.
                                 </p>
-
                             </div>
-                            
                         </div>
                     </b:column>
-
-                    <b:column>
-                        <div class="">
-                            <div class=""></div>
-                            <div class=""></div>
-                        </div>
-                    </b:column>
-
-
-
                 </h:form>
+
+                <h:form id="formB" enctype="multipart/form-data">
+                    <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" >
+
+                        <div class="box box-success">
+                            <div class="box-header with-border">
+                                <i class="fa fa-2x fa-user-plus"/>
+                                <h4 class="box-title">Fotografia de perfil</h4>
+                            </div>
+                            <div class="box-body" style="width: 100%" align="center">
+                                <p:graphicImage class="img-circle" width="160" height="180" value="#{usuarioBean.modUsuarioView.usuarioFotoRuta}"/> 
+                            </div>
+                        </div>
+
+                        <div class="box box-primary">
+                            <p:fragment autoUpdate="true">
+                                <div class="box-header with-border">    
+                                    <i class="fa fa-2x fa-camera"/>
+                                    <h4 class="box-title">Ingreso de Fotografía</h4>
+                                </div>
+                                <div class="box-body">
+                                    <p:outputLabel id="TEstadoFoto" value="#{usuarioBean.estadoFoto}"/>
+                                    <div class="table-responsive">
+                                        <p:fileUpload id="fileIdPhoto" fileUploadListener="#{usuarioBean.uploadPhoto}" mode="advanced" dragDropSupport="false"
+                                                      process="@this" auto="true" update=":formB" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />
+                                        <p:messages id="messages" closable="true" /></div> 
+                                </div>
+                            </p:fragment>
+                        </div>
+                    </b:column>
+                </h:form>
+
+                <h:form id="formD" enctype="multipart/form-data">
+                    <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                        <div class="box box-primary">
+                            <p:fragment autoUpdate="true">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-suitcase"/>    
+                                    <h4 class="box-title">Ingreso Hoja de Vida</h4>
+                                </div>
+                                <div class="box-body">
+                                    <p:outputLabel id="TEstadoArchivo" value="#{usuarioBean.estadoArchivo}"/>
+                                    <div class="table-responsive">
+                                        <p:fileUpload id="fileIdDoc" fileUploadListener="#{usuarioBean.uploadDoc}" mode="advanced" dragDropSupport="false"
+                                                      process="@this" auto="true" update=":formD" sizeLimit="10000000" allowTypes="/(\.|\/)(docx|doc|pdf)$/"  />
+
+                                        <p:messages id="messages" closable="true" />
+                                    </div> 
+                                </div>
+                            </p:fragment>
+                        </div>                           
+
+                    </b:column>
+                </h:form>
+
             </b:container>
 
         </ui:define>
