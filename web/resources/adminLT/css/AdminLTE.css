@@ -490,14 +490,14 @@ a:focus {
     height: auto;
 }
 .user-panel > .info {
-    padding: 5px 5px 5px 15px;
+    padding: 5px 5px 5px 5px;
     line-height: 1;
     position: absolute;
-    left: 72px;
-    width: 78%;
+    left: 71px;
+    width: 69%;
 }
 .user-panel > .info > p {
-    font-weight: 600;
+    font-weight: 100;
     margin-bottom: 9px;
 }
 .user-panel > .info > a {
@@ -645,6 +645,7 @@ a:focus {
     .sidebar-mini.sidebar-collapse .sidebar-menu li.header {
         display: none!important;
         -webkit-transform: translateZ(0);
+        width: 225px !important;
     }
     .sidebar-mini.sidebar-collapse .main-header .logo {
         width: 50px;

@@ -8,6 +8,7 @@ package Bean;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,50 +17,18 @@ import javax.swing.JOptionPane;
  */
 public class carouselBean {
 
-    private File rutaImg;
-    private String[] listaRutaImg;
-    private List<String> imagenes;
-
-    boolean existeRuta;
-    /**
-     * Creates a new instance of carouselBean
-     */
-    private int numero;
-
-    public carouselBean() {
-        rutaImg = new File("web/resources/images/upload/Vehiculos");        
-        listaRutaImg = rutaImg.list();
+     private List<String> imagenes;
+     
+    @PostConstruct
+    public void init() {
         imagenes = new ArrayList<String>();
-        existeRuta = rutaImg.exists();
-    }
-
-    public File getRutaImg() {
-        return rutaImg;
-    }
-
-    public void setRutaImg(File rutaImg) {
-        this.rutaImg = rutaImg;
-    }
-
-    public String[] getListaRutaImg() {
-        return listaRutaImg;
-    }
-
-    public void setListaRutaImg(String[] listaRutaImg) {
-        this.listaRutaImg = listaRutaImg;
-    }
-
-    public List<String> getImagenes() {
-
-        listaRutaImg = rutaImg.list();
-        for (int i = 0; i < listaRutaImg.length; i++) {
-            imagenes.add(listaRutaImg[i]);
+        for (int i = 1; i <= 7; i++) {
+            imagenes.add("img-" + i + ".jpg");
         }
-        return imagenes;
     }
-
-    public void setImagenes(List<String> imagenes) {
-        this.imagenes = imagenes;
+ 
+    public List<String> getImagenes() {
+        return imagenes;
     }
 
 }

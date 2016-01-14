@@ -94,6 +94,11 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
+        <managed-bean-name>carouselBean</managed-bean-name>
+        <managed-bean-class>Bean.carouselBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
         <managed-bean-name>lugarBean</managed-bean-name>
         <managed-bean-class>Bean.LugarBean</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
@@ -415,10 +420,12 @@
             <from-outcome>RetornarReservacionAdminS</from-outcome>
             <to-view-id>/vistas/AdminS/reservas/PReserva.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>RutaCarousel</from-outcome>
+            <to-view-id>/resources/images/upload/Vehiculos</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
-    <managed-bean>
-        <managed-bean-name>carouselBean</managed-bean-name>
-        <managed-bean-class>Bean.carouselBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+    
+    
 </faces-config>
