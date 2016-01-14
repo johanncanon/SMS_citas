@@ -4,7 +4,7 @@
   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-<class name="Modelo.SmsLugares" table="sms_lugares" catalog="bd_sms_citas" optimistic-lock="version">
+<class name="Modelo.SmsLugares" table="sms_lugares" catalog="smsrenta" optimistic-lock="version">
         <id name="idLugar" type="java.lang.Integer">
             <column name="idLugar" />
             <generator class="identity" />

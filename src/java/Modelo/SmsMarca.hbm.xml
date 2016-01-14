@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 26-nov-2015 15:26:56 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="Modelo.SmsMarca" table="sms_marca" catalog="bd_sms_citas" optimistic-lock="version">
+    <class name="Modelo.SmsMarca" table="sms_marca" catalog="smsrenta" optimistic-lock="version">
         <id name="idMarca" type="java.lang.Integer">
             <column name="idMarca" />
             <generator class="identity" />

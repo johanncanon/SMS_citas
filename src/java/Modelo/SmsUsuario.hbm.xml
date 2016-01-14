@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 29-nov-2015 6:49:24 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="Modelo.SmsUsuario" table="sms_usuario" catalog="bd_sms_citas" optimistic-lock="version">
+    <class name="Modelo.SmsUsuario" table="sms_usuario" catalog="smsrenta" optimistic-lock="version">
         <id name="idUsuario" type="java.lang.Integer">
             <column name="idUsuario" />
             <generator class="identity" />
