@@ -23,6 +23,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -53,6 +54,7 @@ public class EmpleadoBean implements Serializable {
     private Boolean habilitarEditarSesion;   
     private String pass;
    
+    private StreamedContent file;//Variable que permite descargar la hoja de vida del empleado
 
     private Boolean habilitarSubirFoto;
     private String subirFoto;
@@ -491,4 +493,6 @@ public class EmpleadoBean implements Serializable {
             ex.getMessage();
         }
     }
+    
+    
 }

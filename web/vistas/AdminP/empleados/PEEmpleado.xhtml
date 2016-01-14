@@ -132,8 +132,8 @@
                                         <div class="box-body">
                                             <p:outputLabel id="TEstadoFoto" value="#{empleadoBean.estadoFoto}"/>
                                             <div class="table-responsive">
-                                                <p:fileUpload id="fileIdPhoto" fileUploadListener="#{empleadoBean.uploadPhoto}" mode="advanced" dragDropSupport="false"
-                                                              process="@this" auto="true" update=":formB" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />
+                                                <p:fileUpload id="fileIdPhoto"  fileUploadListener="#{empleadoBean.uploadPhoto}" mode="advanced" dragDropSupport="false"
+                                                              process="@this" uploadLabel="Subir fotografia" cancelLabel="Cancelar" update=":formB" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />
 
                                                 <p:messages id="messages" closable="true" /></div> 
                                         </div>
@@ -155,7 +155,7 @@
                                             <p:outputLabel id="TEstadoArchivo" value="#{empleadoBean.estadoArchivo}"/>
                                             <div class="table-responsive">
                                                 <p:fileUpload id="fileIdDoc" fileUploadListener="#{empleadoBean.uploadDoc}" mode="advanced" dragDropSupport="false"
-                                                              process="@this" auto="true" update=":formD" sizeLimit="10000000" allowTypes="/(\.|\/)(docx|doc|pdf)$/"  />
+                                                              process="@this" uploadLabel="Subir Archivo" cancelLabel="Cancelar" update=":formD" sizeLimit="10000000" allowTypes="/(\.|\/)(docx|doc|pdf)$/"  />
 
                                                 <p:messages id="messages" closable="true" />
                                             </div> 
