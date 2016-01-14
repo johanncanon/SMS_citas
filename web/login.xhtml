@@ -80,16 +80,16 @@
                                                         </div>       
                                                         <div class="box-body">
                                                             <div class="table-responsive">
-                                                                <h:panelGrid id="seccionDatosUsuario" cellpadding="5" columns="3" style="width: 100%;">
-                                                                    <p:outputLabel value="Nombre: *"/>
+                                                                <h:panelGrid id="seccionDatosUsuario" cellpadding="5" columns="2" style="width: 100%;">
+                                                                   
                                                                     <b:inputText maxlength="60" id="TNombreApCli" required="true" requiredMessage="Ingrese nombre y apellido" placeholder="Nombres y apellidos" value="#{clienteBean.clienteView.usuarioNombre}" style="width: 100%;"></b:inputText>                       
                                                                     <p:message for="TNombreApCli"/>
 
-                                                                    <p:outputLabel value="Email: *"/>
+                                                                    
                                                                     <b:inputText maxlength="100" validator="emailValidator" id="TEmailCli" required="true" requiredMessage="Ingrese Email valido" placeholder="Direccion de correo electronico" value="#{clienteBean.clienteView.usuarioEmail}" style="width: 100%"/>
                                                                     <p:message for="TEmailCli"/>
 
-                                                                    <p:outputLabel value="Ciudad: *"/>
+                                                                    
                                                                     <b:selectOneMenu required="true" requiredMessage="Seleccione ciudad" id="SCiudades" value="#{clienteBean.ciudadView.ciudadNombre}" style="width: 100%">
                                                                         <f:selectItem itemLabel="Seleccione ciudad"/>
                                                                         <f:selectItems value="#{ciudadBean.nombresCiudadesListView}"/>
@@ -104,19 +104,19 @@
                                                         </div>
                                                         <div class="box-body">                                  
                                                             <div class="table-responsive">
-                                                                <h:panelGrid cellpadding="5" columns="3" id="seccionDatosSesion" style="width: 100%">
+                                                                <h:panelGrid cellpadding="5" columns="2" id="seccionDatosSesion" style="width: 100%">
 
-                                                                    <p:outputLabel value="Login: "/>
+                                                                    
                                                                     <b:inputText id="TLoginCli" maxlength="60" validator="regLoginValidator" style="width: 100%" value="#{clienteBean.clienteView.usuarioLogin}" placeholder="Login de sesion"/>
                                                                     <p:message for="TLoginCli"/>
 
-                                                                    <p:outputLabel value="Contraseña: "/>
+                                                                   
                                                                     <b:inputSecret label="Contraseña" id="TPassCli" binding="#{pass}"  maxlength="20" style="width: 100%" value="#{clienteBean.clienteView.usuarioPassword}" placeholder="Contraseña de sesion">
                                                                         <f:validateLength minimum="6"/>
                                                                     </b:inputSecret>
                                                                     <p:message for="TPassCli"/>
 
-                                                                    <p:outputLabel value="Repita contraseña: "/>
+                                                                   
                                                                     <b:inputSecret label="Repita contraseña" id="TRemPassCli" maxlength="20" style="width: 100%" value="#{clienteBean.clienteView.usuarioRememberToken}" placeholder="Repita contraseña de sesion">
                                                                         <f:validator validatorId="repeatPasswordValidator" />
                                                                         <f:attribute name="password" value="#{pass.value}"/>

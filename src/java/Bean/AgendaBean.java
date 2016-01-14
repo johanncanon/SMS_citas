@@ -22,7 +22,6 @@ import Modelo.SmsUsuario;
 import Modelo.SmsVehiculo;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.event.FlowEvent;
@@ -30,21 +29,23 @@ import org.primefaces.event.FlowEvent;
 public class AgendaBean {
 
     //Objetos necesarios en vista
-    protected SmsAgenda agendaView;
-    protected SmsVehiculo vehiculoView;
-    protected SmsEmpleado empleadoView;
-    protected SmsReservacion reservaView;
-    protected SmsCategoria categoriaView;
-    protected SmsCiudad ciudadView;
-    protected SmsUsuario clienteView;
-    protected SmsCostosServicio costoServicioView;
-    protected SmsServicios ServicioView;
+    private SmsAgenda agendaView;
+    private SmsVehiculo vehiculoView;
+    private SmsEmpleado empleadoView;
+    private SmsReservacion reservaView;
+    private SmsCategoria categoriaView;
+    private SmsCiudad ciudadView;
+    private SmsUsuario clienteView;
+    private SmsCostosServicio costoServicioView;
+    private SmsServicios servicioView;
+    private SmsUsuario sesion; //objeto donde guardaremos los datos del usuario logueado
 
-    protected List<SmsVehiculo> vehiculosListView;
-    protected List<SmsEmpleado> empleadosListView;
-    protected List<SmsAgenda> agendaListView;
+    private List<SmsVehiculo> vehiculosListView;
+    private List<SmsEmpleado> empleadosListView;
+    private List<SmsAgenda> agendaListView;
 
-    private boolean skip = false;
+    private boolean skip = false;//Controla la transicion entre las pestañas del panel de reserva
+    //Controlan la seleccion de los vehiculos y los empleados
     private boolean SelecVeh;
     private boolean SelecCon;
 
@@ -59,7 +60,6 @@ public class AgendaBean {
     //Sesion  
     private HttpServletRequest httpServletRequest;
     private FacesContext faceContext;
-    private FacesMessage facesMessage;
 
     public AgendaBean() {
 
@@ -71,7 +71,7 @@ public class AgendaBean {
         ciudadView = new SmsCiudad();
         clienteView = new SmsUsuario();
         costoServicioView = new SmsCostosServicio();
-        ServicioView = new SmsServicios();
+        servicioView = new SmsServicios();
 
         vehiculosListView = new ArrayList<>();
         empleadosListView = new ArrayList<>();
@@ -241,85 +241,34 @@ public class AgendaBean {
     }
 
     public SmsServicios getServicioView() {
-        return ServicioView;
+        return servicioView;
     }
 
-    public void setServicioView(SmsServicios ServicioView) {
-        this.ServicioView = ServicioView;
+    public void setServicioView(SmsServicios servicioView) {
+        this.servicioView = servicioView;
     }
 
     //Metodos    
     //CRUD
-    public String registrarAgendaCliente() {
-
-        //Obtenemos la informacion de sesion del usuario autentificado
+    public String registrarAgenda() {
+        //Obtenemos la informacion de sesion del usuario autentificado 
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
-        clienteView = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
+        sesion = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
 
-        
+        if (sesion.getSmsRol().getRolNombre().equalsIgnoreCase("Cliente"));
+        {//si el usuario logueado es de tipo cliente asignanos su informacion al objeto cliente
+            clienteView = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
+        }
+
+        //Registramos los datos de agendamiento
         agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);
+        //obtenemos los datos completos de la agenda recien registrada
         agendaView = agendaController.consultarAgenda(agendaView, vehiculoView, empleadoView).get(0);
+        //Registramos la reservacion indicando agenda,ciudad,cliente y los datos de la reserva.
         reservacionController.registrarReservacion(agendaView, ciudadView, reservaView, clienteView);
 
-        
-        emailController.sendEmailAdministrador(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
-        emailController.sendEmailCliente(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
-        emailController.sendEmailConductor(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
-
-        //Limpieza de objetos
-        empleadoView = new SmsEmpleado();
-        vehiculoView = new SmsVehiculo();
-        agendaView = new SmsAgenda();
-        reservaView = new SmsReservacion();
-        ciudadView = new SmsCiudad();
-        vehiculosListView = new ArrayList<>();
-        empleadosListView = new ArrayList<>();
-        clienteView = new SmsUsuario();
-        
-        
-        SelecVeh = false;
-        SelecCon = false;
-        String Ruta = "RetornarReservacion";
-        return Ruta;
-    }
-    
-    public String registrarAgendaAdministradorPrin() {
-              
-
-        agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);
-        agendaView = agendaController.consultarAgenda(agendaView, vehiculoView, empleadoView).get(0);
-        reservacionController.registrarReservacion(agendaView, ciudadView, reservaView, clienteView);
-
-        
-        emailController.sendEmailAdministrador(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
-        emailController.sendEmailCliente(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
-        emailController.sendEmailConductor(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
-
-        //Limpieza de objetos
-        empleadoView = new SmsEmpleado();
-        vehiculoView = new SmsVehiculo();
-        agendaView = new SmsAgenda();
-        reservaView = new SmsReservacion();
-        ciudadView = new SmsCiudad();
-        vehiculosListView = new ArrayList<>();
-        empleadosListView = new ArrayList<>();
-        clienteView = new SmsUsuario();
-        
-        SelecVeh = false;
-        SelecCon = false;
-        String Ruta = "RetornarReservacionAdminP";
-        return Ruta;
-    }
-    
-    public String registrarAgendaAdministradorSec() {
-              
-
-        agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);
-        agendaView = agendaController.consultarAgenda(agendaView, vehiculoView, empleadoView).get(0);
-        reservacionController.registrarReservacion(agendaView, ciudadView, reservaView, clienteView);
-
-        
+        //Enviamos mensajes al administrador del sistema, el cliente y el conductor
         emailController.sendEmailAdministrador(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
         emailController.sendEmailCliente(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
         emailController.sendEmailConductor(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
@@ -336,11 +285,25 @@ public class AgendaBean {
 
         SelecVeh = false;
         SelecCon = false;
-        String Ruta = "RetornarReservacionAdminS";
+        String Ruta = "";
+        switch (sesion.getSmsRol().getRolNombre()) {
+            case "Administrador Principal":
+                Ruta = "RetornarReservacionAdminP";
+                break;
+
+            case "Administrador Secundario":
+                Ruta = "RetornarReservacionAdminS";
+                break;
+
+            case "Cliente":
+                Ruta = "RetornarReservacion";
+                break;
+        }
         return Ruta;
     }
 
-    //Especificos
+    //Especificos 
+    ///Controla el flujo de la vista
     public String onFlowProcess(FlowEvent event) {
         if (skip) {
             skip = false;//reset in case user goes back
@@ -366,18 +329,18 @@ public class AgendaBean {
                     }
                     break;
                 case "Confirmacion":
-                    int valor = reservacionController.calcularCostoReservacion(agendaView, ServicioView, vehiculoView);
+                    int valor = reservacionController.calcularCostoReservacion(agendaView, servicioView, vehiculoView);
                     reservaView.setReservacionCosto(valor);
                     break;
             }
-            
-            switch (event.getOldStep()){
+
+            switch (event.getOldStep()) {
                 case "Agendamiento":
                     SelecCon = false;
                     SelecVeh = false;
                     vehiculoView = new SmsVehiculo();
                     empleadoView = new SmsEmpleado();
-                    break;
+                    break;                
             }
             return event.getNewStep();
         }
@@ -388,7 +351,6 @@ public class AgendaBean {
     }
 
     public void SeleccionarNuevoVehiculo() {
-
         vehiculoView = new SmsVehiculo();
         SelecVeh = false;
     }
@@ -398,7 +360,6 @@ public class AgendaBean {
     }
 
     public void SeleccionarNuevoConductor() {
-
         empleadoView = new SmsEmpleado();
         SelecCon = false;
     }
