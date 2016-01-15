@@ -47,8 +47,7 @@ public class Reservacion {
     //Relacion con otras clases
     private SmsAgenda agenda;
     private SmsUsuario cliente;
-    private SmsCalificacion calificacion;    
-               
+    private SmsCalificacion calificacion;
 
     //Sesion  
     private HttpServletRequest httpServletRequest;
@@ -59,8 +58,6 @@ public class Reservacion {
     private SmsUsuario usuarioID;
     private List<SmsReservacion> ciudadesReservadas;
 
-   
-    
     //Constructor
     public Reservacion() {
         usuarioID = new SmsUsuario();
@@ -113,9 +110,9 @@ public class Reservacion {
         agenda = a;
         SmsCiudad ciudad = c;
         IUsuarioDao usuDao = new ImpUsuarioDao();
-        
+
         this.cliente = usuDao.consultarUsuario(cliente).get(0);
-        
+
         //Consulta de objetos
         ICiudadDao ciuDao = new ImpCiudadDao();
         ciudad = ciuDao.consultarCiudad(ciudad).get(0);
@@ -128,7 +125,7 @@ public class Reservacion {
         //Registro
         IReservacionDao resDao = new ImpReservacionDao();
         resDao.registrarReservacion(reservacion);
-        
+
     }
 
     public void modificacionReservacion(SmsUsuario u, SmsAgenda a, SmsCiudad c, SmsReservacion r) {
@@ -166,134 +163,93 @@ public class Reservacion {
 
     //Metodos para la reservacion
     public int calcularCostoReservacion(SmsAgenda a, SmsServicios s, SmsVehiculo v) {
+        //Instacia de variable propias del metodo
         int costo = 0;
-        SmsAgenda agenda = a;
+        agenda = a;
         SmsVehiculo vehiculo = v;
         SmsServicios servicio = s;
         SmsCostosServicio costos;
 
+        //instancia de objetos relacionados a los DAO necesarios
         ICostosServiciosDAO cosDao = new ImpCostosServiciosDAO();
         IServicioDao serDao = new ImpServicioDao();
         IVehiculoDao vehDao = new ImpVehiculoDao();
 
+        //Consultamos el objeto completo que contiene la informacion de vehiculo y servicio
         vehiculo = vehDao.consultarVehiculo(vehiculo).get(0);
         servicio = serDao.ConsultarServicio(servicio).get(0);
-        SmsCategoria categoria = vehiculo.getSmsCategoria();
+        SmsCategoria categoria = vehiculo.getSmsCategoria();//obtenemos la categoria del vehiculo extrayendola del mismo
+
         // Crear 2 instancias de Calendar
-        Calendar cal1 = Calendar.getInstance();
-        Calendar cal2 = Calendar.getInstance();
-        Calendar cal3 = Calendar.getInstance();
-        Calendar cal4 = Calendar.getInstance();
-        // Establecer las fechas
-        String enteroString = "";
-        int horas = 0;
+        Calendar calFechaInicio = Calendar.getInstance();
+        Calendar calFechaLlegada = Calendar.getInstance();
+        
+
+        //Variables necesarias para el calculo del costo de la reservacion       
+        Date fechaInicio = new Date();
+        Date fechaLlegada = new Date();
+        
+        long milis1;
+        long milis2;
+        long diff;
+        long diffHours;
+        long diffDays;
+        long diffWeek;
+        long diffMonth;
+
+        costos = cosDao.consultarCostoServicio(servicio, categoria).get(0);//consultamos el costo segun servicio y categoria del vehiculo
+
+       
+        fechaInicio.setYear(agenda.getAgendaFechaInicio().getYear());
+        fechaInicio.setMonth(agenda.getAgendaFechaInicio().getMonth());
+        fechaInicio.setMinutes(agenda.getAgendaFechaInicio().getDay());
+        fechaInicio.setHours(agenda.getAgendaHoraInicio().getHours());
+        fechaInicio.setMinutes(agenda.getAgendaHoraInicio().getMinutes());
+        fechaInicio.setSeconds(agenda.getAgendaHoraInicio().getMinutes());
+        
+        fechaLlegada.setYear(agenda.getAgendaFechaLlegada().getYear());
+        fechaLlegada.setMonth(agenda.getAgendaFechaLlegada().getMonth());
+        fechaLlegada.setMinutes(agenda.getAgendaFechaLlegada().getDay());
+        fechaLlegada.setHours(agenda.getAgendaHoraLlegada().getHours());
+        fechaLlegada.setMinutes(agenda.getAgendaHoraLlegada().getMinutes());
+        fechaLlegada.setSeconds(agenda.getAgendaHoraLlegada().getMinutes());
+        
+        //asignamos a los objetos calendar la fecha de inicio con la hora de inicio y la fecha de llegada
+        //con su hora de llegada
+        calFechaInicio.setTime(fechaInicio);
+        calFechaLlegada.setTime(fechaLlegada);
+
+        // conseguir la representacion de la fecha en milisegundos
+        milis1 = calFechaInicio.getTimeInMillis();
+        milis2 = calFechaLlegada.getTimeInMillis();
+
+        // calcular la diferencia en horas
+        diff = milis2 - milis1;
+        diffHours = diff / (60 * 60 * 1000);
+
+        //Calcular la diferencia en dias
+        diffDays = diff / (24 * 60 * 60 * 1000);
+
+        //Calcular la diferencia en semanas
+        diffWeek = diff / (7 * 24 * 60 * 60 * 1000);
+
+        //Calcular la diferencia en meses
+        diffMonth = diff / (30 * 24 * 60 * 60 * 1000);
 
         switch (servicio.getServiciosNombre()) {
-
-            case "Por horas":
-                costos = cosDao.consultarCostoServicio(servicio, categoria).get(0);
-                if (agenda.getAgendaFechaInicio().equals(agenda.getAgendaFechaLlegada())) {
-                    cal1.setTime(agenda.getAgendaHoraInicio());
-                    cal2.setTime(agenda.getAgendaHoraLlegada());
-                    // conseguir la representacion de la fecha en milisegundos
-
-                    long milis1 = cal1.getTimeInMillis();
-                    long milis2 = cal2.getTimeInMillis();
-
-                    // calcular la diferencia en horas
-                    long diff = milis2 - milis1;
-                    long diffHours = diff / (60 * 60 * 1000);
-                    enteroString = "" + diffHours;
-                    horas = Integer.parseInt(enteroString);
-                    costo = (horas) * costos.getSmsPrecio();
-                } else {
-                    Date fecha1 = agenda.getAgendaFechaInicio();
-                    Date fecha2 = agenda.getAgendaFechaLlegada();
-
-                    cal1.set(fecha1.getYear(), fecha1.getMonth(), fecha1.getDay(), agenda.getAgendaFechaInicio().getHours(), agenda.getAgendaFechaInicio().getMinutes(), agenda.getAgendaFechaInicio().getSeconds());
-                    cal2.set(fecha2.getYear(), fecha2.getMonth(), fecha2.getDay(), agenda.getAgendaFechaLlegada().getHours(), agenda.getAgendaFechaLlegada().getMinutes(), agenda.getAgendaFechaLlegada().getSeconds());
-
-                    long milis1 = cal1.getTimeInMillis();
-                    long milis2 = cal2.getTimeInMillis();
-
-                    // calcular la diferencia en horas
-                    long diff = milis2 - milis1;
-                    long diffHours = diff / (60 * 60 * 1000);
-
-                    enteroString = "" + diffHours;
-                    horas = Integer.parseInt(enteroString);
-
-                    costo = (horas) * costos.getSmsPrecio();
-                }
-
+            case "Plan hora":
+                costo = ((int) diffHours) * costos.getSmsPrecio();
                 break;
-
-            case "Traslado":
-                costos = cosDao.consultarCostoServicio(servicio, categoria).get(0);
-                if (agenda.getAgendaFechaInicio().equals(agenda.getAgendaFechaLlegada())) {
-                    cal1.setTime(agenda.getAgendaHoraInicio());
-                    cal2.setTime(agenda.getAgendaHoraLlegada());
-                    // conseguir la representacion de la fecha en milisegundos
-
-                    long milis1 = cal1.getTimeInMillis();
-                    long milis2 = cal2.getTimeInMillis();
-
-                    // calcular la diferencia en horas
-                    long diff = milis2 - milis1;
-                    long diffHours = diff / (60 * 60 * 1000);
-
-                    enteroString = "" + diffHours;
-                    horas = Integer.parseInt(enteroString);
-
-                    costo = (horas) * costos.getSmsPrecio();
-                } else {
-                    Date fecha1 = agenda.getAgendaFechaInicio();
-                    Date fecha2 = agenda.getAgendaFechaLlegada();
-
-                    cal1.set(fecha1.getYear(), fecha1.getMonth(), fecha1.getDay(), agenda.getAgendaFechaInicio().getHours(), agenda.getAgendaFechaInicio().getMinutes(), agenda.getAgendaFechaInicio().getSeconds());
-                    cal2.set(fecha2.getYear(), fecha2.getMonth(), fecha2.getDay(), agenda.getAgendaFechaLlegada().getHours(), agenda.getAgendaFechaLlegada().getMinutes(), agenda.getAgendaFechaLlegada().getSeconds());
-
-                    long milis1 = cal1.getTimeInMillis();
-                    long milis2 = cal2.getTimeInMillis();
-
-                    // calcular la diferencia en horas
-                    long diff = milis2 - milis1;
-                    long diffHours = diff / (60 * 60 * 1000);
-
-                    enteroString = "" + diffHours;
-                    horas = Integer.parseInt(enteroString);
-
-                    costo = (horas) * costos.getSmsPrecio();
-                }
-
+            case "Plan dia":
+                costo = ((int) diffDays) * costos.getSmsPrecio();
                 break;
-
-            case "Plan Dia":
-                costos = cosDao.consultarCostoServicio(servicio, categoria).get(0);
-
-                Date fecha1 = agenda.getAgendaFechaInicio();
-                Date fecha2 = agenda.getAgendaFechaLlegada();
-
-                cal1.set(fecha1.getYear(), fecha1.getMonth(), fecha1.getDay(), agenda.getAgendaFechaInicio().getHours(), agenda.getAgendaFechaInicio().getMinutes(), agenda.getAgendaFechaInicio().getSeconds());
-                cal2.set(fecha2.getYear(), fecha2.getMonth(), fecha2.getDay(), agenda.getAgendaFechaLlegada().getHours(), agenda.getAgendaFechaLlegada().getMinutes(), agenda.getAgendaFechaLlegada().getSeconds());
-
-                long milis1 = cal1.getTimeInMillis();
-                long milis2 = cal2.getTimeInMillis();
-
-                // calcular la diferencia en horas
-                long diff = milis2 - milis1;
-                // calcular la diferencia en dias
-
-                long diffDays = diff / (24 * 60 * 60 * 1000);                
-
-                enteroString = "" + diffDays;
-                horas = Integer.parseInt(enteroString);
-
-                costo = ((horas)) * costos.getSmsPrecio();
-
+            case "Plan semana":
+                costo = ((int) diffWeek) * costos.getSmsPrecio();
+                break;
+            case "Plan mes":
+                costo = ((int) diffMonth) * costos.getSmsPrecio();
                 break;
         }
-
         return costo;
     }
 

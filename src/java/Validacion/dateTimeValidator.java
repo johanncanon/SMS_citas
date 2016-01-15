@@ -74,7 +74,7 @@ public class dateTimeValidator implements Validator {
         Calendar calInicio2 = Calendar.getInstance();
         calInicio2.setTime(hActual);
         calInicio2.add(Calendar.HOUR, 2);
-
+                
         Date hInicioMod1 = new Date();
         Date hInicioMod2 = new Date();
 
