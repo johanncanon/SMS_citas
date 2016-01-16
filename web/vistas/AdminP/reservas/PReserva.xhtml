@@ -120,7 +120,7 @@
                                                     <p:outputLabel value="Vehiculo Seleccionado "  />
                                                     <b:inputText id="TVehSelc" placeholder="Placa del vehiculo" required="true" style="width:250px" requiredMessage="No ha seleccionado vehiculo" value="#{agendaBean.vehiculoView.vehPlaca}"/>                                                      
                                                 </h:panelGrid>
-                                                
+
                                             </div>
 
                                             <div class="form-group box box-danger direct-chat direct-chat-danger">                                               
@@ -246,13 +246,11 @@
                                                 </p:outputLabel>
 
                                                 <p:outputLabel value="Hora inicio: " style="font-weight: bold"/>
-                                                <p:outputLabel value="#{agendaBean.agendaView.agendaHoraInicio}">
-                                                    <f:convertDateTime pattern="HH:mm:ss"/>
+                                                <p:outputLabel value="#{agendaBean.agendaView.agendaHoraInicio}">                                                  
                                                 </p:outputLabel>
 
                                                 <p:outputLabel value="Hora llegada: " style="font-weight: bold"/>
-                                                <p:outputLabel value="#{agendaBean.agendaView.agendaHoraLlegada}">
-                                                    <f:convertDateTime pattern="HH:mm:ss"/>
+                                                <p:outputLabel value="#{agendaBean.agendaView.agendaHoraLlegada}">                                                    
                                                 </p:outputLabel>
 
                                             </h:panelGrid>

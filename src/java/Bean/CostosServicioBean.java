@@ -145,7 +145,6 @@ public class CostosServicioBean {
         costoView = new SmsCostosServicio();
         categoriaView = new SmsCategoria();
         servicioView = new SmsServicios();
-
     }
 
     public void eliminar() {

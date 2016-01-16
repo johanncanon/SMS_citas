@@ -183,12 +183,8 @@ public class Reservacion {
         // Crear 2 instancias de Calendar
         Calendar calFechaInicio = Calendar.getInstance();
         Calendar calFechaLlegada = Calendar.getInstance();
-        
 
         //Variables necesarias para el calculo del costo de la reservacion       
-        Date fechaInicio = new Date();
-        Date fechaLlegada = new Date();
-        
         long milis1;
         long milis2;
         long diff;
@@ -199,25 +195,10 @@ public class Reservacion {
 
         costos = cosDao.consultarCostoServicio(servicio, categoria).get(0);//consultamos el costo segun servicio y categoria del vehiculo
 
-       
-        fechaInicio.setYear(agenda.getAgendaFechaInicio().getYear());
-        fechaInicio.setMonth(agenda.getAgendaFechaInicio().getMonth());
-        fechaInicio.setMinutes(agenda.getAgendaFechaInicio().getDay());
-        fechaInicio.setHours(agenda.getAgendaHoraInicio().getHours());
-        fechaInicio.setMinutes(agenda.getAgendaHoraInicio().getMinutes());
-        fechaInicio.setSeconds(agenda.getAgendaHoraInicio().getMinutes());
-        
-        fechaLlegada.setYear(agenda.getAgendaFechaLlegada().getYear());
-        fechaLlegada.setMonth(agenda.getAgendaFechaLlegada().getMonth());
-        fechaLlegada.setMinutes(agenda.getAgendaFechaLlegada().getDay());
-        fechaLlegada.setHours(agenda.getAgendaHoraLlegada().getHours());
-        fechaLlegada.setMinutes(agenda.getAgendaHoraLlegada().getMinutes());
-        fechaLlegada.setSeconds(agenda.getAgendaHoraLlegada().getMinutes());
-        
         //asignamos a los objetos calendar la fecha de inicio con la hora de inicio y la fecha de llegada
         //con su hora de llegada
-        calFechaInicio.setTime(fechaInicio);
-        calFechaLlegada.setTime(fechaLlegada);
+        calFechaInicio.set(agenda.getAgendaFechaInicio().getYear(), agenda.getAgendaFechaInicio().getMonth(), agenda.getAgendaFechaInicio().getDay(), agenda.getAgendaHoraInicio().getHours(), agenda.getAgendaHoraInicio().getMinutes(), agenda.getAgendaHoraInicio().getSeconds());
+        calFechaLlegada.set(agenda.getAgendaFechaLlegada().getYear(), agenda.getAgendaFechaLlegada().getMonth(), agenda.getAgendaFechaLlegada().getDay(), agenda.getAgendaHoraLlegada().getHours(), agenda.getAgendaHoraLlegada().getMinutes(), agenda.getAgendaHoraLlegada().getSeconds());
 
         // conseguir la representacion de la fecha en milisegundos
         milis1 = calFechaInicio.getTimeInMillis();

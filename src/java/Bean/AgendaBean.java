@@ -340,7 +340,7 @@ public class AgendaBean {
                     SelecVeh = false;
                     vehiculoView = new SmsVehiculo();
                     empleadoView = new SmsEmpleado();
-                    break;                
+                    break;
             }
             return event.getNewStep();
         }
