@@ -77,9 +77,22 @@ public class Lugar {
 
     public List<SmsLugares> consultarLugares() {
         lugares = new ArrayList<>();
-
         ILugarDao lugarDao = new ImpLugarDao();
         lugares = lugarDao.consultarLugares(); //Relacionamos el lugar con una ciudad
+        return lugares;
+    }
+    
+    public List<SmsLugares> filtrarLugares(String dato) {
+        lugares = new ArrayList<>();
+        ILugarDao lugarDao = new ImpLugarDao();
+        lugares = lugarDao.filtrarLugar(dato); //Relacionamos el lugar con una ciudad
+        return lugares;
+    }
+    
+    public List<SmsLugares> consultarLugaresCiudades(String Ciudad) {
+        lugares = new ArrayList<>();
+        ILugarDao lugarDao = new ImpLugarDao();
+        lugares = lugarDao.consultarLugarCiudad(Ciudad); //Relacionamos el lugar con una ciudad
         return lugares;
     }
 

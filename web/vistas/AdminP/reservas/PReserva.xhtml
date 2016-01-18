@@ -57,8 +57,13 @@
                                                 </b:selectOneMenu>
 
                                                 <p:outputLabel value="Lugar de recogida:" class="fa fa-2x fa-building"/>
-                                                <b:inputText style="width: 100%" placeholder="Lugar de recogida" required="true" requiredMessage="Indique lugar de recogida" value="#{agendaBean.reservaView.reservacionLugarLlegada}"/>
+                                                <b:selectOneMenu requiredMessage="Indique lugar de recogida"  required="true" style="width: 100%" value="#{agendaBean.reservaView.reservacionLugarLlegada}">
+                                                    <f:selectItem itemLabel="Seleccione Lugar" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{lugarBean.nombresLugaresListView}"/>
+                                                </b:selectOneMenu>                                                
 
+                                                <p:outputLabel value="Lugar de recogida:" class="fa fa-2x fa-building"/>
+                                                <b:inputText style="width: 100%" placeholder="Lugar de recogida" required="true" requiredMessage="Indique lugar de recogida" value="#{agendaBean.reservaView.reservacionLugarLlegada}"/>
 
                                                 <p:outputLabel value="Lugar de destino:" class="fa fa-2x fa-building-o"/>
                                                 <b:inputText style="width: 100%" placeholder="Lugar de destino" required="true" requiredMessage="Indique lugar de destino" value="#{agendaBean.reservaView.reservacionLugarDestino}"/>
@@ -71,9 +76,7 @@
                                             <p:messages autoUpdate="true"/>
                                             <p style="margin-top: 12px">Aqui podrá definir la fecha de inicio del servicio y la fecha de 
                                                 final del servicio SMS:</p>
-                                            <hr/>                                           
-
-
+                                            <hr/>                                          
 
                                             <h:panelGrid columns="2" cellpadding="2">                                                  
                                                 <p:outputLabel for="SServicio" value="Tipo de servicio" style="font-weight: 800;"/>
@@ -83,10 +86,10 @@
                                                 </b:selectOneMenu>
 
                                                 <p:outputLabel for="CFechaInicio"  value="Fecha de Inicio:" style="font-weight: 800; width: 180px;"/>                                                    
-                                                <p:calendar id="CFechaInicio" style="width: 100%" binding="#{FInicio}" pattern="yyyy-MM-dd" value="#{agendaBean.agendaView.agendaFechaInicio}" required="true"/>
+                                                <p:calendar id="CFechaInicio" binding="#{FInicio}" pattern="yyyy-MM-dd" value="#{agendaBean.agendaView.agendaFechaInicio}" required="true"/>
 
                                                 <p:outputLabel for="CHoraInicio" style="font-weight: 800; width: 180px" value="Hora de inicio:" />
-                                                <p:calendar id="CHoraInicio" style="width: 100%" binding="#{HInicio}" value="#{agendaBean.agendaView.agendaHoraInicio}" pattern="HH:mm:ss" required="true" timeOnly="true"/>
+                                                <p:calendar id="CHoraInicio" binding="#{HInicio}" value="#{agendaBean.agendaView.agendaHoraInicio}" pattern="HH:mm:ss" required="true" timeOnly="true"/>
                                             </h:panelGrid>
                                             <hr/>
                                             <h:panelGrid columns="2" cellpadding="2">        

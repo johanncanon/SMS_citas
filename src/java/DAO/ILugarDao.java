@@ -18,4 +18,6 @@ public interface ILugarDao {
     public void registrarLugar(SmsLugares lugar);
     public void modificarLugar(SmsLugares lugar);
     public void eliminarLugar(SmsLugares lugar);
+    public List<SmsLugares> filtrarLugar(String dato);
+    public List<SmsLugares> consultarLugarCiudad(String dato);
 }

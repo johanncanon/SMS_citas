@@ -105,4 +105,44 @@ public class ImpLugarDao implements ILugarDao {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
+    @Override
+    public List<SmsLugares> filtrarLugar(String dato) {
+        Session session = null;
+        List<SmsLugares> lugares = new ArrayList<>();
+
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsLugares as lugar left join fetch lugar.smsCiudad as ciudad where lugar.lugarNombre LIKE '%" + dato + "%' or  lugar.lugarDireccion LIKE '%" + dato + "%' or ciudad.ciudadNombre LIKE '%" + dato + "%'");
+            lugares = (List<SmsLugares>) query.list();
+
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return lugares;
+    }
+
+    @Override
+    public List<SmsLugares> consultarLugarCiudad(String dato) {
+        Session session = null;
+        List<SmsLugares> lugares = new ArrayList<>();
+
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsLugares as lugar left join fetch lugar.smsCiudad as ciudad where ciudad.ciudadNombre = '" + dato + "'");
+            lugares = (List<SmsLugares>) query.list();
+
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return lugares;
+    }
+
 }

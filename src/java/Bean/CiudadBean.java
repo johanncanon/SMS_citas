@@ -166,7 +166,7 @@ public class CiudadBean {
     public void eliminar() {
         ciudadController.eliminarCiudad(DCiudadView);
         if(ciudadView.equals(DCiudadView)){
-        ciudadView.equals(DCiudadView);
+        ciudadView = new SmsCiudad();
         nombre = "Registrar Ciudad";
         estado = 0;
         }
