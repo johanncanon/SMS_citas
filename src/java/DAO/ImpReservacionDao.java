@@ -102,14 +102,19 @@ public class ImpReservacionDao implements IReservacionDao {
     
     //METODO PARA SACAR LAS CIUDADES RESERVADAS POR CLIENTE CONSULTADO
     @Override
-    public List<SmsReservacion> mostrarCiudadReservacion(SmsUsuario usuarioID) {
+    public List<SmsReservacion> mostrarReservacionHecha(SmsUsuario usuarioID) {
         Session session = null;
-        List<SmsReservacion> resevacion = null;
+        List <SmsReservacion> resevacionesHechas = null;
 
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsReservacion as reservacion left join fetch reservacion.smsUsuario as usuario left join fetch usuario.smsCiudad as ciudad left join fetch usuario.idUsuario as idUsuario where idUsuario = '" +  usuarioID.getIdUsuario() + "'");
-            resevacion = (List<SmsReservacion>) query.list();
+            Query query = session.createQuery("SELECT a.smsVehiculo.smsReferencia.referenciaNombre, \n" +
+                                                "	a.smsVehiculo.smsReferencia.smsMarca.marcaNombre, \n" +
+                                                "	a.smsVehiculo.vehPlaca,\n" +
+                                                "	a.smsEmpleado.smsUsuario.usuarioNombre\n" +
+                                                "FROM SmsAgenda a, SmsReservacion r\n" +
+                                                "WHERE r.smsAgenda.idAgenda = a.idAgenda AND ( r.smsUsuario.idUsuario = '" +  usuarioID.getIdUsuario() + "')");
+            resevacionesHechas = (List<SmsReservacion>) query.list();
 
         } catch (HibernateException e) {
             e.getMessage();
@@ -118,7 +123,7 @@ public class ImpReservacionDao implements IReservacionDao {
                 session.close();
             }
         }
-        return resevacion;
+           return resevacionesHechas;
     }
     
     

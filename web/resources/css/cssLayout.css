@@ -581,3 +581,24 @@ td, th {
         margin-left: 31%;
     }
 }
+
+.btn-reservas{
+    position: absolute !important;
+    width: 36% !important;
+    padding: 4px !important;
+}
+
+.btn-reservas-color{
+    background-image: -webkit-linear-gradient(top, #AD3C3C, #A72626) !important;
+    color: #FFFFFF !important;
+    text-shadow: none !important;
+        border-radius: 6px !important;
+}
+
+.btn-reservas-color:hover{
+    background-image: -webkit-linear-gradient(top, #DA3131, #D40505) !important;
+    background-color: #CA1E1E !important;
+    color: #FFFFFF !important;
+    text-shadow: none !important;
+    background-position: 0 -15px !important;
+}

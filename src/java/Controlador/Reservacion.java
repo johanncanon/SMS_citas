@@ -55,12 +55,14 @@ public class Reservacion {
     private FacesMessage facesMessage;
 
     //variable para sacar ciudades segun registro del cliente
-    private SmsUsuario usuarioID;
-    private List<SmsReservacion> ciudadesReservadas;
+    private SmsUsuario usuarioID; 
+    private SmsReservacion reservaHecha;
 
     //Constructor
     public Reservacion() {
         usuarioID = new SmsUsuario();
+        reservaHecha = new SmsReservacion();
+       
     }
 
     //Getters & Setter
@@ -297,15 +299,7 @@ public class Reservacion {
         return costo;
     }
 
-    //METODO PARA LLAMAR LAS CIUDADES DE LOS CLIENTES QUE HAN RESERVADO
-    public List<SmsReservacion> getCiudadesReservadas() {
-        return ciudadesReservadas;
-    }
-
-    public void setCiudadesReservadas(List<SmsReservacion> ciudadesReservadas) {
-        this.ciudadesReservadas = ciudadesReservadas;
-    }
-
+    //METODO PARA LLAMAR LAS CARACTERISTICAS DE LOS CLIENTES QUE HAN RESERVADO
     public SmsUsuario getUsuarioID() {
         return usuarioID;
     }
@@ -314,10 +308,22 @@ public class Reservacion {
         this.usuarioID = usuarioID;
     }
 
-    public void listaCiudadesReservacion(SmsUsuario us) {
-        usuarioID = us;
+    public SmsReservacion getReservaHecha() {
+        return reservaHecha;
+    }
+
+    public void setReservaHecha(SmsReservacion reservaHecha) {
+        this.reservaHecha = reservaHecha;
+    }
+
+    
+
+    //METODO PARA DEVOLVER LA RESERVACION
+    public void mostrarDatosReservacion(SmsUsuario u) {
+        usuarioID = u;
         IReservacionDao linkDao = new ImpReservacionDao();
-        ciudadesReservadas = linkDao.mostrarCiudadReservacion(usuarioID);
+        reservaHecha = linkDao.mostrarReservacionHecha(usuarioID).get(0);
+                            
     }
 
 }

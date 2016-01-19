@@ -119,12 +119,12 @@
                                                     </f:facet>
 
                                                     <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                                                        <p:graphicImage width="256" height="256" value="#{vehiculo.vehFotoRuta}" alt="Vehiculo"/>
+                                                        <p:graphicImage style="padding: 20px" height="256" value="#{vehiculo.vehFotoRuta}" alt="Vehiculo" class="img-thumbnail img-responsive"/>
                                                         
                                                         <p:outputPanel>
                                                             <h:panelGrid columns="2" cellpadding="5">
                                                                 
-                                                                <h:outputText value="Marca:" />
+                                                                <h:outputText value="Marca:" style="margin-right: 118px" />
                                                                 <h:outputText value="#{vehiculo.smsReferencia.smsMarca.marcaNombre}" style="font-weight: bold"/>
                                                                                                                                 
                                                                 <h:outputText value="Referencia:" />
@@ -145,8 +145,8 @@
                                                                 <h:outputText value="Maletas pequeños:" />
                                                                 <h:outputText value="#{vehiculo.vehNumMalPequeña}" style="font-weight: bold"/>
 
-                                                                <p:commandButton value="Seleccionar Vehiculo" disabled="#{agendaBean.selecVeh}"  process="@this" update="@form" action="#{agendaBean.SeleccionarVehiculo()}">
-                                                                    <f:setPropertyActionListener value="#{vehiculo}" target="#{agendaBean.vehiculoView}"/>
+                                                                <p:commandButton  class="btn-reservas btn-reservas-color" value="Seleccionar Vehiculo" disabled="#{agendaBean.selecVeh}"  process="@this" update="@form" action="#{agendaBean.SeleccionarVehiculo()}" >
+                                                                    <f:setPropertyActionListener   value="#{vehiculo}" target="#{agendaBean.vehiculoView}" />
                                                                 </p:commandButton>
                                                             </h:panelGrid>
                                                         </p:outputPanel>
@@ -174,7 +174,7 @@
                                                 </f:facet>
 
                                                 <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                                                    <p:graphicImage width="160" height="180" value="#{empleado.smsUsuario.usuarioFotoRuta}"/> 
+                                                    <p:graphicImage class="img-thumbnail img-responsive" width="180" height="180" value="#{empleado.smsUsuario.usuarioFotoRuta}" style="left: 61px; position: relative;"/> 
 
                                                     <p:outputPanel>
                                                         <h:panelGrid columns="2" cellpadding="5">
@@ -185,7 +185,7 @@
                                                             <h:outputText value="Identificacion" />
                                                             <h:outputText value="#{empleado.smsUsuario.usuarioCc}" style="font-weight: bold"/>
 
-                                                            <p:commandButton  value="Seleccionar Conductor" disabled="#{agendaBean.selecCon}"  process="@this" update="ScrollerConductores" action="#{agendaBean.SeleccionarConductor()}">
+                                                            <p:commandButton class="btn-reservas btn-reservas-color"  value="Seleccionar Conductor" disabled="#{agendaBean.selecCon}"  process="@this" update="ScrollerConductores" action="#{agendaBean.SeleccionarConductor()}">
                                                                 <f:setPropertyActionListener value="#{empleado}" target="#{agendaBean.empleadoView}"/>
                                                             </p:commandButton>
                                                         </h:panelGrid>

@@ -5,12 +5,17 @@
  */
 package Bean;
 
+import Modelo.SmsReservacion;
+import Controlador.Reservacion;
+
 /**
  *
  * @author Desarrollo_Planit
  */
 public class ReservacionBean {
-
+    
+    private SmsReservacion reservacion;
+    private Reservacion reservaControler;
     
     public ReservacionBean() {
     }
