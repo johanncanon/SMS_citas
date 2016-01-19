@@ -7,6 +7,7 @@ package Bean;
 
 import Controlador.Agenda;
 import Controlador.Empleado;
+import Controlador.Lugar;
 import Controlador.Reservacion;
 import Controlador.SendEmail;
 import Controlador.Usuario;
@@ -16,6 +17,7 @@ import Modelo.SmsCategoria;
 import Modelo.SmsCiudad;
 import Modelo.SmsCostosServicio;
 import Modelo.SmsEmpleado;
+import Modelo.SmsLugares;
 import Modelo.SmsReservacion;
 import Modelo.SmsServicios;
 import Modelo.SmsUsuario;
@@ -43,6 +45,8 @@ public class AgendaBean {
     private List<SmsVehiculo> vehiculosListView;
     private List<SmsEmpleado> empleadosListView;
     private List<SmsAgenda> agendaListView;
+    private List<SmsLugares> LugaresListView;
+        private List<String> nombresLugaresListView;
 
     private boolean skip = false;//Controla la transicion entre las pestañas del panel de reserva
     //Controlan la seleccion de los vehiculos y los empleados
@@ -56,6 +60,7 @@ public class AgendaBean {
     Empleado empleadoController;
     Usuario usuarioController;
     SendEmail emailController;
+    Lugar lugarController;
 
     //Sesion  
     private HttpServletRequest httpServletRequest;
@@ -76,13 +81,16 @@ public class AgendaBean {
         vehiculosListView = new ArrayList<>();
         empleadosListView = new ArrayList<>();
         agendaListView = new ArrayList<>();
-
+        LugaresListView = new ArrayList<>();
+        nombresLugaresListView = new ArrayList<>();
+        
         vehiculoController = new Vehiculo();
         empleadoController = new Empleado();
         agendaController = new Agenda();
         reservacionController = new Reservacion();
         usuarioController = new Usuario();
         emailController = new SendEmail();
+        lugarController = new Lugar();
 
         SelecVeh = false;
         SelecCon = false;
@@ -248,6 +256,24 @@ public class AgendaBean {
         this.servicioView = servicioView;
     }
 
+    public List<SmsLugares> getLugaresListView() {
+        return LugaresListView;
+    }
+
+    public void setLugaresListView(List<SmsLugares> LugaresListView) {
+        this.LugaresListView = LugaresListView;
+    }
+
+    public List<String> getNombresLugaresListView() {
+        return nombresLugaresListView;
+    }
+
+    public void setNombresLugaresListView(List<String> nombresLugaresListView) {
+        this.nombresLugaresListView = nombresLugaresListView;
+    }
+    
+    
+
     //Metodos    
     //CRUD
     public String registrarAgenda() {
@@ -383,6 +409,16 @@ public class AgendaBean {
                 vehiculosListView = vehiculoController.filtrarVehiculosDisponibles(agendaView, ciudadView, categoriaView);
             }
         }
+    } 
+    
+    //Lugares
+    public void consultarLugaresCiudades(){
+         nombresLugaresListView = new ArrayList<>();
+         LugaresListView = new ArrayList<>();
+         LugaresListView = lugarController.consultarLugaresCiudades(ciudadView.getCiudadNombre());
+         for(int i=0 ; i<LugaresListView.size();i++){
+             nombresLugaresListView.add(LugaresListView.get(i).getLugarNombre());
+         }
     }
-
+    
 }
