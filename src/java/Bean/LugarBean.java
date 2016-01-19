@@ -174,31 +174,5 @@ public class LugarBean {
         } else {
             LugaresListView = LugarController.filtrarLugares(buscar);
         }
-    }
-    
-    public void consultarLugaresCiudades(){
-         nombresLugaresListView = new ArrayList<>();
-         LugaresListView = new ArrayList<>();
-         LugaresListView = LugarController.consultarLugaresCiudades(CiudadView.getCiudadNombre());
-         for(int i=0 ; i<LugaresListView.size();i++){
-             nombresLugaresListView.add(LugaresListView.get(i).getLugarNombre());
-         }
-    }
-      
-    
-    public List<String> completeLugar(String query) {
-        LugaresListView = new ArrayList<>();
-        nombresLugaresListView = new ArrayList<>();
-        LugaresListView = LugarController.consultarLugares();
-        
-        for (int i = 0; i < LugaresListView.size(); i++) {
-            SmsLugares lugar = LugaresListView.get(i);
-            if (lugar.getLugarNombre().toLowerCase().contains(query.toLowerCase())) {
-                nombresLugaresListView.add(lugar.getLugarNombre());
-            }
-        }
-       
-        return nombresLugaresListView;
-    }
-
+    }    
 }
