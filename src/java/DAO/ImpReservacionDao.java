@@ -7,6 +7,7 @@ package DAO;
 
 import Modelo.SmsReservacion;
 import Modelo.SmsUsuario;
+import Modelo.SmsVistaReserva;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -102,9 +103,9 @@ public class ImpReservacionDao implements IReservacionDao {
     
     //METODO PARA SACAR LAS CIUDADES RESERVADAS POR CLIENTE CONSULTADO
     @Override
-    public List<SmsReservacion> mostrarReservacionHecha(SmsUsuario usuarioID) {
+    public List<SmsVistaReserva> mostrarReservacionHecha(SmsUsuario usuarioID) {
         Session session = null;
-        List <SmsReservacion> resevacionesHechas = null;
+        List <SmsVistaReserva> resevacionesHechas = null;
 
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
@@ -114,7 +115,7 @@ public class ImpReservacionDao implements IReservacionDao {
                                                 "	a.smsEmpleado.smsUsuario.usuarioNombre\n" +
                                                 "FROM SmsAgenda a, SmsReservacion r\n" +
                                                 "WHERE r.smsAgenda.idAgenda = a.idAgenda AND ( r.smsUsuario.idUsuario = '" +  usuarioID.getIdUsuario() + "')");
-            resevacionesHechas = (List<SmsReservacion>) query.list();
+            resevacionesHechas = (List<SmsVistaReserva>) query.list();
 
         } catch (HibernateException e) {
             e.getMessage();

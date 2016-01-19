@@ -28,6 +28,7 @@ import Modelo.SmsReservacion;
 import Modelo.SmsServicios;
 import Modelo.SmsUsuario;
 import Modelo.SmsVehiculo;
+import Modelo.SmsVistaReserva;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -55,14 +56,16 @@ public class Reservacion {
     private FacesMessage facesMessage;
 
     //variable para sacar ciudades segun registro del cliente
-    private SmsUsuario usuarioID; 
+    private SmsUsuario usuarioID;
     private SmsReservacion reservaHecha;
+    private List<SmsVistaReserva> vistaReserva;
 
     //Constructor
     public Reservacion() {
         usuarioID = new SmsUsuario();
         reservaHecha = new SmsReservacion();
-       
+        
+
     }
 
     //Getters & Setter
@@ -316,14 +319,23 @@ public class Reservacion {
         this.reservaHecha = reservaHecha;
     }
 
+    public List<SmsVistaReserva> getVistaReserva() {
+        return vistaReserva;
+    }
+
+    public void setVistaReserva(List<SmsVistaReserva> vistaReserva) {
+        this.vistaReserva = vistaReserva;
+    }
+
     
 
     //METODO PARA DEVOLVER LA RESERVACION
-    public void mostrarDatosReservacion(SmsUsuario u) {
+    public List<SmsVistaReserva> mostrarDatosReservacion(SmsUsuario u) {
         usuarioID = u;
         IReservacionDao linkDao = new ImpReservacionDao();
-        reservaHecha = linkDao.mostrarReservacionHecha(usuarioID).get(0);
-                            
+        vistaReserva = linkDao.mostrarReservacionHecha(usuarioID);
+        
+        return vistaReserva;
     }
 
 }

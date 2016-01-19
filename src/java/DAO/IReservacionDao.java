@@ -7,6 +7,7 @@ package DAO;
 
 import Modelo.SmsReservacion;
 import Modelo.SmsUsuario;
+import Modelo.SmsVistaReserva;
 import java.util.List;
 
 /**
@@ -21,5 +22,5 @@ public interface IReservacionDao {
     public void modificarReservacion(SmsReservacion reservacion);
     public void eliminarReservacion(SmsReservacion reservacion);   
     //METODO PARA SACAR LAS CIUDADES DE LA RESERVACION DE LOS CLIENTES
-    public List<SmsReservacion> mostrarReservacionHecha(SmsUsuario usuarioID);    
+    public List<SmsVistaReserva> mostrarReservacionHecha(SmsUsuario usuarioID);    
 }
