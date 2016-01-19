@@ -166,7 +166,7 @@ public class Reservacion {
 
     }
 
-    //Metodos para la reservacion
+   //Metodos para la reservacion
     public int calcularCostoReservacion(SmsAgenda a, SmsServicios s, SmsVehiculo v) {
         //Instacia de variable propias del metodo
         int costo = 0;
@@ -236,7 +236,7 @@ public class Reservacion {
 
                 // calcular la diferencia en dias
                 diff = milis2 - milis1;
-                diffDays = diff / (24 * 60 * 60 * 1000);
+                diffDays = (diff / (24 * 60 * 60 * 1000)) * 2;
 
                 milis1 = calHoraInicio.getTimeInMillis();
                 milis2 = calHoraLlegada.getTimeInMillis();
@@ -244,6 +244,11 @@ public class Reservacion {
                 // calcular la diferencia en horas
                 diff = milis2 - milis1;
                 diffHours = (diff / (60 * 60 * 1000));
+
+                if (diffHours > 12) {
+                    diffDays = diffDays + (diffHours / 12);
+                    diffHours = diffHours - (diffHours / 12);
+                }
 
                 costo = ((int) diffDays) * costos.getSmsPrecio();
 
@@ -297,6 +302,21 @@ public class Reservacion {
                 costo = costo + (((int) diffHours) * costos.getSmsPrecio());
                 break;
             case "Plan mes":
+                // conseguir la representacion de la fecha en milisegundos
+                milis1 = calFechaInicio.getTimeInMillis();
+                milis2 = calFechaLlegada.getTimeInMillis();
+
+                // calcular la diferencia en dias
+                diff = milis2 - milis1;
+                diffDays = diff / (24 * 60 * 60 * 1000);                
+                
+                int startMes = (calFechaInicio.get(Calendar.YEAR) * 12) + calFechaInicio.get(Calendar.MONTH);
+                int endMes = (calFechaLlegada.get(Calendar.YEAR) * 12) + calFechaLlegada.get(Calendar.MONTH);
+                
+                int daysInMonth = calFechaInicio.getActualMaximum(Calendar.DAY_OF_MONTH);
+                //Diferencia en meses entre las dos fechas
+                diffMonth = endMes - startMes;
+                costo = ((int) diffMonth) * costos.getSmsPrecio();
                 break;
         }
         return costo;
