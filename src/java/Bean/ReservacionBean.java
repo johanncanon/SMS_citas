@@ -26,7 +26,7 @@ public class ReservacionBean {
     private SmsUsuario userView;
     private String string;
     private List<SmsReservacion> reservaciones;
-    private List<SmsVistaReserva> vistasReserva;
+    private List<SmsReservacion> vistasReserva;
     
     //SESSION
      //Sesion  
@@ -88,11 +88,11 @@ public class ReservacionBean {
         this.reservaciones = reservaciones;
     }
 
-    public List<SmsVistaReserva> getVistasReserva() {
+    public List<SmsReservacion> getVistasReserva() {
         return vistasReserva;
     }
 
-    public void setVistasReserva(List<SmsVistaReserva> vistasReserva) {
+    public void setVistasReserva(List<SmsReservacion> vistasReserva) {
         this.vistasReserva = vistasReserva;
     }
 

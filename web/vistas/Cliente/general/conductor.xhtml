@@ -10,22 +10,20 @@
 
 
     <h:form>
-        <p:dataTable var="reserva"  value="#{reservacionBean.vistasReserva}" >
+        <p:dataTable var="reserva"  value="#{reservacionBean.vistasReserva}">
             <p:column headerText="Nombres ">
-                <h:outputText value="#{reserva.usuarioNombre}" />
+                <h:outputText value="#{reserva.smsAgenda.smsEmpleado.smsUsuario.usuarioNombre}" />
             </p:column>
 
-            <p:column headerText="Marca">
-                <h:outputText value="#{reserva.marcaNombre}" />
+            <p:column headerText="Cédula">
+                <h:outputText value="#{reserva.smsAgenda.smsEmpleado.smsUsuario.usuarioCc}" />
             </p:column>
 
-            <p:column headerText="Referencia">
-                <h:outputText value="#{reserva.referenciaNombre}" />
+            <p:column headerText="E-mail">
+                <h:outputText value="#{reserva.smsUsuario.usuarioEmail}" />
             </p:column>
 
-            <p:column headerText="Placa">
-                <h:outputText value="#{reserva.vehPlaca}" />
-            </p:column>
+            
         </p:dataTable>
     </h:form>
 
