@@ -22,6 +22,7 @@ import Modelo.SmsReservacion;
 import Modelo.SmsServicios;
 import Modelo.SmsUsuario;
 import Modelo.SmsVehiculo;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -42,6 +43,8 @@ public class AgendaBean {
     private SmsCostosServicio costoServicioView;
     private SmsServicios servicioView;
     private SmsUsuario sesion; //objeto donde guardaremos los datos del usuario logueado
+    private String HoraInicio;
+    private String HoraEntrega;
 
     private List<SmsVehiculo> vehiculosListView;
     private List<SmsEmpleado> empleadosListView;
@@ -67,8 +70,7 @@ public class AgendaBean {
     private HttpServletRequest httpServletRequest;
     private FacesContext faceContext;
 
-    //variables para vista de reservacion
-    private SmsUsuario userView;
+    //variables para vista de reservacion    
     private List<SmsAgenda> vistasReserva;
 
     public AgendaBean() {
@@ -296,6 +298,23 @@ public class AgendaBean {
         this.vistasReserva = vistasReserva;
     }
 
+    public String getHoraInicio() {
+        return HoraInicio;
+    }
+
+    public void setHoraInicio(String HoraInicio) {
+        this.HoraInicio = HoraInicio;
+    }
+
+    public String getHoraEntrega() {
+        return HoraEntrega;
+    }
+
+    public void setHoraEntrega(String HoraEntrega) {
+        this.HoraEntrega = HoraEntrega;
+    }
+
+    
     //Metodos    
     //CRUD
     public String registrarAgenda() {
@@ -379,6 +398,11 @@ public class AgendaBean {
                     }
                     break;
                 case "Confirmacion":
+                    SimpleDateFormat formatTime;
+                    formatTime = new SimpleDateFormat("HH:mm:ss");
+                    HoraInicio = formatTime.format(agendaView.getAgendaHoraInicio());
+                    HoraEntrega = formatTime.format(agendaView.getAgendaHoraLlegada());
+                    
                     int valor = reservacionController.calcularCostoReservacion(agendaView, servicioView, vehiculoView);
                     reservaView.setReservacionCosto(valor);
                     break;

@@ -228,14 +228,12 @@
                                                 </p:outputLabel>
 
                                                 <p:outputLabel value="Hora inicio: " style="font-weight: bold"/>
-                                                <p:outputLabel value="#{agendaBean.agendaView.agendaHoraInicio}">
-                                                    <f:convertDateTime pattern="HH:mm:ss" timeStyle="full"/>
-                                                </p:outputLabel>
+                                                <p:outputLabel value="#{agendaBean.horaInicio}">
+                                                    </p:outputLabel>
 
                                                 <p:outputLabel value="Hora llegada: " style="font-weight: bold"/>
-                                                <p:outputLabel value="#{agendaBean.agendaView.agendaHoraLlegada}">
-                                                    <f:convertDateTime pattern="HH:mm:ss" timeStyle="full"/>
-                                                </p:outputLabel>
+                                                <p:outputLabel value="#{agendaBean.horaEntrega}">
+                                                    </p:outputLabel>
 
                                             </h:panelGrid>
                                             <p:inputTextarea rows="4" style="width: 100%" value="#{agendaBean.reservaView.reservacionNotas }" placeholder="Notas u observaciones"/>
