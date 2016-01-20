@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -64,7 +64,6 @@ public class Reservacion {
     public Reservacion() {
         usuarioID = new SmsUsuario();
         reservaHecha = new SmsReservacion();
-        
 
     }
 
@@ -166,7 +165,7 @@ public class Reservacion {
 
     }
 
-   //Metodos para la reservacion
+    //Metodos para la reservacion
     public int calcularCostoReservacion(SmsAgenda a, SmsServicios s, SmsVehiculo v) {
         //Instacia de variable propias del metodo
         int costo = 0;
@@ -176,6 +175,7 @@ public class Reservacion {
         SmsCostosServicio costos;
         SmsServicios hora = new SmsServicios();
         hora.setServiciosNombre("Plan hora");
+        
         //instancia de objetos relacionados a los DAO necesarios
         ICostosServiciosDAO cosDao = new ImpCostosServiciosDAO();
         IServicioDao serDao = new ImpServicioDao();
@@ -308,15 +308,28 @@ public class Reservacion {
 
                 // calcular la diferencia en dias
                 diff = milis2 - milis1;
-                diffDays = diff / (24 * 60 * 60 * 1000);                
-                
+                diffDays = diff / (24 * 60 * 60 * 1000);
+
                 int startMes = (calFechaInicio.get(Calendar.YEAR) * 12) + calFechaInicio.get(Calendar.MONTH);
                 int endMes = (calFechaLlegada.get(Calendar.YEAR) * 12) + calFechaLlegada.get(Calendar.MONTH);
-                
-                int daysInMonth = calFechaInicio.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                int days = agenda.getAgendaFechaLlegada().getDay() - agenda.getAgendaFechaInicio().getDay();
                 //Diferencia en meses entre las dos fechas
+
                 diffMonth = endMes - startMes;
                 costo = ((int) diffMonth) * costos.getSmsPrecio();
+
+                if (diffMonth >= 1 && days != 0) {
+                    //Obtenemos el costo del dia               
+                    SmsServicios dia = new SmsServicios();
+                    dia.setServiciosNombre("Plan dia 24 horas");
+                    dia = serDao.ConsultarServicio(dia).get(0);
+                    costos = cosDao.consultarCostoServicio(dia, categoria).get(0);
+                    
+                    //sumamos al costo final el valor de los dias restantes que no completan el mes
+                    costo = costo + (days * costos.getSmsPrecio());
+                }
+
                 break;
         }
         return costo;
@@ -347,14 +360,12 @@ public class Reservacion {
         this.vistaReserva = vistaReserva;
     }
 
-    
-
     //METODO PARA DEVOLVER LA RESERVACION
     public List<SmsVistaReserva> mostrarDatosReservacion(SmsUsuario u) {
         usuarioID = u;
         IReservacionDao linkDao = new ImpReservacionDao();
         vistaReserva = linkDao.mostrarReservacionHecha(usuarioID);
-        
+
         return vistaReserva;
     }
 

@@ -12,7 +12,7 @@
             <column name="Agenda_idVehiculo" not-null="true" />
         </many-to-one>
         <many-to-one name="smsEmpleado" class="Modelo.SmsEmpleado" fetch="join">
-            <column name="Agenda_idConductor" not-null="true" />
+            <column name="Agenda_idConductor"/>
         </many-to-one>   
         <property name="agendaFechaInicio" type="date">
             <column name="Agenda_fechaInicio" length="0" />
