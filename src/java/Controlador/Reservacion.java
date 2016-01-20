@@ -322,40 +322,6 @@ public class Reservacion {
         return costo;
     }
 
-    //METODO PARA LLAMAR LAS CARACTERISTICAS DE LOS CLIENTES QUE HAN RESERVADO
-    public SmsUsuario getUsuarioID() {
-        return usuarioID;
-    }
-
-    public void setUsuarioID(SmsUsuario usuarioID) {
-        this.usuarioID = usuarioID;
-    }
-
-    public SmsReservacion getReservaHecha() {
-        return reservaHecha;
-    }
-
-    public void setReservaHecha(SmsReservacion reservaHecha) {
-        this.reservaHecha = reservaHecha;
-    }
-
-    public List<SmsReservacion> getVistaReserva() {
-        return vistaReserva;
-    }
-
-    public void setVistaReserva(List<SmsReservacion> vistaReserva) {
-        this.vistaReserva = vistaReserva;
-    }
-
     
-
-    //METODO PARA DEVOLVER LA RESERVACION
-    public List<SmsReservacion> mostrarDatosReservacion(SmsUsuario u) {
-        usuarioID = u;
-        IReservacionDao linkDao = new ImpReservacionDao();
-        vistaReserva = linkDao.mostrarReservacionHecha(usuarioID);
-        
-        return vistaReserva;
-    }
 
 }

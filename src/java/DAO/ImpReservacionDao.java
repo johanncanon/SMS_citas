@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Modelo.SmsAgenda;
 import Modelo.SmsReservacion;
 import Modelo.SmsUsuario;
 import Modelo.SmsVistaReserva;
@@ -101,27 +102,7 @@ public class ImpReservacionDao implements IReservacionDao {
         }
     }
     
-    //METODO PARA SACAR LAS CIUDADES RESERVADAS POR CLIENTE CONSULTADO
-    @Override
-    public List<SmsReservacion> mostrarReservacionHecha(SmsUsuario usuarioID) {
-        Session session = null;
-        List <SmsReservacion> resevacionesHechas = null;
-
-        try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("SELECT  a FROM SmsAgenda a, SmsReservacion r\n" +
-                                                "WHERE a.idAgenda = r.smsAgenda.idAgenda AND ( r.smsUsuario.idUsuario = '" +  usuarioID.getIdUsuario() + "')");
-            resevacionesHechas = (List<SmsReservacion>) query.list();
-
-        } catch (HibernateException e) {
-            e.getMessage();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-           return resevacionesHechas;
-    }
+    
     
     
 

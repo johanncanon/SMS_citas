@@ -8,7 +8,7 @@ package Bean;
 import Modelo.SmsReservacion;
 import Controlador.Reservacion;
 import Modelo.SmsUsuario;
-import Modelo.SmsVistaReserva;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -43,10 +43,6 @@ public class ReservacionBean {
 
     }
     
-    @PostConstruct
-    public void init(){
-        reservacionClienteAgenda();
-    }
 
     public Reservacion getReservaControler() {
         return reservaControler;
@@ -98,14 +94,6 @@ public class ReservacionBean {
 
     
 
-    public void reservacionClienteAgenda() {
-        faceContext = FacesContext.getCurrentInstance();
-        httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
-        userView = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
-
-        
-        vistasReserva = reservaControler.mostrarDatosReservacion(userView);
-
-    }
+    
 
 }

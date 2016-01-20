@@ -7,6 +7,7 @@ package DAO;
 
 import Modelo.SmsAgenda;
 import Modelo.SmsEmpleado;
+import Modelo.SmsUsuario;
 import Modelo.SmsVehiculo;
 import java.util.ArrayList;
 import java.util.List;
@@ -112,5 +113,26 @@ public class ImpAgendaDao implements IAgendaDao {
             }
         }
         return agendas;
+    }
+    
+    //QUERY PARA SACAR DATOS DE RESERVA HECHA
+    @Override
+    public List<SmsAgenda> mostrarReservacionHecha(SmsUsuario usuarioID) {
+        Session session = null;
+        List <SmsAgenda> resevacionesHechas = null;
+
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("SELECT a FROM SmsAgenda a left join fetch a.smsVehiculo left join fetch a.smsEmpleado WHERE a.idAgenda = (select  reservacion.smsAgenda.idAgenda from SmsReservacion as reservacion where reservacion.smsUsuario.idUsuario = '61' and reservacion.smsAgenda.idAgenda = a.idAgenda)'" +  usuarioID.getIdUsuario() + "')");
+            resevacionesHechas = (List<SmsAgenda>) query.list();
+
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+           return resevacionesHechas;
     }
 }

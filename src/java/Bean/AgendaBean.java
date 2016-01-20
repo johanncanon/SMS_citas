@@ -24,6 +24,7 @@ import Modelo.SmsUsuario;
 import Modelo.SmsVehiculo;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.event.FlowEvent;
@@ -46,7 +47,7 @@ public class AgendaBean {
     private List<SmsEmpleado> empleadosListView;
     private List<SmsAgenda> agendaListView;
     private List<SmsLugares> LugaresListView;
-        private List<String> nombresLugaresListView;
+    private List<String> nombresLugaresListView;
 
     private boolean skip = false;//Controla la transicion entre las pestañas del panel de reserva
     //Controlan la seleccion de los vehiculos y los empleados
@@ -65,7 +66,12 @@ public class AgendaBean {
     //Sesion  
     private HttpServletRequest httpServletRequest;
     private FacesContext faceContext;
-
+    
+    
+    //variables para vista de reservacion
+    private SmsUsuario userView;
+    private List<SmsAgenda> vistasReserva;
+    
     public AgendaBean() {
 
         agendaView = new SmsAgenda();
@@ -83,7 +89,7 @@ public class AgendaBean {
         agendaListView = new ArrayList<>();
         LugaresListView = new ArrayList<>();
         nombresLugaresListView = new ArrayList<>();
-        
+
         vehiculoController = new Vehiculo();
         empleadoController = new Empleado();
         agendaController = new Agenda();
@@ -94,6 +100,16 @@ public class AgendaBean {
 
         SelecVeh = false;
         SelecCon = false;
+        
+        //VARIABLES PARA MOSTRAR RESERVACION DE LA AGENDA
+        
+        userView = new SmsUsuario();
+        vistasReserva = new ArrayList<>();
+        }
+    
+    @PostConstruct
+    public void init(){
+        reservacionClienteAgenda();
     }
 
     public SmsAgenda getAgendaView() {
@@ -271,8 +287,6 @@ public class AgendaBean {
     public void setNombresLugaresListView(List<String> nombresLugaresListView) {
         this.nombresLugaresListView = nombresLugaresListView;
     }
-    
-    
 
     //Metodos    
     //CRUD
@@ -409,16 +423,46 @@ public class AgendaBean {
                 vehiculosListView = vehiculoController.filtrarVehiculosDisponibles(agendaView, ciudadView, categoriaView);
             }
         }
-    } 
-    
-    //Lugares
-    public void consultarLugaresCiudades(){
-         nombresLugaresListView = new ArrayList<>();
-         LugaresListView = new ArrayList<>();
-         LugaresListView = lugarController.consultarLugaresCiudades(ciudadView.getCiudadNombre());
-         for(int i=0 ; i<LugaresListView.size();i++){
-             nombresLugaresListView.add(LugaresListView.get(i).getLugarNombre());
-         }
     }
+
+    //Lugares
+    public void consultarLugaresCiudades() {
+        nombresLugaresListView = new ArrayList<>();
+        LugaresListView = new ArrayList<>();
+        LugaresListView = lugarController.consultarLugaresCiudades(ciudadView.getCiudadNombre());
+        for (int i = 0; i < LugaresListView.size(); i++) {
+            nombresLugaresListView.add(LugaresListView.get(i).getLugarNombre());
+        }
+    }
+
+    // CONTROLADOR PARA SACAR DATOS DE RESERVACION
+
+    public SmsUsuario getUserView() {
+        return userView;
+    }
+
+    public void setUserView(SmsUsuario userView) {
+        this.userView = userView;
+    }
+
+    public List<SmsAgenda> getVistasReserva() {
+        return vistasReserva;
+    }
+
+    public void setVistasReserva(List<SmsAgenda> vistasReserva) {
+        this.vistasReserva = vistasReserva;
+    }  
+  
     
+    
+    public void reservacionClienteAgenda() {
+        faceContext = FacesContext.getCurrentInstance();
+        httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
+        userView = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
+
+        vistasReserva = new ArrayList<>();
+        vistasReserva = agendaController.mostrarDatosReservacion(userView);
+
+    }
+
 }

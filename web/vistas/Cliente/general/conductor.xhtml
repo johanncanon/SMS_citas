@@ -10,17 +10,17 @@
 
 
     <h:form>
-        <p:dataTable var="reserva"  value="#{reservacionBean.vistasReserva}">
+        <p:dataTable var="reserva"  value="#{agendaBean.vistasReserva}">
             <p:column headerText="Nombres ">
-                <h:outputText value="#{reserva.smsAgenda.smsEmpleado.smsUsuario.usuarioNombre}" />
+                <h:outputText value="#{reserva.smsEmpleado.smsUsuario.usuarioNombre}" />
             </p:column>
 
             <p:column headerText="Cédula">
-                <h:outputText value="#{reserva.smsAgenda.smsEmpleado.smsUsuario.usuarioCc}" />
+                <h:outputText value="#{reserva.smsEmpleado.smsUsuario.usuarioCc}" />
             </p:column>
 
             <p:column headerText="E-mail">
-                <h:outputText value="#{reserva.smsUsuario.usuarioEmail}" />
+                <h:outputText value="#{reserva.smsEmpleado.smsUsuario.usuarioEmail}" />
             </p:column>
 
             
