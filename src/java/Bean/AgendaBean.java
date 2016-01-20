@@ -370,7 +370,7 @@ public class AgendaBean {
         }
         return Ruta;
     }
-
+ 
     //Especificos 
     ///Controla el flujo de la vista
     public String onFlowProcess(FlowEvent event) {
