@@ -66,12 +66,11 @@ public class AgendaBean {
     //Sesion  
     private HttpServletRequest httpServletRequest;
     private FacesContext faceContext;
-    
-    
+
     //variables para vista de reservacion
     private SmsUsuario userView;
     private List<SmsAgenda> vistasReserva;
-    
+
     public AgendaBean() {
 
         agendaView = new SmsAgenda();
@@ -100,15 +99,16 @@ public class AgendaBean {
 
         SelecVeh = false;
         SelecCon = false;
-        
-        //VARIABLES PARA MOSTRAR RESERVACION DE LA AGENDA
-        
-        userView = new SmsUsuario();
+
+        //VARIABLES PARA MOSTRAR RESERVACION DE LA AGENDA       
         vistasReserva = new ArrayList<>();
-        }
-    
+    }
+
     @PostConstruct
-    public void init(){
+    public void init() {
+        faceContext = FacesContext.getCurrentInstance();
+        httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
+        sesion = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
         reservacionClienteAgenda();
     }
 
@@ -288,13 +288,18 @@ public class AgendaBean {
         this.nombresLugaresListView = nombresLugaresListView;
     }
 
+    public List<SmsAgenda> getVistasReserva() {
+        return vistasReserva;
+    }
+
+    public void setVistasReserva(List<SmsAgenda> vistasReserva) {
+        this.vistasReserva = vistasReserva;
+    }
+
     //Metodos    
     //CRUD
     public String registrarAgenda() {
         //Obtenemos la informacion de sesion del usuario autentificado 
-        faceContext = FacesContext.getCurrentInstance();
-        httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
-        sesion = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
 
         if (sesion.getSmsRol().getRolNombre().equalsIgnoreCase("Cliente"));
         {//si el usuario logueado es de tipo cliente asignanos su informacion al objeto cliente
@@ -309,9 +314,14 @@ public class AgendaBean {
         reservacionController.registrarReservacion(agendaView, ciudadView, reservaView, clienteView);
 
         //Enviamos mensajes al administrador del sistema, el cliente y el conductor
-        emailController.sendEmailAdministrador(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
-        emailController.sendEmailCliente(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
-        emailController.sendEmailConductor(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
+        if (empleadoView.getIdEmpleado() != null) {
+            emailController.sendEmailAdministrador(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
+            emailController.sendEmailCliente(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
+            emailController.sendEmailConductor(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
+        } else {
+            emailController.sendEmailAdministradorWithout(vehiculoView, reservaView, agendaView, clienteView);
+            emailController.sendEmailClienteWithout(vehiculoView, reservaView, agendaView, clienteView);
+        }
 
         //Limpieza de objetos
         empleadoView = new SmsEmpleado();
@@ -435,33 +445,11 @@ public class AgendaBean {
         }
     }
 
-    // CONTROLADOR PARA SACAR DATOS DE RESERVACION
-
-    public SmsUsuario getUserView() {
-        return userView;
-    }
-
-    public void setUserView(SmsUsuario userView) {
-        this.userView = userView;
-    }
-
-    public List<SmsAgenda> getVistasReserva() {
-        return vistasReserva;
-    }
-
-    public void setVistasReserva(List<SmsAgenda> vistasReserva) {
-        this.vistasReserva = vistasReserva;
-    }  
-  
-    
-    
+    // CONTROLADOR PARA SACAR DATOS DE RESERVACION 
     public void reservacionClienteAgenda() {
-        faceContext = FacesContext.getCurrentInstance();
-        httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
-        userView = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
 
         vistasReserva = new ArrayList<>();
-        vistasReserva = agendaController.mostrarDatosReservacion(userView);
+        vistasReserva = agendaController.mostrarDatosReservacion(sesion);
 
     }
 

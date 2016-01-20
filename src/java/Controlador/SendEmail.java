@@ -80,7 +80,41 @@ public class SendEmail {
             return;
         }
     }
+    
+    public void sendEmailClienteWithout(SmsVehiculo vehiculo, SmsReservacion reservacion, SmsAgenda agenda, SmsUsuario Cliente) {
 
+        init();        
+        IUsuarioDao usuDao = new ImpUsuarioDao();        
+        SmsUsuario cliente = usuDao.consultarUsuario(Cliente).get(0);
+        
+        try {
+            MimeMessage message = new MimeMessage(session);
+
+            //quien envia
+            message.setFrom(new InternetAddress("smsrenta@gmail.com"));
+
+            // a donde se envia
+            message.addRecipient(
+                    Message.RecipientType.TO,
+                    new InternetAddress(""+cliente.getUsuarioEmail()));
+            message.setSubject("SMSRenta informe de tu reservacion");
+            message.setText("Hola, Señor/Señora "+ cliente.getUsuarioNombre() +", usted tiene una reservacion para el dia "+ agenda.getAgendaFechaInicio() +" que inicia a las "+ agenda.getAgendaHoraInicio() +""
+                    + " y culmina a las "+ agenda.getAgendaHoraLlegada() +" del dia "+ agenda.getAgendaFechaLlegada() +","
+                    + " y su vehiculo es identificado con placa "+ vehiculo.getVehPlaca()+". por ultimo el costo de su reservacion es de "+ reservacion.getReservacionCosto() +"");
+
+            Transport t = session.getTransport("smtp");
+            t.connect("smtp.gmail.com", (String) properties.get("mail.smtp.user"), "Smsrenta2016");
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
+        } catch (MessagingException me) {
+            me.getMessage();
+            //Aqui se deberia o mostrar un mensaje de error o en lugar
+            //de no hacer nada con la excepcion, lanzarla para que el modulo
+            //superior la capture y avise al usuario con un popup, por ejemplo.
+            return;
+        }
+    }
+    
     public void sendEmailAdministrador(SmsEmpleado empleado, SmsVehiculo vehiculo, SmsReservacion reservacion, SmsAgenda agenda, SmsUsuario Cliente) {
 
         init();
@@ -97,6 +131,38 @@ public class SendEmail {
             message.setSubject("Nueva reservacion en el sistema");
             message.setText("Hola, administrador principal, se ha registrado una nueva reservacion para el dia "+ agenda.getAgendaFechaInicio() +" que inicia a las "+ agenda.getAgendaHoraInicio() +""
                     + " y culmina a las "+ agenda.getAgendaHoraLlegada() +" del dia "+ agenda.getAgendaFechaLlegada() +", el conductor es el señor/señora "+ empleado.getSmsUsuario().getUsuarioNombre() +""
+                    + " y el vehiculo es el identificado con placa "+ vehiculo.getVehPlaca()+", el lugar de recogida es: "+ reservacion.getReservacionLugarLlegada() +" y el de destino es "+ reservacion.getReservacionLugarDestino() +","
+                    + " por ultimo el costo de su reservacion es de "+ reservacion.getReservacionCosto() +"");
+
+            Transport t = session.getTransport("smtp");
+            t.connect("smtp.gmail.com", (String) properties.get("mail.smtp.user"), "Smsrenta2016");
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
+        } catch (MessagingException me) {
+            me.getMessage();
+            //Aqui se deberia o mostrar un mensaje de error o en lugar
+            //de no hacer nada con la excepcion, lanzarla para que el modulo
+            //superior la capture y avise al usuario con un popup, por ejemplo.
+            return;
+        }
+    }
+
+    public void sendEmailAdministradorWithout(SmsVehiculo vehiculo, SmsReservacion reservacion, SmsAgenda agenda, SmsUsuario Cliente) {
+
+        init();
+        try {
+            MimeMessage message = new MimeMessage(session);
+
+            //quien envia
+            message.setFrom(new InternetAddress("smsrenta@gmail.com"));
+
+            // a donde se envia
+            message.addRecipient(
+                    Message.RecipientType.TO,
+                    new InternetAddress("desarrollo@planit.com.co"));
+            message.setSubject("Nueva reservacion en el sistema");
+            message.setText("Hola, administrador principal, se ha registrado una nueva reservacion para el dia "+ agenda.getAgendaFechaInicio() +" que inicia a las "+ agenda.getAgendaHoraInicio() +""
+                    + " y culmina a las "+ agenda.getAgendaHoraLlegada() +" del dia "+ agenda.getAgendaFechaLlegada() +","
                     + " y el vehiculo es el identificado con placa "+ vehiculo.getVehPlaca()+", el lugar de recogida es: "+ reservacion.getReservacionLugarLlegada() +" y el de destino es "+ reservacion.getReservacionLugarDestino() +","
                     + " por ultimo el costo de su reservacion es de "+ reservacion.getReservacionCosto() +"");
 
