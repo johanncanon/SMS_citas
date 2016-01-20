@@ -123,7 +123,7 @@ public class ImpAgendaDao implements IAgendaDao {
 
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("SELECT a FROM SmsAgenda a left join fetch a.smsVehiculo left join fetch a.smsEmpleado WHERE a.idAgenda = (select  reservacion.smsAgenda.idAgenda from SmsReservacion as reservacion where reservacion.smsUsuario.idUsuario = '61' and reservacion.smsAgenda.idAgenda = a.idAgenda)'" +  usuarioID.getIdUsuario() + "')");
+            Query query = session.createQuery("SELECT a FROM SmsAgenda a left join fetch a.smsVehiculo left join fetch a.smsEmpleado WHERE a.idAgenda = (select  reservacion.smsAgenda.idAgenda from SmsReservacion as reservacion where reservacion.smsUsuario.idUsuario = '" +  usuarioID.getIdUsuario() + "' and reservacion.smsAgenda.idAgenda = a.idAgenda)");
             resevacionesHechas = (List<SmsAgenda>) query.list();
 
         } catch (HibernateException e) {
