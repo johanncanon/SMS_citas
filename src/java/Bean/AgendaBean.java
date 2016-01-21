@@ -111,6 +111,7 @@ public class AgendaBean {
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
         sesion = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
+        
         reservacionClienteAgenda();
     }
 
@@ -322,7 +323,7 @@ public class AgendaBean {
 
         if (sesion.getSmsRol().getRolNombre().equalsIgnoreCase("Cliente"));
         {//si el usuario logueado es de tipo cliente asignanos su informacion al objeto cliente
-            clienteView = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
+            clienteView = sesion;
         }
 
         //Registramos los datos de agendamiento

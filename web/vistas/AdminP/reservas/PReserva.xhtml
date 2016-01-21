@@ -51,7 +51,7 @@
                                             <h:panelGrid columns="2" width="100%" cellpadding="5">
 
                                                 <p:outputLabel value="Ciudad:" class="fa fa-2x fa-globe"/>
-                                                <p:selectOneMenu onchange="#{agendaBean.consultarLugaresCiudades()}"  requiredMessage="Indique ciudad donde quiere solicitar el servicio" required="true" style="width: 100%" value="#{agendaBean.ciudadView.ciudadNombre}">
+                                                <p:selectOneMenu onchange="#{agendaBean.consultarLugaresCiudades()}" requiredMessage="Indique ciudad donde quiere solicitar el servicio" required="true" style="width: 100%" value="#{agendaBean.ciudadView.ciudadNombre}">
                                                     <f:selectItem itemLabel="Seleccione Ciudad" noSelectionOption="true"/>
                                                     <f:selectItems value="#{ciudadBean.nombresCiudadesListView}"/>                                                    
                                                     <p:ajax event="change" listener="#{agendaBean.consultarLugaresCiudades()}" update="SLRecogida SLEntrega" />
@@ -81,10 +81,10 @@
 
                                             <h:panelGrid columns="2" cellpadding="5" width="60%">                                                  
                                                 <p:outputLabel for="SServicio" value="Tipo de servicio"/>
-                                                <b:selectOneMenu id="SServicio" required="true" value="#{agendaBean.servicioView.serviciosNombre}">
+                                                <p:selectOneMenu id="SServicio" binding="#{Servicio}" required="true" value="#{agendaBean.servicioView.serviciosNombre}">
                                                     <f:selectItem itemLabel="Seleccione tipo de servicio" noSelectionOption="true" />
                                                     <f:selectItems value="#{serviciosBean.nombreServiciosListView}"/>
-                                                </b:selectOneMenu>
+                                                </p:selectOneMenu>
 
                                                 <p:outputLabel for="CFechaInicio"  value="Fecha de Inicio:"/>                                                    
                                                 <p:calendar id="CFechaInicio" style="width: 100%" styleClass="dateTimeField" placeholder="Seleccione fecha de inicio"  binding="#{FInicio}" pattern="yyyy-MM-dd" value="#{agendaBean.agendaView.agendaFechaInicio}" required="true"/>
@@ -100,6 +100,7 @@
                                                     <f:attribute name="fechaInicio" value="#{FInicio.value}"/>
                                                     <f:attribute name="horaInicio" value="#{HInicio.value}"/>
                                                     <f:attribute name="fechaEntrega" value="#{FEntrega.value}"/>
+                                                    <f:attribute name="servicio" value="#{Servicio.value}"/>
                                                 </p:calendar>                                                
                                             </h:panelGrid> 
                                         </b:panel>
