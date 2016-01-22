@@ -23,7 +23,25 @@
                                 <p:growl id="growl" sticky="true" showDetail="true"/>
                                 <p:wizard flowListener="#{agendaBean.onFlowProcess}">
 
-                                   <p:tab id="Ciudad" title="Ciudad">
+                                    <p:tab id="Cliente" title="Cliente">
+                                        <b:panel title="Seleccione el cliente al cual realizara la reservacion"  look="primary" style="text-decoration: none">
+                                            <p:messages autoUpdate="true"/>
+                                            <p style="margin-top: 12px">Seleccione el cliente al que desea generarle una reservación:</p>
+                                            <hr/>
+                                            <h:panelGrid columns="2" width="100%" cellpadding="5">
+
+                                                <p:outputLabel for="SClientes" value="Cliente:" class="fa fa-2x fa-globe"/>
+                                                <b:selectOneMenu id="SClientes" requiredMessage="Seleccione cliente con el cual quiere realizar la reservacion"  required="true" style="width: 100%" value="#{agendaBean.clienteView.usuarioNombre}">
+                                                    <f:selectItem itemLabel="Seleccione cliente" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{clienteBean.nombresClientesListView}"/>
+                                                </b:selectOneMenu>
+
+                                            </h:panelGrid>
+                                        </b:panel>                                        
+                                    </p:tab>
+
+
+                                    <p:tab id="Ciudad" title="Ciudad">
                                         <b:panel title="Ingrese Ciudad de Destino"  look="primary" style="text-decoration: none">
                                             <p:messages autoUpdate="true"/>
                                             <p style="margin-top: 12px">La ciudad de destino es el lugar en el
@@ -32,7 +50,7 @@
                                             <h:panelGrid columns="2" width="100%" cellpadding="5">
 
                                                 <p:outputLabel value="Ciudad:" class="fa fa-2x fa-globe"/>
-                                                <p:selectOneMenu onchange="#{agendaBean.consultarLugaresCiudades()}"  requiredMessage="Indique ciudad donde quiere solicitar el servicio" required="true" style="width: 100%" value="#{agendaBean.ciudadView.ciudadNombre}">
+                                                <p:selectOneMenu onchange="#{agendaBean.consultarLugaresCiudades()}" requiredMessage="Indique ciudad donde quiere solicitar el servicio" required="true" style="width: 100%" value="#{agendaBean.ciudadView.ciudadNombre}">
                                                     <f:selectItem itemLabel="Seleccione Ciudad" noSelectionOption="true"/>
                                                     <f:selectItems value="#{ciudadBean.nombresCiudadesListView}"/>                                                    
                                                     <p:ajax event="change" listener="#{agendaBean.consultarLugaresCiudades()}" update="SLRecogida SLEntrega" />
@@ -62,10 +80,10 @@
 
                                             <h:panelGrid columns="2" cellpadding="5" width="60%">                                                  
                                                 <p:outputLabel for="SServicio" value="Tipo de servicio"/>
-                                                <b:selectOneMenu id="SServicio" required="true" value="#{agendaBean.servicioView.serviciosNombre}">
+                                                <p:selectOneMenu id="SServicio" style="width: 100%" binding="#{Servicio}" required="true" value="#{agendaBean.servicioView.serviciosNombre}">
                                                     <f:selectItem itemLabel="Seleccione tipo de servicio" noSelectionOption="true" />
                                                     <f:selectItems value="#{serviciosBean.nombreServiciosListView}"/>
-                                                </b:selectOneMenu>
+                                                </p:selectOneMenu>
 
                                                 <p:outputLabel for="CFechaInicio"  value="Fecha de Inicio:"/>                                                    
                                                 <p:calendar id="CFechaInicio" style="width: 100%" styleClass="dateTimeField" placeholder="Seleccione fecha de inicio"  binding="#{FInicio}" pattern="yyyy-MM-dd" value="#{agendaBean.agendaView.agendaFechaInicio}" required="true"/>
@@ -81,6 +99,7 @@
                                                     <f:attribute name="fechaInicio" value="#{FInicio.value}"/>
                                                     <f:attribute name="horaInicio" value="#{HInicio.value}"/>
                                                     <f:attribute name="fechaEntrega" value="#{FEntrega.value}"/>
+                                                    <f:attribute name="servicio" value="#{Servicio.value}"/>
                                                 </p:calendar>                                                
                                             </h:panelGrid> 
                                         </b:panel>

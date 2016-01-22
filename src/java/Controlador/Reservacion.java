@@ -64,7 +64,6 @@ public class Reservacion {
     public Reservacion() {
         usuarioID = new SmsUsuario();
         reservaHecha = new SmsReservacion();
-        
 
     }
 
@@ -166,7 +165,7 @@ public class Reservacion {
 
     }
 
-   //Metodos para la reservacion
+    //Metodos para la reservacion
     public int calcularCostoReservacion(SmsAgenda a, SmsServicios s, SmsVehiculo v) {
         //Instacia de variable propias del metodo
         int costo = 0;
@@ -175,7 +174,11 @@ public class Reservacion {
         SmsServicios servicio = s;
         SmsCostosServicio costos;
         SmsServicios hora = new SmsServicios();
+        SmsServicios dia = new SmsServicios();
+
         hora.setServiciosNombre("Plan hora");
+        dia.setServiciosNombre("Plan dia 24 horas");
+
         //instancia de objetos relacionados a los DAO necesarios
         ICostosServiciosDAO cosDao = new ImpCostosServiciosDAO();
         IServicioDao serDao = new ImpServicioDao();
@@ -184,7 +187,10 @@ public class Reservacion {
         //Consultamos el objeto completo que contiene la informacion de vehiculo y servicio
         vehiculo = vehDao.consultarVehiculo(vehiculo).get(0);
         servicio = serDao.ConsultarServicio(servicio).get(0);
+
         hora = serDao.ConsultarServicio(hora).get(0);
+        dia = serDao.ConsultarServicio(dia).get(0);
+
         SmsCategoria categoria = vehiculo.getSmsCategoria();//obtenemos la categoria del vehiculo extrayendola del mismo
 
         costos = cosDao.consultarCostoServicio(servicio, categoria).get(0);//consultamos el costo segun servicio y categoria del vehiculo
@@ -202,7 +208,7 @@ public class Reservacion {
         long diffDays;
         long diffWeek;
         long diffMonth;
-
+        long diffHourDifferentDay;
         //asignamos a los objetos calendar la fecha de inicio con la hora de inicio y la fecha de llegada
         //con su hora de llegada
         calFechaInicio.setTime(agenda.getAgendaFechaInicio());
@@ -268,9 +274,13 @@ public class Reservacion {
                 milis1 = calHoraInicio.getTimeInMillis();
                 milis2 = calHoraLlegada.getTimeInMillis();
 
+                diff = milis1 - milis2;
+                diffHourDifferentDay = (diffDays * 24) - (diff / (60 * 60 * 1000));
+
+                diffDays = diffHourDifferentDay / 24;
+
                 // calcular la diferencia en horas
-                diff = milis2 - milis1;
-                diffHours = (diff / (60 * 60 * 1000));
+                diffHours = diffHourDifferentDay - (diffDays * 24);
 
                 costo = ((int) diffDays) * costos.getSmsPrecio();
 
@@ -285,43 +295,66 @@ public class Reservacion {
 
                 // calcular la diferencia en dias
                 diff = milis2 - milis1;
-                diffWeek = (diff / (24 * 60 * 60 * 1000)) / 7;
+                diffDays = (diff / (24 * 60 * 60 * 1000));
+                diffWeek = diffDays / 7;
 
                 costo = ((int) diffWeek) * costos.getSmsPrecio();
+                costos = cosDao.consultarCostoServicio(dia, categoria).get(0);
 
-                // calcular la diferencia en horas
+                diffDays = diffDays - (diffWeek * 7);
+
                 milis1 = calHoraInicio.getTimeInMillis();
                 milis2 = calHoraLlegada.getTimeInMillis();
 
-                diff = milis2 - milis1;
-                diffHours = (diff / (60 * 60 * 1000));
-
+                diff = milis1 - milis2;
+                diffHourDifferentDay = (diffDays * 24) - (diff / (60 * 60 * 1000));
+                
+                diffDays = diffHourDifferentDay / 24;
+                // calcular la diferencia en horas
+                diffHours = diffHourDifferentDay - (diffDays * 24);
+                
+                //Calculamos costo del dia
+                costo = costo + ((int) diffDays * costos.getSmsPrecio());
+                             
                 //Obtenemos el costo de la hora               
                 costos = cosDao.consultarCostoServicio(hora, categoria).get(0);
-
                 costo = costo + (((int) diffHours) * costos.getSmsPrecio());
                 break;
             case "Plan mes":
                 // conseguir la representacion de la fecha en milisegundos
-                milis1 = calFechaInicio.getTimeInMillis();
-                milis2 = calFechaLlegada.getTimeInMillis();
-
-                // calcular la diferencia en dias
-                diff = milis2 - milis1;
-                diffDays = diff / (24 * 60 * 60 * 1000);                
                 
+                int diaInicio = agenda.getAgendaFechaInicio().getDay();
+                int diaEntrega = agenda.getAgendaFechaLlegada().getDay();
+                              
+                // calcular la diferencia en dias
+                diffDays = diaEntrega - diaInicio;
+
                 int startMes = (calFechaInicio.get(Calendar.YEAR) * 12) + calFechaInicio.get(Calendar.MONTH);
                 int endMes = (calFechaLlegada.get(Calendar.YEAR) * 12) + calFechaLlegada.get(Calendar.MONTH);
-                
+
                 int daysInMonth = calFechaInicio.getActualMaximum(Calendar.DAY_OF_MONTH);
+                
+                milis1 = calHoraInicio.getTimeInMillis();
+                milis2 = calHoraLlegada.getTimeInMillis();
+                
+                diff = milis1 - milis2;
+                diffHourDifferentDay = (diffDays * 24) - (diff / (60 * 60 * 1000));
+                
+                diffDays = diffHourDifferentDay / 24;
+                // calcular la diferencia en horas
+                diffHours = diffHourDifferentDay - (diffDays * 24);
+                
                 //Diferencia en meses entre las dos fechas
                 diffMonth = endMes - startMes;
                 costo = ((int) diffMonth) * costos.getSmsPrecio();
+                 
+                costos = cosDao.consultarCostoServicio(dia, categoria).get(0);                
+                costo = costo + ((int) diffDays * costos.getSmsPrecio());
+                costos = cosDao.consultarCostoServicio(hora, categoria).get(0);
+                costo = costo + (((int) diffHours) * costos.getSmsPrecio());                
                 break;
         }
         return costo;
     }
-
-    
 
 }
