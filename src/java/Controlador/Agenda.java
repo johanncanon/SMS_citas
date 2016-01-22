@@ -64,9 +64,12 @@ public class Agenda {
 
         //Asignacion a la agenda
         agenda.setSmsVehiculo(vehiculo);
-        agenda.setSmsEmpleado(conductor);
-
-        //Relacion con el dao y registro de la agenda
+        
+        if(c.getIdEmpleado() != null){
+            agenda.setSmsEmpleado(conductor);
+        }
+        
+//Relacion con el dao y registro de la agenda
         IAgendaDao agDao = new ImpAgendaDao();
         agDao.registrarAgenda(agenda);//Se ejecuta la funcion del dao       
     }

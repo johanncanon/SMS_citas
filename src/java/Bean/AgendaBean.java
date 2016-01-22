@@ -352,6 +352,7 @@ public class AgendaBean {
         vehiculosListView = new ArrayList<>();
         empleadosListView = new ArrayList<>();
         clienteView = new SmsUsuario();
+        servicioView = new SmsServicios();
 
         SelecVeh = false;
         SelecCon = false;
