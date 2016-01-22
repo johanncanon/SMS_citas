@@ -22,7 +22,7 @@
                             </div>
                             <h:form>
                                 <p:growl id="growl" sticky="true" showDetail="true"/>
-                                <p:wizard flowListener="#{agendaBean.onFlowProcess}">
+                                <p:wizard flowListener="#{agendaBean.onFlowProcess}" nextLabel="Siguiente" backLabel="Regresar">
 
                                     <p:tab id="Cliente" title="Cliente">
                                         <b:panel title="Seleccione el cliente al cual realizara la reservacion"  look="primary" style="text-decoration: none">
