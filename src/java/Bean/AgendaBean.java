@@ -111,7 +111,7 @@ public class AgendaBean {
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
         sesion = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
-        
+
         reservacionClienteAgenda();
     }
 
@@ -315,16 +315,10 @@ public class AgendaBean {
         this.HoraEntrega = HoraEntrega;
     }
 
-    
     //Metodos    
     //CRUD
     public String registrarAgenda() {
         //Obtenemos la informacion de sesion del usuario autentificado 
-
-        if (sesion.getSmsRol().getRolNombre().equalsIgnoreCase("Cliente"));
-        {//si el usuario logueado es de tipo cliente asignanos su informacion al objeto cliente
-            clienteView = sesion;
-        }
 
         //Registramos los datos de agendamiento
         agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);
@@ -372,7 +366,7 @@ public class AgendaBean {
         }
         return Ruta;
     }
- 
+
     //Especificos 
     ///Controla el flujo de la vista
     public String onFlowProcess(FlowEvent event) {
@@ -400,11 +394,17 @@ public class AgendaBean {
                     }
                     break;
                 case "Confirmacion":
+
+                    if (sesion.getSmsRol().getRolNombre().equalsIgnoreCase("Cliente"));
+                     {//si el usuario logueado es de tipo cliente asignanos su informacion al objeto cliente
+                        clienteView = sesion;
+                    }
+
                     SimpleDateFormat formatTime;
                     formatTime = new SimpleDateFormat("HH:mm:ss");
                     HoraInicio = formatTime.format(agendaView.getAgendaHoraInicio());
                     HoraEntrega = formatTime.format(agendaView.getAgendaHoraLlegada());
-                    
+
                     int valor = reservacionController.calcularCostoReservacion(agendaView, servicioView, vehiculoView);
                     reservaView.setReservacionCosto(valor);
                     break;

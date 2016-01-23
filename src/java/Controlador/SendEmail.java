@@ -49,10 +49,10 @@ public class SendEmail {
 
     public void sendEmailCliente(SmsEmpleado empleado, SmsVehiculo vehiculo, SmsReservacion reservacion, SmsAgenda agenda, SmsUsuario Cliente) {
 
-        init();        
-        IUsuarioDao usuDao = new ImpUsuarioDao();        
+        init();
+        IUsuarioDao usuDao = new ImpUsuarioDao();
         SmsUsuario cliente = usuDao.consultarUsuario(Cliente).get(0);
-        
+
         try {
             MimeMessage message = new MimeMessage(session);
 
@@ -62,11 +62,14 @@ public class SendEmail {
             // a donde se envia
             message.addRecipient(
                     Message.RecipientType.TO,
-                    new InternetAddress(""+cliente.getUsuarioEmail()));
-            message.setSubject("SMSRenta informe de tu reservacion");
-            message.setText("Hola, Señor/Señora "+ cliente.getUsuarioNombre() +", usted tiene una reservacion para el dia "+ agenda.getAgendaFechaInicio() +" que inicia a las "+ agenda.getAgendaHoraInicio() +""
-                    + " y culmina a las "+ agenda.getAgendaHoraLlegada() +" del dia "+ agenda.getAgendaFechaLlegada() +", su conductor el señor/señora "+ empleado.getSmsUsuario().getUsuarioNombre() +""
-                    + " y su vehiculo es identificado con placa "+ vehiculo.getVehPlaca()+". por ultimo el costo de su reservacion es de "+ reservacion.getReservacionCosto() +"");
+                    new InternetAddress("" + cliente.getUsuarioEmail()));
+            message.setSubject("SMSRenta informe de su reservacion");
+            message.setText("Señor(a) " + cliente.getUsuarioNombre() + ","
+                    + "\n"
+                    + "Le confirmamos su reserva para el vehículo " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día "+ agenda.getAgendaFechaLlegada() +". "
+                    + "Allí lo atenderá el asesor "+ empleado.getSmsUsuario().getUsuarioNombre() +", quien estará disponible y a sus órdenes para su traslado y apoyo en su estadía\n"
+                    + "El Valor de su servicio es de COP $"+ reservacion.getReservacionCosto() +", la factura será enviada a su correo electrónico en dos días.\n"
+                    + "Esperamos que nuestro servicio sea de su total satisfacción y no olvide calificarlo.");
 
             Transport t = session.getTransport("smtp");
             t.connect("smtp.gmail.com", (String) properties.get("mail.smtp.user"), "Smsrenta2016");
@@ -80,13 +83,13 @@ public class SendEmail {
             return;
         }
     }
-    
+
     public void sendEmailClienteWithout(SmsVehiculo vehiculo, SmsReservacion reservacion, SmsAgenda agenda, SmsUsuario Cliente) {
 
-        init();        
-        IUsuarioDao usuDao = new ImpUsuarioDao();        
+        init();
+        IUsuarioDao usuDao = new ImpUsuarioDao();
         SmsUsuario cliente = usuDao.consultarUsuario(Cliente).get(0);
-        
+
         try {
             MimeMessage message = new MimeMessage(session);
 
@@ -96,11 +99,14 @@ public class SendEmail {
             // a donde se envia
             message.addRecipient(
                     Message.RecipientType.TO,
-                    new InternetAddress(""+cliente.getUsuarioEmail()));
-            message.setSubject("SMSRenta informe de tu reservacion");
-            message.setText("Hola, Señor/Señora "+ cliente.getUsuarioNombre() +", usted tiene una reservacion para el dia "+ agenda.getAgendaFechaInicio() +" que inicia a las "+ agenda.getAgendaHoraInicio() +""
-                    + " y culmina a las "+ agenda.getAgendaHoraLlegada() +" del dia "+ agenda.getAgendaFechaLlegada() +","
-                    + " y su vehiculo es identificado con placa "+ vehiculo.getVehPlaca()+". por ultimo el costo de su reservacion es de "+ reservacion.getReservacionCosto() +"");
+                    new InternetAddress("" + cliente.getUsuarioEmail()));
+            message.setSubject("SMSRenta informe de su reservacion");
+            message.setText("Señor(a) " + cliente.getUsuarioNombre() + ","
+                    + "\n"
+                    + "Le confirmamos su reserva para el vehículo " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día "+ agenda.getAgendaFechaLlegada() +". "
+                    + "Allí lo atenderá un asesor de SMSRenta, quien le entregara su vehiculo y le indicara todo lo relacionado al dia y hora de entrega.\n"
+                    + "El Valor de su servicio es de COP $"+ reservacion.getReservacionCosto() +", la factura será enviada a su correo electrónico en dos días.\n"
+                    + "Esperamos que nuestro servicio sea de su total satisfacción y no olvide calificarlo.");
 
             Transport t = session.getTransport("smtp");
             t.connect("smtp.gmail.com", (String) properties.get("mail.smtp.user"), "Smsrenta2016");
@@ -114,7 +120,7 @@ public class SendEmail {
             return;
         }
     }
-    
+
     public void sendEmailAdministrador(SmsEmpleado empleado, SmsVehiculo vehiculo, SmsReservacion reservacion, SmsAgenda agenda, SmsUsuario Cliente) {
 
         init();
@@ -128,11 +134,11 @@ public class SendEmail {
             message.addRecipient(
                     Message.RecipientType.TO,
                     new InternetAddress("desarrollo@planit.com.co"));
-            message.setSubject("Nueva reservacion en el sistema");
-            message.setText("Hola, administrador principal, se ha registrado una nueva reservacion para el dia "+ agenda.getAgendaFechaInicio() +" que inicia a las "+ agenda.getAgendaHoraInicio() +""
-                    + " y culmina a las "+ agenda.getAgendaHoraLlegada() +" del dia "+ agenda.getAgendaFechaLlegada() +", el conductor es el señor/señora "+ empleado.getSmsUsuario().getUsuarioNombre() +""
-                    + " y el vehiculo es el identificado con placa "+ vehiculo.getVehPlaca()+", el lugar de recogida es: "+ reservacion.getReservacionLugarLlegada() +" y el de destino es "+ reservacion.getReservacionLugarDestino() +","
-                    + " por ultimo el costo de su reservacion es de "+ reservacion.getReservacionCosto() +"");
+            message.setSubject("Nueva reservacion en el sistema. Reservacion "+ reservacion.getIdReservacion() +", cliente "+ Cliente.getUsuarioNombre() +", fecha de inicio "+agenda.getAgendaFechaInicio()+"");
+            message.setText("Señor(a) Administrador Principal,"
+                    + "\n"
+                    + "Se confirmo una reservación para el vehículo " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día "+ agenda.getAgendaFechaLlegada() +". "
+                    + "EL asesor elegido es el señor "+ empleado.getSmsUsuario().getUsuarioNombre() +" y el Valor de la servicio es de COP $"+ reservacion.getReservacionCosto() +".");
 
             Transport t = session.getTransport("smtp");
             t.connect("smtp.gmail.com", (String) properties.get("mail.smtp.user"), "Smsrenta2016");
@@ -160,11 +166,11 @@ public class SendEmail {
             message.addRecipient(
                     Message.RecipientType.TO,
                     new InternetAddress("desarrollo@planit.com.co"));
-            message.setSubject("Nueva reservacion en el sistema");
-            message.setText("Hola, administrador principal, se ha registrado una nueva reservacion para el dia "+ agenda.getAgendaFechaInicio() +" que inicia a las "+ agenda.getAgendaHoraInicio() +""
-                    + " y culmina a las "+ agenda.getAgendaHoraLlegada() +" del dia "+ agenda.getAgendaFechaLlegada() +","
-                    + " y el vehiculo es el identificado con placa "+ vehiculo.getVehPlaca()+", el lugar de recogida es: "+ reservacion.getReservacionLugarLlegada() +" y el de destino es "+ reservacion.getReservacionLugarDestino() +","
-                    + " por ultimo el costo de su reservacion es de "+ reservacion.getReservacionCosto() +"");
+            message.setSubject("Nueva reservacion en el sistema. Reservacion "+ reservacion.getIdReservacion() +", cliente "+ Cliente.getUsuarioNombre() +", fecha de inicio "+agenda.getAgendaFechaInicio()+"");
+            message.setText("Señor(a) Administrador Principal,"
+                    + "\n"
+                    + "Se confirmo una reservación para el vehículo " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día "+ agenda.getAgendaFechaLlegada() +". "
+                    + "No hay asesor elegido y el Valor de la servicio es de COP $"+ reservacion.getReservacionCosto() +".");
 
             Transport t = session.getTransport("smtp");
             t.connect("smtp.gmail.com", (String) properties.get("mail.smtp.user"), "Smsrenta2016");
@@ -191,11 +197,13 @@ public class SendEmail {
             // a donde se envia
             message.addRecipient(
                     Message.RecipientType.TO,
-                    new InternetAddress(""+empleado.getSmsUsuario().getUsuarioEmail()));
-            message.setSubject("Nueva Reservacion fecha inicio: "+ agenda.getAgendaFechaInicio() +" a fecha llegada: " + agenda.getAgendaFechaLlegada() + "");
-            message.setText("Hola, conductor/a "+ empleado.getSmsUsuario().getUsuarioNombre() +", usted tiene una reservacion para el dia "+ agenda.getAgendaFechaInicio() +" que inicia a las "+ agenda.getAgendaHoraInicio() +""
-                    + " y culmina a las "+ agenda.getAgendaHoraLlegada() +" del dia "+ agenda.getAgendaFechaLlegada() +", su cliente el señor/señora "+ Cliente.getUsuarioNombre() +""
-                    + " y su vehiculo es identificado con placa "+ vehiculo.getVehPlaca()+". por ultimo el lugar de recogida es: "+ reservacion.getReservacionLugarLlegada() +" y el de destino es "+ reservacion.getReservacionLugarDestino() +"");
+                    new InternetAddress("" + empleado.getSmsUsuario().getUsuarioEmail()));
+            message.setSubject("Nueva Reservacion fecha inicio: " + agenda.getAgendaFechaInicio() + ", hora de inicio "+agenda.getAgendaHoraInicio()+"");
+            message.setText("Señor(a) " + empleado.getSmsUsuario().getUsuarioNombre() + ","
+                    + "\n"
+                    + "Se confirmo una nueva reservacion para la cual usted fue escogido como asesor, el vehiculo escogido es un(a) "+ vehiculo.getSmsCategoria().getCategoriaNombre() +" "+ vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día "+ agenda.getAgendaFechaLlegada() +". "
+                    + "Allí lo espera el cliente "+ Cliente.getUsuarioNombre() +", quien requiere del mejor servicio y atencion prestada\n"
+                    + "Esperamos que su servicio sea prestado de la mejor forma para garantizar la total satisfaccion del cliente");
 
             Transport t = session.getTransport("smtp");
             t.connect("smtp.gmail.com", (String) properties.get("mail.smtp.user"), "Smsrenta2016");

@@ -177,8 +177,7 @@ public class Vehiculo {
 
         Calendar calLlegada = Calendar.getInstance();
         calLlegada.setTime(a.getAgendaHoraLlegada());
-        calLlegada.add(Calendar.HOUR, 1);
-        calLlegada.add(Calendar.MINUTE, 59);
+        calLlegada.add(Calendar.HOUR, 2);
         
         Date hespacioInicio = calInicio.getTime();
         Date hespacioLlegada = calLlegada.getTime();
@@ -224,7 +223,8 @@ public class Vehiculo {
 
         Calendar calInicio = Calendar.getInstance();
         calInicio.setTime(a.getAgendaHoraInicio());
-        calInicio.add(Calendar.HOUR, -2);
+        calInicio.add(Calendar.HOUR, -1);
+        calInicio.add(Calendar.MINUTE, -59);
 
         Calendar calLlegada = Calendar.getInstance();
         calLlegada.setTime(a.getAgendaHoraLlegada());
