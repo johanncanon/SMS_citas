@@ -39,11 +39,6 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>pruebaBean</managed-bean-name>
-        <managed-bean-class>Bean.PruebaBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
         <managed-bean-name>ciudadBean</managed-bean-name>
         <managed-bean-class>Bean.CiudadBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
@@ -89,19 +84,24 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
+        <managed-bean-name>pruebaBean</managed-bean-name>
+        <managed-bean-class>Bean.PruebaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
         <managed-bean-name>pathBean</managed-bean-name>
         <managed-bean-class>Bean.PathBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>carouselBean</managed-bean-name>
         <managed-bean-class>Bean.carouselBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>lugarBean</managed-bean-name>
         <managed-bean-class>Bean.LugarBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <navigation-rule>
         <from-view-id>*</from-view-id>
