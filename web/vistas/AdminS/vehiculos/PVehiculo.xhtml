@@ -153,7 +153,7 @@
                                         <p:outputLabel id="TEstadoFoto" value="#{vehiculoBean.estadoArchivo}"/>
                                         <div class="table-responsive">
                                             <p:fileUpload id="fileIdPhoto" fileUploadListener="#{vehiculoBean.uploadPhoto}" mode="advanced" dragDropSupport="false"
-                                                          process="@this" auto="true" update=":formB" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />
+                                                          process="@this" uploadLabel="Subir fotografia" cancelLabel="Cancelar" update=":formB" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />
 
                                             <p:messages id="messages" closable="true" />
                                         </div> 

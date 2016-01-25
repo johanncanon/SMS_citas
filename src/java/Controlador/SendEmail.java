@@ -209,7 +209,7 @@ public class SendEmail {
             message.setSubject("Nueva Reservacion fecha inicio: " + agenda.getAgendaFechaInicio() + ", hora de inicio " + agenda.getAgendaHoraInicio() + "");
             message.setText("Señor(a) " + empleado.getSmsUsuario().getUsuarioNombre() + ","
                     + "\n"
-                    + "Se confirmo una nueva reservacion para la cual usted fue escogido como asesor, el vehiculo escogido es un(a) " + vehiculo.getSmsCategoria().getCategoriaNombre() + " " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + agenda.getAgendaFechaLlegada() + ". "
+                    + "Se confirmo una nueva reservacion para la cual usted fue escogido como asesor, el vehiculo escogido es un(a) " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + agenda.getAgendaFechaLlegada() + "."
                     + "Allí lo espera el cliente " + Cliente.getUsuarioNombre() + ", quien requiere del mejor servicio y atencion prestada\n"
                     + "Esperamos que su servicio sea prestado de la mejor forma para garantizar la total satisfaccion del cliente"
                     + "Atentamente,\n"
