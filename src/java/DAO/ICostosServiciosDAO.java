@@ -21,5 +21,6 @@ public interface ICostosServiciosDAO {
     public void registrarCostoServicio(SmsCostosServicio costo);
     public void modificarCostoServicio(SmsCostosServicio costo);
     public void eliminarCostoServicio(SmsCostosServicio costo);
+    public List<SmsCostosServicio> filtrarCostosServicios(String dato);  
     
 }

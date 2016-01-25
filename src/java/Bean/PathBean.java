@@ -119,6 +119,10 @@ public class PathBean {
     public String ir_SPais() {
         return "AdminSPais";
     }
+    
+    public String ir_SLugares(){
+        return "AdminSLugares";
+    }
 
     public String ir_SReferencias() {
         return "AdminSReferencias";
@@ -130,6 +134,10 @@ public class PathBean {
     
     public String ir_SReservacion(){
         return "AdminSReserva";
+    }
+    
+    public String ir_SCostoServicio(){
+        return "AdminSCostosServicio";
     }
     
     public String ir_SProveedor(){

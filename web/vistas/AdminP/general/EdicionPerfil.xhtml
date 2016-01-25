@@ -15,8 +15,8 @@
 
             <b:container fluid="true">
                 <h:form id="formA">
-                    <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
-
+                    <p:messages closable="true" id="msg"/>
+                    <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">                        
                         <div class="box box-danger espacio-arriba">
                             <div class="box-header with-border">
                                 <i class="fa fa-2x fa-file-text"/>
@@ -95,7 +95,7 @@
                                     </div><hr/>                                      
 
                                     <h:panelGrid columns="2" width="100%">
-                                        <p:commandButton id="BTModUsuario"  class="btn btn-block btn-success" update="@form" action="#{usuarioBean.modificarUsuario}" value="Modificar Administrador" />
+                                        <p:commandButton id="BTModUsuario"  class="btn btn-block btn-success" update=":formA :formB" action="#{usuarioBean.modificarUsuario}" value="Modificar Administrador" />
                                     </h:panelGrid>
                                 </div>                                        
                             </div>

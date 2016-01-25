@@ -123,4 +123,22 @@ public class ImpCostosServiciosDAO implements ICostosServiciosDAO {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
+    @Override
+    public List<SmsCostosServicio> filtrarCostosServicios(String dato) {
+        Session session = null;
+        List<SmsCostosServicio> Costos = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsCostosServicio as costo left join fetch costo.smsCategoria as categoria left join fetch costo.smsServicios as servicios where categoria.categoriaNombre LIKE '%" + dato + "%' or servicios.serviciosNombre LIKE '%" + dato + "%'");
+            Costos = (List<SmsCostosServicio>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return Costos;
+    }
+
 }

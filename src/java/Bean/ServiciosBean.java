@@ -6,7 +6,6 @@
 package Bean;
 
 import Controlador.Servicio;
-import Modelo.SmsCostosServicio;
 import Modelo.SmsServicios;
 import java.util.ArrayList;
 import java.util.List;

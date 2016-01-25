@@ -98,12 +98,10 @@ public class Costos {
       return costos;
      }
     
-    public List<SmsCostosServicio> filtrarCostos(){
+    public List<SmsCostosServicio> filtrarCostos(String buscar){
       costos = new ArrayList<>();      
       ICostosServiciosDAO cosDao = new ImpCostosServiciosDAO();
-      
+      costos = cosDao.filtrarCostosServicios(buscar);
       return costos;
-    }
-    
-
+    }    
 }

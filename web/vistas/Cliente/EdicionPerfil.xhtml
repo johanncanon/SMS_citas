@@ -14,7 +14,7 @@
 
             <b:container fluid="true">
                 <h:form id="formA">
-
+                    <p:messages closable="true" id="msg"/>
                     <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
 
                         <div class="box box-danger espacio-arriba">
@@ -90,7 +90,7 @@
 
                                         </h:panelGrid>                                        
                                     </div><hr/>                                    
-                                    <p:commandButton id="BTProveedor" class="btn btn-block btn-danger" update="@form" action="#{usuarioBean.modificarUsuario()}" value="Editar Perfil" />
+                                    <p:commandButton id="BTProveedor" class="btn btn-block btn-danger" update=":formA :formB" action="#{usuarioBean.modificarUsuario()}" value="Editar Perfil" />
                                 </div>                                        
                             </div>
                         </div>

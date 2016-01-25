@@ -146,6 +146,15 @@ public class CostosServicioBean {
         categoriaView = new SmsCategoria();
         servicioView = new SmsServicios();
     }
+    
+    public void filtrar(){
+       costosListView = new ArrayList<>();
+        if (buscar == null) {
+            costosListView = costosController.cargarCostos();
+        } else {
+            costosListView = costosController.filtrarCostos(buscar);
+        }
+    }
 
     public void eliminar() {
         costosController.eliminarCosto(DCostoview);

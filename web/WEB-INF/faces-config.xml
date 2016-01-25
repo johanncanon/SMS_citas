@@ -3,6 +3,7 @@
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    
     <managed-bean>
         <managed-bean-name>usuarioBean</managed-bean-name>
         <managed-bean-class>Bean.UsuarioBean</managed-bean-class>
@@ -11,7 +12,12 @@
     <managed-bean>
         <managed-bean-name>marcaBean</managed-bean-name>
         <managed-bean-class>Bean.MarcaBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>costosServicioBean</managed-bean-name>
+        <managed-bean-class>Bean.CostosServicioBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>clienteBean</managed-bean-name>
@@ -31,77 +37,77 @@
     <managed-bean>
         <managed-bean-name>rolBean</managed-bean-name>
         <managed-bean-class>Bean.RolBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>permisosBean</managed-bean-name>
         <managed-bean-class>Bean.PermisosBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>ciudadBean</managed-bean-name>
         <managed-bean-class>Bean.CiudadBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>vehiculoBean</managed-bean-name>
         <managed-bean-class>Bean.VehiculoBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>referenciaBean</managed-bean-name>
         <managed-bean-class>Bean.ReferenciaBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>categoriaBean</managed-bean-name>
         <managed-bean-class>Bean.CategoriaBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>agendaBean</managed-bean-name>
         <managed-bean-class>Bean.AgendaBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>calificacionBean</managed-bean-name>
         <managed-bean-class>Bean.CalificacionBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>reservacionBean</managed-bean-name>
         <managed-bean-class>Bean.ReservacionBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>serviciosBean</managed-bean-name>
         <managed-bean-class>Bean.ServiciosBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>paisBean</managed-bean-name>
         <managed-bean-class>Bean.PaisBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>pruebaBean</managed-bean-name>
         <managed-bean-class>Bean.PruebaBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>pathBean</managed-bean-name>
         <managed-bean-class>Bean.PathBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>carouselBean</managed-bean-name>
         <managed-bean-class>Bean.carouselBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>lugarBean</managed-bean-name>
         <managed-bean-class>Bean.LugarBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <navigation-rule>
         <from-view-id>*</from-view-id>
@@ -191,7 +197,7 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>AdminPEdicionPerfil</from-outcome>
-            <to-view-id>/vistas/AdminP/general/EdicionPerfil.xhtml</to-view-id>
+            <to-view-id>/vistas/AdminP/general/EdicionPerfil.xhtml</to-view-id>            
             <redirect/>
         </navigation-case>
         
@@ -256,7 +262,7 @@
         <navigation-case>
             <from-outcome>AdminSEdicionPerfil</from-outcome>
             <to-view-id>/vistas/AdminS/general/EdicionPerfil.xhtml</to-view-id>
-            <redirect/>
+            <redirect/>            
         </navigation-case>
         <navigation-case>
             <from-outcome>AdminSServicios</from-outcome>
@@ -289,7 +295,7 @@
         <navigation-case>
             <from-outcome>CondEdicionPerfil</from-outcome>
             <to-view-id>/vistas/Conductor/EdicionPerfil.xhtml</to-view-id>
-            <redirect/>
+            <redirect/>            
         </navigation-case>
         
         <!-- CONDUCTOR -->
@@ -307,7 +313,7 @@
         <navigation-case>
             <from-outcome>ProveedorEdicionPerfil</from-outcome>
             <to-view-id>/vistas/Proveedor/EdicionPerfil.xhtml</to-view-id>
-            <redirect/>
+            <redirect/>            
         </navigation-case>     
         
         <!-- Proveedor -->
@@ -332,7 +338,7 @@
         <navigation-case>
             <from-outcome>ClienteEdicionPerfil</from-outcome>
             <to-view-id>/vistas/Cliente/EdicionPerfil.xhtml</to-view-id>
-            <redirect/>
+            <redirect/>           
         </navigation-case>
         <!-- CLIENTE -->
         
@@ -358,6 +364,16 @@
         <navigation-case>
             <from-outcome>AdminPLugares</from-outcome>
             <to-view-id>/vistas/AdminP/lugares/PLugares.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminSCostosServicio</from-outcome>
+            <to-view-id>/vistas/AdminS/servicios/SCostosServicios.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminSLugares</from-outcome>
+            <to-view-id>/vistas/AdminS/lugares/SLugares.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>

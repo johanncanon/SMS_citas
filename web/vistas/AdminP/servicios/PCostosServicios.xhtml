@@ -69,8 +69,8 @@
                                         <h4 class="box-title">Servicios SMS Renta</h4>
                                     </div>
                                     <div class="box-body">
-                                        <b:inputText placeholder="Buscar" value="#{serviciosBean.buscar}" style="width: 100%">
-                                            <p:ajax event="keyup" listener="#{serviciosBean.filtrar()}" process="@this"/>
+                                        <b:inputText placeholder="Buscar" value="#{costosServicioBean.buscar}" style="width: 100%">
+                                            <p:ajax event="keyup" listener="#{costosServicioBean.filtrar()}" process="@this" update="DTCostosServicios"/>
                                         </b:inputText>
                                         <p:dataTable id="DTCostosServicios" var="costos" value="#{costosServicioBean.costosListView}" 
                                                      rows="5"

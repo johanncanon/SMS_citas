@@ -6,8 +6,8 @@
         <Node id="vistas/AdminS/general/Est-dash.xhtml" x="650" y="600" zoom="true"/>
         <Node id="vistas/Cliente/temp-cliente.xhtml" x="1400" y="600" zoom="true"/>
         <Node id="vistas/AdminP/general/carousel-cars.xhtml" x="2150" y="150" zoom="true"/>
-        <Node id="vistas/AdminP/clientes/PClientes.xhtml" x="900" y="600" zoom="true"/>
         <Node id="vistas/AdminS/temp-admin2.xhtml" x="2650" y="150" zoom="true"/>
+        <Node id="vistas/AdminP/clientes/PClientes.xhtml" x="900" y="600" zoom="true"/>
         <Node id="vistas/Proveedor/general/men-respn-prov.xhtml" x="58" y="183" zoom="true"/>
         <Node id="vistas/AdminP/roles/PRol.xhtml" x="900" y="750" zoom="true"/>
         <Node id="vistas/AdminS/general/list-vehiculos-dis.xhtml" x="150" y="900" zoom="true"/>
@@ -17,8 +17,8 @@
         <Node id="vistas/AdminP/general/horarios.xhtml" x="150" y="600" zoom="true"/>
         <Node id="vistas/Proveedor/general/Est-dash.xhtml" x="150" y="300" zoom="true"/>
         <Node id="vistas/AdminP/ciudad/PCiudad.xhtml" x="150" y="1200" zoom="true"/>
-        <Node id="welcomePrimefaces.xhtml" x="1650" y="750" zoom="true"/>
         <Node id="vistas/AdminS/empleados/PEmpleado.xhtml" x="1650" y="450" zoom="true"/>
+        <Node id="welcomePrimefaces.xhtml" x="1650" y="750" zoom="true"/>
         <Node id="vistas/AdminS/general/Dashboard-Admin-Secundario.xhtml" x="1150" y="1050" zoom="true"/>
         <Node id="vistas/Proveedor/EdicionPerfil.xhtml" x="76" y="352" zoom="true"/>
         <Node id="vistas/AdminP/proveedores/PProveedores.xhtml" x="276" y="103" zoom="true"/>
@@ -33,14 +33,14 @@
         <Node id="vistas/AdminP/general/Est-dash.xhtml" x="1150" y="300" zoom="true"/>
         <Node id="vistas/AdminP/general/menu-responsive.xhtml" x="650" y="1050" zoom="true"/>
         <Node id="vistas/AdminS/vehiculos/PVehiculo.xhtml" x="2150" y="300" zoom="true"/>
-        <Node id="vistas/AdminP/general/paginator.xhtml" x="650" y="450" zoom="true"/>
         <Node id="vistas/AdminS/general/paginator.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="vistas/AdminP/general/paginator.xhtml" x="650" y="450" zoom="true"/>
         <Node id="vistas/AdminP/reservas/PReserva.xhtml" x="400" y="750" zoom="true"/>
         <Node id="vistas/Conductor/Dash-conductor.xhtml" x="400" y="900" zoom="true"/>
         <Node id="vistas/AdminP/categorias/PCategoria.xhtml" x="1150" y="900" zoom="true"/>
         <Node id="vistas/AdminP/pais/PPais.xhtml" x="983" y="163" zoom="true"/>
-        <Node id="vistas/AdminS/general/carousel-cars.xhtml" x="150" y="450" zoom="true"/>
         <Node id="vistas/AdminP/usuarios/PUsuario.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="vistas/AdminS/general/carousel-cars.xhtml" x="150" y="450" zoom="true"/>
         <Node id="vistas/AdminP/general/list-vehiculos-dis.xhtml" x="2400" y="300" zoom="true"/>
         <Node id="vistas/AdminS/general/clientes.xhtml" x="650" y="750" zoom="true"/>
         <Node id="vistas/AdminP/referencias/PReferencia.xhtml" x="2150" y="450" zoom="true"/>
@@ -55,8 +55,8 @@
         <Node id="vistas/AdminP/vehiculos/PVehiculo.xhtml" x="900" y="900" zoom="true"/>
         <Node id="vistas/Cliente/dash-prueba-cliente.xhtml" x="707" y="102" zoom="true"/>
         <Node id="vistas/AdminP/marcas/PMarca.xhtml" x="1650" y="150" zoom="true"/>
-        <Node id="vistas/AdminS/general/horarios.xhtml" x="150" y="1050" zoom="true"/>
         <Node id="vistas/AdminS/general/men-respn-2.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="vistas/AdminS/general/horarios.xhtml" x="150" y="1050" zoom="true"/>
         <Node id="index.xhtml" x="1400" y="300" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
