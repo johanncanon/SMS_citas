@@ -30,6 +30,12 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.event.FlowEvent;
 
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+
+import org.primefaces.model.ScheduleEvent;
+import org.primefaces.model.ScheduleModel;
+
 public class AgendaBean {
 
     //Objetos necesarios en vista
@@ -73,6 +79,11 @@ public class AgendaBean {
     //variables para vista de reservacion    
     private List<SmsAgenda> vistasReserva;
 
+    //VARIABLES PARA CREAR EL SCHEDULE DE PRIMEFACES
+    private ScheduleModel eventoModelo;
+    private ScheduleEvent evento;
+    private List<ScheduleEvent> eventosLista;
+
     public AgendaBean() {
 
         agendaView = new SmsAgenda();
@@ -104,6 +115,11 @@ public class AgendaBean {
 
         //VARIABLES PARA MOSTRAR RESERVACION DE LA AGENDA       
         vistasReserva = new ArrayList<>();
+
+        //VARIABLES PARA CREAR EL SCHEDULE DE PRIMEFACES
+        eventoModelo = new DefaultScheduleModel();
+        evento = new DefaultScheduleEvent();
+
     }
 
     @PostConstruct
@@ -113,6 +129,10 @@ public class AgendaBean {
         sesion = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
 
         reservacionClienteAgenda();
+
+        /**
+         * ********************************************************************
+         */
     }
 
     public SmsAgenda getAgendaView() {
@@ -299,21 +319,7 @@ public class AgendaBean {
         this.vistasReserva = vistasReserva;
     }
 
-    public String getHoraInicio() {
-        return HoraInicio;
-    }
-
-    public void setHoraInicio(String HoraInicio) {
-        this.HoraInicio = HoraInicio;
-    }
-
-    public String getHoraEntrega() {
-        return HoraEntrega;
-    }
-
-    public void setHoraEntrega(String HoraEntrega) {
-        this.HoraEntrega = HoraEntrega;
-    }
+    
 
     //Metodos    
     //CRUD
@@ -477,6 +483,70 @@ public class AgendaBean {
         vistasReserva = new ArrayList<>();
         vistasReserva = agendaController.mostrarDatosReservacion(sesion);
 
+    }
+
+    //CREACION DEL CALENDARIO PRIMEFACAES TIPO SCHEDULE ************************
+    public String getHoraInicio() {
+        return HoraInicio;
+    }
+
+    public void setHoraInicio(String HoraInicio) {
+        this.HoraInicio = HoraInicio;
+    }
+
+    public String getHoraEntrega() {
+        return HoraEntrega;
+    }
+
+    public void setHoraEntrega(String HoraEntrega) {
+        this.HoraEntrega = HoraEntrega;
+    }
+    
+    
+    public ScheduleModel getEventoModelo() {
+        return eventoModelo;
+    }
+
+    public void setEventoModelo(ScheduleModel eventoModelo) {
+        this.eventoModelo = eventoModelo;
+    }
+
+    public ScheduleEvent getEvento() {
+
+        return evento;
+    }
+
+    public void setEvento(ScheduleEvent evento) {
+        this.evento = evento;
+    }
+
+    public List<ScheduleEvent> getEventosLista() {
+        return eventosLista;
+    }
+
+    public void setEventosLista(List<ScheduleEvent> eventosLista) {
+        this.eventosLista = eventosLista;
+    }
+    
+    
+
+    public void addEventoCalendario() {
+        //instanciar objeto de tipo controlador para sacar el metodo que arroja 
+        //los datos de tipo DATE
+        eventoModelo = new DefaultScheduleModel();
+        eventosLista = new ArrayList<>();
+        
+        eventosLista. = agendaController.mostrarFechasInicio(sesion);
+
+        eventoModelo.addEvent(new DefaultScheduleModel);
+        /*for (int i = 0; i <= agendaController.mostrarFechasInicio(sesion).size(); i++) {
+
+            evento = (ScheduleEvent) agendaController.mostrarFechasInicio(sesion).get(i);
+
+        }
+
+        eventoModelo.addEvent(new DefaultScheduleEvent(sesion.getUsuarioNombre(), evento.getStartDate(), evento.getEndDate()));
+        */
     }
 
 }

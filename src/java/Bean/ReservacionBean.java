@@ -11,9 +11,12 @@ import Modelo.SmsUsuario;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+
+import org.primefaces.model.ScheduleEvent;
+import org.primefaces.model.ScheduleModel;
+
 
 /**
  *
@@ -28,18 +31,22 @@ public class ReservacionBean {
     private List<SmsReservacion> reservaciones;
     private List<SmsReservacion> vistasReserva;
     
-    //SESSION
-     //Sesion  
-    private HttpServletRequest httpServletRequest;
-    private FacesContext faceContext;
+    //CALENDARIO
+    
+    private ScheduleModel eventoModelo;
+    private ScheduleEvent evento;
+    
 
 
     public ReservacionBean() {
-        reservacion = new SmsReservacion();
+        /*reservacion = new SmsReservacion();
         reservaControler = new Reservacion();
         userView = new SmsUsuario();
         string = new String();
-        vistasReserva = new ArrayList<>();
+        vistasReserva = new ArrayList<>();*/
+        
+        evento = new DefaultScheduleEvent();
+        eventoModelo = new DefaultScheduleModel();
 
     }
     
@@ -93,7 +100,34 @@ public class ReservacionBean {
     }
 
     
+    // METODOS DE CALENDARIO
 
+    public ScheduleModel getEventoModelo() {
+        return eventoModelo;
+    }
+
+    public void setEventoModelo(ScheduleModel eventoModelo) {
+        this.eventoModelo = eventoModelo;
+    }
+
+    public ScheduleEvent getEvento() {
+        return evento;
+    }
+
+    public void setEvento(ScheduleEvent evento) {
+        this.evento = evento;
+    }
+    
+    //METODO PARA SACAR EL CALENDARIO
+    
+    public void CalendarioReservas(){
+        
+        
+        
+        eventoModelo.addEvent(evento);
+        
+        
+    }
     
 
 }

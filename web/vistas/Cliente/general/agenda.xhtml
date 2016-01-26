@@ -14,12 +14,8 @@
 
             <h:panelGrid columnClasses="value">
                 
-                <p:schedule id="schedule"  widgetVar="myschedule" timeZone="GMT+2">
-                    <p:ajax event="dateSelect"  update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                    <p:ajax event="eventSelect"  update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                    <p:ajax event="eventMove"  update="messages" />
-                    <p:ajax event="eventResize"  update="messages" />
-
+                <p:schedule id="schedule" value="#{agendaBean.addEventoCalendario()}" widgetVar="miCalendario" timeZone="GMT+2">
+                    
                 </p:schedule>
             </h:panelGrid>
 

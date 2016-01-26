@@ -34,9 +34,6 @@
                     <p:outputLabel for="to" value="Hasta:" />
                     <p:calendar id="to"  timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
 
-                    <p:outputLabel for="allDay" value="Todo el día:" />
-                    <h:selectBooleanCheckbox id="allDay" />
-
                     <b:commandButton look="danger" style="width: 100%" type="reset" value="Restaurar" />
                     <b:commandButton look="primary" style="width: 50%" id="addButton" value="Guardar"  oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
                 </h:panelGrid>
