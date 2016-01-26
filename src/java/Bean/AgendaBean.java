@@ -22,6 +22,7 @@ import Modelo.SmsReservacion;
 import Modelo.SmsServicios;
 import Modelo.SmsUsuario;
 import Modelo.SmsVehiculo;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -131,10 +132,6 @@ public class AgendaBean {
 
         reservacionClienteAgenda();
         addEventoCalendario();
-
-        /**
-         * ********************************************************************
-         */
     }
 
     public SmsAgenda getAgendaView() {
@@ -401,8 +398,7 @@ public class AgendaBean {
                     break;
                 case "Confirmacion":
 
-                    if (sesion.getSmsRol().getRolNombre().equalsIgnoreCase("Cliente"));
-                     {//si el usuario logueado es de tipo cliente asignanos su informacion al objeto cliente
+                    if (sesion.getSmsRol().getRolNombre().equalsIgnoreCase("Cliente")) {//si el usuario logueado es de tipo cliente asignanos su informacion al objeto cliente
                         clienteView = sesion;
                     }
 
@@ -519,13 +515,40 @@ public class AgendaBean {
     public void addEventoCalendario() {
         //instanciar objeto de tipo controlador para sacar el metodo que arroja 
         //los datos de tipo DATE
+
+        Date fechaInicio = new Date();
+        Date fechaLlegada = new Date();
+
+        SimpleDateFormat formatDate;
+        SimpleDateFormat formatTime;
+        SimpleDateFormat formatCompleteDate;
+        formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        formatTime = new SimpleDateFormat("HH:mm:ss");
+        formatCompleteDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         eventoModelo = new DefaultScheduleModel();
         for (int i = 0; i < vistasReserva.size(); i++) {
-            eventoModelo.addEvent(new DefaultScheduleEvent("Reservacion" + i, vistasReserva.get(i).getAgendaFechaInicio(), vistasReserva.get(i).getAgendaFechaLlegada()));
 
+            String FechaInicio = formatDate.format(vistasReserva.get(i).getAgendaFechaInicio());
+            String FechaLlegada = formatDate.format(vistasReserva.get(i).getAgendaFechaLlegada());
+            String HInicio = formatTime.format(vistasReserva.get(i).getAgendaHoraInicio());
+            String HLlegada = formatTime.format(vistasReserva.get(i).getAgendaHoraLlegada());
+
+            try {
+                fechaInicio = formatCompleteDate.parse(FechaInicio + " " + HInicio);                
+                fechaLlegada = formatCompleteDate.parse(FechaLlegada + " " + HLlegada);
+            } catch (ParseException pe) {
+                pe.getMessage();
+            }
+            
+            eventoModelo.addEvent(new DefaultScheduleEvent("Reservacion", fechaInicio, fechaLlegada));
         }
     }
-    
+
+    public void onEventSelect(SelectEvent selectEvent) {
+        evento = (ScheduleEvent) selectEvent.getObject();
+    }
+
     public void onDateSelect(SelectEvent selectEvent) {
         evento = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }

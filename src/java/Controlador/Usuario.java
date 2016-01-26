@@ -228,7 +228,7 @@ public class Usuario {
                         ruta = "AdminSGeneral";
                         break;
                     case "Cliente":
-                        ruta = "ClienteReservacion";
+                        ruta = "ClienteDash";
                         break;
                     case "Empleado":
                         ruta = "ConductorDash";

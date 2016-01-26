@@ -31,13 +31,11 @@ public class Agenda {
 
     //VARIABLES PARA MOSTRAR FECHAS DE RESERVACION
     private List<Date> listaFechas_Horas;
-    
+
     private List<Date> listaFechasInicio;
     private List<Date> listaFechasLlegada;
     private List<Date> listaHorasInicio;
     private List<Date> listaHorasLlegada;
-    
-    
 
     public Agenda() {
         usuarioID = new SmsUsuario();
@@ -145,12 +143,9 @@ public class Agenda {
         this.vistaReserva = vistaReserva;
     }
 
-    
-
     /**
      * *********************************************************************
      */
-    
     public List<Date> getListaFechasInicio() {
         return listaFechasInicio;
     }
@@ -182,8 +177,7 @@ public class Agenda {
     public void setListaHorasLlegada(List<Date> listaHorasLlegada) {
         this.listaHorasLlegada = listaHorasLlegada;
     }
-    
-    
+
     public List<Date> getListaFechas_Horas() {
         return listaFechas_Horas;
     }
@@ -205,29 +199,8 @@ public class Agenda {
     //METODO PARA MOSTRAR UNICAMENTE LAS FECHAS DE LAS RESERVACIONES
     public List<Date> mostrarFechasInicio(SmsUsuario u) {
 
-     usuarioID = u;
-     listaFechas_Horas = new ArrayList<>();
-        
-     IAgendaDao linkDao = new ImpAgendaDao();
-
-     for (SmsAgenda var_Date : linkDao.mostrarReservacionHecha(usuarioID)) {
-
-     if (var_Date.getAgendaFechaInicio() != null) {
-
-     listaFechas_Horas.add(var_Date.getAgendaFechaInicio());
-     } else if (var_Date.getAgendaFechaLlegada() != null) {
-     listaFechas_Horas.add(var_Date.getAgendaFechaLlegada());
-     } else if (var_Date.getAgendaHoraInicio() != null) {
-     listaFechas_Horas.add(var_Date.getAgendaHoraInicio());
-     } else if (var_Date.getAgendaHoraLlegada() != null) {
-     listaFechas_Horas.add(var_Date.getAgendaHoraLlegada());
-     }
-
-     }
-     return listaFechas_Horas;
-     }
-    /*//METODO PARA MOSTRAR UNICAMENTE LAS FECHAS DE INICIO DE LAS RESERVACIONES
-    public List<Date> mostrarFechasInicio() {
+        usuarioID = u;
+        listaFechas_Horas = new ArrayList<>();
 
         IAgendaDao linkDao = new ImpAgendaDao();
 
@@ -235,55 +208,78 @@ public class Agenda {
 
             if (var_Date.getAgendaFechaInicio() != null) {
 
-                listaFechasInicio.add(var_Date.getAgendaFechaInicio());
+                listaFechas_Horas.add(var_Date.getAgendaFechaInicio());
+            } else if (var_Date.getAgendaFechaLlegada() != null) {
+                listaFechas_Horas.add(var_Date.getAgendaFechaLlegada());
+            } else if (var_Date.getAgendaHoraInicio() != null) {
+                listaFechas_Horas.add(var_Date.getAgendaHoraInicio());
+            } else if (var_Date.getAgendaHoraLlegada() != null) {
+                listaFechas_Horas.add(var_Date.getAgendaHoraLlegada());
             }
+
         }
-
-        return listaFechasInicio;
+        return listaFechas_Horas;
     }
+    
+    
+    /*//METODO PARA MOSTRAR UNICAMENTE LAS FECHAS DE INICIO DE LAS RESERVACIONES
+     public List<Date> mostrarFechasInicio() {
 
-    //METODO PARA MOSTRAR UNICAMENTE LAS FECHAS DE LLEGADAS DE LAS RESERVACIONES
-    public List<Date> mostrarFechasLlegada() {
+     IAgendaDao linkDao = new ImpAgendaDao();
 
-        IAgendaDao linkDao = new ImpAgendaDao();
+     for (SmsAgenda var_Date : linkDao.mostrarReservacionHecha(usuarioID)) {
 
-        for (SmsAgenda var_Date : linkDao.mostrarReservacionHecha(usuarioID)) {
+     if (var_Date.getAgendaFechaInicio() != null) {
 
-            if (var_Date.getAgendaFechaLlegada() != null) {
+     listaFechasInicio.add(var_Date.getAgendaFechaInicio());
+     }
+     }
 
-                listaFechasLlegada.add(var_Date.getAgendaFechaLlegada());
-            }
-        }
-        return listaFechasLlegada;
-    }
+     return listaFechasInicio;
+     }
 
-    //METODO PARA MOSTRAR UNICAMENTE LAS HORAS DE INICIO DE LAS RESERVACIONES
-    public List<Date> mostrarHorasInicio() {
+     //METODO PARA MOSTRAR UNICAMENTE LAS FECHAS DE LLEGADAS DE LAS RESERVACIONES
+     public List<Date> mostrarFechasLlegada() {
 
-        IAgendaDao linkDao = new ImpAgendaDao();
+     IAgendaDao linkDao = new ImpAgendaDao();
 
-        for (SmsAgenda var_Date : linkDao.mostrarReservacionHecha(usuarioID)) {
+     for (SmsAgenda var_Date : linkDao.mostrarReservacionHecha(usuarioID)) {
 
-            if (var_Date.getAgendaHoraInicio() != null) {
-                listaHorasInicio.add(var_Date.getAgendaHoraInicio());
-            }
-        }
-        return listaHorasInicio;
-    }
+     if (var_Date.getAgendaFechaLlegada() != null) {
 
-    //METODO PARA MOSTRAR UNICAMENTE LAS FECHAS DE INICIO DE LAS RESERVACIONES
-    public List<Date> mostrarHoraLlegada() {
+     listaFechasLlegada.add(var_Date.getAgendaFechaLlegada());
+     }
+     }
+     return listaFechasLlegada;
+     }
 
-        IAgendaDao linkDao = new ImpAgendaDao();
+     //METODO PARA MOSTRAR UNICAMENTE LAS HORAS DE INICIO DE LAS RESERVACIONES
+     public List<Date> mostrarHorasInicio() {
 
-        for (SmsAgenda var_Date : linkDao.mostrarReservacionHecha(usuarioID)) {
+     IAgendaDao linkDao = new ImpAgendaDao();
 
-            if (var_Date.getAgendaHoraLlegada() != null) {
-                listaHorasLlegada.add(var_Date.getAgendaHoraLlegada());
-            }
-        }
-        return listaHorasLlegada;
-    }
-    */
+     for (SmsAgenda var_Date : linkDao.mostrarReservacionHecha(usuarioID)) {
+
+     if (var_Date.getAgendaHoraInicio() != null) {
+     listaHorasInicio.add(var_Date.getAgendaHoraInicio());
+     }
+     }
+     return listaHorasInicio;
+     }
+
+     //METODO PARA MOSTRAR UNICAMENTE LAS FECHAS DE INICIO DE LAS RESERVACIONES
+     public List<Date> mostrarHoraLlegada() {
+
+     IAgendaDao linkDao = new ImpAgendaDao();
+
+     for (SmsAgenda var_Date : linkDao.mostrarReservacionHecha(usuarioID)) {
+
+     if (var_Date.getAgendaHoraLlegada() != null) {
+     listaHorasLlegada.add(var_Date.getAgendaHoraLlegada());
+     }
+     }
+     return listaHorasLlegada;
+     }
+     */
 
 }

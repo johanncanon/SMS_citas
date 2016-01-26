@@ -194,8 +194,8 @@ public class PathBean {
         return "ClienteReservacion";
     }
     
-    public String ir_ClienteTableroPrincipal(){
-        return "ClienteTableroPrincipal";
+    public String ir_ClienteDash(){
+        return "ClienteDash";
     }
     
     public String ir_ClienteEdicionPerfil(){
