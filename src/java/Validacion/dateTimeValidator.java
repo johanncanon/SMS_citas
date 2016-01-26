@@ -72,7 +72,7 @@ public class dateTimeValidator implements Validator {
         long milis1;
         long milis2;
 
-        Calendar calHoraInicio = Calendar.getInstance();
+        Calendar calHoraInicio = Calendar.getInstance();        
         calHoraInicio.setTime(hInicio);
         Calendar calHoraEntrega = Calendar.getInstance();
         calHoraEntrega.setTime(hEntrega);
