@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <ui:composition template="./../temp-cliente.xhtml">
+
+        <ui:define name="content2">
+
+            <b:container fluid="true">
+                <b:row>
+                    <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                        <!-- Content Header (Page header) -->
+
+
+                        <div class="pad margin no-print">
+                            <div class="callout callout-info" style="margin-bottom: 0!important;">
+                                <h4><i class="fa fa-info"></i> Banner de Validacion de la Reserva!</h4>
+                                Su reserva ha sido exitosa, porfavor verifique los datos ingresados en la reservación
+                                antes de realizar el pago del servicio.
+                            </div>
+                        </div>
+
+                        <!-- Main content -->
+                        <section class="invoice">
+                            <!-- title row -->
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <img class="img-bordered" src="../../../../resources/images/logo-DASH.png" style="" />  
+                                    <h2 class="page-header">
+                                        Datos de la Reservación 
+                                        <small class="pull-right">Fecha: 2/10/2016</small>
+                                    </h2>
+                                </div><!-- /.col -->
+                            </div>
+                            <!-- info row -->
+                            <div class="row invoice-info">
+                                <div class="col-sm-4 invoice-col">
+                                    De:
+                                    <address>
+                                        <strong>SMS Renta.</strong><br></br>
+                                        Calle 4D # 55-10 Piso 3<br></br>
+                                        Bogotá, Colombia Cp: 111611<br></br>
+                                        Tel{efono:  (57 +1) 406 55 20<br></br>
+                                        Email: edwinrobles <strong>@smsrenta.com</strong>
+                                    </address>
+                                </div><!-- /.col -->
+                                <div class="col-sm-4 invoice-col">
+                                    Para:
+                                    <address>
+                                        <strong>#{usuarioBean.usuario.usuarioNombre}</strong><br></br>
+                                        Cc: #{usuarioBean.usuario.usuarioCc}<br></br>
+                                        Razon Social: #{usuarioBean.usuario.usuarioRazonSocial}<br></br>
+                                        Teléfono: #{usuarioBean.usuario.usuarioTelefono}<br></br>
+                                        Email: #{usuarioBean.usuario.usuarioEmail}
+                                    </address>
+                                </div><!-- /.col -->
+                                
+                                <div class="col-sm-4 invoice-col">
+                                    <h3>Conductor elegido para Servicio</h3>
+                                    <address>
+                                        <strong>#{agendaBean.agendaView.smsEmpleado.smsUsuario.usuarioNombre}</strong><br></br>
+                                        Cc: #{usuarioBean.usuario.usuarioCc}<br></br>
+                                        Razon Social: #{usuarioBean.usuario.usuarioRazonSocial}<br></br>
+                                        Teléfono: #{usuarioBean.usuario.usuarioTelefono}<br></br>
+                                        Email: #{usuarioBean.usuario.usuarioEmail}
+                                    </address>
+                                </div><!-- /.col -->
+
+                            </div>
+
+                            <!-- Table row -->
+                            <div class="row">
+                                <div class="col-xs-12 table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Qty</th>
+                                                <th>Product</th>
+                                                <th>Serial #</th>
+                                                <th>Description</th>
+                                                <th>Subtotal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Call of Duty</td>
+                                                <td>455-981-221</td>
+                                                <td>El snort testosterone trophy driving gloves handsome</td>
+                                                <td>$64.50</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Need for Speed IV</td>
+                                                <td>247-925-726</td>
+                                                <td>Wes Anderson umami biodiesel</td>
+                                                <td>$50.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Monsters DVD</td>
+                                                <td>735-845-642</td>
+                                                <td>Terry Richardson helvetica tousled street art master</td>
+                                                <td>$10.70</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Grown Ups Blue Ray</td>
+                                                <td>422-568-642</td>
+                                                <td>Tousled lomo letterpress</td>
+                                                <td>$25.99</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div><!-- /.col -->
+                            </div><!-- /.row -->
+
+                            <div class="row">
+                                <!-- accepted payments column -->
+                                <div class="col-xs-6">
+                                    <p class="lead">Payment Methods:</p>
+                                    <img src="../../dist/img/credit/visa.png" alt="Visa"></img>
+                                    <img src="../../dist/img/credit/mastercard.png" alt="Mastercard"></img>
+                                    <img src="../../dist/img/credit/american-express.png" alt="American Express"></img>
+                                    <img src="../../dist/img/credit/paypal2.png" alt="Paypal"></img>
+                                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+                                    </p>
+                                </div><!-- /.col -->
+                                <div class="col-xs-6">
+                                    <p class="lead">Amount Due 2/22/2014</p>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tr>
+                                                <th style="width:50%">Subtotal:</th>
+                                                <td>$250.30</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Tax (9.3%)</th>
+                                                <td>$10.34</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Shipping:</th>
+                                                <td>$5.80</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Total:</th>
+                                                <td>$265.24</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div><!-- /.col -->
+                            </div><!-- /.row -->
+
+                            <!-- this row will not appear when printing -->
+                            <div class="row no-print">
+                                <div class="col-xs-12">
+                                    <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+                                    <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
+                                    <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+                                </div>
+                            </div>
+                        </section><!-- /.content -->
+
+
+
+
+                    </b:column>
+                </b:row>
+            </b:container>
+
+
+        </ui:define>
+
+    </ui:composition>
+</html>

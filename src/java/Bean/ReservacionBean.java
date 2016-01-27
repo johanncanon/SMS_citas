@@ -118,16 +118,7 @@ public class ReservacionBean {
         this.evento = evento;
     }
     
-    //METODO PARA SACAR EL CALENDARIO
     
-    public void CalendarioReservas(){
-        
-        
-        
-        eventoModelo.addEvent(evento);
-        
-        
-    }
     
 
 }
