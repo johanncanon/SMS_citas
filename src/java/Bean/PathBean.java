@@ -203,6 +203,12 @@ public class PathBean {
     }
     /* / CLIENTE/ */
     
+    public String ir_Registrarse(){
+        return "Register";
+    }
     
+     public String ir_Login(){
+        return "Login";
+    }
     
 }

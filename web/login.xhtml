@@ -48,92 +48,22 @@
                                     </div>
                                     <div class="box-body">
 
-                                        <b:tabView activeIndex="0">
-                                            <b:tab title="Login SMS Rentas">
-                                                <f:facet name="anchor"><b:iconAwesome name="user" size="1x"  /></f:facet>
-                                                <!-- <form accept-charset="UTF-8" role="form">-->
-                                                <fieldset>
-                                                    <p:fragment autoUpdate="true">
-                                                        <p:growl id="messages" life="2000"/>
-                                                        <div class="form-group centro">
-                                                            <img src="resources/images/logo.jpg" class="cntr-1 img-thumbnail "/>
-                                                            <b:inputText placeholder="Ingrese su nombre de usuario" required="true" requiredMessage="Por favor, ingrese nombre de sesion" value="#{usuarioBean.usuario.usuarioLogin}" style="width: 100%; margin-bottom: 12px"/>
-                                                            <b:inputSecret  placeholder="Ingrese su contraseña" required="true" requiredMessage="Por favor, ingrese contraseña" value="#{usuarioBean.usuario.usuarioPassword}" style="width: 100% ; height: 36px; border-radius: 5px;"/>
-                                                        </div>                                                                                      
-                                                        <p:commandButton class="btn btn-lg btn-block btn-danger" 
-                                                                         action="#{usuarioBean.login()}" value="Ingrese Aquí"/>
-                                                    </p:fragment>
-                                                </fieldset>
-                                                <!--</form>-->
-                                            </b:tab>
-                                            <b:tab title="Registro SMS Rentas">
-                                                <f:facet name="anchor"><b:iconAwesome name="user-plus" size="1x"  /></f:facet>
-                                                <!-- <form accept-charset="UTF-8" role="form">-->
-
-                                                <fieldset>
-                                                    <p:fragment autoUpdate="true">
-                                                        <p:growl id="messages-2" life="2000"/>                                                                                                            
-
-                                                        <div class="box-header with-border">
-                                                            <i class="fa fa-2x fa-th-list"/>
-                                                            <h4 class="box-title">Datos del Cliente</h4>
-                                                        </div>       
-                                                        <div class="box-body">
-                                                            <div class="table-responsive">
-                                                                <h:panelGrid id="seccionDatosUsuario" cellpadding="5" columns="2" style="width: 100%;">
-                                                                   
-                                                                    <b:inputText maxlength="60" id="TNombreApCli" required="true" requiredMessage="Ingrese nombre y apellido" placeholder="Nombres y apellidos" value="#{clienteBean.clienteView.usuarioNombre}" style="width: 100%;"></b:inputText>                       
-                                                                    <p:message for="TNombreApCli"/>
-
-                                                                    
-                                                                    <b:inputText maxlength="100" validator="emailValidator" id="TEmailCli" required="true" requiredMessage="Ingrese Email valido" placeholder="Direccion de correo electronico" value="#{clienteBean.clienteView.usuarioEmail}" style="width: 100%"/>
-                                                                    <p:message for="TEmailCli"/>
-
-                                                                    
-                                                                    <b:selectOneMenu required="true" requiredMessage="Seleccione ciudad" id="SCiudades" value="#{clienteBean.ciudadView.ciudadNombre}" style="width: 100%">
-                                                                        <f:selectItem itemLabel="Seleccione ciudad"/>
-                                                                        <f:selectItems value="#{ciudadBean.nombresCiudadesListView}"/>
-                                                                    </b:selectOneMenu>
-                                                                    <p:message for="SCiudades"/>
-                                                                </h:panelGrid>
-                                                            </div>
-                                                        </div>
-                                                        <div class="box-header with-border">
-                                                            <i class="fa fa-2x fa-check-square"/>
-                                                            <h4 class="box-title">Datos de Sesión</h4>
-                                                        </div>
-                                                        <div class="box-body">                                  
-                                                            <div class="table-responsive">
-                                                                <h:panelGrid cellpadding="5" columns="2" id="seccionDatosSesion" style="width: 100%">
-
-                                                                    
-                                                                    <b:inputText id="TLoginCli" maxlength="60" validator="regLoginValidator" style="width: 100%" value="#{clienteBean.clienteView.usuarioLogin}" placeholder="Login de sesion"/>
-                                                                    <p:message for="TLoginCli"/>
-
-                                                                   
-                                                                    <b:inputSecret label="Contraseña" id="TPassCli" binding="#{pass}"  maxlength="20" style="width: 100%" value="#{clienteBean.clienteView.usuarioPassword}" placeholder="Contraseña de sesion">
-                                                                        <f:validateLength minimum="6"/>
-                                                                    </b:inputSecret>
-                                                                    <p:message for="TPassCli"/>
-
-                                                                   
-                                                                    <b:inputSecret label="Repita contraseña" id="TRemPassCli" maxlength="20" style="width: 100%" value="#{clienteBean.clienteView.usuarioRememberToken}" placeholder="Repita contraseña de sesion">
-                                                                        <f:validator validatorId="repeatPasswordValidator" />
-                                                                        <f:attribute name="password" value="#{pass.value}"/>
-                                                                        <f:validateLength minimum="6" />
-                                                                    </b:inputSecret> 
-                                                                    <p:message id="msgPass" for="TRemPassCli"/>
-
-                                                                </h:panelGrid>
-                                                            </div><hr/>
-                                                            <p:commandButton id="BTCliente" class="btn btn-lg btn-block btn-success" ajax="true" update="BTCliente seccionDatosUsuario seccionDatosSesion" action="#{clienteBean.registrar()}" value="Registrar" />
-                                                        </div>                                                         
-                                                    </p:fragment>
-                                                </fieldset>
-                                                <!--</form>-->
-                                            </b:tab>
-                                        </b:tabView>  
-
+                                        <f:facet name="anchor"><b:iconAwesome name="user" size="1x"  /></f:facet>
+                                        <!-- <form accept-charset="UTF-8" role="form">-->
+                                        <fieldset>
+                                            <p:fragment autoUpdate="true">
+                                                <p:growl id="messages" life="2000"/>
+                                                <div class="form-group centro">
+                                                    <img src="resources/images/logo.jpg" class="cntr-1 img-thumbnail "/>
+                                                    <b:inputText placeholder="Ingrese su nombre de usuario" required="true" requiredMessage="Por favor, ingrese nombre de sesion" value="#{usuarioBean.usuario.usuarioLogin}" style="width: 100%; margin-bottom: 12px"/>
+                                                    <b:inputSecret  placeholder="Ingrese su contraseña" required="true" requiredMessage="Por favor, ingrese contraseña" value="#{usuarioBean.usuario.usuarioPassword}" style="width: 100% ; height: 36px; border-radius: 5px;"/>
+                                                </div>
+                                                <p:commandLink process="@this" immediate="true" action="#{pathBean.ir_Registrarse()}" value="Registrarse?"/>
+                                                <p:commandButton class="btn btn-lg btn-block btn-danger" 
+                                                                 action="#{usuarioBean.login()}" value="Ingrese Aquí"/>
+                                            </p:fragment>
+                                        </fieldset>
+                                        <!--</form>-->
                                     </div>
                                 </div>
 
