@@ -187,12 +187,28 @@ public class Agenda {
     }
 
     //METODO PARA MOSTRAR DATOS DE RESERVACION
-    public List<SmsAgenda> mostrarDatosReservacion(SmsUsuario u) {
+    public List<SmsAgenda> mostrarDatosReservacionCliente(SmsUsuario u) {
         usuarioID = u;
         vistaReserva = new ArrayList<>();
         IAgendaDao linkDao = new ImpAgendaDao();
-        vistaReserva = linkDao.mostrarReservacionHecha(usuarioID);
+        vistaReserva = linkDao.mostrarAgendaReservacionCliente(usuarioID);
 
+        return vistaReserva;
+    }
+    
+    public List<SmsAgenda> mostrarDatosReservacionConductor(SmsEmpleado e) {
+        SmsEmpleado empleado = e;
+        vistaReserva = new ArrayList<>();
+        IAgendaDao linkDao = new ImpAgendaDao();
+        vistaReserva = linkDao.mostrarAgendaReservacionConductores(empleado);
+
+        return vistaReserva;
+    }
+    
+    public List<SmsAgenda> mostrarAgendas(){
+        vistaReserva = new ArrayList<>();
+        IAgendaDao linkDao = new ImpAgendaDao();
+        vistaReserva = linkDao.mostrarAgenda();
         return vistaReserva;
     }
 
@@ -204,7 +220,7 @@ public class Agenda {
 
         IAgendaDao linkDao = new ImpAgendaDao();
 
-        for (SmsAgenda var_Date : linkDao.mostrarReservacionHecha(usuarioID)) {
+        for (SmsAgenda var_Date : linkDao.mostrarAgendaReservacionCliente(usuarioID)) {
 
             if (var_Date.getAgendaFechaInicio() != null) {
 

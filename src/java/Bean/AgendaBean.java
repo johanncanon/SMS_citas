@@ -318,6 +318,40 @@ public class AgendaBean {
         this.vistasReserva = vistasReserva;
     }
 
+    public String getHoraInicio() {
+        return HoraInicio;
+    }
+
+    public void setHoraInicio(String HoraInicio) {
+        this.HoraInicio = HoraInicio;
+    }
+
+    public String getHoraEntrega() {
+        return HoraEntrega;
+    }
+
+    public void setHoraEntrega(String HoraEntrega) {
+        this.HoraEntrega = HoraEntrega;
+    }
+
+    public ScheduleModel getEventoModelo() {
+        return eventoModelo;
+    }
+
+    public void setEventoModelo(ScheduleModel eventoModelo) {
+        this.eventoModelo = eventoModelo;
+    }
+
+    
+
+    public ScheduleEvent getEvento() {
+        return evento;
+    }
+
+    public void setEvento(ScheduleEvent evento) {
+        this.evento = evento;
+    }
+
     //Metodos    
     //CRUD
     public String registrarAgenda() {
@@ -474,44 +508,29 @@ public class AgendaBean {
     }
 
     // CONTROLADOR PARA SACAR DATOS DE RESERVACION 
-    public void reservacionClienteAgenda() {
+    public void reservacionClienteAgenda() { //carga la agendas de las reservaciones hechan en el sistema segun el tipo de usuario conectado
+
         vistasReserva = new ArrayList<>();
-        vistasReserva = agendaController.mostrarDatosReservacion(sesion);
+
+        switch (sesion.getSmsRol().getRolNombre()) {
+
+            case "Administrador Principal":
+                vistasReserva = agendaController.mostrarAgendas();
+                break;
+            case "Cliente":
+                vistasReserva = agendaController.mostrarDatosReservacionCliente(sesion);
+                break;
+            case "Empleado":
+                empleadoView = empleadoController.consultarEmpleado(sesion).get(0);//Consultamos la informacion de usuario correspondiente al conductor
+                vistasReserva = agendaController.mostrarDatosReservacionConductor(empleadoView);
+                break;
+
+        }
+
+        
     }
 
-    //CREACION DEL CALENDARIO PRIMEFACAES TIPO SCHEDULE ************************
-    public String getHoraInicio() {
-        return HoraInicio;
-    }
-
-    public void setHoraInicio(String HoraInicio) {
-        this.HoraInicio = HoraInicio;
-    }
-
-    public String getHoraEntrega() {
-        return HoraEntrega;
-    }
-
-    public void setHoraEntrega(String HoraEntrega) {
-        this.HoraEntrega = HoraEntrega;
-    }
-
-    public ScheduleModel getEventoModelo() {
-        return eventoModelo;
-    }
-
-    public void setEventoModelo(ScheduleModel eventoModelo) {
-        this.eventoModelo = eventoModelo;
-    }
-
-    public ScheduleEvent getEvento() {
-        return evento;
-    }
-
-    public void setEvento(ScheduleEvent evento) {
-        this.evento = evento;
-    }
-
+//CREACION DEL CALENDARIO PRIMEFACAES TIPO SCHEDULE ************************
     public void addEventoCalendario() {
         //instanciar objeto de tipo controlador para sacar el metodo que arroja 
         //los datos de tipo DATE
@@ -535,12 +554,12 @@ public class AgendaBean {
             String HLlegada = formatTime.format(vistasReserva.get(i).getAgendaHoraLlegada());
 
             try {
-                fechaInicio = formatCompleteDate.parse(FechaInicio + " " + HInicio);                
+                fechaInicio = formatCompleteDate.parse(FechaInicio + " " + HInicio);
                 fechaLlegada = formatCompleteDate.parse(FechaLlegada + " " + HLlegada);
             } catch (ParseException pe) {
                 pe.getMessage();
             }
-            
+
             eventoModelo.addEvent(new DefaultScheduleEvent("Reservacion", fechaInicio, fechaLlegada));
         }
     }

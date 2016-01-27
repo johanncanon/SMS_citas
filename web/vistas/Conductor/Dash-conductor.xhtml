@@ -4,7 +4,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
 
@@ -24,36 +23,28 @@
                             <div class="box-body">
                                 <h:form>
                                     <p:growl id="messages" showDetail="true" />
-
                                     <h:panelGrid columnClasses="value">
 
-                                        <p:schedule id="schedule"  widgetVar="myschedule" timeZone="GMT+2">
-                                            <p:ajax event="dateSelect"  update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                                            <p:ajax event="eventSelect"  update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                                            <p:ajax event="eventMove"  update="messages" />
-                                            <p:ajax event="eventResize"  update="messages" />
-
+                                        <p:schedule id="schedule" value="#{agendaBean.eventoModelo}" widgetVar="miCalendario">
+                                            <p:ajax event="eventSelect" listener="#{agendaBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
                                         </p:schedule>
                                     </h:panelGrid>
 
                                     <p:dialog widgetVar="eventDialog" header="Detalle del Evento" showEffect="clip" hideEffect="clip">
                                         <h:panelGrid id="eventDetails" columns="2">
                                             <p:outputLabel for="title" value="Titulo:" />
-                                            <p:inputText id="title"  required="true" />
+                                            <p:inputText id="title" value="#{agendaBean.evento.title}" required="true" />
 
                                             <p:outputLabel for="from" value="Desde:" />
-                                            <p:calendar id="from"  timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+                                            <p:calendar id="from" value="#{agendaBean.evento.startDate}"  pattern="yyyy-MM-dd HH:mm:ss"/>
 
                                             <p:outputLabel for="to" value="Hasta:" />
-                                            <p:calendar id="to"  timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+                                            <p:calendar id="to"  value="#{agendaBean.evento.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 
-                                            <p:outputLabel for="allDay" value="Todo el día:" />
-                                            <h:selectBooleanCheckbox id="allDay" />
-
-                                            <b:commandButton look="danger" style="width: 100%" type="reset" value="Restaurar" />
-                                            <b:commandButton look="primary" style="width: 50%" id="addButton" value="Guardar"  oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                                            <b:commandButton look="danger" style="width: 100%" value="Ver reservacion" />
                                         </h:panelGrid>
                                     </p:dialog>    
+
                                 </h:form>
                                 <style type="text/css">
                                     .value {

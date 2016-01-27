@@ -117,7 +117,7 @@ public class ImpAgendaDao implements IAgendaDao {
     
     //QUERY PARA SACAR DATOS DE RESERVA HECHA
     @Override
-    public List<SmsAgenda> mostrarReservacionHecha(SmsUsuario usuarioID) {
+    public List<SmsAgenda> mostrarAgendaReservacionCliente(SmsUsuario usuarioID) {
         Session session = null;
         List <SmsAgenda> resevacionesHechas = null;
 
@@ -135,4 +135,26 @@ public class ImpAgendaDao implements IAgendaDao {
         }
            return resevacionesHechas;
     }
+
+    @Override
+    public List<SmsAgenda> mostrarAgendaReservacionConductores(SmsEmpleado conductor) {
+        Session session = null;
+        List <SmsAgenda> resevacionesHechas = null;
+
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("SELECT a FROM SmsAgenda a left join fetch a.smsVehiculo left join fetch a.smsEmpleado as empleado WHERE empleado.idEmpleado = '"+ conductor.getIdEmpleado() +"'");
+            resevacionesHechas = (List<SmsAgenda>) query.list();
+
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+           return resevacionesHechas;
+    }
+
+   
 }
