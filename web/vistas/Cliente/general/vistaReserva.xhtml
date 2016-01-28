@@ -3,8 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
 
@@ -55,31 +53,30 @@
                                 <div class="col-sm-3 invoice-col">
                                     Para:<br/>
                                     <address>
-                                        <strong>#{usuarioBean.usuario.usuarioNombre}</strong><br></br>
-                                        Cc: #{usuarioBean.usuario.usuarioCc}<br></br>
-                                        Razon Social: #{usuarioBean.usuario.usuarioRazonSocial}<br></br>
-                                        Teléfono: #{usuarioBean.usuario.usuarioTelefono}<br></br>
-                                        Email:  #{usuarioBean.usuario.usuarioEmail}
+                                        <strong>#{agendaBean.mclienteView.usuarioNombre}</strong><br></br>
+                                        Cc: #{agendaBean.mclienteView.usuarioCc}<br></br>
+                                        Razon Social: #{agendaBean.mclienteView.usuarioRazonSocial}<br></br>
+                                        Teléfono: #{agendaBean.mclienteView.usuarioTelefono}<br></br>
+                                        Email:  #{agendaBean.mclienteView.usuarioEmail}
                                     </address>
                                 </div><!-- /.col -->
-
+                                
                                 <div class="col-sm-6 invoice-col">
                                     <h3>Conductor elegido para Servicio</h3>
                                     <div class="col-sm-6">
                                         <address>
-                                            <strong>Nombre: #{agendaBean.agendaView.smsEmpleado.smsUsuario.usuarioNombre}</strong><br></br>
-                                            Cc: #{usuarioBean.usuario.usuarioCc}<br></br>
-                                            Razon Social: #{usuarioBean.usuario.usuarioRazonSocial}<br></br>
-                                            Teléfono: #{usuarioBean.usuario.usuarioTelefono}<br></br>
-                                            Email: #{usuarioBean.usuario.usuarioEmail}
+                                            <strong>Nombre: #{agendaBean.mempleadoView.smsUsuario.usuarioNombre}</strong><br></br>
+                                            Cc: #{agendaBean.mempleadoView.smsUsuario.usuarioCc}<br></br>
+                                            Razon Social: #{agendaBean.mempleadoView.smsUsuario.usuarioRazonSocial}<br></br>
+                                            Teléfono: #{agendaBean.mempleadoView.smsUsuario.usuarioTelefono}<br></br>
+                                            Email: #{agendaBean.mempleadoView.smsUsuario.usuarioEmail}
                                         </address>                                        
                                     </div>
                                     <div class="col-sm-6">
-                                        <img class="img-bordered-sm" src="../../../../resources/images/logo-DASH.png" alt="Foto de Conductor" style="width: 150px;" ></img>
-                                    </div>
-
+                                        <p:graphicImage width="150" height="150" value="#{agendaBean.mempleadoView.smsUsuario.usuarioFotoRuta}" alt="Conductor" class="img-thumbnail img-responsive"/>
+                                        </div>
+                                    
                                 </div><!-- /.col -->
-
                             </div>
 
                             <!-- Table row -->
@@ -99,21 +96,21 @@
                                         <tbody>
                                             <tr>
                                                 <th>Recogida</th>
-                                                <td>Bogotá</td>
-                                                <td>Aeropuerto El Dorado</td>
-                                                <td>28-02-16</td>
-                                                <td>15:50</td>
+                                                <td>#{agendaBean.mciudadView.ciudadNombre}</td>
+                                                <td>#{agendaBean.mreservaView.reservacionLugarLlegada}</td>
+                                                <td>#{agendaBean.magendaView.agendaFechaInicio}</td>
+                                                <td>#{agendaBean.magendaView.agendaHoraInicio}</td>
                                             </tr>
                                             <tr>
                                                 <th>Entrega</th>
-                                                <td>Bogotá</td>
-                                                <td>Calle 100</td>
-                                                <td>03-02-16</td>
-                                                <td>08:00</td>
+                                                <td>#{agendaBean.mciudadView.ciudadNombre}</td>
+                                                <td>#{agendaBean.mreservaView.reservacionLugarDestino}</td>
+                                                <td>#{agendaBean.magendaView.agendaFechaLlegada}</td>
+                                                <td>#{agendaBean.magendaView.agendaHoraLlegada}</td>
                                             </tr>
                                             <tr>
                                                 <th>Observaciones</th>
-                                                <td>Observaciones escritas por el cliente</td>                                                
+                                                <td>#{agendaBean.mreservaView.reservacionNotas}</td>                                                
                                             </tr>
                                             <!--<tr>
                                                 <td>1</td>
@@ -154,37 +151,38 @@
                                     </div>
                                 </div><!-- /.col -->
                                 <div class="col-xs-6">
-                                    <img src="" alt="Vehiculo reservado" class="img-bordered-sm" style="max-width: 400px"/>
-                                    <div class="col-sm-9 invoice-col">
+                                    <p:graphicImage style="margin-left: 20%; margin-bottom: 10px" width="256" height="256" value="#{agendaBean.mvehiculoView.vehFotoRuta}" alt="Vehiculo" class="img-thumbnail img-responsive"/>
+                                    
+                                    <div class="col-sm-12 invoice-col">
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <tr>
                                                     <th style="width:50%">Marca:</th>
-                                                    <td>$250.30</td>
+                                                    <td>#{agendaBean.mvehiculoView.smsReferencia.smsMarca.marcaNombre}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Referencia:</th>
-                                                    <td>$10.34</td>
+                                                    <td>#{agendaBean.mvehiculoView.smsReferencia.referenciaNombre}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Placa:</th>
-                                                    <td>$5.80</td>
+                                                    <td>#{agendaBean.mvehiculoView.vehPlaca}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Color:</th>
-                                                    <td>$265.24</td>
+                                                    <td>#{agendaBean.mvehiculoView.vehColor}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Personas:</th>
-                                                    <td>$265.24</td>
+                                                    <td>#{agendaBean.mvehiculoView.vehNumPersonas}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Maletas Grandes:</th>
-                                                    <td>$265.24</td>
+                                                    <td>#{agendaBean.mvehiculoView.vehNumMalGrande}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Maletas Pequeñas:</th>
-                                                    <td>$265.24</td>
+                                                    <td>#{agendaBean.mvehiculoView.vehNumMalPequeña}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -197,19 +195,19 @@
                                         <table class="table">
                                             <tr>
                                                 <th style="width:50%">Subtotal:</th>
-                                                <td>$250.30</td>
+                                                <td></td>
                                             </tr>
                                             <tr>
                                                 <th>IVA (16.3%)</th>
-                                                <td>$10.34</td>
+                                                <td></td>
                                             </tr>
                                             <tr>
                                                 <th>Extras:</th>
-                                                <td>$5.80</td>
+                                                <td></td>
                                             </tr>
                                             <tr>
                                                 <th>Total:</th>
-                                                <td>$265.24</td>
+                                                <td>#{agendaBean.mreservaView.reservacionCosto}</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -220,21 +218,19 @@
                             <div class="row no-print">
                                 <div class="col-xs-12">
                                     <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Imprimir</a>
+                                                                       
+                                    
                                     <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Pagar Servicio</button>
                                     <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generar PDF</button>
+                                    <button class="btn btn-danger pull-right" style="margin-right: 5px;"><i class="fa fa-trash"></i> Cancelar Reservacion</button>
+                                
                                 </div>
                             </div>
                         </section><!-- /.content -->
 
-
-
-
                     </b:column>
                 </b:row>
             </b:container>
-
-
         </ui:define>
-
     </ui:composition>
 </html>

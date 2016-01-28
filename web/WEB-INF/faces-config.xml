@@ -68,7 +68,7 @@
     <managed-bean>
         <managed-bean-name>agendaBean</managed-bean-name>
         <managed-bean-class>Bean.AgendaBean</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>calificacionBean</managed-bean-name>
@@ -380,9 +380,20 @@
         
               
         <navigation-case>
-            <from-outcome>VistaReserva</from-outcome>
-            <to-view-id>/vistas/Cliente/general/vistaReserva.xhtml</to-view-id>
-            <redirect/>
+            <from-outcome>VistaReservaCliente</from-outcome>
+            <to-view-id>/vistas/Cliente/general/vistaReserva.xhtml</to-view-id>            
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>VistaReservaAdminP</from-outcome>
+            <to-view-id>/vistas/AdminP/general/vistaReserva.xhtml</to-view-id>            
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>VistaReservaAdminS</from-outcome>
+            <to-view-id>/vistas/AdminS/general/vistaReserva.xhtml</to-view-id>            
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>VistaReservaConductor</from-outcome>
+            <to-view-id>/vistas/Conductor/general/vistaReserva.xhtml</to-view-id>            
         </navigation-case>
     </navigation-rule>
     

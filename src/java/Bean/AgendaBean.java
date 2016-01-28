@@ -49,9 +49,21 @@ public class AgendaBean {
     private SmsCategoria categoriaView;
     private SmsCiudad ciudadView;
     private SmsUsuario clienteView;
+    
+    private SmsAgenda MagendaView;
+    private SmsVehiculo MvehiculoView;
+    private SmsEmpleado MempleadoView;
+    private SmsReservacion MreservaView;
+    private SmsCategoria McategoriaView;
+    private SmsCiudad MciudadView;
+    private SmsUsuario MclienteView;
+    
+    
+   
     private SmsCostosServicio costoServicioView;
     private SmsServicios servicioView;
     private SmsUsuario sesion; //objeto donde guardaremos los datos del usuario logueado
+    
     private String HoraInicio;
     private String HoraEntrega;
 
@@ -97,6 +109,14 @@ public class AgendaBean {
         clienteView = new SmsUsuario();
         costoServicioView = new SmsCostosServicio();
         servicioView = new SmsServicios();
+        
+        MagendaView = new SmsAgenda();
+        MvehiculoView = new SmsVehiculo();
+        MempleadoView = new SmsEmpleado();
+        MreservaView = new SmsReservacion();
+        McategoriaView = new SmsCategoria();
+        MciudadView = new SmsCiudad();
+        MclienteView = new SmsUsuario();
 
         vehiculosListView = new ArrayList<>();
         empleadosListView = new ArrayList<>();
@@ -126,6 +146,7 @@ public class AgendaBean {
 
     @PostConstruct
     public void init() {
+         //Obtenemos la informacion de sesion del usuario autentificado 
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
         sesion = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
@@ -350,11 +371,68 @@ public class AgendaBean {
         this.evento = evento;
     }
 
+    public SmsAgenda getMagendaView() {
+        return MagendaView;
+    }
+
+    public void setMagendaView(SmsAgenda MagendaView) {
+        this.MagendaView = MagendaView;
+    }
+
+    public SmsVehiculo getMvehiculoView() {
+        return MvehiculoView;
+    }
+
+    public void setMvehiculoView(SmsVehiculo MvehiculoView) {
+        this.MvehiculoView = MvehiculoView;
+    }
+
+    public SmsEmpleado getMempleadoView() {
+        return MempleadoView;
+    }
+
+    public void setMempleadoView(SmsEmpleado MempleadoView) {
+        this.MempleadoView = MempleadoView;
+    }
+
+    public SmsReservacion getMreservaView() {
+        return MreservaView;
+    }
+
+    public void setMreservaView(SmsReservacion MreservaView) {
+        this.MreservaView = MreservaView;
+    }
+
+    public SmsCategoria getMcategoriaView() {
+        return McategoriaView;
+    }
+
+    public void setMcategoriaView(SmsCategoria McategoriaView) {
+        this.McategoriaView = McategoriaView;
+    }
+
+    public SmsCiudad getMciudadView() {
+        return MciudadView;
+    }
+
+    public void setMciudadView(SmsCiudad MciudadView) {
+        this.MciudadView = MciudadView;
+    }
+
+    public SmsUsuario getMclienteView() {
+        return MclienteView;
+    }
+
+    public void setMclienteView(SmsUsuario MclienteView) {
+        this.MclienteView = MclienteView;
+    }
+
+    
+    
     //Metodos    
     //CRUD
     public String registrarAgenda() {
-        //Obtenemos la informacion de sesion del usuario autentificado 
-
+      
         //Registramos los datos de agendamiento
         agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);
         //obtenemos los datos completos de la agenda recien registrada
@@ -372,6 +450,8 @@ public class AgendaBean {
             emailController.sendEmailClienteWithout(vehiculoView, reservaView, agendaView, clienteView);
         }
 
+        reservacionClienteAgenda(); //Recargamos las lista que se muestran en las vistas
+        
         //Limpieza de objetos
         empleadoView = new SmsEmpleado();
         vehiculoView = new SmsVehiculo();
@@ -396,12 +476,25 @@ public class AgendaBean {
                 break;
 
             case "Cliente":
-                Ruta = "RetornarReservacion";
+                Ruta = "ClienteReservacion";
                 break;
         }
+        
+       
         return Ruta;
     }
 
+    public void eliminarAgenda(){
+        agendaController.eliminarAgenda(agendaView);
+        agendaView = new SmsAgenda();
+        clienteView = new SmsUsuario();
+        ciudadView = new SmsCiudad();
+        reservaView = new SmsReservacion();
+        vehiculoView = new SmsVehiculo();
+        empleadoView = new SmsEmpleado();
+    }
+    
+    
     //Especificos 
     ///Controla el flujo de la vista
     public String onFlowProcess(FlowEvent event) {
@@ -568,16 +661,37 @@ public class AgendaBean {
     }
 
     public String irVistaReserva() {
-        agendaView.setIdAgenda(Integer.parseInt(evento.getTitle()));
-        agendaView = agendaController.consultarAgendaID(agendaView).get(0);
-        reservaView = reservacionController.consultarReservacion(agendaView).get(0);
+        String Ruta = "";
+        MagendaView.setIdAgenda(Integer.parseInt(evento.getTitle()));
+        MagendaView = agendaController.consultarAgendaID(MagendaView).get(0);
+        MreservaView = reservacionController.consultarReservacion(MagendaView).get(0);
 
-        vehiculoView = agendaView.getSmsVehiculo();
-        empleadoView = agendaView.getSmsEmpleado();
-        clienteView = reservaView.getSmsUsuario();
-        ciudadView = reservaView.getSmsCiudad();
+        MvehiculoView = MagendaView.getSmsVehiculo();
+        MempleadoView = MagendaView.getSmsEmpleado();
+        MclienteView = MreservaView.getSmsUsuario();
+        MciudadView = MreservaView.getSmsCiudad();
         
-        return "VistaReserva";
+        
+        switch (sesion.getSmsRol().getRolNombre()) {
+            case "Administrador Principal":
+                Ruta = "VistaReservaAdminP";
+                break;
+
+            case "Administrador Secundario":
+                Ruta = "VistaReservaAdminS";
+                break;
+
+            case "Cliente":
+                Ruta = "VistaReservaCliente";
+                break;
+                
+            case "Empleado":
+                Ruta = "VistaReservaConductor";
+                break;
+        }
+        
+        
+        return Ruta;
     }
 
 }

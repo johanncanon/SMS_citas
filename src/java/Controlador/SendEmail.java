@@ -141,7 +141,7 @@ public class SendEmail {
             message.setSubject("Nueva reservacion en el sistema. Reservacion " + reservacion.getIdReservacion() + ", cliente " + Cliente.getUsuarioNombre() + ", fecha de inicio " + agenda.getAgendaFechaInicio() + "");
             message.setText("Señor(a) Administrador Principal,"
                     + "\n"
-                    + "Se confirmo una reservación para el cliente '"+ Cliente.getUsuarioNombre() +"', el vehiculo elegido es " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + agenda.getAgendaFechaLlegada() + ". "
+                    + "Se confirmo una reservación para el cliente '" + Cliente.getUsuarioNombre() + "', el vehiculo elegido es " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + agenda.getAgendaFechaLlegada() + ". "
                     + "El asesor elegido es el señor " + empleado.getSmsUsuario().getUsuarioNombre() + " y el Valor de la servicio es de COP $" + reservacion.getReservacionCosto() + "."
                     + "Atentamente,\n"
                     + "SMS Renta");
@@ -175,7 +175,7 @@ public class SendEmail {
             message.setSubject("Nueva reservacion en el sistema. Reservacion " + reservacion.getIdReservacion() + ", cliente " + Cliente.getUsuarioNombre() + ", fecha de inicio " + agenda.getAgendaFechaInicio() + "");
             message.setText("Señor(a) Administrador Principal,"
                     + "\n"
-                    + "Se confirmo una reservación para el cliente '"+ Cliente.getUsuarioNombre() +"', el vehiculo elegido es " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + agenda.getAgendaFechaLlegada() + ". "
+                    + "Se confirmo una reservación para el cliente '" + Cliente.getUsuarioNombre() + "', el vehiculo elegido es " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + agenda.getAgendaFechaLlegada() + ". "
                     + "No hay asesor elegido y el Valor de la servicio es de COP $" + reservacion.getReservacionCosto() + "."
                     + "Atentamente,\n"
                     + "SMS Renta");
@@ -212,6 +212,41 @@ public class SendEmail {
                     + "Se confirmo una nueva reservacion para la cual usted fue escogido como asesor, el vehiculo escogido es un(a) " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + agenda.getAgendaFechaLlegada() + "."
                     + "Allí lo espera el cliente " + Cliente.getUsuarioNombre() + ", quien requiere del mejor servicio y atencion prestada\n"
                     + "Esperamos que su servicio sea prestado de la mejor forma para garantizar la total satisfaccion del cliente"
+                    + "Atentamente,\n"
+                    + "SMS Renta");
+
+            Transport t = session.getTransport("smtp");
+            t.connect("smtp.gmail.com", (String) properties.get("mail.smtp.user"), "Smsrenta2016");
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
+        } catch (MessagingException me) {
+            me.getMessage();
+            //Aqui se deberia o mostrar un mensaje de error o en lugar
+            //de no hacer nada con la excepcion, lanzarla para que el modulo
+            //superior la capture y avise al usuario con un popup, por ejemplo.
+            return;
+        }
+
+    }
+
+    public void sendEmailBienvenida(SmsUsuario Cliente) {
+
+        init();
+        try {
+            MimeMessage message = new MimeMessage(session);
+
+            //quien envia
+            message.setFrom(new InternetAddress("smsrenta@gmail.com"));
+
+            // a donde se envia
+            message.addRecipient(
+                    Message.RecipientType.TO,
+                    new InternetAddress("" + Cliente.getUsuarioEmail()));
+            message.setSubject("Bienvenido a SMS Renta");
+            message.setText("Señor(a) " + Cliente.getUsuarioNombre() + ","
+                    + "\n"
+                    + "Le confirmamos que su registro al sistema SMS Renta fue exitoso, y le damos la bienvenida a nuestra familia. \n"
+                    + "Esperamos que nuestro servicio sea de su total agrado y le recordamos que su nombre de usuario es " + Cliente.getUsuarioLogin() + " y su contraseña " + Cliente.getUsuarioPassword() + "."
                     + "Atentamente,\n"
                     + "SMS Renta");
 

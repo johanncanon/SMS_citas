@@ -88,6 +88,10 @@ public class PathBean {
         return "AdminPLugares";
     }
     
+     public String ir_AdminPVistaReserva(){
+        return "VistaReservaAdminP";
+    }
+    
     
     /* / ADMIN PRINCIPAL / */
     /* / ADMIN SECUNDARIO / */
@@ -159,6 +163,10 @@ public class PathBean {
     public String ir_SSAdministradores(){
         return "AdminSAdministradores";
     }
+    
+     public String ir_AdminSVistaReserva(){
+        return "VistaReservaAdminS";
+    }
 
     /* / ADMIN SECUNDARIO / */
     /* / CONDUCTOR / */
@@ -172,6 +180,10 @@ public class PathBean {
     
     public String ir_ConductorEdicionPerfil(){
         return "CondEdicionPerfil";
+    }
+    
+     public String ir_ConductorVistaReserva(){
+        return "VistaReservaConductor";
     }
     
     /* / CONDUCTOR/ */
@@ -203,7 +215,7 @@ public class PathBean {
     }
     
     public String ir_ClienteVistaReserva(){
-        return "VistaReserva";
+        return "VistaReservaCliente";
     }
     /* / CLIENTE/ */
     

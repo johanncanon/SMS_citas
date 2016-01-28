@@ -8,6 +8,7 @@ package Bean;
 import Controlador.Upload;
 import Controlador.Cliente;
 import Controlador.MD5;
+import Controlador.SendEmail;
 import Modelo.SmsAgenda;
 import Modelo.SmsCiudad;
 import Modelo.SmsRol;
@@ -37,6 +38,7 @@ public class ClienteBean implements Serializable {
     //Relacion con el controlador
     protected Cliente clienteController;
     protected Upload fileController;
+    protected SendEmail emailController;
 
     //Variables    
     private String buscar;
@@ -177,6 +179,7 @@ public class ClienteBean implements Serializable {
 
         //registramos el usuario y recargamos la lista de clientes
         clienteController.registrarUsuario(clienteView, ciudadView, rolView);
+        emailController.sendEmailBienvenida(clienteView);
         clientesListView = clienteController.consultarClientes();
 
         //limpiamos objetos
