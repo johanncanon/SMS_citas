@@ -201,6 +201,10 @@ public class PathBean {
     public String ir_ClienteEdicionPerfil(){
         return "ClienteEdicionPerfil";
     }
+    
+    public String ir_ClienteVistaReserva(){
+        return "VistaReserva";
+    }
     /* / CLIENTE/ */
     
     public String ir_Registrarse(){

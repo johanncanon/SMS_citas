@@ -110,6 +110,7 @@
         <managed-bean-class>Bean.LugarBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
@@ -201,6 +202,29 @@
             <to-view-id>/vistas/AdminP/general/EdicionPerfil.xhtml</to-view-id>            
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminPEUsuario</from-outcome>
+            <to-view-id>/vistas/AdminP/usuarios/PEUsuario.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminPEProveedores</from-outcome>
+            <to-view-id>/vistas/AdminP/proveedores/PEProveedores.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminPEEmpleado</from-outcome>
+            <to-view-id>/vistas/AdminP/empleados/PEEmpleado.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminPCostosServicios</from-outcome>
+            <to-view-id>/vistas/AdminP/servicios/PCostosServicios.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminPLugares</from-outcome>
+            <to-view-id>/vistas/AdminP/lugares/PLugares.xhtml</to-view-id>
+        </navigation-case>
         
         
         <!-- ADMIN PRINCIPAL -->   
@@ -280,6 +304,16 @@
             <to-view-id>/vistas/AdminS/usuarios/SUsuario.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminSCostosServicio</from-outcome>
+            <to-view-id>/vistas/AdminS/servicios/SCostosServicios.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdminSLugares</from-outcome>
+            <to-view-id>/vistas/AdminS/lugares/SLugares.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
          
         <!-- ADMIN SECUNDARIO -->
         <!-- CONDUCTOR -->
@@ -315,9 +349,9 @@
             <from-outcome>ProveedorEdicionPerfil</from-outcome>
             <to-view-id>/vistas/Proveedor/EdicionPerfil.xhtml</to-view-id>
             <redirect/>            
-        </navigation-case>     
-        
+        </navigation-case>    
         <!-- Proveedor -->
+        
         <!-- Prueba -->
         <navigation-case>
             <from-outcome>ContenidoPrueba_Menu</from-outcome>
@@ -325,6 +359,7 @@
             <redirect/>
         </navigation-case>
         <!-- Prueba -->
+        
         <!-- CLIENTE -->
         <navigation-case>
             <from-outcome>ClienteDash</from-outcome>
@@ -340,43 +375,18 @@
             <from-outcome>ClienteEdicionPerfil</from-outcome>
             <to-view-id>/vistas/Cliente/general/EdicionPerfil.xhtml</to-view-id>
             <redirect/>           
-        </navigation-case>
+        </navigation-case>        
         <!-- CLIENTE -->
         
+              
         <navigation-case>
-            <from-outcome>AdminPEUsuario</from-outcome>
-            <to-view-id>/vistas/AdminP/usuarios/PEUsuario.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>AdminPEProveedores</from-outcome>
-            <to-view-id>/vistas/AdminP/proveedores/PEProveedores.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>AdminPEEmpleado</from-outcome>
-            <to-view-id>/vistas/AdminP/empleados/PEEmpleado.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>AdminPCostosServicios</from-outcome>
-            <to-view-id>/vistas/AdminP/servicios/PCostosServicios.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>AdminPLugares</from-outcome>
-            <to-view-id>/vistas/AdminP/lugares/PLugares.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>AdminSCostosServicio</from-outcome>
-            <to-view-id>/vistas/AdminS/servicios/SCostosServicios.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>AdminSLugares</from-outcome>
-            <to-view-id>/vistas/AdminS/lugares/SLugares.xhtml</to-view-id>
+            <from-outcome>VistaReserva</from-outcome>
+            <to-view-id>/vistas/Cliente/general/vistaReserva.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    
+    <!-- otras rutas admin principal-->
     <navigation-rule>
         <from-view-id>/vistas/AdminP/clientes/PClientes.xhtml</from-view-id>
         <navigation-case>
@@ -411,23 +421,8 @@
         <navigation-case>
             <from-outcome>RAdminPEmpleado</from-outcome>
             <to-view-id>/vistas/AdminP/empleados/PEmpleado.xhtml</to-view-id>
-        </navigation-case>
-        
-        
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/vistas/Cliente/dash-prueba-cliente.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>RetornarReservacion</from-outcome>
-            <to-view-id>/vistas/Cliente/dash-prueba-cliente.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-    <managed-bean>
-        <managed-bean-name>costosServicioBean</managed-bean-name>
-        <managed-bean-class>Bean.CostosServicioBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
+        </navigation-case>        
+    </navigation-rule>  
     <navigation-rule>
         <from-view-id>/vistas/AdminP/reservas/PReserva.xhtml</from-view-id>
         <navigation-case>
@@ -435,6 +430,8 @@
             <to-view-id>/vistas/AdminP/reservas/PReserva.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    <!--otros-->
     <navigation-rule>
         <from-view-id>/vistas/AdminS/reservas/PReserva.xhtml</from-view-id>
         <navigation-case>
@@ -447,6 +444,8 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    
+    
     <navigation-rule>
         <from-view-id>/login.xhtml</from-view-id>
         <navigation-case>
