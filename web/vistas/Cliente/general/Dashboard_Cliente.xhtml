@@ -36,8 +36,8 @@
                                     
                                     <p:dialog widgetVar="eventDialog" header="Detalle del Evento" showEffect="clip" hideEffect="clip">
                                         <h:panelGrid id="eventDetails" columns="2">
-                                            <p:outputLabel for="title" value="Titulo:" />
-                                            <p:inputText id="title" value="#{agendaBean.evento.title}" required="true" />
+                                            <p:outputLabel for="title" value="Reservación:" />
+                                            <p:inputText  id="title" value="#{agendaBean.evento.title}"/>
 
                                             <p:outputLabel for="from" value="Desde:" />
                                             <p:calendar id="from" value="#{agendaBean.evento.startDate}"  pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -45,7 +45,7 @@
                                             <p:outputLabel for="to" value="Hasta:" />
                                             <p:calendar id="to"  value="#{agendaBean.evento.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 
-                                            <b:commandButton look="danger" style="width: 100%" value="Ver reservacion" action="#{pathBean.ir_ClienteVistaReserva()}" />
+                                            <b:commandButton look="danger" style="width: 100%" value="Ver reservacion" action="#{agendaBean.irVistaReserva()}" />
                                         </h:panelGrid>
                                     </p:dialog>    
 

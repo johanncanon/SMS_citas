@@ -22,6 +22,7 @@ public interface IAgendaDao {
     public void registrarAgenda(SmsAgenda agenda);
     public void modificarAgenda(SmsAgenda agenda);
     public void eliminarAgenda(SmsAgenda agenda);
+    public List<SmsAgenda> consultarAgendaId(SmsAgenda agenda);
     public List<SmsAgenda> consultarAgenda(String FechaInicio, String FechaLlegada, String HoraInicio, String HoraLlegada, SmsVehiculo vehiculo, SmsEmpleado empleado); 
     public List<SmsAgenda> mostrarAgendaReservacionCliente(SmsUsuario usuarioID);
     public List<SmsAgenda> mostrarAgendaReservacionConductores(SmsEmpleado conductor);

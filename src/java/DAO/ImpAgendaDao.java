@@ -156,5 +156,23 @@ public class ImpAgendaDao implements IAgendaDao {
            return resevacionesHechas;
     }
 
+    @Override
+    public List<SmsAgenda> consultarAgendaId(SmsAgenda agenda) {
+        Session session = null;
+        List<SmsAgenda> agendas = new ArrayList<>();
+
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculo left join fetch agenda.smsEmpleado as empleado where agenda.idAgenda = '"+ agenda.getIdAgenda() +"'");
+            agendas = (List<SmsAgenda>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return agendas;}
+
    
 }

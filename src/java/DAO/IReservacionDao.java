@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Modelo.SmsAgenda;
 import Modelo.SmsReservacion;
 import Modelo.SmsUsuario;
 import Modelo.SmsVistaReserva;
@@ -20,6 +21,7 @@ public interface IReservacionDao {
     public List<SmsReservacion> mostrarReservaciones();
     public void registrarReservacion(SmsReservacion reservacion);
     public void modificarReservacion(SmsReservacion reservacion);
-    public void eliminarReservacion(SmsReservacion reservacion);   
+    public void eliminarReservacion(SmsReservacion reservacion); 
+    public List<SmsReservacion> consultarReservacionAgenda(SmsAgenda agenda);
     
 }

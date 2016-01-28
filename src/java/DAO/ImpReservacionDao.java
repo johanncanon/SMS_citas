@@ -101,9 +101,23 @@ public class ImpReservacionDao implements IReservacionDao {
             }
         }
     }
-    
-    
-    
-    
+
+    @Override
+    public List<SmsReservacion> consultarReservacionAgenda(SmsAgenda agenda) {
+        Session session = null;
+        List<SmsReservacion> reservaciones = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsReservacion as reservacion left join fetch reservacion.smsAgenda as agenda left join fetch reservacion.smsCiudad as ciudad left join fetch reservacion.smsUsuario as cliente WHERE agenda.idAgenda = '" + agenda.getIdAgenda() + "'");
+            reservaciones = (List<SmsReservacion>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return reservaciones;
+    }
 
 }

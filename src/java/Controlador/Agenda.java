@@ -58,6 +58,62 @@ public class Agenda {
         this.agendas = agendas;
     }
 
+    public SmsUsuario getUsuarioID() {
+        return usuarioID;
+    }
+
+    public void setUsuarioID(SmsUsuario usuarioID) {
+        this.usuarioID = usuarioID;
+    }
+
+    public List<SmsAgenda> getVistaReserva() {
+        return vistaReserva;
+    }
+
+    public void setVistaReserva(List<SmsAgenda> vistaReserva) {
+        this.vistaReserva = vistaReserva;
+    }
+
+    public List<Date> getListaFechasInicio() {
+        return listaFechasInicio;
+    }
+
+    public void setListaFechasInicio(List<Date> listaFechasInicio) {
+        this.listaFechasInicio = listaFechasInicio;
+    }
+
+    public List<Date> getListaFechasLlegada() {
+        return listaFechasLlegada;
+    }
+
+    public void setListaFechasLlegada(List<Date> listaFechasLlegada) {
+        this.listaFechasLlegada = listaFechasLlegada;
+    }
+
+    public List<Date> getListaHorasInicio() {
+        return listaHorasInicio;
+    }
+
+    public void setListaHorasInicio(List<Date> listaHorasInicio) {
+        this.listaHorasInicio = listaHorasInicio;
+    }
+
+    public List<Date> getListaHorasLlegada() {
+        return listaHorasLlegada;
+    }
+
+    public void setListaHorasLlegada(List<Date> listaHorasLlegada) {
+        this.listaHorasLlegada = listaHorasLlegada;
+    }
+
+    public List<Date> getListaFechas_Horas() {
+        return listaFechas_Horas;
+    }
+
+    public void setListaFechas_Horas(List<Date> listaFechas_Horas) {
+        this.listaFechas_Horas = listaFechas_Horas;
+    }
+
     //metodos
     public List<SmsAgenda> cargarAgendas() {
         agendas = new ArrayList();
@@ -105,6 +161,14 @@ public class Agenda {
         agDao.eliminarAgenda(agenda);//Se ejecuta la funcion del dao
     }
 
+    public List<SmsAgenda> consultarAgendaID(SmsAgenda a) {
+        agenda = a;
+        agendas = new ArrayList<>();
+        IAgendaDao agDao = new ImpAgendaDao();
+        agendas = agDao.consultarAgendaId(agenda);
+        return agendas;
+    }
+
     public List<SmsAgenda> consultarAgenda(SmsAgenda a, SmsVehiculo v, SmsEmpleado e) {
         agendas = new ArrayList();
         agenda = a;
@@ -125,67 +189,6 @@ public class Agenda {
         return agendas;
     }
 
-    //metodo para sacar consulta de reservacion
-    //METODO PARA DEVOLVER LA RESERVACION
-    public SmsUsuario getUsuarioID() {
-        return usuarioID;
-    }
-
-    public void setUsuarioID(SmsUsuario usuarioID) {
-        this.usuarioID = usuarioID;
-    }
-
-    public List<SmsAgenda> getVistaReserva() {
-        return vistaReserva;
-    }
-
-    public void setVistaReserva(List<SmsAgenda> vistaReserva) {
-        this.vistaReserva = vistaReserva;
-    }
-
-    /**
-     * *********************************************************************
-     */
-    public List<Date> getListaFechasInicio() {
-        return listaFechasInicio;
-    }
-
-    public void setListaFechasInicio(List<Date> listaFechasInicio) {
-        this.listaFechasInicio = listaFechasInicio;
-    }
-
-    public List<Date> getListaFechasLlegada() {
-        return listaFechasLlegada;
-    }
-
-    public void setListaFechasLlegada(List<Date> listaFechasLlegada) {
-        this.listaFechasLlegada = listaFechasLlegada;
-    }
-
-    public List<Date> getListaHorasInicio() {
-        return listaHorasInicio;
-    }
-
-    public void setListaHorasInicio(List<Date> listaHorasInicio) {
-        this.listaHorasInicio = listaHorasInicio;
-    }
-
-    public List<Date> getListaHorasLlegada() {
-        return listaHorasLlegada;
-    }
-
-    public void setListaHorasLlegada(List<Date> listaHorasLlegada) {
-        this.listaHorasLlegada = listaHorasLlegada;
-    }
-
-    public List<Date> getListaFechas_Horas() {
-        return listaFechas_Horas;
-    }
-
-    public void setListaFechas_Horas(List<Date> listaFechas_Horas) {
-        this.listaFechas_Horas = listaFechas_Horas;
-    }
-
     //METODO PARA MOSTRAR DATOS DE RESERVACION
     public List<SmsAgenda> mostrarDatosReservacionCliente(SmsUsuario u) {
         usuarioID = u;
@@ -195,7 +198,7 @@ public class Agenda {
 
         return vistaReserva;
     }
-    
+
     public List<SmsAgenda> mostrarDatosReservacionConductor(SmsEmpleado e) {
         SmsEmpleado empleado = e;
         vistaReserva = new ArrayList<>();
@@ -204,8 +207,8 @@ public class Agenda {
 
         return vistaReserva;
     }
-    
-    public List<SmsAgenda> mostrarAgendas(){
+
+    public List<SmsAgenda> mostrarAgendas() {
         vistaReserva = new ArrayList<>();
         IAgendaDao linkDao = new ImpAgendaDao();
         vistaReserva = linkDao.mostrarAgenda();
@@ -236,8 +239,7 @@ public class Agenda {
         }
         return listaFechas_Horas;
     }
-    
-    
+
     /*//METODO PARA MOSTRAR UNICAMENTE LAS FECHAS DE INICIO DE LAS RESERVACIONES
      public List<Date> mostrarFechasInicio() {
 
@@ -297,5 +299,4 @@ public class Agenda {
      return listaHorasLlegada;
      }
      */
-
 }

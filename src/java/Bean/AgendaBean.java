@@ -342,8 +342,6 @@ public class AgendaBean {
         this.eventoModelo = eventoModelo;
     }
 
-    
-
     public ScheduleEvent getEvento() {
         return evento;
     }
@@ -527,7 +525,6 @@ public class AgendaBean {
 
         }
 
-        
     }
 
 //CREACION DEL CALENDARIO PRIMEFACAES TIPO SCHEDULE ************************
@@ -560,7 +557,9 @@ public class AgendaBean {
                 pe.getMessage();
             }
 
-            eventoModelo.addEvent(new DefaultScheduleEvent("Reservacion", fechaInicio, fechaLlegada));
+            evento = new DefaultScheduleEvent("" + vistasReserva.get(i).getIdAgenda(), fechaInicio, fechaLlegada);
+            evento.setId("" + vistasReserva.get(i).getIdAgenda());
+            eventoModelo.addEvent(evento);
         }
     }
 
@@ -568,8 +567,15 @@ public class AgendaBean {
         evento = (ScheduleEvent) selectEvent.getObject();
     }
 
-    public void onDateSelect(SelectEvent selectEvent) {
-        evento = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+    public String irVistaReserva() {
+        agendaView.setIdAgenda(Integer.parseInt(evento.getTitle()));
+        agendaView = agendaController.consultarAgendaID(agendaView).get(0);
+        reservaView = reservacionController.consultarReservacion(agendaView).get(0);
+
+        clienteView = reservaView.getSmsUsuario();
+        ciudadView = reservaView.getSmsCiudad();
+
+        return "VistaReserva";
     }
 
 }

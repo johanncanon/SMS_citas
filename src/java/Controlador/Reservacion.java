@@ -29,6 +29,7 @@ import Modelo.SmsServicios;
 import Modelo.SmsUsuario;
 import Modelo.SmsVehiculo;
 import Modelo.SmsVistaReserva;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -163,6 +164,14 @@ public class Reservacion {
         IReservacionDao resDao = new ImpReservacionDao();
         resDao.eliminarReservacion(reservacion);
 
+    }
+
+    public List<SmsReservacion> consultarReservacion(SmsAgenda a) {
+        agenda = a;
+        reservaciones = new ArrayList<>();
+        IReservacionDao resDao = new ImpReservacionDao();
+        reservaciones = resDao.consultarReservacionAgenda(agenda);
+        return reservaciones;
     }
 
     //Metodos para la reservacion
@@ -308,24 +317,24 @@ public class Reservacion {
 
                 diff = milis1 - milis2;
                 diffHourDifferentDay = (diffDays * 24) - (diff / (60 * 60 * 1000));
-                
+
                 diffDays = diffHourDifferentDay / 24;
                 // calcular la diferencia en horas
                 diffHours = diffHourDifferentDay - (diffDays * 24);
-                
+
                 //Calculamos costo del dia
                 costo = costo + ((int) diffDays * costos.getSmsPrecio());
-                             
+
                 //Obtenemos el costo de la hora               
                 costos = cosDao.consultarCostoServicio(hora, categoria).get(0);
                 costo = costo + (((int) diffHours) * costos.getSmsPrecio());
                 break;
             case "Plan mes":
                 // conseguir la representacion de la fecha en milisegundos
-                
+
                 int diaInicio = agenda.getAgendaFechaInicio().getDay();
                 int diaEntrega = agenda.getAgendaFechaLlegada().getDay();
-                              
+
                 // calcular la diferencia en dias
                 diffDays = diaEntrega - diaInicio;
 
@@ -333,25 +342,25 @@ public class Reservacion {
                 int endMes = (calFechaLlegada.get(Calendar.YEAR) * 12) + calFechaLlegada.get(Calendar.MONTH);
 
                 int daysInMonth = calFechaInicio.getActualMaximum(Calendar.DAY_OF_MONTH);
-                
+
                 milis1 = calHoraInicio.getTimeInMillis();
                 milis2 = calHoraLlegada.getTimeInMillis();
-                
+
                 diff = milis1 - milis2;
                 diffHourDifferentDay = (diffDays * 24) - (diff / (60 * 60 * 1000));
-                
+
                 diffDays = diffHourDifferentDay / 24;
                 // calcular la diferencia en horas
                 diffHours = diffHourDifferentDay - (diffDays * 24);
-                
+
                 //Diferencia en meses entre las dos fechas
                 diffMonth = endMes - startMes;
                 costo = ((int) diffMonth) * costos.getSmsPrecio();
-                 
-                costos = cosDao.consultarCostoServicio(dia, categoria).get(0);                
+
+                costos = cosDao.consultarCostoServicio(dia, categoria).get(0);
                 costo = costo + ((int) diffDays * costos.getSmsPrecio());
                 costos = cosDao.consultarCostoServicio(hora, categoria).get(0);
-                costo = costo + (((int) diffHours) * costos.getSmsPrecio());                
+                costo = costo + (((int) diffHours) * costos.getSmsPrecio());
                 break;
         }
         return costo;
