@@ -28,7 +28,7 @@
                 <p:outputLabel for="to" value="Hasta:" />
                 <p:calendar id="to"  value="#{agendaBean.evento.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 
-                <b:commandButton look="danger" style="width: 100%" value="Ver reservacion" />
+                <b:commandButton look="danger" style="width: 100%" value="Ver reservacion" action="#{agendaBean.irVistaReserva()}" />
             </h:panelGrid>
         </p:dialog>    
 

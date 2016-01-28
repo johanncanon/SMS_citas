@@ -572,9 +572,11 @@ public class AgendaBean {
         agendaView = agendaController.consultarAgendaID(agendaView).get(0);
         reservaView = reservacionController.consultarReservacion(agendaView).get(0);
 
+        vehiculoView = agendaView.getSmsVehiculo();
+        empleadoView = agendaView.getSmsEmpleado();
         clienteView = reservaView.getSmsUsuario();
         ciudadView = reservaView.getSmsCiudad();
-
+        
         return "VistaReserva";
     }
 
