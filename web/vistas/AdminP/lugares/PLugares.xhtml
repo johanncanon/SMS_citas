@@ -21,8 +21,8 @@
                                         <h4 class="box-title">Registro de Ciudades</h4>
                                     </div> 
                                     <div class="box-body">
-                                        <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a las ciudades en donde
-                                            SMS Renta presta sus servicios.</p> 
+                                        <p style="text-justify: auto">En este panel de registro podrá registrar la 
+                                            información de los lugares más requeridos por los clientes: <em>Aeropuerto El Dorado, Unisentro, Centro Internacional, etc.</em></p> 
                                     </div>
                                 </div>
                             </b:column>
@@ -36,7 +36,7 @@
                                     <div class="box-body">
                                         <div class="table-responsive">
                                             <h:panelGrid id="PLugar" columns="3" cellpadding="5" style="width: 100%">
-                                                <p:outputLabel for="SPaises" value="Pais:"/>
+                                                <p:outputLabel for="SPaises" value="Ciudad:"/>
                                                 <b:selectOneMenu id="SPaises" required="true" requiredMessage="Seleccione Pais" value="#{lugarBean.ciudadView.ciudadNombre}">
                                                     <f:selectItem itemLabel="Seleccione Ciudad"/>
                                                     <f:selectItems value="#{ciudadBean.nombresCiudadesListView}"/>

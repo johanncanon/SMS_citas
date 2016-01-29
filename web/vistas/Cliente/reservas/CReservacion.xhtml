@@ -90,13 +90,13 @@
                                     <p:tab id="Vehiculo" title="Vehiculo">
                                         <b:panel title="Defina la categoria y el servicio" look="primary">
                                             <p:messages autoUpdate="true" />
-                                            <p style="margin-top: 12px">Aqui podrá elegir el vehiculo que desea para su reservacion:</p>
+                                            <p style="margin-top: 12px">Aquí podrá elegir el vehículo que desea para su reservación:</p>
                                             <hr/>
                                             <div class="form-group">
                                                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                                                    <p:outputLabel value="Categoria de Vehiculo: "  />
+                                                    <p:outputLabel value="Categora de Veh´ículo: "  />
                                                     <p:selectOneMenu value="#{agendaBean.categoriaView.categoriaNombre}" style="width:250px">
-                                                        <f:selectItem itemLabel="Seleccione categoria del vehiculo" noSelectionOption="true"/>
+                                                        <f:selectItem itemLabel="Seleccione categoria del vehículo" noSelectionOption="true"/>
                                                         <f:selectItems value="#{categoriaBean.nombresCategoriasListView}"/>
                                                         <p:ajax event="change" listener="#{agendaBean.filtrar()}" process="@this" update="ScrollerVehiculos"/>
                                                     </p:selectOneMenu>                                                       
@@ -110,7 +110,7 @@
                                             <div class="form-group box box-danger direct-chat direct-chat-danger">                                               
                                                 <p:dataScroller var="vehiculo" mode="inline" id="ScrollerVehiculos" value="#{agendaBean.vehiculosListView}" chunkSize="5">
                                                     <f:facet name="header">
-                                                        Explore hacia abajo para cargar mas vehiculos.
+                                                        Explore hacia abajo para cargar más vehículos.
                                                     </f:facet>
 
                                                     <f:facet name="loader">
@@ -159,7 +159,8 @@
 
                                     <p:tab id="Conductor" title="Conductor">
                                         <p:messages />                                       
-                                        <p style="margin-top: 12px">Aqui podrá elegir el conductor que desea para su reservacion, pero si desea, puede realizar su reservacion sin elegir conductor.</p>
+                                        <p style="margin-top: 12px">Aquí podrá elegir el conductor que desea para su reservación, pero si desea, puede realizar
+                                            su reservacin sin elegir conductor.</p>
                                         <hr/>
                                         <div class="box box-danger direct-chat direct-chat-danger">
                                             <p:dataScroller var="empleado" id="ScrollerConductores" value="#{agendaBean.empleadosListView}" chunkSize="5" >
@@ -273,7 +274,7 @@
                                                 </h:panelGrid>                                                
                                             </p:dataScroller>
                                             <p:separator/>
-                                            <h4>Empleado</h4>
+                                            <h4>´Conductor</h4>
                                             <p:dataScroller var="empleado" value="#{agendaBean.empleadoView}">
                                                 <h:panelGrid columns="2" cellspacing="10" cellpadding="5" columnClasses="logo,detail">
 

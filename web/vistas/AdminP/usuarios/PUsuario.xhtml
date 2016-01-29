@@ -24,7 +24,7 @@
                                 <div class="box-body">
                                     <div class="table-responsive">
                                         <h:panelGrid id="seccionDatosUsuario" cellpadding="5" columns="3" style="width: 100%;">
-                                            <p:outputLabel value="Nombre:* "/>
+                                            <p:outputLabel value="Nombre: "/>
                                             <b:inputText id="TNombreApUsu" required="true" requiredMessage="Ingrese nombre y apellido" placeholder="Nombres y apellidos" value="#{usuarioBean.usuarioView.usuarioNombre}" style="width: 100%;" maxlength="60"></b:inputText>                       
                                             <p:message for="TNombreApUsu"/>
 
@@ -32,15 +32,15 @@
                                             <b:inputText id="TCcUsu" maxlength="45" placeholder="Cedula de ciudadania" value="#{usuarioBean.usuarioView.usuarioCc}" style="width: 100%" ></b:inputText>
                                             <p:message for="TCcUsu"/>
 
-                                            <p:outputLabel value="Telefono: "/>
+                                            <p:outputLabel value="Teléfono: "/>
                                             <b:inputText id="TTelUsu" maxlength="45" placeholder="Numero de telefono fijo o celular" value="#{usuarioBean.usuarioView.usuarioTelefono}" style="width: 100%" ></b:inputText> 
                                             <p:message for="TTelUsu"/>
 
-                                            <p:outputLabel value="Email:* "/>
+                                            <p:outputLabel value="Email: "/>
                                             <b:inputText id="TEmailProv" validator="emailValidator" required="true" requiredMessage="Ingrese Email valido" placeholder="Direccion de correo electronico" value="#{usuarioBean.usuarioView.usuarioEmail}" style="width: 100%" ></b:inputText>
                                             <p:message for="TEmailProv"/>
 
-                                            <p:outputLabel value="Razon social: "/>
+                                            <p:outputLabel value="Razón social: "/>
                                             <b:inputText id="TRazSocUsu" maxlength="100" placeholder="Nombre de la empresa" value="#{usuarioBean.usuarioView.usuarioRazonSocial}" style="width: 100%" ></b:inputText>
                                             <p:message for="TRazSocUsu"/>
 
@@ -106,8 +106,9 @@
                                     <h4 class="box-title">Registro de Administradores</h4>                                    
                                 </div>
                                 <div class="box-body">
-                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros usuarios y podra crear una cuenta de sesion para el ingreso al sistema,
-                                        esta cuenta podra ser de tipo administrador principal o secundario.</p>
+                                    <p style="text-justify: auto">En este panel de registro podrá registrar la información referente a nuestros 
+                                        usuarios y podrá crear una cuenta de sesión para el ingreso al sistema,
+                                        esta cuenta podrá ser de tipo administrador principal o secundario.</p>
                                 </div>   
                             </div>
                         </b:column>
