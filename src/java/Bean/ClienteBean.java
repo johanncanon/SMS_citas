@@ -54,6 +54,7 @@ public class ClienteBean implements Serializable {
         nombresClientesListView = new ArrayList<>();
         clienteController = new Cliente();
         fileController = new Upload();
+        emailController = new SendEmail();
         modClienteView = new SmsUsuario();
         buscar = null;
         habilitarEditarSesion = false;
@@ -179,7 +180,7 @@ public class ClienteBean implements Serializable {
 
         //registramos el usuario y recargamos la lista de clientes
         clienteController.registrarUsuario(clienteView, ciudadView, rolView);
-        emailController.sendEmailBienvenida(clienteView);
+        emailController.sendEmailBienvenida(clienteView);//enviamos correo de bievenida
         clientesListView = clienteController.consultarClientes();
 
         //limpiamos objetos

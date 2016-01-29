@@ -451,7 +451,9 @@ public class AgendaBean {
         }
 
         reservacionClienteAgenda(); //Recargamos las lista que se muestran en las vistas
+        addEventoCalendario();
         
+       
         //Limpieza de objetos
         empleadoView = new SmsEmpleado();
         vehiculoView = new SmsVehiculo();
@@ -606,6 +608,9 @@ public class AgendaBean {
         switch (sesion.getSmsRol().getRolNombre()) {
 
             case "Administrador Principal":
+                vistasReserva = agendaController.mostrarAgendas();
+                break;
+            case "Administrador Secundario":
                 vistasReserva = agendaController.mostrarAgendas();
                 break;
             case "Cliente":

@@ -16,7 +16,7 @@
         <h:outputStylesheet name="./adminLT/css/skins/_all-skins.css"/>
         <h:outputStylesheet name="./adminLT/css/bootstrap3-wysihtml5.css"/>
 
-        
+
         <h:outputScript name="./js/bootstrap.min.js" />
         <h:outputScript name="./js/bootstrap3-wysihtml5.all.min.js" />
         <h:outputScript name="./js/app.js" />
@@ -32,7 +32,7 @@
 
                     <a class="logo">
                         <div class="logo-mini">
-                             <img class="navbar-brand " style=" margin-left: -13px" src="../../../resources/images/logo-sms-mini.png" />
+                            <img class="navbar-brand " style=" margin-left: -13px" src="../../../resources/images/logo-sms-mini.png" />
                         </div>                  
                         <div class="logo-lg">                            
                             <img class="navbar-brand logo-men-1" src="../../../resources/images/logo-DASH.png" />
@@ -77,9 +77,9 @@
                                             <p>#{usuarioBean.usuario.usuarioNombre}<br/>
                                                 <small>#{usuarioBean.usuario.smsRol.rolNombre}</small>
                                             </p>
-                                           
+
                                         </li>
-                                                                           
+
                                         <!-- Menu Footer-->
                                         <li class="user-footer">
                                             <div class="pull-left">
@@ -120,9 +120,6 @@
                                             <p>#{usuarioBean.usuario.smsRol.rolNombre}</p>
                                         </div>
                                     </div>
-                                    <!-- search form -->
-                                   
-                                    <!-- /.search form -->
                                     <!-- sidebar menu: : style can be found in sidebar.less -->
                                     <ul class="sidebar-menu">
                                         <li class="header">Menu Principal</li>
@@ -131,13 +128,13 @@
                                                 <i class="fa fa-dashboard"></i> <span>Tablero Principal</span>
                                             </h:link>
                                         </li>
-                                        
+
                                         <li>                                                
                                             <h:link outcome="#{pathBean.ir_ProEstVehi()}">
                                                 <i class="fa fa-car "></i> <span>Estado del Vehiculo</span> 
                                             </h:link>
                                         </li>
-                                     
+
                                     </ul>
                                 </section>
                                 <!-- /.sidebar -->
@@ -145,7 +142,7 @@
                         </aside>
                     </div>
                     <div id="content-123" class="content-wrapper min-alto">
-                         <ui:insert name="content4"></ui:insert>    
+                        <ui:insert name="content4"></ui:insert>    
                     </div>
                 </div>
 

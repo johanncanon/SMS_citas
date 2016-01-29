@@ -246,7 +246,7 @@ public class SendEmail {
             message.setText("Señor(a) " + Cliente.getUsuarioNombre() + ","
                     + "\n"
                     + "Le confirmamos que su registro al sistema SMS Renta fue exitoso, y le damos la bienvenida a nuestra familia. \n"
-                    + "Esperamos que nuestro servicio sea de su total agrado y le recordamos que su nombre de usuario es " + Cliente.getUsuarioLogin() + " y su contraseña " + Cliente.getUsuarioPassword() + "."
+                    + "Esperamos que nuestro servicio sea de su total agrado."
                     + "Atentamente,\n"
                     + "SMS Renta");
 
