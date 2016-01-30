@@ -241,12 +241,12 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>AdminSClientes</from-outcome>
-            <to-view-id>/vistas/AdminS/clientes/PClientes.xhtml</to-view-id>
+            <to-view-id>/vistas/AdminS/clientes/SClientes.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>AdminSEmpleados</from-outcome>
-            <to-view-id>/vistas/AdminS/empleados/PEmpleado.xhtml</to-view-id>
+            <to-view-id>/vistas/AdminS/empleados/SEmpleado.xhtml</to-view-id>
             <redirect/>
         </navigation-case>        
         <navigation-case>
@@ -261,7 +261,7 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>AdminSVehiculos</from-outcome>
-            <to-view-id>/vistas/AdminS/vehiculos/PVehiculo.xhtml</to-view-id>
+            <to-view-id>/vistas/AdminS/vehiculos/SVehiculo.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -276,7 +276,7 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>AdminSReserva</from-outcome>
-            <to-view-id>/vistas/AdminS/reservas/PReserva.xhtml</to-view-id>
+            <to-view-id>/vistas/AdminS/reservas/SReserva.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>

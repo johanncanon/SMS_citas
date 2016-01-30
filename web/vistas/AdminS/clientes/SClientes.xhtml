@@ -32,18 +32,18 @@
                                             <p:message for="TNombreApCli"/>
 
                                             <p:outputLabel value="CC:" />
-                                            <b:inputText maxlength="45" id="TCcCli" placeholder="Cedula de ciudadania" value="#{clienteBean.clienteView.usuarioCc}" style="width: 100%" ></b:inputText>
+                                            <b:inputText maxlength="45" id="TCcCli" placeholder="Cédula de ciudadania" value="#{clienteBean.clienteView.usuarioCc}" style="width: 100%" ></b:inputText>
                                             <p:message for="TCcCli"/>
 
-                                            <p:outputLabel value="Telefono:"/>
-                                            <b:inputText maxlength="45" id="TTelCli" placeholder="Numero de telefono fijo o celular" value="#{clienteBean.clienteView.usuarioTelefono}" style="width: 100%" ></b:inputText> 
+                                            <p:outputLabel value="Teléfono:"/>
+                                            <b:inputText maxlength="45" id="TTelCli" placeholder="Número de télefono fijo o celular" value="#{clienteBean.clienteView.usuarioTelefono}" style="width: 100%" ></b:inputText> 
                                             <p:message for="TTelCli"/>
 
                                             <p:outputLabel value="Email: *"/>
                                             <b:inputText maxlength="100" validator="emailValidator" id="TEmailCli" required="true" requiredMessage="Ingrese Email valido" placeholder="Direccion de correo electronico" value="#{clienteBean.clienteView.usuarioEmail}" style="width: 100%"/>
                                             <p:message for="TEmailCli"/>
 
-                                            <p:outputLabel value="Razon social: "/>
+                                            <p:outputLabel value="Rózon social: "/>
                                             <b:inputText maxlength="100" id="TRazSocCli" placeholder="Nombre de la empresa" value="#{clienteBean.clienteView.usuarioRazonSocial}" style="width: 100%" ></b:inputText>
                                             <p:message for="TRazSocCli"/>
 
@@ -102,7 +102,8 @@
 
                                 </div>
                                 <div class="box-body">
-                                    <p class="text-justify">En este panel de registro podra registrar la informacion referente a nuestros clientes.</p> 
+                                    <p class="text-justify">En este panel de registro podrá registrar
+                                        la información referente a nuestros clientes.</p> 
                                 </div>
                             </div>
                         </b:column>
@@ -130,11 +131,11 @@
                                             <p:outputLabel value="#{cliente.usuarioEmail}"/>
                                         </p:column>
 
-                                        <p:column headerText="Razon Social">
+                                        <p:column headerText="Razón Social">
                                             <p:outputLabel value="#{cliente.usuarioRazonSocial}"/>
                                         </p:column>
 
-                                        <p:column headerText="Telefono">
+                                        <p:column headerText="Teléfono">
                                             <p:outputLabel value="#{cliente.usuarioTelefono}"/>
                                         </p:column>
                                     </p:dataTable>

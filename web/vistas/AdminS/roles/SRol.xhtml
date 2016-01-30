@@ -21,9 +21,8 @@
                                     <h3 class="box-title">Roles SMS Renta</h3>
                                 </div>
                                 <div class="box-body">
-                                    <p>En este panel podra ingresar el nombre y la descripcion respecto a las categorias 
-                                        de los Vehiculos de SMS Renta.Un ejemplo de Categoria puede ser Categoria Blindado, Categorisa 
-                                        Business, Categoria VIV, etc.</p>  
+                                    <p>En este panel podrá ingresar el rol a cada tipo de usuario que necesite que se le asignen 
+                                        permisos diferentes de los que y se encuentran preestablecidos.</p>  
                                 </div>
                             </div>
                         </b:column>
@@ -50,7 +49,7 @@
 
                                         <p:row>
                                             <p:column>
-                                                <h4>Asignacion de permisos</h4>
+                                                <h4>Asignación de Permisos</h4>
                                                 <h:panelGrid id="seccionAsignacion" style="width: 100%">
                                                     <p:row>
                                                         <p:column colspan="2">
@@ -113,9 +112,9 @@
                                     <h:panelGrid id="seccionPermisos" columns="2" cellpadding="5" style="width: 100%">                                       
 
                                         <p:outputLabel value="Nombre del permiso: "/>
-                                        <b:inputText placeholder="Registro, consulta, modificacion,..." value="#{permisosBean.permisoView.permisosNombre}"></b:inputText>                                        
-                                        <p:outputLabel value="Descripcion: "/>
-                                        <p:inputTextarea placeholder="Descripcion de los limites del permiso" style="width: 100%" value="#{permisosBean.permisoView.permisosDescripcion}" rows="3"></p:inputTextarea>
+                                        <b:inputText placeholder="Registro, consulta, modificación,..." value="#{permisosBean.permisoView.permisosNombre}"></b:inputText>                                        
+                                        <p:outputLabel value="Descripción: "/>
+                                        <p:inputTextarea placeholder="Descripción de los limites del permiso" style="width: 100%" value="#{permisosBean.permisoView.permisosDescripcion}" rows="3"></p:inputTextarea>
 
                                     </h:panelGrid><hr/>
                                     <p:commandButton id="BTPermisos" class="btn btn-block btn-danger" action="#{permisosBean.metodo()}" value="#{permisosBean.nombre}" update="msg seccionPermisos seccionAsignacion BTPermisos DTPermisos"></p:commandButton>     
@@ -137,7 +136,7 @@
                                         <p:column headerText="Permiso">
                                             <p:outputLabel value="#{permiso.permisosNombre}"/>
                                         </p:column>
-                                        <p:column headerText="Descripcion">
+                                        <p:column headerText="Descripción">
                                             <p:outputLabel value="#{permiso.permisosDescripcion}"/>
                                         </p:column>
                                         

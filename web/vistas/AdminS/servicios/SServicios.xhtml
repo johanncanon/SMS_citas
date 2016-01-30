@@ -20,7 +20,8 @@
                                     <h4 class="box-title">Registro de Servicios</h4>
                                 </div>
                                 <div class="box-body">
-                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a los diferentes tipos de servicios
+                                    <p style="text-justify: auto">En este panel de registro podrá registrar
+                                        la información referente a los diferentes tipos de servicios
                                         que presta SMS Renta.</p> 
                                 </div>
                             </div>                            
@@ -40,8 +41,8 @@
                                             </b:inputText>
                                             <p:message for="TNombreServ"/>
 
-                                            <p:outputLabel value="Descripcion: "/>
-                                            <p:inputTextarea id="TDescServ" placeholder="Descripcion del servicio" value="#{serviciosBean.servicioView.serviciosDescripcion}" style="width: 100%" rows="3"></p:inputTextarea>
+                                            <p:outputLabel value="Descripción: "/>
+                                            <p:inputTextarea id="TDescServ" placeholder="Descripción del servicio" value="#{serviciosBean.servicioView.serviciosDescripcion}" style="width: 100%" rows="3"></p:inputTextarea>
                                             <p:message for="TDescServ"/>
                                         </h:panelGrid>
                                     </div>
@@ -71,7 +72,7 @@
                                             <h:outputText value="#{servicio.serviciosNombre}"/>
                                         </p:column>
 
-                                        <p:column headerText="Descripcion del servicio">
+                                        <p:column headerText="Descripción del servicio">
                                             <h:outputText value="#{servicio.serviciosDescripcion}"/>
                                         </p:column>
 

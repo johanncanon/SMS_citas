@@ -23,7 +23,9 @@
                                         <h4 class="box-title">Registro de Costos-Servicios</h4>
                                     </div>
                                     <div class="box-body">
-                                        <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente al costo de cada servicio segun la categoria de os vehiculos.</p> 
+                                        <p style="text-justify: auto">En este panel de registro podrá 
+                                            registrar la información referente al costo de cada servicio
+                                            según la categoría de os vehículos.</p> 
                                     </div>
                                 </div>                            
                             </b:column>                        
@@ -37,9 +39,9 @@
                                     <div class="box-body">
                                         <div class="table-responsive">
                                             <h:panelGrid id="PCostosServicio" columns="3" cellpadding="5" style="width: 100%">
-                                                <p:outputLabel value="Categoria:"/>
+                                                <p:outputLabel value="Categoría:"/>
                                                 <b:selectOneMenu id="SCategoriasVehiculos" value="#{costosServicioBean.categoriaView.categoriaNombre}" style="width: 100%" required="true">                                            
-                                                    <f:selectItem itemLabel="Seleccione Categoria" noSelectionOption="true"/>
+                                                    <f:selectItem itemLabel="Seleccione Categoría" noSelectionOption="true"/>
                                                     <f:selectItems value="#{categoriaBean.nombresCategoriasListView}" />
                                                 </b:selectOneMenu>
                                                 <p:message for="SCategoriasVehiculos"/>
@@ -78,7 +80,7 @@
                                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                      rowsPerPageTemplate="5,10,15" emptyMessage="Costos no registrados">
 
-                                            <p:column headerText="Categoria">
+                                            <p:column headerText="Categoría">
                                                 <h:outputText value="#{costos.smsCategoria.categoriaNombre}"/>
                                             </p:column>
 

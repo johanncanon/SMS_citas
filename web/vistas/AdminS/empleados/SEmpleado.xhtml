@@ -19,10 +19,12 @@
                             <div class="box box-info espacio-arriba">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-list-alt"/>
-                                    <h4 class="box-title">Registro de Empleados</h4>
+                                    <h4 class="box-title">Registro de Conductores</h4>
                                 </div>
                                 <div class="box-body">
-                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a nuestros empleados y podra crear una cuenta de sesion para el ingreso al sistema,
+                                    <p style="text-justify: auto">En este panel de registro podrá 
+                                        registrar la información referente a nuestros empleados y
+                                        podrá crear una cuenta de sesión para el ingreso al sistema,
                                         con la que posteriormente el empleado realizara sus consultas.</p> 
                                 </div>
                             </div>
@@ -43,11 +45,11 @@
                                             <p:message for="TNombreApEmp"/>
 
                                             <p:outputLabel value="CC: " />
-                                            <b:inputText id="TCcEmp" maxlength="45" placeholder="Cedula de ciudadania" value="#{empleadoBean.usuarioView.usuarioCc}" style="width: 100%" ></b:inputText>
+                                            <b:inputText id="TCcEmp" maxlength="45" placeholder="Cédula de ciudadania" value="#{empleadoBean.usuarioView.usuarioCc}" style="width: 100%" ></b:inputText>
                                             <p:message for="TCcEmp"/>
 
-                                            <p:outputLabel value="Telefono: "/>
-                                            <b:inputText id="TTelEmp" maxlength="45" placeholder="Numero de telefono fijo o celular" value="#{empleadoBean.usuarioView.usuarioTelefono}" style="width: 100%" ></b:inputText> 
+                                            <p:outputLabel value="Teléfono: "/>
+                                            <b:inputText id="TTelEmp" maxlength="45" placeholder="Número de teléfono fijo o celular" value="#{empleadoBean.usuarioView.usuarioTelefono}" style="width: 100%" ></b:inputText> 
                                             <p:message for="TTelEmp"/>
 
                                             <p:outputLabel value="Email:* "/>
@@ -166,14 +168,11 @@
                                             <p:outputLabel value="#{empleado.usuarioEmail}"/>
                                         </p:column>
 
-                                        <p:column headerText="Telefono">
+                                        <p:column headerText="Teléfono">
                                             <p:outputLabel value="#{empleado.usuarioTelefono}"/>
                                         </p:column>
-
-                                                                           
                                     </p:dataTable>
 
-                                   
                                 </div>
                             </div>
                         </b:column>
