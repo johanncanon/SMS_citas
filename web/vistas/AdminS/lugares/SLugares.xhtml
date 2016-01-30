@@ -20,10 +20,12 @@
                                 <div class="box box-info espacio-arriba">
                                     <div class="box-header with-border">
                                         <i class="fa fa-2x fa-map-marker"/>
-                                        <h4 class="box-title">Registro de Ciudades</h4>
+                                        <h4 class="box-title">Registro de Lugares</h4>
                                     </div> 
                                     <div class="box-body">
-                                        <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a las ciudades en donde
+                                        <p style="text-justify: auto">En este panel de registro podrá registrar 
+                                            la información referente a los lugares especificos y más transcurridos por los clientes según 
+                                             la ciudad especifica donde 
                                             SMS Renta presta sus servicios.</p> 
                                     </div>
                                 </div>
@@ -38,7 +40,7 @@
                                     <div class="box-body">
                                         <div class="table-responsive">
                                             <h:panelGrid id="PLugar" columns="3" cellpadding="5" style="width: 100%">
-                                                <p:outputLabel for="SPaises" value="Pais:"/>
+                                                <p:outputLabel for="SPaises" value="Ciudad:"/>
                                                 <b:selectOneMenu id="SPaises" required="true" requiredMessage="Seleccione Pais" value="#{lugarBean.ciudadView.ciudadNombre}">
                                                     <f:selectItem itemLabel="Seleccione Ciudad"/>
                                                     <f:selectItems value="#{ciudadBean.nombresCiudadesListView}"/>
@@ -49,8 +51,8 @@
                                                 <b:inputText maxlength="50" id="TNombreLugar" required="true" requiredMessage="Ingrese nombre del lugar" placeholder="Nombre del lugar"  value="#{lugarBean.lugarView.lugarNombre}" style="width: 100%"></b:inputText>                                            
                                                 <p:message for="TNombreLugar"/>
                                                 
-                                                <p:outputLabel for="TDireccionLugar" value="Direccion del lugar:"/>
-                                                <b:inputText maxlength="50" id="TDireccionLugar" required="true" requiredMessage="Ingrese nombre del lugar" placeholder="Direccion del lugar"  value="#{lugarBean.lugarView.lugarDireccion}" style="width: 100%"></b:inputText>                                            
+                                                <p:outputLabel for="TDireccionLugar" value="Dirección del lugar:"/>
+                                                <b:inputText maxlength="50" id="TDireccionLugar" required="true" requiredMessage="Ingrese nombre del lugar" placeholder="Dirección del lugar"  value="#{lugarBean.lugarView.lugarDireccion}" style="width: 100%"></b:inputText>                                            
                                                 <p:message for="TDireccionLugar"/>
                                             </h:panelGrid>
                                         </div><hr/>
@@ -79,7 +81,7 @@
                                                 <h:outputText value="#{Lugares.lugarNombre}"/>
                                             </p:column>
                                             
-                                            <p:column headerText="Direccion">
+                                            <p:column headerText="Dirección">
                                                 <h:outputText value="#{Lugares.lugarDireccion}"/>
                                             </p:column>
                                                 

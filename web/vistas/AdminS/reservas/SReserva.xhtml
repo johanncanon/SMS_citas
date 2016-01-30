@@ -31,7 +31,7 @@
                                             <h:panelGrid columns="2" width="100%" cellpadding="5">
 
                                                 <p:outputLabel for="SClientes" value="Cliente:" class="fa fa-2x fa-globe"/>
-                                                <b:selectOneMenu id="SClientes" requiredMessage="Seleccione cliente con el cual quiere realizar la reservacion"  required="true" style="width: 100%" value="#{agendaBean.clienteView.usuarioNombre}">
+                                                <b:selectOneMenu id="SClientes" requiredMessage="Seleccione cliente con el cual quiere realizar la reservación"  required="true" style="width: 100%" value="#{agendaBean.clienteView.usuarioNombre}">
                                                     <f:selectItem itemLabel="Seleccione cliente" noSelectionOption="true"/>
                                                     <f:selectItems value="#{clienteBean.nombresClientesListView}"/>
                                                 </b:selectOneMenu>
@@ -106,21 +106,21 @@
                                     </p:tab>
 
                                     <p:tab id="Vehiculo" title="Vehiculo">
-                                        <b:panel title="Defina la categoria y el servicio" look="primary">
+                                        <b:panel title="Defina la categoría y el servicio" look="primary">
                                             <p:messages autoUpdate="true" />
                                             <p style="margin-top: 12px">Aqui podrá elegir el vehiculo que desea para su reservacion:</p>
                                             <hr/>
                                             <div class="form-group">
                                                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                                                    <p:outputLabel value="Categoria de Vehiculo: "  />
+                                                    <p:outputLabel value="Categoria de Vehículo: "  />
                                                     <p:selectOneMenu value="#{agendaBean.categoriaView.categoriaNombre}" style="width:250px">
-                                                        <f:selectItem itemLabel="Seleccione categoria del vehiculo" noSelectionOption="true"/>
+                                                        <f:selectItem itemLabel="Seleccione categoria del vehículo" noSelectionOption="true"/>
                                                         <f:selectItems value="#{categoriaBean.nombresCategoriasListView}"/>
                                                         <p:ajax event="change" listener="#{agendaBean.filtrar()}" process="@this" update="ScrollerVehiculos"/>
                                                     </p:selectOneMenu>                                                       
 
-                                                    <p:outputLabel value="Vehiculo Seleccionado "  />
-                                                    <b:inputText id="TVehSelc" placeholder="Placa del vehiculo" required="true" style="width:250px" requiredMessage="No ha seleccionado vehiculo" value="#{agendaBean.vehiculoView.vehPlaca}"/>                                                      
+                                                    <p:outputLabel value="Vehículo Seleccionado "  />
+                                                    <b:inputText id="TVehSelc" placeholder="Placa del vehículo" required="true" style="width:250px" requiredMessage="No ha seleccionado vehiculo" value="#{agendaBean.vehiculoView.vehPlaca}"/>                                                      
                                                 </h:panelGrid>
 
                                             </div>
@@ -198,7 +198,7 @@
                                                             <h:outputText value="Nombre y apellidos:" />
                                                             <h:outputText value="#{empleado.smsUsuario.usuarioNombre}" style="width: 100%;font-weight: bold"/>
 
-                                                            <h:outputText value="Identificacion" />
+                                                            <h:outputText value="Identificación" />
                                                             <h:outputText value="#{empleado.smsUsuario.usuarioCc}" style="width: 100%;font-weight: bold"/>
 
                                                             <p:commandButton class="btn-reservas btn-reservas-color" value="Seleccionar Conductor" disabled="#{agendaBean.selecCon}"  process="@this" update="ScrollerConductores" action="#{agendaBean.SeleccionarConductor()}">
@@ -312,7 +312,7 @@
                                                 </h:panelGrid>                                                
                                             </p:dataScroller>
                                             <p:separator/>
-                                            <center><b:commandButton value="Confirmar reservacion" action="#{agendaBean.registrarAgenda()}" style="width: 80%" update="@form"/></center>
+                                            <center><b:commandButton value="Confirmar reservación" action="#{agendaBean.registrarAgenda()}" style="width: 80%" update="@form"/></center>
                                         </b:panel>
                                     </p:tab>
                                 </p:wizard>

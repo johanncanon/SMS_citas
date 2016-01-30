@@ -22,9 +22,9 @@
                                     <h3 class="box-title">Categorias SMS Renta</h3>
                                 </div>
                                 <div class="box-body">
-                                    <p class="text-justify"> En este panel podra ingresar el nombre y la descripcion respecto a las categorias 
-                                        de los Vehiculos de SMS Renta.Un ejemplo de Categoria puede ser Categoria Blindado, Categorisa 
-                                        Business, Categoria VIV, etc.</p>
+                                    <p class="text-justify"> En este panel podrá ingresar el nombre y la descripción respecto a las categorías 
+                                        de los Vehículos de SMS Renta. Un ejemplo de Categoría puede ser Categoría Blindado, Categoría 
+                                        Business, Categoría VIP, etc.</p>
                                 </div>
                             </div>
                         </b:column>
@@ -33,17 +33,17 @@
                             <div class="box box-danger">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-upload"/>
-                                    <h4 class="box-title">Ingreso de Categorias</h4>
+                                    <h4 class="box-title">Ingreso de Categorías</h4>
                                 </div> 
                                 <div class="box-body">
                                     <div class="table-responsive">
                                         <h:panelGrid id="PCategoria" columns="3" style="width: 100%" cellpadding="5">
-                                            <p:outputLabel for="TNombreCat" value="Nombre de Categoria: "/>
+                                            <p:outputLabel for="TNombreCat" value="Nombre de Categoría: "/>
                                             <b:inputText maxlength="50" id="TNombreCat" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre de categoria" value="#{categoriaBean.categoriaView.categoriaNombre}"/>
                                             <p:message for="TNombreCat"/>
 
-                                            <p:outputLabel for="TDescCat" value="Descripción de Categoria: "/>
-                                            <p:inputTextarea maxlength="150" style="width: 100%" id="TDescCat" placeholder="Descripcion" value="#{categoriaBean.categoriaView.categoriaDescripcion}"/>
+                                            <p:outputLabel for="TDescCat" value="Descripción de Categoría: "/>
+                                            <p:inputTextarea maxlength="150" style="width: 100%" id="TDescCat" placeholder="Descripción" value="#{categoriaBean.categoriaView.categoriaDescripcion}"/>
                                             <p:message for="TDescCat"/>
                                         </h:panelGrid>
                                     </div>
@@ -56,7 +56,7 @@
                             <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-list"/>
-                                    <h4 class="box-title">Lista de Categorias</h4>
+                                    <h4 class="box-title">Lista de Categorías</h4>
                                 </div>
 
                                 <div class="box-body">
@@ -72,7 +72,7 @@
                                             <h:outputText value="#{Categorias.categoriaNombre}" />
                                         </p:column>
 
-                                        <p:column headerText="Descripcion">
+                                        <p:column headerText="Descripción">
                                             <h:outputText value="#{Categorias.categoriaDescripcion}" />
                                         </p:column>
                                         

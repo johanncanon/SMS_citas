@@ -19,10 +19,11 @@
                             <div class="box box-info espacio-arriba">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-globe"/>
-                                    <h4 class="box-title">Registro de Paises</h4>
+                                    <h4 class="box-title">Registro de Países</h4>
                                 </div>
                                 <div class="box-body">
-                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a los paises en donde
+                                    <p style="text-justify: auto">En este panel de registro podrá registrar
+                                        la información referente a los países en donde
                                         SMS Renta presta sus servicios.</p> 
                                 </div>
                             </div>
@@ -33,13 +34,13 @@
                             <div class="box box-danger">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-globe"/>
-                                    <h4 class="box-title">Datos de pais</h4>
+                                    <h4 class="box-title">Datos de país</h4>
                                 </div> 
                                 <div class="box-body">
                                     <div class="table-responsive">
                                         <h:panelGrid id="PPais" columns="2" style="width: 100%">                                            
-                                            <p:outputLabel value="Nombre del pais:"/>
-                                            <b:inputText placeholder="Nombre del pais"  value="#{paisBean.paisView.paisNombre}" style="width: 100%"/>                                         
+                                            <p:outputLabel value="Nombre del país:"/>
+                                            <b:inputText placeholder="Nombre del país"  value="#{paisBean.paisView.paisNombre}" style="width: 100%"/>                                         
                                         </h:panelGrid>
                                     </div> <br/>
                                     <p:commandButton class="btn btn-block btn-danger" id="BTPais" action="#{paisBean.metodo()}" update="messages PPais BTPais DTPaises" value="#{paisBean.nombre}"/>                                       
@@ -51,7 +52,7 @@
                             <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-list-alt"/>
-                                    <h4 class="box-title">Lista de Paises</h4>
+                                    <h4 class="box-title">Lista de Países</h4>
                                 </div> 
                                 <div class="box-body">
                                     <b:inputText placeholder="Buscar" value="#{paisBean.buscar}" style="width: 100%">

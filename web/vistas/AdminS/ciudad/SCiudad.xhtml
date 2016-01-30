@@ -20,7 +20,7 @@
                                     <h4 class="box-title">Registro de Ciudades</h4>
                                 </div> 
                                 <div class="box-body">
-                                    <p style="text-justify: auto">En este panel de registro podra registrar la informacion referente a las ciudades en donde
+                                    <p style="text-justify: auto">En este panel de registro podrá registrar la información referente a las ciudades en donde
                                         SMS Renta presta sus servicios.</p> 
                                 </div>
                             </div>
@@ -35,9 +35,9 @@
                                 <div class="box-body">
                                     <div class="table-responsive">
                                         <h:panelGrid id="PCiudad" columns="3" cellpadding="5" style="width: 100%">
-                                            <p:outputLabel for="SPaises" value="Pais:"/>
-                                            <b:selectOneMenu id="SPaises" required="true" requiredMessage="Seleccione Pais" value="#{ciudadBean.paisView.paisNombre}">
-                                                <f:selectItem itemLabel="Seleccione pais"/>
+                                            <p:outputLabel for="SPaises" value="País:"/>
+                                            <b:selectOneMenu id="SPaises" required="true" requiredMessage="Seleccione País" value="#{ciudadBean.paisView.paisNombre}">
+                                                <f:selectItem itemLabel="Seleccione país"/>
                                                 <f:selectItems value="#{paisBean.nombrePaisesListView}"/>
                                             </b:selectOneMenu>
                                             <p:message for="SPaises"/>
@@ -72,7 +72,7 @@
                                             <h:outputText value="#{ciudades.ciudadNombre}"/>
                                         </p:column>
 
-                                        <p:column headerText="Pais">
+                                        <p:column headerText="PaíSs">
                                             <h:outputText value="#{ciudades.smsPais.paisNombre}"/>
                                         </p:column>                                        
                                     </p:dataTable>    
