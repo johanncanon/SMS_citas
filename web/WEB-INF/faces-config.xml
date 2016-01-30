@@ -319,17 +319,17 @@
         <!-- CONDUCTOR -->
         <navigation-case>
             <from-outcome>ConductorDash</from-outcome>
-            <to-view-id>/vistas/Conductor/Dash-conductor.xhtml</to-view-id>
+            <to-view-id>/vistas/Conductor/general/Dashboard-Conductor.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>ConductorCliente</from-outcome>
-            <to-view-id>/vistas/Conductor/consultar-clientes.xhtml</to-view-id>
+            <to-view-id>/vistas/Conductor/clientes/consultar-clientes.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>CondEdicionPerfil</from-outcome>
-            <to-view-id>/vistas/Conductor/EdicionPerfil.xhtml</to-view-id>
+            <to-view-id>/vistas/Conductor/general/EdicionPerfil.xhtml</to-view-id>
             <redirect/>            
         </navigation-case>
         
@@ -337,17 +337,17 @@
         <!-- Proveedor -->
         <navigation-case>
             <from-outcome>ProveedorDash</from-outcome>
-            <to-view-id>/vistas/Proveedor/Dash-prov.xhtml</to-view-id>
+            <to-view-id>/vistas/Proveedor/general/Dashboard-Proveedor.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>ProveedorEstadoVehiculo</from-outcome>
-            <to-view-id>/vistas/Proveedor/estadoVehiculos.xhtml</to-view-id>
+            <to-view-id>/vistas/Proveedor/vehiculos/estadoVehiculos.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>ProveedorEdicionPerfil</from-outcome>
-            <to-view-id>/vistas/Proveedor/EdicionPerfil.xhtml</to-view-id>
+            <to-view-id>/vistas/Proveedor/general/EdicionPerfil.xhtml</to-view-id>
             <redirect/>            
         </navigation-case>    
         <!-- Proveedor -->
@@ -363,7 +363,7 @@
         <!-- CLIENTE -->
         <navigation-case>
             <from-outcome>ClienteDash</from-outcome>
-            <to-view-id>/vistas/Cliente/general/Dashboard_Cliente.xhtml</to-view-id>
+            <to-view-id>/vistas/Cliente/general/Dashboard-Cliente.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
