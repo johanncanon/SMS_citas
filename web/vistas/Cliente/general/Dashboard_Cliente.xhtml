@@ -4,7 +4,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
 
@@ -29,11 +28,11 @@
                                         <p:schedule id="schedule" value="#{agendaBean.eventoModelo}" widgetVar="miCalendario">
                                             <p:ajax event="eventSelect" listener="#{agendaBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
                                         </p:schedule>
-                                        
+
                                         <br/>
                                     </h:panelGrid>
-                                    
-                                    
+
+
                                     <p:dialog widgetVar="eventDialog" header="Detalle del Evento" showEffect="clip" hideEffect="clip">
                                         <h:panelGrid id="eventDetails" columns="2">
                                             <p:outputLabel for="title" value="Reservación:" />
@@ -58,22 +57,8 @@
                             </div>
                         </b:column>
 
-
                         <b:column col-lg="5" col-md="5" col-sm="6" col-xs="12">
-                            <div class="box box-danger espacio-arriba">
-                                <div class="box-header with-border">
-                                    <i class="fa fa-2x fa-road" />
-                                    <h3 class="box-title">Conductor Elegido</h3>
-                                </div>
-                                <div class="box-body">
-                                    <!-- LISTA DE CONDUCTORES -->
-                                    <ui:include src="conductor.xhtml"></ui:include>
-                                </div>
-                            </div>
-                        </b:column>
-
-                        <b:column col-lg="5" col-md="5" col-sm="6" col-xs="12">
-                            <div class="box box-solid bg-green-gradient ">
+                            <div class="box box-solid bg-green-gradient espacio-arriba">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-dashboard" />
                                     <h3 class="box-title">Tablero Principal</h3>
@@ -87,9 +72,41 @@
                                 </div>
                             </div>
                         </b:column>
+                        
+                        <b:column col-lg="5" col-md="5" col-sm="6" col-xs="12">
+                            <div class="box box-danger">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-road" />
+                                    <h3 class="box-title">Conductor Elegido</h3>
+                                </div>
+                                <div class="box-body">
+                                    <!-- LISTA DE CONDUCTORES -->
+                                    <p:dataTable var="reserva"  value="#{agendaBean.vistasReserva}" rows="5"
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15" emptyMessage="Conductores no registrados">
+                                        <p:column headerText="Nombres ">
+                                            <h:outputText value="#{reserva.smsEmpleado.smsUsuario.usuarioNombre}" />
+                                        </p:column>
 
+                                        <p:column headerText="Cédula">
+                                            <h:outputText value="#{reserva.smsEmpleado.smsUsuario.usuarioCc}" />
+                                        </p:column>
 
-                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" >
+                                        <p:column headerText="Teléfono">
+                                            <h:outputText value="#{reserva.smsEmpleado.smsUsuario.usuarioTelefono}" />
+                                        </p:column>
+
+                                        <p:column headerText="E-mail">
+                                            <h:outputText value="#{reserva.smsEmpleado.smsUsuario.usuarioEmail}" />
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </b:column>
+                        
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12" >
                             <div class="box box-warning">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-car" />
@@ -97,7 +114,32 @@
                                 </div>
                                 <div class="box-body">
                                     <!-- CARUSEL DE VEHICULOS -->
-                                    <ui:include src="carousel-cars.xhtml"></ui:include>
+                                    <p:dataTable var="reserva"  value="#{agendaBean.vistasReserva}" rows="5"
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15" emptyMessage="Vehiculos no registrados">
+                                        <p:column headerText="Marca">
+                                            <h:outputText value="#{reserva.smsVehiculo.smsReferencia.smsMarca.marcaNombre}" />
+                                        </p:column>
+
+                                        <p:column headerText="Referencia">
+                                            <h:outputText value="#{reserva.smsVehiculo.smsReferencia.referenciaNombre}" />
+                                        </p:column>
+
+                                        <p:column headerText="Placas">
+                                            <h:outputText value="#{reserva.smsVehiculo.vehPlaca}" />
+                                        </p:column>
+
+                                        <p:column headerText="# de Maletas G.">
+                                            <h:outputText value="#{reserva.smsVehiculo.vehNumMalGrande}" />
+                                        </p:column>
+
+                                        <p:column headerText="# de Maletas P.">
+                                            <h:outputText value="#{reserva.smsVehiculo.vehNumMalPequeña}" />
+                                        </p:column>
+
+
+                                    </p:dataTable>
                                 </div>
                             </div>
                         </b:column>
