@@ -46,31 +46,7 @@ public class Usuario {
         listaRoles = new ArrayList<>();
         roll = new SmsRol();
     }
-
-    public SmsUsuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(SmsUsuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public SmsCiudad getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(SmsCiudad ciudad) {
-        this.ciudad = ciudad;
-    }
-
-    public SmsRol getRoll() {
-        return roll;
-    }
-
-    public void setRoll(SmsRol roll) {
-        this.roll = roll;
-    }
-
+        
     //Metodos CRUD 
     public void registrarUsuario(SmsUsuario u, SmsCiudad c, SmsRol r) {
         usuario = u;

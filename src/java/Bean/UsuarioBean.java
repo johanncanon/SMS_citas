@@ -276,7 +276,7 @@ public class UsuarioBean implements Serializable {
         modUsuarioView = new SmsUsuario();
     }
 
-    public void modificarUsuario() {
+    public void modificarPerfil() {
 
         String ruta = "";
         MD5 md = new MD5();
@@ -288,7 +288,7 @@ public class UsuarioBean implements Serializable {
 
         usuarioController.modificarUsuarioCrud(modUsuarioView, ciudadUsuario);
 
-        if (Usuario.getSmsRol().getIdRol() == 4) {
+        if (Usuario.getSmsRol().getIdRol() == 4) { // 4 = id del rol empleado
             modEmpleadoView = empleadoController.consultarEmpleado(Usuario).get(0);
             empleadoController.modificarEmpleado(modUsuarioView, hojavidaView, modEmpleadoView);
             estadoArchivo = "Hoja subida:" + hojavidaView.getHojaVidaNombre();

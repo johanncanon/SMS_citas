@@ -15,7 +15,7 @@
         <property name="lugarDireccion" type="string">
             <column name="Lugar_direccion" length="200" not-null="true" />
         </property>
-        <many-to-one name="smsCiudad" class="Modelo.SmsCiudad" fetch="select">
+        <many-to-one name="smsCiudad" class="Modelo.SmsCiudad" fetch="join">
             <column name="Lugar_ciudad" not-null="true" />
         </many-to-one>        
     </class> 
