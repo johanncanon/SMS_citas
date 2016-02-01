@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Modelo.SmsEmpleado;
 import Modelo.SmsProveedor;
 import Modelo.SmsUsuario;
 import java.util.ArrayList;
@@ -93,7 +94,7 @@ public class ImpProveedorDao implements IProveedorDao {
     }
 
     @Override
-    public List<SmsProveedor> consultarProveedor(SmsUsuario usuario) {
+    public List<SmsProveedor> consultarProveedorUsuario(SmsUsuario usuario) {
         Session session = null;
         List<SmsProveedor> Proveedores = new ArrayList<>();
         try {
@@ -119,6 +120,24 @@ public class ImpProveedorDao implements IProveedorDao {
             Query query = session.createQuery("from SmsProveedor as proveedor left join fetch proveedor.smsUsuario as usuario left join fetch usuario.smsCiudad as ciudad "
                     + "where proveedor.proveedorValorGanancia LIKE '%" + dato + "%' OR usuario.usuarioNombre LIKE '%" + dato + "%' OR usuario.usuarioEmail LIKE '" + dato + "' OR usuario.usuarioNit LIKE '" + dato + "' OR "
                     + "ciudad.ciudadNombre LIKE '" + dato + "'");
+            Proveedores = (List<SmsProveedor>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return Proveedores;
+    }
+
+    @Override
+    public List<SmsProveedor> consultarProveedor(SmsProveedor proveedor) {
+        Session session = null;
+        List<SmsProveedor> Proveedores = new ArrayList<>();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsProveedor as proveedor left join fetch proveedor.smsUsuario as usuario where proveedor.idProveedor = '" + proveedor.getIdProveedor() + "'");
             Proveedores = (List<SmsProveedor>) query.list();
         } catch (HibernateException e) {
             e.getMessage();

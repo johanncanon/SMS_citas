@@ -70,7 +70,7 @@ public class Proveedor extends Usuario {
     public List<SmsProveedor> consultarProveedor(SmsUsuario usuario) {
         proveedores = new ArrayList<>();
         IProveedorDao provedorDao = new ImpProveedorDao();
-        proveedores = provedorDao.consultarProveedor(usuario);
+        proveedores = provedorDao.consultarProveedorUsuario(usuario);
         return proveedores;
     }
 

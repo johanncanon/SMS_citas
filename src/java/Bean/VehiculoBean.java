@@ -264,14 +264,15 @@ public class VehiculoBean {
         }
 
         //Registramos el vehiculo
-        vehiculoController.registrarVehiculo(categoriaView, usuarioView, ciudadView, refenciaView, vehiculoView);
+        vehiculoController.registrarVehiculo(proveedorView, categoriaView, usuarioView, ciudadView, refenciaView, vehiculoView);
 
         //consultamos el vehiculo recien registrado
         vehiculoView = vehiculoController.consultarVehiculo(vehiculoView).get(0);
-        estadoVehiculoView.setSmsVehiculo(vehiculoView); //relaciomos el vehiculo con los valores asignados en la seccion de estado
+        estadoVehiculoView.setSmsVehiculo(vehiculoView); //relacionamos el vehiculo con los valores asignados en la seccion de estado
 
         estadoVehiculoController.registrarEstVeh(estadoVehiculoView);//registramos el estado
 
+        //Reiniciamos valores para las variables llamadas desde las vista
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
         habilitarSubir = false;
@@ -285,17 +286,21 @@ public class VehiculoBean {
         usuarioView = new SmsUsuario();
         estadoVehiculoView = new SmsEstadovehiculo();
 
+        //Actualizamos la lista que muestra los vehiculos registrados en el sistema
         vehiculosListView = vehiculoController.cargarVehiculos();
     }
 
     public void modificar() {
-        vehiculoController.modificarVehiculo(categoriaView, usuarioView, ciudadView, refenciaView, vehiculoView);
-
+        //Ejecutamos la modificacion del vehiculo
+        vehiculoController.modificarVehiculo(proveedorView, categoriaView, usuarioView, ciudadView, refenciaView, vehiculoView);
+        
+        //Consultamos el vehiculo recien registrado
         vehiculoView = vehiculoController.consultarVehiculo(vehiculoView).get(0);
-        estadoVehiculoView.setSmsVehiculo(vehiculoView);
+        estadoVehiculoView.setSmsVehiculo(vehiculoView); //Relacionamos el estado de vehiculo con el vehiculo.
 
-        estadoVehiculoController.registrarEstVeh(estadoVehiculoView);
+        estadoVehiculoController.registrarEstVeh(estadoVehiculoView);//Registramos el estado del vehiculo
 
+        //Reiniciamos valores para las variables llamadas desde las vista
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
         habilitarSubir = false;
@@ -307,6 +312,8 @@ public class VehiculoBean {
         vehiculoView = new SmsVehiculo();
         usuarioView = new SmsUsuario();
         estadoVehiculoView = new SmsEstadovehiculo();
+        
+        //Actualizamos la lista que muestra los vehiculos registrados en el sistema
         vehiculosListView = vehiculoController.cargarVehiculos();
     }
 
@@ -337,18 +344,23 @@ public class VehiculoBean {
         estado = i;
         if (estado == 1) {//MODIFICACION
             nombre = "Modificar Vehiculo";
+            //Asignamos a cada componente su correspondiente valor extraido del vehiculo seleccionado
             ciudadView = vehiculoView.getSmsCiudad();
             refenciaView = vehiculoView.getSmsReferencia();
             categoriaView = vehiculoView.getSmsCategoria();
             proveedorView = vehiculoView.getSmsProveedor();
+            
+            //Consultamos los datos de usuario del proveedor correspondiente
             usuarioView = usuarioController.consultarUsuario(proveedorView.getSmsUsuario()).get(0);
+            //Consultamos el estado del vehiculo
             estadoVehiculoView = estadoVehiculoController.consultarEstado(vehiculoView).get(0);
 
+            //Si el vehiculo tiene una foto asignada damos valores a nuestras variables para mostrar que foto esta asignada
             if (vehiculoView.getVehFotoNombre() != null && vehiculoView.getVehFotoRuta() != null) {
                 subirArchivo = "Modificar Fotografia";
                 estadoArchivo = "Foto subida:" + vehiculoView.getVehFotoNombre();
                 habilitarSubir = false;
-            } else {
+            } else { //En caso de no existir fotografia, indicamos en la vista la posibilidad de subir una foto para el vehiculo
                 subirArchivo = "Subir Fotografia";
                 habilitarSubir = false;
             }

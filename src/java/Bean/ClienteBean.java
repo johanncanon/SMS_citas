@@ -28,8 +28,10 @@ public class ClienteBean implements Serializable {
     protected SmsUsuario clienteView;
     protected SmsUsuario DClienteView;
     protected SmsUsuario modClienteView;
+    
     protected List<SmsUsuario> clientesListView;
     protected List<String> nombresClientesListView;
+    
     protected SmsCiudad ciudadView;
     protected SmsRol rolView;
     //variable para sacar las ciudades de la reservacion
@@ -180,14 +182,16 @@ public class ClienteBean implements Serializable {
 
         //registramos el usuario y recargamos la lista de clientes
         clienteController.registrarUsuario(clienteView, ciudadView, rolView);
-        emailController.sendEmailBienvenida(clienteView);//enviamos correo de bievenida
+        
+        //Actualizamos la lista de clientes registrador en el sistema
         clientesListView = clienteController.consultarClientes();
-
+                
+        emailController.sendEmailBienvenida(clienteView);//enviamos correo de bienvenida
         //limpiamos objetos
         clienteView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
-        modClienteView = new SmsUsuario();
+        
     }
 
     public String modificar() {
@@ -213,19 +217,25 @@ public class ClienteBean implements Serializable {
         rolView = new SmsRol();
         habilitarEditarSesion = false;
 
+        //Nos retorna a la vista de registro de clientes
         String ruta = "RAdminPCliente";
         return ruta;
     }
 
     public void eliminar() {
+        //Ejecutamos la eliminacion del usuario
         clienteController.eliminarUsuario(DClienteView);
+        //Recargamos la lista de clientes
         clientesListView = clienteController.consultarClientes();
 
-        if (clienteView.equals(DClienteView)) {
+        if (clienteView.equals(DClienteView)) {//Validamos si el cliente a eliminar, esta en proceso de modificacion
+            //si es correcto, limpiamos los objetos donde esta guardado este cliente que se acabo de eliminar
             clienteView = new SmsUsuario();
             ciudadView = new SmsCiudad();
             rolView = new SmsRol();
         }
+        
+        //Limpiamos los objetos que contenian el cliente a eliminar
         DClienteView = new SmsUsuario();
         modClienteView = new SmsUsuario();
     }
@@ -241,14 +251,17 @@ public class ClienteBean implements Serializable {
 
     //Metodos propios
     public String irModificarCliente() {
+        //Asigna a ciudad y rol los valores correspondientes segun el cliente elegido a modificar
         ciudadView = modClienteView.getSmsCiudad();
         rolView = modClienteView.getSmsRol();
 
+        //Nos direcciona a las vista de modificacion
         String ruta = "AdminPECliente";
         return ruta;
     }
 
     public String regresar() {
+        //Resetea los datos que se muestran en la vista, retorna a la vista del cliente.
         modClienteView = new SmsUsuario();
         habilitarEditarSesion = false;
         String ruta = "AdminPCliente";
@@ -256,6 +269,8 @@ public class ClienteBean implements Serializable {
     }
 
     public void habilitarEdicion() {
+        //En caso de querer modificar los datos de sesion (Password y login)
+        //Se guarda la contraseña previa en una variable en caso de que el usuario cancele la edicion
         habilitarEditarSesion = true;
         pass = modClienteView.getUsuarioPassword();
         modClienteView.setUsuarioPassword(null);
@@ -263,7 +278,9 @@ public class ClienteBean implements Serializable {
     }
 
     public void deshabilitarEdicion() {
-        habilitarEditarSesion = false;
+        //Si se cancela la edicion de los datos de sesion (Password y login)
+        //se reasigna la contraseña ya establecida al  usuario que se esta modificando
+        habilitarEditarSesion = false;//Se desactiva el panel de edicion
         modClienteView.setUsuarioPassword(pass);
         modClienteView.setUsuarioRememberToken(pass);
     }

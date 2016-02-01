@@ -10,7 +10,9 @@ import Controlador.HojaVida;
 import Controlador.MD5;
 import Controlador.Upload;
 import Controlador.Usuario;
+import DAO.IRolDao;
 import DAO.IUsuarioDao;
+import DAO.ImpRolDao;
 import DAO.ImpUsuarioDao;
 import Modelo.SmsCiudad;
 import Modelo.SmsEmpleado;
@@ -25,9 +27,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+import sun.font.TrueTypeFont;
 
 /**
  *
@@ -73,24 +77,30 @@ public class UsuarioBean implements Serializable {
     private Boolean habilitarSubirArchivo;
     private String estadoArchivo;
 
+    //Contexto y sesion
+    private HttpSession httpSession;
+
     public UsuarioBean() {
-        ciudadUsuario = new SmsCiudad();
         DUsuarioView = new SmsUsuario();
         usuarioView = new SmsUsuario();
         modUsuarioView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
-        usuarioController = new Usuario();
-        habilitado = true;
-        Usuario = new SmsUsuario();
+        modEmpleadoView = new SmsEmpleado();
+                
         fileController = new Upload();
+        usuarioController = new Usuario();
+        empleadoController = new Empleado();
+        hojaVidaController = new HojaVida();
+    
+        Usuario = new SmsUsuario();
+        ciudadUsuario = new SmsCiudad();
+               
+        habilitado = true;
         habilitarSubirFoto = false;
         buscar = null;
         habilitarEditarSesion = false;
-        modEmpleadoView = new SmsEmpleado();
-        empleadoController = new Empleado();
-        hojaVidaController = new HojaVida();
-    }
+        }
 
     @PostConstruct
     public void init() {
@@ -113,15 +123,7 @@ public class UsuarioBean implements Serializable {
     public void setUsuariosListView(List<SmsUsuario> usuariosListView) {
         this.usuariosListView = usuariosListView;
     }
-
-    public Usuario getUsuarioController() {
-        return usuarioController;
-    }
-
-    public void setUsuarioController(Usuario usuarioController) {
-        this.usuarioController = usuarioController;
-    }
-
+  
     public SmsUsuario getUsuarioView() {
         return usuarioView;
     }
@@ -153,15 +155,7 @@ public class UsuarioBean implements Serializable {
     public void setHabilitado(boolean habilitado) {
         this.habilitado = habilitado;
     }
-
-    public FacesMessage getMessage() {
-        return message;
-    }
-
-    public void setMessage(FacesMessage message) {
-        this.message = message;
-    }
-
+    
     public String getBuscar() {
         return buscar;
     }
@@ -277,8 +271,7 @@ public class UsuarioBean implements Serializable {
     }
 
     public void modificarPerfil() {
-
-        String ruta = "";
+        
         MD5 md = new MD5();
 
         if (habilitarEditarSesion) { // en caso de modificar las contraseñas estas se encriptan de nuevo
@@ -286,13 +279,13 @@ public class UsuarioBean implements Serializable {
             modUsuarioView.setUsuarioRememberToken(md.getMD5(modUsuarioView.getUsuarioRememberToken()));
         }
 
-        usuarioController.modificarUsuarioCrud(modUsuarioView, ciudadUsuario);
+        usuarioController.modificarPerfilUsuario(modUsuarioView, ciudadUsuario);
 
         if (Usuario.getSmsRol().getIdRol() == 4) { // 4 = id del rol empleado
             modEmpleadoView = empleadoController.consultarEmpleado(Usuario).get(0);
             empleadoController.modificarEmpleado(modUsuarioView, hojavidaView, modEmpleadoView);
             estadoArchivo = "Hoja subida:" + hojavidaView.getHojaVidaNombre();
-        }  
+        }
         deshabilitarEdicion();
     }
 
@@ -366,45 +359,69 @@ public class UsuarioBean implements Serializable {
     }
 
     //Metodos para iniciar Sesion
-    public String login() {
-        String ruta = "/login.xhtml";
+    public String iniciarSesion() {
+        String ruta = "Login";
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         MD5 md = new MD5();
-        Usuario.setUsuarioPassword(md.getMD5(Usuario.getUsuarioPassword()));
-        List<SmsUsuario> user = usuarioDao.consultarDatosSesionUsuario(Usuario);//Trae de la base de datos toda la informacion de usuario
+        usuarioView.setUsuarioPassword(md.getMD5(usuarioView.getUsuarioPassword()));
+        SmsUsuario user = usuarioDao.consultarDatosSesionUsuario(usuarioView).get(0);//Trae de la base de datos toda la informacion de usuario
 
-        if (!user.isEmpty()) {//valida si el usuario existe en la BD
-            if (user.get(0).getUsuarioEstadoUsuario() == 1) {//Evalua el estado de la cuenta de usuario, si esta activa o inactiva
-                if (user.get(0).getUsuarioLogin().equalsIgnoreCase(Usuario.getUsuarioLogin()) && user.get(0).getUsuarioPassword().equalsIgnoreCase(Usuario.getUsuarioPassword())) {
-                    ruta = usuarioController.iniciarSesion(user.get(0));//envia el objeto usuarioBean al metodo iniciarSesion para tomar este objeto como atributo de sesion
-                    Usuario = usuarioController.obtenerSesion();
+        if (user.getIdUsuario() != null) {//valida si el usuario existe en la BD
+            if (user.getUsuarioEstadoUsuario() == 1) {//Evalua el estado de la cuenta de usuario, si esta activa o inactiva
+                if (user.getUsuarioLogin().equalsIgnoreCase(usuarioView.getUsuarioLogin()) && user.getUsuarioPassword().equalsIgnoreCase(usuarioView.getUsuarioPassword())) {
+                    //ruta = usuarioController.iniciarSesion(user.get(0));//envia el objeto usuarioBean al metodo iniciarSesion para tomar este objeto como atributo de sesion
+
+                    rolView = user.getSmsRol();
+                    httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                    httpSession.setAttribute("Sesion", user);
+
+                    switch (rolView.getRolNombre()) {
+                        case "Administrador Principal":
+                            ruta = "AdminPPrincipal";
+                            break;
+                        case "Administrador Secundario":
+                            ruta = "AdminSGeneral";
+                            break;
+                        case "Cliente":
+                            ruta = "ClienteDash";
+                            break;
+                        case "Empleado":
+                            ruta = "ConductorDash";
+                            break;
+                        case "Proveedor":
+                            ruta = "ProveedorDash";
+                            break;
+                    }
+                  
+                    Usuario = (SmsUsuario) httpSession.getAttribute("Sesion");
                     message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Acceso Correcto", "Bienvenid@: " + Usuario.getUsuarioNombre());
                 } else {
                     message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseña incorrecto", null);
-                    Usuario = new SmsUsuario();
+                    usuarioView = new SmsUsuario();
                 }
-            } else if (user.get(0).getUsuarioEstadoUsuario() == 0) {
+            } else if (user.getUsuarioEstadoUsuario() == 0) {
                 message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario inactivo, imposible iniciar sesion", null);
             }
         } else {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario no existente", null);
-            Usuario = new SmsUsuario();
+            usuarioView = new SmsUsuario();
         }
         FacesContext.getCurrentInstance().addMessage(null, message);
         return ruta;
     }
 
-    public String logout() {
+    public String cerrarSesion() {
         String ruta = "Login";
-        usuarioController.cerrarSesion();
+        httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        httpSession.invalidate();
         return ruta;
     }
 
-    public String editarPerfil() {
+    public String ir_editarPerfil() {
         modUsuarioView = Usuario;
         ciudadUsuario = Usuario.getSmsCiudad();
         estadoFoto = "Foto subida:" + modUsuarioView.getUsuarioFotoNombre();
-       
+
         String ruta = "";
         switch (Usuario.getSmsRol().getIdRol()) {
             case 1:
