@@ -23,25 +23,9 @@ public class Categoria {
     public Categoria(){
         categoria = new SmsCategoria();
     }
-    
-    
-/* ------------------- Getters y Setters ------------------------*/
-    public SmsCategoria getCategoria() {
-        return categoria;
-    }
+  
+   
 
-    public void setCategoria(SmsCategoria categoria) {
-        this.categoria = categoria;
-    }
-
-    public List<SmsCategoria> getCategorias() {       
-        return categorias;
-    }
-
-    public void setCategorias(List<SmsCategoria> categorias) {
-        this.categorias = categorias;
-    }
-/* ------------------- Getters y Setters ------------------------*/
 /* ------------------- Metodos con la Logica de CAtegoriaBean ------------------------*/
     
     public void modificarCategoria(SmsCategoria cat){
@@ -84,9 +68,6 @@ public class Categoria {
         return categorias;
     }
     
-/* ------------------- Metodos con la Logica de CategoriaBean ------------------------*/
-    
-    
-    
+
     
 }

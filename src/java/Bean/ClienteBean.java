@@ -261,7 +261,7 @@ public class ClienteBean implements Serializable {
     }
 
     public String regresar() {
-        //Resetea los datos que se muestran en la vista, retorna a la vista del cliente.
+        //Resetea los datos que se muestran en la vista, retorna al panel del cliente.
         modClienteView = new SmsUsuario();
         habilitarEditarSesion = false;
         String ruta = "AdminPCliente";
