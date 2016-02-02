@@ -23,68 +23,36 @@ public class EstadoVehiculo {
     private SmsVehiculo vehiculo;
     private List<SmsEstadovehiculo> estVehiculos;
 
+    IEstadoVehiculoDao estVehDao = new ImpEstadoVehiculoDao();
+
     public EstadoVehiculo() {
         estVehiculo = new SmsEstadovehiculo();
         vehiculo = new SmsVehiculo();
     }
 
-    public SmsEstadovehiculo getEstVehiculo() {
-        return estVehiculo;
-    }
-
-    public void setEstVehiculo(SmsEstadovehiculo estVehiculo) {
-        this.estVehiculo = estVehiculo;
-    }
-
-    public SmsVehiculo getVehiculo() {
-        return vehiculo;
-    }
-
-    public void setVehiculo(SmsVehiculo vehiculo) {
-        this.vehiculo = vehiculo;
-    }
-
-    public List<SmsEstadovehiculo> getEstVehiculos() {
-        IEstadoVehiculoDao linkDao = new ImpEstadoVehiculoDao();
-        estVehiculos = linkDao.mostrarEstadoVehiculo();
-        return estVehiculos;
-    }
-
-    public void setEstVehiculos(List<SmsEstadovehiculo> estVehiculos) {
-        this.estVehiculos = estVehiculos;
-    }
-
-    /**
-     * ************************** METODOS DEL CRUD ****************************
-     */
     public void registrarEstVeh(SmsEstadovehiculo estV) {
         estVehiculo = estV;
 
         //Obtenemos fecha actual en la cual se registra el estado del vehiculo
         java.util.Date fecha = new Date();
         estVehiculo.setFechaEstadoVehiculo(fecha);
-
-        IEstadoVehiculoDao linkDao = new ImpEstadoVehiculoDao();
-        linkDao.registrarEstadoVehiculo(estVehiculo);
+        estVehDao.registrarEstadoVehiculo(estVehiculo);
     }
 
     public void modificarEstVeh(SmsEstadovehiculo estV) {
         estVehiculo = estV;
-        IEstadoVehiculoDao linkDao = new ImpEstadoVehiculoDao();
-        linkDao.modificarEstadoVehiculo(estVehiculo);
+        estVehDao.modificarEstadoVehiculo(estVehiculo);
     }
 
     public void eliminarEstVeh(SmsEstadovehiculo estV) {
         estVehiculo = estV;
-        IEstadoVehiculoDao linkDao = new ImpEstadoVehiculoDao();
-        linkDao.eliminarEstadoVehiculo(estVehiculo);
+        estVehDao.eliminarEstadoVehiculo(estVehiculo);
     }
 
     public List<SmsEstadovehiculo> consultarEstado(SmsVehiculo v) {
         vehiculo = v;
         estVehiculos = new ArrayList<>();
-        IEstadoVehiculoDao linkDao = new ImpEstadoVehiculoDao();
-        estVehiculos = linkDao.consultarEstadoVehiculo(vehiculo);
+        estVehiculos = estVehDao.consultarEstadoVehiculo(vehiculo);
         return estVehiculos;
     }
 

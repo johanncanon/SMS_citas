@@ -97,7 +97,7 @@ public class ImpEstadoVehiculoDao implements IEstadoVehiculoDao {
         List<SmsEstadovehiculo> EstadoVehiculos = new ArrayList<>();
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsEstadovehiculo as estado left join fetch estado.smsVehiculo as vehiculo where vehiculo.idVehiculo = '" + vehiculo.getIdVehiculo() + "'");
+            Query query = session.createQuery("from SmsEstadovehiculo as estado left join fetch estado.smsVehiculo as vehiculo where vehiculo.idVehiculo = '" + vehiculo.getIdVehiculo() + "' and estado.fechaEstadoVehiculo = (select MAX(est.fechaEstadoVehiculo) from SmsEstadovehiculo as est where est.smsVehiculo.idVehiculo = '" + vehiculo.getIdVehiculo() + "')");
             EstadoVehiculos = (List<SmsEstadovehiculo>) query.list();
         } catch (HibernateException e) {
             e.getMessage();

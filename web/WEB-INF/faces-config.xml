@@ -53,7 +53,7 @@
     <managed-bean>
         <managed-bean-name>vehiculoBean</managed-bean-name>
         <managed-bean-class>Bean.VehiculoBean</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>referenciaBean</managed-bean-name>
@@ -470,6 +470,14 @@
         <navigation-case>
             <from-outcome>Login</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/vistas/AdminP/vehiculos/PVehiculo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>AdminPEVehiculo</from-outcome>
+            <to-view-id>/vistas/AdminP/vehiculos/PEVehiculo.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

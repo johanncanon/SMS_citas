@@ -39,110 +39,122 @@ public class Vehiculo {
 
     private SmsVehiculo vehiculo;
     private SmsEstadovehiculo estado_Vehiculo;
-    
+
     private List<SmsVehiculo> vehiculos;
     private List<SmsEstadovehiculo> estado_Vehiculos;
+
+    //Conexion con el DAO
+    ICategoriaDao cateDao;
+    IProveedorDao provDao;
+    ICiudadDao ciuDao;
+    IReferenciaDao refDao;
+    IVehiculoDao vehDao;
+    IUsuarioDao usuDao;
+
+    SmsCategoria categoria;
+    SmsUsuario usuario;
+    SmsProveedor proveedor;
+    SmsCiudad ciudad;
+    SmsReferencia referencia;
 
     public Vehiculo() {
         vehiculo = new SmsVehiculo();
         estado_Vehiculo = new SmsEstadovehiculo();
+
+        cateDao = new ImpCategoriaDao();
+        provDao = new ImpProveedorDao();
+        ciuDao = new ImpCiudadDao();
+        refDao = new ImpReferenciaDao();
+        vehDao = new ImpVehiculoDao();
+        usuDao = new ImpUsuarioDao();
+
+        categoria = new SmsCategoria();
+        usuario = new SmsUsuario();
+        proveedor = new SmsProveedor();
+        ciudad = new SmsCiudad();
+        referencia = new SmsReferencia();
     }
-   
+
     //Metodos
     public void modificarVehiculo(SmsProveedor p, SmsCategoria c, SmsUsuario u, SmsCiudad ci, SmsReferencia r, SmsVehiculo v) {
-        SmsCategoria categoria = c;
-        SmsUsuario usuario = u;
-        SmsProveedor proveedor = p;
-        SmsCiudad ciudad = ci;
-        SmsReferencia referencia = r;
+        categoria = c;
+        usuario = u;
+        proveedor = p;
+        ciudad = ci;
+        referencia = r;
         vehiculo = v;
 
-        IUsuarioDao usuDao = new ImpUsuarioDao();
         usuario = usuDao.consultarUsuario(usuario).get(0);
 
-        //Consulta categoria
-        ICategoriaDao cateDao = new ImpCategoriaDao();
+        //Consulta categoria      
         categoria = cateDao.consultarCategoria(categoria).get(0);
         vehiculo.setSmsCategoria(categoria);//Reasigna Categoria
 
-        //Consulta proveedor
-        IProveedorDao provDao = new ImpProveedorDao();
+        //Consulta proveedor        
         proveedor = provDao.consultarProveedorUsuario(usuario).get(0);
         vehiculo.setSmsProveedor(proveedor);//Reasigna Proveedor
 
-        //Consulta ciudad
-        ICiudadDao ciuDao = new ImpCiudadDao();
+        //Consulta ciudad        
         ciudad = ciuDao.consultarCiudad(ciudad).get(0);
         vehiculo.setSmsCiudad(ciudad);//Reasigna Ciudad
 
-        //Consulta referencia
-        IReferenciaDao refDao = new ImpReferenciaDao();
+        //Consulta referencia        
         referencia = refDao.consultarReferencias(referencia).get(0);
         vehiculo.setSmsReferencia(referencia);//Reasigna Referencia
 
-        IVehiculoDao linkDao = new ImpVehiculoDao();
-        linkDao.modificarVehiculo(vehiculo);
+        vehDao.modificarVehiculo(vehiculo);//Se modifica el vehiculo
 
     }
 
     public void registrarVehiculo(SmsProveedor p, SmsCategoria c, SmsUsuario u, SmsCiudad ci, SmsReferencia r, SmsVehiculo v) {
-        SmsCategoria categoria = c;
-        SmsUsuario usuario = u;
-        SmsProveedor proveedor;
-        SmsCiudad ciudad = ci;
-        SmsReferencia referencia = r;
+        categoria = c;
+        usuario = u;
+        proveedor = p;
+        ciudad = ci;
+        referencia = r;
         vehiculo = v;
 
-        IUsuarioDao usuDao = new ImpUsuarioDao();
         usuario = usuDao.consultarUsuario(usuario).get(0);
 
         //Consulta categoria
-        ICategoriaDao cateDao = new ImpCategoriaDao();
         categoria = cateDao.consultarCategoria(categoria).get(0);
         vehiculo.setSmsCategoria(categoria);//Asigna Categoria
 
         //Consulta proveedor
-        IProveedorDao provDao = new ImpProveedorDao();
         proveedor = provDao.consultarProveedorUsuario(usuario).get(0);
         vehiculo.setSmsProveedor(proveedor);//Asigna Proveedor
 
         //Consulta ciudad
-        ICiudadDao ciuDao = new ImpCiudadDao();
         ciudad = ciuDao.consultarCiudad(ciudad).get(0);
         vehiculo.setSmsCiudad(ciudad);//Asigna Ciudad
 
         //Consulta referencia
-        IReferenciaDao refDao = new ImpReferenciaDao();
         referencia = refDao.consultarReferencias(referencia).get(0);
         vehiculo.setSmsReferencia(referencia);//Asigna Referencia
 
-        IVehiculoDao linkDao = new ImpVehiculoDao();
-        linkDao.registrarVehiculo(vehiculo);
+        vehDao.registrarVehiculo(vehiculo);//Registra el Vehiculo
     }
 
     public void eliminarVehiculo(SmsVehiculo v) {
         vehiculo = v;
-        IVehiculoDao linkDao = new ImpVehiculoDao();
-        linkDao.eliminarVehiculo(vehiculo);
+        vehDao.eliminarVehiculo(vehiculo);
     }
 
     public List<SmsVehiculo> consultarVehiculo(SmsVehiculo vehiculo) {
         vehiculos = new ArrayList<>();
-        IVehiculoDao linkDao = new ImpVehiculoDao();
-        vehiculos = linkDao.consultarVehiculo(vehiculo);
+        vehiculos = vehDao.consultarVehiculo(vehiculo);
         return vehiculos;
     }
 
     public List<SmsVehiculo> cargarVehiculos() {
         vehiculos = new ArrayList<>();
-        IVehiculoDao linkDao = new ImpVehiculoDao();
-        vehiculos = linkDao.mostrarVehiculo();
+        vehiculos = vehDao.mostrarVehiculo();
         return vehiculos;
     }
 
     public List<SmsVehiculo> consultarVehiculosDisponible(SmsAgenda a, SmsCiudad c) {
         vehiculos = new ArrayList<>();
-        String ciudad = c.getCiudadNombre();
+        String ciudadVeh = c.getCiudadNombre();
 
         Calendar calInicio = Calendar.getInstance();
         calInicio.setTime(a.getAgendaHoraInicio());
@@ -152,7 +164,7 @@ public class Vehiculo {
         Calendar calLlegada = Calendar.getInstance();
         calLlegada.setTime(a.getAgendaHoraLlegada());
         calLlegada.add(Calendar.HOUR, 2);
-        
+
         Date hespacioInicio = calInicio.getTime();
         Date hespacioLlegada = calLlegada.getTime();
 
@@ -168,32 +180,29 @@ public class Vehiculo {
         String espacioinicio = formatTime.format(hespacioInicio);
         String espacioLlegada = formatTime.format(hespacioLlegada);
 
-        IVehiculoDao linkDao = new ImpVehiculoDao();
-        vehiculos = linkDao.consultarVehiculosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudad, espacioinicio, espacioLlegada);
+        vehiculos = vehDao.consultarVehiculosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudadVeh, espacioinicio, espacioLlegada);
         return vehiculos;
     }
 
     public List<SmsVehiculo> consultarVehiculosCiudad(SmsCiudad c) {
         vehiculos = new ArrayList<>();
-        SmsCiudad ciudad = c;
-        IVehiculoDao linkDao = new ImpVehiculoDao();
-        vehiculos = linkDao.consultarVehiculosCiudad(ciudad);
+        ciudad = c;
+        vehiculos = vehDao.consultarVehiculosCiudad(ciudad);
         return vehiculos;
     }
 
     public List<SmsVehiculo> filtrarVehiculosCiudad(SmsCiudad c, SmsCategoria cat) {
         vehiculos = new ArrayList<>();
-        SmsCiudad ciudad = c;
-        String categoria = cat.getCategoriaNombre();
-        IVehiculoDao linkDao = new ImpVehiculoDao();
-        vehiculos = linkDao.filtrarVehiculosCiudad(ciudad, categoria);
+        ciudad = c;
+        String categoriaVeh = cat.getCategoriaNombre();
+        vehiculos = vehDao.filtrarVehiculosCiudad(ciudad, categoriaVeh);
         return vehiculos;
     }
 
     public List<SmsVehiculo> filtrarVehiculosDisponibles(SmsAgenda a, SmsCiudad c, SmsCategoria cat) {
         vehiculos = new ArrayList<>();
-        String ciudad = c.getCiudadNombre();
-        String categoria = cat.getCategoriaNombre();
+        String ciudadVeh = c.getCiudadNombre();
+        String categoriaVeh = cat.getCategoriaNombre();
 
         Calendar calInicio = Calendar.getInstance();
         calInicio.setTime(a.getAgendaHoraInicio());
@@ -219,7 +228,7 @@ public class Vehiculo {
         String espacioLlegada = formatTime.format(hespacioLlegada);
 
         IVehiculoDao linkDao = new ImpVehiculoDao();
-        vehiculos = linkDao.filtrarVehiculosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudad, categoria, espacioinicio, espacioLlegada);
+        vehiculos = linkDao.filtrarVehiculosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudadVeh, categoriaVeh, espacioinicio, espacioLlegada);
         return vehiculos;
     }
 

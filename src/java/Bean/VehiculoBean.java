@@ -42,16 +42,15 @@ public class VehiculoBean {
     private SmsEstadovehiculo estadoVehiculoView;
 
     //Relacion con el controlodar
-    private Vehiculo vehiculoController;
+    protected Vehiculo vehiculoController;
     protected Upload fileController;
-    private EstadoVehiculo estadoVehiculoController;
-    private Usuario usuarioController;
+    protected EstadoVehiculo estadoVehiculoController;
+    protected Usuario usuarioController;
 
     //Variables
     private int estado; //Controla la operacion a realizar
     private String nombre;
     private String buscar;
-    private Boolean habilitarSubir;
     private String subirArchivo;
     private String estadoArchivo;
     private UploadedFile archivo;
@@ -72,8 +71,8 @@ public class VehiculoBean {
 
         buscar = null;
         estado = 0;
+
         nombre = "Registrar Vehiculo";
-        habilitarSubir = false;
         subirArchivo = "Subir fotografia";
         estadoArchivo = "Foto sin subir";
     }
@@ -140,36 +139,12 @@ public class VehiculoBean {
         this.PlacasVehiculosListView = PlacasVehiculosListView;
     }
 
-    public Vehiculo getVehiculoController() {
-        return vehiculoController;
-    }
-
-    public void setVehiculoController(Vehiculo vehiculoController) {
-        this.vehiculoController = vehiculoController;
-    }
-
     public SmsVehiculo getVehiculoView() {
         return vehiculoView;
     }
 
     public void setVehiculoView(SmsVehiculo veh) {
         this.vehiculoView = veh;
-    }
-
-    public Upload getFileController() {
-        return fileController;
-    }
-
-    public void setFileController(Upload fileController) {
-        this.fileController = fileController;
-    }
-
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
     }
 
     public String getNombre() {
@@ -186,14 +161,6 @@ public class VehiculoBean {
 
     public void setBuscar(String buscar) {
         this.buscar = buscar;
-    }
-
-    public Boolean getHabilitarSubir() {
-        return habilitarSubir;
-    }
-
-    public void setHabilitarSubir(Boolean habilitarSubir) {
-        this.habilitarSubir = habilitarSubir;
     }
 
     public String getSubirArchivo() {
@@ -220,28 +187,12 @@ public class VehiculoBean {
         this.archivo = archivo;
     }
 
-    public EstadoVehiculo getEstadoVehiculoController() {
-        return estadoVehiculoController;
-    }
-
-    public void setEstadoVehiculoController(EstadoVehiculo estadoVehiculoController) {
-        this.estadoVehiculoController = estadoVehiculoController;
-    }
-
     public SmsUsuario getUsuarioView() {
         return usuarioView;
     }
 
     public void setUsuarioView(SmsUsuario usuarioView) {
         this.usuarioView = usuarioView;
-    }
-
-    public Usuario getUsuarioController() {
-        return usuarioController;
-    }
-
-    public void setUsuarioController(Usuario usuarioController) {
-        this.usuarioController = usuarioController;
     }
 
     public SmsVehiculo getDVehiculoView() {
@@ -251,8 +202,8 @@ public class VehiculoBean {
     public void setDVehiculoView(SmsVehiculo DVehiculoView) {
         this.DVehiculoView = DVehiculoView;
     }
-
     
+
     //Definicion de metodos VEHICULO
     public void registrar() {
 
@@ -275,7 +226,6 @@ public class VehiculoBean {
         //Reiniciamos valores para las variables llamadas desde las vista
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
-        habilitarSubir = false;
 
         //limpiamos objetos
         refenciaView = new SmsReferencia();
@@ -290,10 +240,10 @@ public class VehiculoBean {
         vehiculosListView = vehiculoController.cargarVehiculos();
     }
 
-    public void modificar() {
+    public String modificar() {
         //Ejecutamos la modificacion del vehiculo
         vehiculoController.modificarVehiculo(proveedorView, categoriaView, usuarioView, ciudadView, refenciaView, vehiculoView);
-        
+
         //Consultamos el vehiculo recien registrado
         vehiculoView = vehiculoController.consultarVehiculo(vehiculoView).get(0);
         estadoVehiculoView.setSmsVehiculo(vehiculoView); //Relacionamos el estado de vehiculo con el vehiculo.
@@ -303,7 +253,6 @@ public class VehiculoBean {
         //Reiniciamos valores para las variables llamadas desde las vista
         estadoArchivo = "Foto sin subir";
         subirArchivo = "Subir Fotografia";
-        habilitarSubir = false;
 
         refenciaView = new SmsReferencia();
         categoriaView = new SmsCategoria();
@@ -312,69 +261,65 @@ public class VehiculoBean {
         vehiculoView = new SmsVehiculo();
         usuarioView = new SmsUsuario();
         estadoVehiculoView = new SmsEstadovehiculo();
-        
+
         //Actualizamos la lista que muestra los vehiculos registrados en el sistema
         vehiculosListView = vehiculoController.cargarVehiculos();
+        return "AdminPVehiculos";
     }
 
     public void eliminar() {
+        //Eliminamos el vehiculo seleccionado
         vehiculoController.eliminarVehiculo(DVehiculoView);
-        
-        if(vehiculoView.equals(DVehiculoView)){
-        usuarioView = new SmsUsuario();
-        refenciaView = new SmsReferencia();
-        categoriaView = new SmsCategoria();
-        proveedorView = new SmsProveedor();
-        ciudadView = new SmsCiudad();
-        vehiculoView = new SmsVehiculo();       
-        estadoVehiculoView = new SmsEstadovehiculo();
-        nombre = "Registrar Vehiculo";
-        estado = 0;
-        estadoArchivo = "Foto sin subir";
-        subirArchivo = "Subir Fotografia";
-        habilitarSubir = false;
+
+        //Si el vehiculo a eliminar se encuentra en proceso de modificacion, 
+        //lo elimina y reinicia los objetos que contenian la informacion
+        if (vehiculoView.equals(DVehiculoView)) {
+            usuarioView = new SmsUsuario();
+            refenciaView = new SmsReferencia();
+            categoriaView = new SmsCategoria();
+            proveedorView = new SmsProveedor();
+            ciudadView = new SmsCiudad();
+            vehiculoView = new SmsVehiculo();
+            estadoVehiculoView = new SmsEstadovehiculo();
+
+            nombre = "Registrar Vehiculo";
+            estado = 0;
+            estadoArchivo = "Foto sin subir";
+            subirArchivo = "Subir Fotografia";
+
         }
-        
-        DVehiculoView = new SmsVehiculo();
+
+        DVehiculoView = new SmsVehiculo();//Limpiamos el objeto que contenia el vehiculo a eliminar
+        //Recargamos la lista de vehiculos
         vehiculosListView = vehiculoController.cargarVehiculos();
     }
 
     //Metodos propios
-    public void seleccionarCrud(int i) {
-        estado = i;
-        if (estado == 1) {//MODIFICACION
-            nombre = "Modificar Vehiculo";
-            //Asignamos a cada componente su correspondiente valor extraido del vehiculo seleccionado
-            ciudadView = vehiculoView.getSmsCiudad();
-            refenciaView = vehiculoView.getSmsReferencia();
-            categoriaView = vehiculoView.getSmsCategoria();
-            proveedorView = vehiculoView.getSmsProveedor();
-            
-            //Consultamos los datos de usuario del proveedor correspondiente
-            usuarioView = usuarioController.consultarUsuario(proveedorView.getSmsUsuario()).get(0);
-            //Consultamos el estado del vehiculo
-            estadoVehiculoView = estadoVehiculoController.consultarEstado(vehiculoView).get(0);
+    public String irModificarVehiculo() {
+        //Asignamos a cada componente su correspondiente valor extraido del vehiculo seleccionado
+        ciudadView = vehiculoView.getSmsCiudad();
+        refenciaView = vehiculoView.getSmsReferencia();
+        categoriaView = vehiculoView.getSmsCategoria();
+        proveedorView = vehiculoView.getSmsProveedor();
+        usuarioView = proveedorView.getSmsUsuario();
 
-            //Si el vehiculo tiene una foto asignada damos valores a nuestras variables para mostrar que foto esta asignada
-            if (vehiculoView.getVehFotoNombre() != null && vehiculoView.getVehFotoRuta() != null) {
-                subirArchivo = "Modificar Fotografia";
-                estadoArchivo = "Foto subida:" + vehiculoView.getVehFotoNombre();
-                habilitarSubir = false;
-            } else { //En caso de no existir fotografia, indicamos en la vista la posibilidad de subir una foto para el vehiculo
-                subirArchivo = "Subir Fotografia";
-                habilitarSubir = false;
-            }
+        //Consultamos el estado del vehiculo
+        estadoVehiculoView = estadoVehiculoController.consultarEstado(vehiculoView).get(0);
+
+        //Si el vehiculo tiene una foto asignada damos valores a nuestras variables para mostrar que foto esta asignada
+        if (vehiculoView.getVehFotoNombre() != null && vehiculoView.getVehFotoRuta() != null) {
+            subirArchivo = "Modificar Fotografia";
+            estadoArchivo = "Foto subida:" + vehiculoView.getVehFotoNombre();
+
+        } else { //En caso de no existir fotografia, indicamos en la vista la posibilidad de subir una foto para el vehiculo
+            subirArchivo = "Subir Fotografia";
         }
+        return "AdminPEVehiculo";
     }
 
-    public void metodo() {
-        if (estado == 0) {
-            registrar();
-        } else if (estado == 1) {
-            modificar();
-            estado = 0;
-            nombre = "Registrar Vehiculo";
-        }
+    public String regresar() {
+                
+        return "AdminPVehiculos";
     }
 
     public void uploadPhoto(FileUploadEvent e) throws IOException {
@@ -388,7 +333,6 @@ public class VehiculoBean {
                 fileController.uploadFile(IOUtils.toByteArray(uploadedPhoto.getInputstream()), uploadedPhoto.getFileName(), destination);
                 vehiculoView.setVehFotoNombre(uploadedPhoto.getFileName());
                 vehiculoView.setVehFotoRuta(map.get("url") + uploadedPhoto.getFileName());
-                habilitarSubir = true;
                 if (estado == 0) {
                     estadoArchivo = "Foto Subida con exito";
                 } else if (estado == 1) {
