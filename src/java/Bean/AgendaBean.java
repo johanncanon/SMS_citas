@@ -12,6 +12,12 @@ import Controlador.Reservacion;
 import Controlador.SendEmail;
 import Controlador.Usuario;
 import Controlador.Vehiculo;
+import DAO.IAgendaDao;
+import DAO.ICiudadDao;
+import DAO.IReservacionDao;
+import DAO.ImpAgendaDao;
+import DAO.ImpCiudadDao;
+import DAO.ImpReservacionDao;
 import Modelo.SmsAgenda;
 import Modelo.SmsCategoria;
 import Modelo.SmsCiudad;
@@ -49,7 +55,7 @@ public class AgendaBean {
     private SmsCategoria categoriaView;
     private SmsCiudad ciudadView;
     private SmsUsuario clienteView;
-    
+
     private SmsAgenda MagendaView;
     private SmsVehiculo MvehiculoView;
     private SmsEmpleado MempleadoView;
@@ -57,13 +63,11 @@ public class AgendaBean {
     private SmsCategoria McategoriaView;
     private SmsCiudad MciudadView;
     private SmsUsuario MclienteView;
-    
-    
-   
+
     private SmsCostosServicio costoServicioView;
     private SmsServicios servicioView;
     private SmsUsuario sesion; //objeto donde guardaremos los datos del usuario logueado
-    
+
     private String HoraInicio;
     private String HoraEntrega;
 
@@ -98,6 +102,11 @@ public class AgendaBean {
     private ScheduleModel eventoModelo;
     private ScheduleEvent evento;
 
+    //Comunicacion con el dao
+    protected IAgendaDao agDao;
+    protected ICiudadDao ciuDao;
+    protected IReservacionDao resDao;
+
     public AgendaBean() {
 
         agendaView = new SmsAgenda();
@@ -109,7 +118,7 @@ public class AgendaBean {
         clienteView = new SmsUsuario();
         costoServicioView = new SmsCostosServicio();
         servicioView = new SmsServicios();
-        
+
         MagendaView = new SmsAgenda();
         MvehiculoView = new SmsVehiculo();
         MempleadoView = new SmsEmpleado();
@@ -142,11 +151,14 @@ public class AgendaBean {
         eventoModelo = new DefaultScheduleModel();
         evento = new DefaultScheduleEvent();
 
+        agDao = new ImpAgendaDao();
+        ciuDao = new ImpCiudadDao();
+        resDao = new ImpReservacionDao();
     }
 
     @PostConstruct
     public void init() {
-         //Obtenemos la informacion de sesion del usuario autentificado 
+        //Obtenemos la informacion de sesion del usuario autentificado 
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
         sesion = (SmsUsuario) httpServletRequest.getSession().getAttribute("Sesion");
@@ -427,18 +439,33 @@ public class AgendaBean {
         this.MclienteView = MclienteView;
     }
 
-    
-    
     //Metodos    
     //CRUD
     public String registrarAgenda() {
-      
+
         //Registramos los datos de agendamiento
-        agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);
+        agendaView.setSmsVehiculo(vehiculoView);
+        if (empleadoView.getIdEmpleado() != null) {
+            agendaView.setSmsEmpleado(empleadoView);
+        }
+        agDao.registrarAgenda(agendaView);
+        //agendaController.registrarAgenda(empleadoView, vehiculoView, agendaView);
+
+        ciudadView = ciuDao.consultarCiudad(ciudadView).get(0);
+               
         //obtenemos los datos completos de la agenda recien registrada
-        agendaView = agendaController.consultarAgenda(agendaView, vehiculoView, empleadoView).get(0);
+        agendaView = agendaController.consultarAgenda(agendaView).get(0);
         //Registramos la reservacion indicando agenda,ciudad,cliente y los datos de la reserva.
-        reservacionController.registrarReservacion(agendaView, ciudadView, reservaView, clienteView);
+
+        //asignamos la agenda el cliente y la ciudad a nuestra reservacion
+        reservaView.setSmsAgenda(agendaView);
+        reservaView.setSmsUsuario(clienteView);
+        ciudadView = ciuDao.consultarCiudad(ciudadView).get(0);
+        reservaView.setSmsCiudad(ciudadView);
+        reservaView.setSmsCiudad(ciudadView);
+
+        resDao.registrarReservacion(reservaView);
+        //reservacionController.registrarReservacion(agendaView, ciudadView, reservaView, clienteView);
 
         //Enviamos mensajes al administrador del sistema, el cliente y el conductor
         if (empleadoView.getIdEmpleado() != null) {
@@ -452,8 +479,7 @@ public class AgendaBean {
 
         reservacionClienteAgenda(); //Recargamos las lista que se muestran en las vistas
         addEventoCalendario();
-        
-       
+
         //Limpieza de objetos
         empleadoView = new SmsEmpleado();
         vehiculoView = new SmsVehiculo();
@@ -465,6 +491,7 @@ public class AgendaBean {
         clienteView = new SmsUsuario();
         servicioView = new SmsServicios();
 
+        //Habilitamos la seleccion de vehiculos y conductores
         SelecVeh = false;
         SelecCon = false;
         String Ruta = "";
@@ -481,12 +508,11 @@ public class AgendaBean {
                 Ruta = "ClienteReservacion";
                 break;
         }
-        
-       
+
         return Ruta;
     }
 
-    public void eliminarAgenda(){
+    public void eliminarAgenda() {
         agendaController.eliminarAgenda(agendaView);
         agendaView = new SmsAgenda();
         clienteView = new SmsUsuario();
@@ -495,8 +521,7 @@ public class AgendaBean {
         vehiculoView = new SmsVehiculo();
         empleadoView = new SmsEmpleado();
     }
-    
-    
+
     //Especificos 
     ///Controla el flujo de la vista
     public String onFlowProcess(FlowEvent event) {
@@ -675,8 +700,7 @@ public class AgendaBean {
         MempleadoView = MagendaView.getSmsEmpleado();
         MclienteView = MreservaView.getSmsUsuario();
         MciudadView = MreservaView.getSmsCiudad();
-        
-        
+
         switch (sesion.getSmsRol().getRolNombre()) {
             case "Administrador Principal":
                 Ruta = "VistaReservaAdminP";
@@ -689,13 +713,12 @@ public class AgendaBean {
             case "Cliente":
                 Ruta = "VistaReservaCliente";
                 break;
-                
+
             case "Empleado":
                 Ruta = "VistaReservaConductor";
                 break;
         }
-        
-        
+
         return Ruta;
     }
 

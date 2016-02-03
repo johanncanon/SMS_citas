@@ -36,10 +36,13 @@ public class Agenda {
     private List<Date> listaFechasLlegada;
     private List<Date> listaHorasInicio;
     private List<Date> listaHorasLlegada;
+    
+    IAgendaDao agDao;
 
     public Agenda() {
         usuarioID = new SmsUsuario();
         vistaReserva = new ArrayList<>();
+        agDao = new ImpAgendaDao();
     }
 
     public SmsAgenda getAgenda() {
@@ -122,7 +125,7 @@ public class Agenda {
         return agendas;
     }
 
-    public void registrarAgenda(SmsEmpleado c, SmsVehiculo v, SmsAgenda a) {
+  /*  public void registrarAgenda(SmsEmpleado c, SmsVehiculo v, SmsAgenda a) {
         agenda = a;
         SmsVehiculo vehiculo = v;
         SmsEmpleado conductor = c;
@@ -137,7 +140,7 @@ public class Agenda {
 //Relacion con el dao y registro de la agenda
         IAgendaDao agDao = new ImpAgendaDao();
         agDao.registrarAgenda(agenda);//Se ejecuta la funcion del dao       
-    }
+    }*/
 
     public void modificarAgenda(SmsEmpleado c, SmsVehiculo v, SmsAgenda a) {
         agenda = a;
@@ -155,7 +158,6 @@ public class Agenda {
 
     public void eliminarAgenda(SmsAgenda a) {
         agenda = a;
-
         //Relacion con el dao y eliminacion de la agenda
         IAgendaDao agDao = new ImpAgendaDao();
         agDao.eliminarAgenda(agenda);//Se ejecuta la funcion del dao
@@ -169,7 +171,7 @@ public class Agenda {
         return agendas;
     }
 
-    public List<SmsAgenda> consultarAgenda(SmsAgenda a, SmsVehiculo v, SmsEmpleado e) {
+    public List<SmsAgenda> consultarAgenda(SmsAgenda a) {
         agendas = new ArrayList();
         agenda = a;
         IAgendaDao agDao = new ImpAgendaDao();
@@ -185,7 +187,7 @@ public class Agenda {
         String HoraInicio = formatTime.format(agenda.getAgendaHoraInicio());
         String HoraLlegada = formatTime.format(agenda.getAgendaHoraLlegada());
 
-        agendas = agDao.consultarAgenda(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, v, e);
+        agendas = agDao.consultarAgenda(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, a.getSmsVehiculo(), a.getSmsEmpleado());
         return agendas;
     }
 
