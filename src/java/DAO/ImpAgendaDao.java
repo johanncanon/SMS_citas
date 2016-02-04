@@ -114,16 +114,16 @@ public class ImpAgendaDao implements IAgendaDao {
         }
         return agendas;
     }
-    
+
     //QUERY PARA SACAR DATOS DE RESERVA HECHA
     @Override
     public List<SmsAgenda> mostrarAgendaReservacionCliente(SmsUsuario usuarioID) {
         Session session = null;
-        List <SmsAgenda> resevacionesHechas = null;
+        List<SmsAgenda> resevacionesHechas = null;
 
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("SELECT a FROM SmsAgenda a left join fetch a.smsVehiculo left join fetch a.smsEmpleado WHERE a.idAgenda = (select  reservacion.smsAgenda.idAgenda from SmsReservacion as reservacion where reservacion.smsUsuario.idUsuario = '" +  usuarioID.getIdUsuario() + "' and reservacion.smsAgenda.idAgenda = a.idAgenda)");
+            Query query = session.createQuery("SELECT a FROM SmsAgenda a left join fetch a.smsVehiculo left join fetch a.smsEmpleado WHERE a.idAgenda = (select  reservacion.smsAgenda.idAgenda from SmsReservacion as reservacion where reservacion.smsUsuario.idUsuario = '" + usuarioID.getIdUsuario() + "' and reservacion.smsAgenda.idAgenda = a.idAgenda)");
             resevacionesHechas = (List<SmsAgenda>) query.list();
 
         } catch (HibernateException e) {
@@ -133,17 +133,17 @@ public class ImpAgendaDao implements IAgendaDao {
                 session.close();
             }
         }
-           return resevacionesHechas;
+        return resevacionesHechas;
     }
 
     @Override
     public List<SmsAgenda> mostrarAgendaReservacionConductores(SmsEmpleado conductor) {
         Session session = null;
-        List <SmsAgenda> resevacionesHechas = null;
+        List<SmsAgenda> resevacionesHechas = null;
 
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("SELECT a FROM SmsAgenda a left join fetch a.smsVehiculo left join fetch a.smsEmpleado as empleado WHERE empleado.idEmpleado = '"+ conductor.getIdEmpleado() +"'");
+            Query query = session.createQuery("SELECT a FROM SmsAgenda a left join fetch a.smsVehiculo left join fetch a.smsEmpleado as empleado WHERE empleado.idEmpleado = '" + conductor.getIdEmpleado() + "'");
             resevacionesHechas = (List<SmsAgenda>) query.list();
 
         } catch (HibernateException e) {
@@ -153,7 +153,7 @@ public class ImpAgendaDao implements IAgendaDao {
                 session.close();
             }
         }
-           return resevacionesHechas;
+        return resevacionesHechas;
     }
 
     @Override
@@ -163,7 +163,7 @@ public class ImpAgendaDao implements IAgendaDao {
 
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculo left join fetch agenda.smsEmpleado as empleado where agenda.idAgenda = '"+ agenda.getIdAgenda() +"'");
+            Query query = session.createQuery("from SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculo left join fetch agenda.smsEmpleado as empleado where agenda.idAgenda = '" + agenda.getIdAgenda() + "'");
             agendas = (List<SmsAgenda>) query.list();
         } catch (HibernateException e) {
             e.getMessage();
@@ -172,7 +172,28 @@ public class ImpAgendaDao implements IAgendaDao {
                 session.close();
             }
         }
-        return agendas;}
+        return agendas;
+    }
 
-   
+    @Override
+    public List<SmsAgenda> consultarAgendaSinEmpleado(String FechaInicio, String FechaLlegada, String HoraInicio, String HoraLlegada, SmsVehiculo vehiculo) {
+        Session session = null;
+        List<SmsAgenda> agendas = new ArrayList<>();
+
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculo left join fetch agenda.smsEmpleado as empleado where vehiculo = '" + vehiculo.getIdVehiculo() + "' and "
+                    + "agenda.agendaFechaInicio = '" + FechaInicio + "' and agenda.agendaFechaLlegada = '" + FechaLlegada + "' and agenda.agendaHoraInicio = '" + HoraInicio + "' and "
+                    + "agenda.agendaHoraLlegada = '" + HoraLlegada + "'");
+            agendas = (List<SmsAgenda>) query.list();
+        } catch (HibernateException e) {
+            e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return agendas;
+    }
+
 }

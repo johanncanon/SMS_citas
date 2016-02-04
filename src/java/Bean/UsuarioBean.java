@@ -407,6 +407,7 @@ public class UsuarioBean implements Serializable {
             usuarioView = new SmsUsuario();
         }
         FacesContext.getCurrentInstance().addMessage(null, message);
+        usuarioView = new SmsUsuario();
         return ruta;
     }
 

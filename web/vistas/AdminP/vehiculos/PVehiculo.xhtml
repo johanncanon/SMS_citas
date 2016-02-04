@@ -196,7 +196,7 @@
 
                                         <p:column style="width: 35px">
                                             <p:commandLink style="color: white" class="fa fa-pencil btn btn-block btn-success" process="@this"  ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" action="#{vehiculoBean.irModificarVehiculo()}" title="Modificar">
-                                                <f:setPropertyActionListener value="#{vehiculo}" target="#{vehiculoBean.vehiculoView}"/>
+                                                <f:setPropertyActionListener value="#{vehiculo}" target="#{vehiculoBean.mvehiculoView}"/>
                                                 <p:confirm header="Confirmacion" message="Esta seguro que desea editar este vehiculo?" icon="ui-icon-alert" /> 
                                             </p:commandLink>
                                         </p:column>
