@@ -37,13 +37,13 @@
                                                     <f:selectItems value="#{ciudadBean.nombresCiudadesListView}"/>                                                    
                                                     <p:ajax event="change" listener="#{agendaBean.consultarLugaresCiudades()}" update="SLRecogida SLEntrega" />
                                                 </p:selectOneMenu>                                                
-                                                                                                
+
                                                 <p:outputLabel value="Lugar de recogida:" class="fa fa-2x fa-building"/>
                                                 <b:selectOneMenu   requiredMessage="Indique lugar de recogida" id="SLRecogida" required="true" style="width: 100%" value="#{agendaBean.reservaView.reservacionLugarLlegada}">
                                                     <f:selectItem itemLabel="Seleccione Lugar de recogida" noSelectionOption="true"/>
                                                     <f:selectItems value="#{agendaBean.nombresLugaresListView}"/>
                                                 </b:selectOneMenu>                                                
-                                              
+
                                                 <p:outputLabel value="Lugar de entrega:" class="fa fa-2x fa-building-o"/>
                                                 <b:selectOneMenu  requiredMessage="Indique lugar de Entrega" id="SLEntrega" required="true" style="width: 100%" value="#{agendaBean.reservaView.reservacionLugarDestino}">
                                                     <f:selectItem itemLabel="Seleccione Lugar de entrega" noSelectionOption="true"/>
@@ -72,7 +72,7 @@
 
                                                 <p:outputLabel for="CHoraInicio" value="Hora de inicio:" />
                                                 <p:calendar id="CHoraInicio" style="width: 100%" styleClass="dateTimeField" placeholder="Seleccione hora de recogida" binding="#{HInicio}" value="#{agendaBean.agendaView.agendaHoraInicio}" pattern="HH:mm:ss" required="true" timeOnly="true"/>
-                                            
+
                                                 <p:outputLabel for="CFechaEntrega" value="Fecha de Entrega:" />
                                                 <p:calendar id="CFechaEntrega" style="width: 100%" styleClass="dateTimeField" placeholder="Seleccione fecha de entrega" binding="#{FEntrega}" pattern="yyyy-MM-dd" value="#{agendaBean.agendaView.agendaFechaLlegada}" required="true"/>
 
@@ -87,30 +87,29 @@
                                         </b:panel>
                                     </p:tab>
 
-                                    <p:tab id="Vehiculo" title="Vehiculo">
-                                        <b:panel title="Defina la categoria y el servicio" look="primary">
+                                    <p:tab id="Vehiculo" title="Vehiculo" >
+                                        <b:panel title="Defina la categoría y seleccione vehiculo" look="primary">
                                             <p:messages autoUpdate="true" />
-                                            <p style="margin-top: 12px">Aquí podrá elegir el vehículo que desea para su reservación:</p>
+                                            <p style="margin-top: 12px">Aqui podrá elegir el vehiculo que desea para su reservacion:</p>
                                             <hr/>
                                             <div class="form-group">
                                                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                                                    <p:outputLabel value="Categora de Veh´ículo: "  />
+                                                    <p:outputLabel value="Categoria de Vehículo: "  />
                                                     <p:selectOneMenu value="#{agendaBean.categoriaView.categoriaNombre}" style="width:250px">
                                                         <f:selectItem itemLabel="Seleccione categoria del vehículo" noSelectionOption="true"/>
                                                         <f:selectItems value="#{categoriaBean.nombresCategoriasListView}"/>
                                                         <p:ajax event="change" listener="#{agendaBean.filtrar()}" process="@this" update="ScrollerVehiculos"/>
                                                     </p:selectOneMenu>                                                       
 
-                                                    <p:outputLabel value="Vehiculo Seleccionado "  />
-                                                    <b:inputText id="TVehSelc" placeholder="Placa del vehiculo" required="true" style="width:250px" requiredMessage="No ha seleccionado vehiculo" value="#{agendaBean.vehiculoView.vehPlaca}"/>                                                      
+                                                    <p:outputLabel value="Vehículo Seleccionado "  />
+                                                    <b:inputText id="TVehSelc" placeholder="Placa del vehículo" required="true" style="width:250px" requiredMessage="No ha seleccionado vehiculo" value="#{agendaBean.vehiculoView.vehPlaca}"/>                                                      
                                                 </h:panelGrid>
-
                                             </div>
 
                                             <div class="form-group box box-danger direct-chat direct-chat-danger">                                               
                                                 <p:dataScroller var="vehiculo" mode="inline" id="ScrollerVehiculos" value="#{agendaBean.vehiculosListView}" chunkSize="5">
                                                     <f:facet name="header">
-                                                        Explore hacia abajo para cargar más vehículos.
+                                                        Explore hacia abajo para cargar mas vehiculos.
                                                     </f:facet>
 
                                                     <f:facet name="loader">
@@ -118,7 +117,7 @@
                                                     </f:facet>
 
                                                     <h:panelGrid columns="2" cellpadding="5" cellspacing="10" columnClasses="grid,grid">
-                                                        
+
                                                         <p:graphicImage width="256" height="256" value="#{vehiculo.vehFotoRuta}" alt="Vehiculo" class="img-thumbnail img-responsive"/>
                                                         <p:outputPanel>
                                                             <h:panelGrid columns="2" cellpadding="5" width="100%">
@@ -148,9 +147,7 @@
                                                                 </p:commandButton>
                                                             </h:panelGrid>
                                                         </p:outputPanel>
-
                                                     </h:panelGrid>
-
                                                     <p:separator/>
                                                 </p:dataScroller>                                                
                                             </div>
@@ -158,41 +155,42 @@
                                     </p:tab>
 
                                     <p:tab id="Conductor" title="Conductor">
-                                        <p:messages />                                       
-                                        <p style="margin-top: 12px">Aquí podrá elegir el conductor que desea para su reservación, pero si desea, puede realizar
-                                            su reservacin sin elegir conductor.</p>
-                                        <hr/>
-                                        <div class="box box-danger direct-chat direct-chat-danger">
-                                            <p:dataScroller var="empleado" id="ScrollerConductores" value="#{agendaBean.empleadosListView}" chunkSize="5" >
-                                                <f:facet name="header">
-                                                    Explore hacia abajo para cargar mas conductores.
-                                                </f:facet>
+                                        <b:panel title="Escoja y Seleccione Conductor" look="primary">
+                                            <p:messages />                                       
+                                            <p style="margin-top: 12px">Aqui podrá elegir el conductor que desea para su reservacion, pero si desea, puede realizar su reservacion sin elegir conductor.</p>
+                                            <hr/>
+                                            <div class="box box-danger direct-chat direct-chat-danger">
+                                                <p:dataScroller var="empleado" id="ScrollerConductores" value="#{agendaBean.empleadosListView}" chunkSize="5" >
+                                                    <f:facet name="header">
+                                                        Explore hacia abajo para cargar mas conductores.
+                                                    </f:facet>
 
-                                                <f:facet name="loader">
-                                                    <p:commandButton type="button" value="Mas" icon="ui-icon-circle-triangle-s"/>
-                                                </f:facet>
+                                                    <f:facet name="loader">
+                                                        <p:commandButton type="button" value="Mas" icon="ui-icon-circle-triangle-s"/>
+                                                    </f:facet>
 
-                                                <h:panelGrid  columns="2" cellpadding="5" cellspacing="10" columnClasses="grid,grid">
-                                                    <p:graphicImage width="160" height="180" value="#{empleado.smsUsuario.usuarioFotoRuta}" class="img-thumbnail img-responsive"/> 
+                                                    <h:panelGrid  columns="2" cellpadding="5" cellspacing="10" columnClasses="grid,grid">
+                                                        <p:graphicImage width="160" height="180" value="#{empleado.smsUsuario.usuarioFotoRuta}" class="img-thumbnail img-responsive"/> 
 
-                                                    <p:outputPanel>
-                                                        <h:panelGrid width="100%" columns="2" cellpadding="5">
- 
-                                                            <h:outputText value="Nombre y apellidos:" />
-                                                            <h:outputText value="#{empleado.smsUsuario.usuarioNombre}" style="width: 100%;font-weight: bold"/>
+                                                        <p:outputPanel>
+                                                            <h:panelGrid width="100%" columns="2" cellpadding="5">
 
-                                                            <h:outputText value="Identificacion" />
-                                                            <h:outputText value="#{empleado.smsUsuario.usuarioCc}" style="width: 100%;font-weight: bold"/>
+                                                                <h:outputText value="Nombre y apellidos:" />
+                                                                <h:outputText value="#{empleado.smsUsuario.usuarioNombre}" style="width: 100%;font-weight: bold"/>
 
-                                                            <p:commandButton class="btn-reservas btn-reservas-color" value="Seleccionar Conductor" disabled="#{agendaBean.selecCon}"  process="@this" update="ScrollerConductores" action="#{agendaBean.SeleccionarConductor()}">
-                                                                <f:setPropertyActionListener value="#{empleado}" target="#{agendaBean.empleadoView}"/>
-                                                            </p:commandButton>
-                                                        </h:panelGrid>
-                                                    </p:outputPanel>
-                                                </h:panelGrid>
-                                                <p:separator/>
-                                            </p:dataScroller>
-                                        </div>                                        
+                                                                <h:outputText value="Identificación" />
+                                                                <h:outputText value="#{empleado.smsUsuario.usuarioCc}" style="width: 100%;font-weight: bold"/>
+
+                                                                <p:commandButton class="btn-reservas btn-reservas-color" value="Seleccionar Conductor" disabled="#{agendaBean.selecCon}"  process="@this" update="ScrollerConductores" action="#{agendaBean.SeleccionarConductor()}">
+                                                                    <f:setPropertyActionListener value="#{empleado}" target="#{agendaBean.empleadoView}"/>
+                                                                </p:commandButton>
+                                                            </h:panelGrid>
+                                                        </p:outputPanel>
+                                                    </h:panelGrid>
+                                                    <p:separator/>
+                                                </p:dataScroller>
+                                            </div>
+                                        </b:panel>
                                     </p:tab>
 
 
@@ -231,11 +229,11 @@
 
                                                 <p:outputLabel value="Hora inicio: " style="font-weight: bold"/>
                                                 <p:outputLabel value="#{agendaBean.horaInicio}">
-                                                    </p:outputLabel>
+                                                </p:outputLabel>
 
                                                 <p:outputLabel value="Hora llegada: " style="font-weight: bold"/>
                                                 <p:outputLabel value="#{agendaBean.horaEntrega}">
-                                                    </p:outputLabel>
+                                                </p:outputLabel>
 
                                             </h:panelGrid>
                                             <p:inputTextarea rows="4" style="width: 100%" value="#{agendaBean.reservaView.reservacionNotas }" placeholder="Notas u observaciones"/>
@@ -274,7 +272,7 @@
                                                 </h:panelGrid>                                                
                                             </p:dataScroller>
                                             <p:separator/>
-                                            <h4>´Conductor</h4>
+                                            <h4>Empleado</h4>
                                             <p:dataScroller var="empleado" value="#{agendaBean.empleadoView}">
                                                 <h:panelGrid columns="2" cellspacing="10" cellpadding="5" columnClasses="logo,detail">
 
@@ -295,8 +293,20 @@
                                                 </h:panelGrid>                                                
                                             </p:dataScroller>
                                             <p:separator/>
-                                            <center><b:commandButton value="Confirmar reservacion" action="#{agendaBean.registrarAgenda()}" style="width: 80%" update="@form"/></center>
-                                        </b:panel>
+                                            <center><b:commandButton value="Confirmar reservación" onclick="PrimeFaces.monitorDownload(start, stop);" action="#{agendaBean.registrarAgenda()}" style="width: 80%" update="@form"/></center>
+                                            </b:panel>
+                                            <script type="text/javascript">
+                                                function start() {
+                                                PF('statusDialog').show();
+                                                }
+
+                                                function stop() {
+                                                PF('statusDialog').hide();
+                                                }
+                                            </script>
+                                    <p:dialog modal="true" widgetVar="statusDialog" header="Registrando Reservacion" draggable="false" closable="false" resizable="false">
+                                        <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                                    </p:dialog>
                                     </p:tab>
                                 </p:wizard>
                             </h:form>

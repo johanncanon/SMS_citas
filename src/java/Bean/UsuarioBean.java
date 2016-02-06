@@ -393,9 +393,11 @@ public class UsuarioBean implements Serializable {
                             ruta = "ProveedorDash";
                             break;
                     }
+                    
                   
                     Usuario = (SmsUsuario) httpSession.getAttribute("Sesion");
                     message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Acceso Correcto", "Bienvenid@: " + Usuario.getUsuarioNombre());
+                    FacesContext.getCurrentInstance().addMessage(null, message);
                 } else {
                     message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseña incorrecto", null);
                     usuarioView = new SmsUsuario();
@@ -409,6 +411,8 @@ public class UsuarioBean implements Serializable {
         }
         FacesContext.getCurrentInstance().addMessage(null, message);
         usuarioView = new SmsUsuario();
+                
+        
         return ruta;
     }
 
