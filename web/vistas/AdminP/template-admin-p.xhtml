@@ -25,11 +25,9 @@
 
     <h:body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
-
-
+        
             <div>
                 <header class="main-header">
-
                     <a class="logo">
                         <div class="logo-mini">
                             <img class="navbar-brand " style=" margin-left: -13px" src="../../../resources/images/logo-sms-mini.png" />
@@ -95,7 +93,6 @@
                                         </li>
                                     </ul>
                                 </li>
-
                             </ul>
                         </div>
                     </nav>
@@ -103,7 +100,6 @@
             </div>
 
             <b:container fluid="true" class="adminLTE-espacioFrontal">
-
                 <div>
                     <div id="left-99">
                         <!-- Left side column. contains the logo and sidebar -->
@@ -256,26 +252,15 @@
                                         </li>
 
 
-                                       <!-- <li class="treeview">
-                                            <h:link outcome="#{pathBean.ir_PEmpleado()}">
-                                                <i class="fa fa-star-half-o"></i> <span>Calificaciones SMS Renta</span> 
-                                            </h:link>
-                                        </li>
-
-                                        <li class="treeview">
-                                            <h:link outcome="#{pathBean.ir_PEstadisticas()}">
-                                                <i class="fa fa-bar-chart"></i> <span>Estadisticas SMS Renta</span> 
-                                            </h:link>
-                                        </li>-->
-
                                     </ul>
                                 </section>
                                 <!-- /.sidebar -->
                             </h:form>
                         </aside>
                     </div>
-                    <div id="content-123" class="content-wrapper min-alto"  >
-                        <ui:insert name="content"></ui:insert>    
+                    <div id="content-123" class="content-wrapper min-alto"  >                        
+                        <ui:insert name="content">                             
+                        </ui:insert>    
                     </div>
                 </div>
             </b:container>

@@ -172,7 +172,7 @@ public class ClienteBean implements Serializable {
     }
 
     //Metodos     
-    public void registrar() {
+    public String registrar() {
         //asignamos un rol al usuario
         rolView.setRolNombre("Cliente");
 
@@ -191,6 +191,8 @@ public class ClienteBean implements Serializable {
         clienteView = new SmsUsuario();
         ciudadView = new SmsCiudad();
         rolView = new SmsRol();
+        
+        return "Login";
         
     }
 

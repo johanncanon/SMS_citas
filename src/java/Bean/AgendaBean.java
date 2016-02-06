@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.event.FlowEvent;
@@ -415,6 +416,11 @@ public class AgendaBean {
         ciudadView = ciuDao.consultarCiudad(ciudadView).get(0);
         clienteView = usuDao.consultarUsuario(clienteView).get(0);
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            ex.getMessage();
+        }
         //obtenemos los datos completos de la agenda recien registrada
         if (empleadoView.getIdEmpleado() != null) {
             agendaView = consultarAgenda(agendaView).get(0);
@@ -457,7 +463,7 @@ public class AgendaBean {
         //Habilitamos la seleccion de vehiculos y conductores
         SelecVeh = false;
         SelecCon = false;
-        
+
         //Retornamos a la vista segun el rol del usuario logueado
         String Ruta = "";
         switch (sesion.getSmsRol().getRolNombre()) {
@@ -473,10 +479,17 @@ public class AgendaBean {
                 Ruta = "ClienteReservacion";
                 break;
         }
-
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Reservacion Realiza", "");
+        FacesContext.getCurrentInstance().addMessage(null, message);      
+        //Dormimos la aplicacion para mostrar los mensajes
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            ex.getMessage();
+        }
         return Ruta;
     }
-        
+
     public void eliminarAgenda() {
         agDao.eliminarAgenda(agendaView);
         agendaView = new SmsAgenda();
@@ -524,7 +537,6 @@ public class AgendaBean {
         agendaListView = agDao.consultarAgendaSinEmpleado(FechaInicio, FechaLlegada, HoraIni, HoraLlegada, a.getSmsVehiculo());
         return agendaListView;
     }
-   
 
     //Especificos 
     ///Controla el flujo de la vista de reservacion

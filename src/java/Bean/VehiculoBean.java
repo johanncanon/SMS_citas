@@ -9,6 +9,8 @@ import Controlador.Upload;
 import Controlador.EstadoVehiculo;
 import Controlador.Usuario;
 import Controlador.Vehiculo;
+import DAO.IVehiculoDao;
+import DAO.ImpVehiculoDao;
 import Modelo.SmsCategoria;
 import Modelo.SmsCiudad;
 import Modelo.SmsEstadovehiculo;
@@ -17,6 +19,7 @@ import Modelo.SmsReferencia;
 import Modelo.SmsUsuario;
 import Modelo.SmsVehiculo;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -49,7 +52,7 @@ public class VehiculoBean {
     private SmsEstadovehiculo MestadoVehiculoView;
     private SmsUsuario MusuarioView;
 
-    //Relacion con el controlodar
+    //Relacion con el controlador
     protected Vehiculo vehiculoController;
     protected Upload fileController;
     protected EstadoVehiculo estadoVehiculoController;
@@ -62,6 +65,8 @@ public class VehiculoBean {
     private String modEstadoArchivo;
     private String estadoArchivo;
     private UploadedFile archivo;
+    
+    IVehiculoDao vehDao;
 
     public VehiculoBean() {
         vehiculoController = new Vehiculo();
@@ -92,11 +97,13 @@ public class VehiculoBean {
         nombre = "Registrar Vehiculo";
         modEstadoArchivo = "Foto sin subir";
         estadoArchivo = "Foto sin subir";
+        
+        vehDao = new ImpVehiculoDao();
     }
 
     @PostConstruct
     public void init() {
-        vehiculosListView = vehiculoController.cargarVehiculos();
+        vehiculosListView = vehDao.mostrarVehiculo();
     }
 
     //Getters & Setters
@@ -308,7 +315,7 @@ public class VehiculoBean {
         estadoVehiculoView = new SmsEstadovehiculo();
 
         //Actualizamos la lista que muestra los vehiculos registrados en el sistema
-        vehiculosListView = vehiculoController.cargarVehiculos();
+        vehiculosListView = vehDao.mostrarVehiculo();
     }
 
     public String modificar() {
@@ -340,27 +347,11 @@ public class VehiculoBean {
     public void eliminar() {
         //Eliminamos el vehiculo seleccionado
         vehiculoController.eliminarVehiculo(DVehiculoView);
-
-        //Si el vehiculo a eliminar se encuentra en proceso de modificacion, 
-        //lo elimina y reinicia los objetos que contenian la informacion
-        if (vehiculoView.equals(DVehiculoView)) {
-            usuarioView = new SmsUsuario();
-            refenciaView = new SmsReferencia();
-            categoriaView = new SmsCategoria();
-            proveedorView = new SmsProveedor();
-            ciudadView = new SmsCiudad();
-            vehiculoView = new SmsVehiculo();
-            estadoVehiculoView = new SmsEstadovehiculo();
-
-            estadoArchivo = "Foto sin subir";
-
-        }
-
         DVehiculoView = new SmsVehiculo();//Limpiamos el objeto que contenia el vehiculo a eliminar
         //Recargamos la lista de vehiculos
-        vehiculosListView = vehiculoController.cargarVehiculos();
+        vehiculosListView = vehDao.mostrarVehiculo();
     }
-
+    
     //Metodos propios
     public String irModificarVehiculo() {
         //Asignamos a cada componente su correspondiente valor extraido del vehiculo seleccionado
@@ -409,7 +400,7 @@ public class VehiculoBean {
                 vehiculoView.setVehFotoRuta(map.get("url") + uploadedPhoto.getFileName());
                 MvehiculoView.setVehFotoNombre(uploadedPhoto.getFileName());
                 MvehiculoView.setVehFotoRuta(map.get("url") + uploadedPhoto.getFileName());
-                
+
                 estadoArchivo = "Foto Subida con exito";
                 modEstadoArchivo = "Foto actualizada con exito";
             }

@@ -286,7 +286,7 @@ public class UsuarioBean implements Serializable {
             empleadoController.modificarEmpleado(modUsuarioView, hojavidaView, modEmpleadoView);
             estadoArchivo = "Hoja subida:" + hojavidaView.getHojaVidaNombre();
         }
-        deshabilitarEdicion();
+         habilitarEditarSesion = false;
     }
 
     public String modificar() {
@@ -360,15 +360,16 @@ public class UsuarioBean implements Serializable {
 
     //Metodos para iniciar Sesion
     public String iniciarSesion() {
-        String ruta = "Login";
+        String ruta = "/login.xhtml";
         IUsuarioDao usuarioDao = new ImpUsuarioDao();
         MD5 md = new MD5();
         usuarioView.setUsuarioPassword(md.getMD5(usuarioView.getUsuarioPassword()));
-        SmsUsuario user = usuarioDao.consultarDatosSesionUsuario(usuarioView).get(0);//Trae de la base de datos toda la informacion de usuario
-
-        if (user.getIdUsuario() != null) {//valida si el usuario existe en la BD
+        SmsUsuario user;
+       
+        if (!usuarioDao.consultarDatosSesionUsuario(usuarioView).isEmpty()) {//valida si el usuario existe en la BD
+            user = usuarioDao.consultarDatosSesionUsuario(usuarioView).get(0);
             if (user.getUsuarioEstadoUsuario() == 1) {//Evalua el estado de la cuenta de usuario, si esta activa o inactiva
-                if (user.getUsuarioLogin().equalsIgnoreCase(usuarioView.getUsuarioLogin()) && user.getUsuarioPassword().equalsIgnoreCase(usuarioView.getUsuarioPassword())) {
+                if (user.getUsuarioPassword()!= null && user.getUsuarioLogin().equalsIgnoreCase(usuarioView.getUsuarioLogin()) && user.getUsuarioPassword().equalsIgnoreCase(usuarioView.getUsuarioPassword())) {
                     //ruta = usuarioController.iniciarSesion(user.get(0));//envia el objeto usuarioBean al metodo iniciarSesion para tomar este objeto como atributo de sesion
 
                     rolView = user.getSmsRol();
@@ -426,10 +427,10 @@ public class UsuarioBean implements Serializable {
         String ruta = "";
         switch (Usuario.getSmsRol().getIdRol()) {
             case 1:
-                ruta = "AdminPEdicionPerfil";
+                ruta = "AdminPEdicionPerfil";           
                 break;
             case 2:
-                ruta = "AdminSEdicionPerfil";
+                ruta = "AdminSEdicionPerfil";             
                 break;
             case 3:
                 ruta = "ClienteEdicionPerfil";
