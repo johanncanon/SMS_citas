@@ -28,25 +28,7 @@ public class Costos {
 
     public Costos() {
     }
-
-    public SmsCostosServicio getCosto() {
-        return costo;
-    }
-
-    public void setCosto(SmsCostosServicio costo) {
-        this.costo = costo;
-    }
-
-    public List<SmsCostosServicio> getCostos() {
-        return costos;
-    }
-
-    public void setCostos(List<SmsCostosServicio> costos) {
-        this.costos = costos;
-    }
-
-    
-
+   
     //Metodos
     public void registrarCosto(SmsCostosServicio c, SmsCategoria cat, SmsServicios s) {
         costo = c;

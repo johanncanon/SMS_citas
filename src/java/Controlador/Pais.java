@@ -28,24 +28,7 @@ public class Pais {
         pais = new SmsPais();
         paises = new ArrayList<>();
     }
-
-    //Getters & Setters
-    public SmsPais getPais() {
-        return pais;
-    }
-
-    public void setPais(SmsPais pais) {
-        this.pais = pais;
-    }
-
-    public List<SmsPais> getPaises() {
-        return paises;
-    }
-
-    public void setPaises(List<SmsPais> paises) {
-        this.paises = paises;
-    }
-
+   
     //Metodos CRUD
     public void registrarPais(SmsPais p) {
         pais = p;

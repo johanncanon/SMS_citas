@@ -26,36 +26,8 @@ public class Referencia {
         referencia = new SmsReferencia();
         marca = new SmsMarca();
     }
-
-    public SmsMarca getMarca() {
-        return marca;
-    }
-
-    public void setMarca(SmsMarca marca) {
-        this.marca = marca;
-    }
-
-    public SmsReferencia getReferencia() {
-        return referencia;
-    }
-
-    public void setReferencia(SmsReferencia referencia) {
-        this.referencia = referencia;
-    }
-
-    public List<SmsReferencia> getReferencias() {
-        IReferenciaDao linkDao = new ImpReferenciaDao();
-        referencias = linkDao.mostrarReferencias();
-        return referencias;
-    }
-
-    public void setReferencias(List<SmsReferencia> referencias) {
-        this.referencias = referencias;
-    }
-
-    /*
-     ** Metodos que se comunican con el Bean *************************************
-     */
+    
+    //Metodos 
     public void modificarReferencia(SmsReferencia ref, SmsMarca marc) {
         referencia = ref;
         marca = marc;

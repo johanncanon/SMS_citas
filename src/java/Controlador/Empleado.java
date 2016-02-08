@@ -41,23 +41,6 @@ public class Empleado extends Usuario {
         empleados = new ArrayList<>();
     }
 
-    //Getters & setters
-    public SmsEmpleado getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(SmsEmpleado empleado) {
-        this.empleado = empleado;
-    }
-
-    public SmsHojavida getHojaVida() {
-        return hojaVida;
-    }
-
-    public void setHojaVida(SmsHojavida hojaVida) {
-        this.hojaVida = hojaVida;
-    }
-
     //Metodos de la clase
     //CRUD    
     public void registrarEmpleado(SmsUsuario u, SmsHojavida h) {

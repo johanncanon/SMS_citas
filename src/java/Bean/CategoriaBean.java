@@ -5,7 +5,8 @@
  */
 package Bean;
 
-import Controlador.Categoria;
+import DAO.ICategoriaDao;
+import DAO.ImpCategoriaDao;
 import Modelo.SmsCategoria;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,30 +21,30 @@ public class CategoriaBean implements Serializable {
     private List<SmsCategoria> categoriasListView;
     private List<String> nombresCategoriasListView;
 
-    //Relacion con el controlador
-    private Categoria categoriaController;
-
     //Variables
     private int estado; //Controla la operacion a realizar
     private String nombre;
     private String buscar;
 
+    //Conexion con el DAO
+    ICategoriaDao catDao;
+
     public CategoriaBean() {//CONSTRUCTOR
         categoriaView = new SmsCategoria();
-        DCategoriaView = new SmsCategoria();                
+        DCategoriaView = new SmsCategoria();
         categoriasListView = new ArrayList<>();
         nombresCategoriasListView = new ArrayList<>();
-        
-        categoriaController = new Categoria();
 
         buscar = null;
         estado = 0;
         nombre = "Registrar Categoria";
+
+        catDao = new ImpCategoriaDao();
     }
 
     @PostConstruct
     public void init() {
-        categoriasListView = categoriaController.cargarCategorias();
+        categoriasListView = catDao.mostrarCategorias();
     }
 
     //Getters & Setters
@@ -65,7 +66,7 @@ public class CategoriaBean implements Serializable {
 
     public List<String> getNombresCategoriasListView() {
         nombresCategoriasListView = new ArrayList<>();
-        categoriasListView = categoriaController.cargarCategorias();
+        categoriasListView = catDao.mostrarCategorias();
         for (int i = 0; i < categoriasListView.size(); i++) {
             nombresCategoriasListView.add(categoriasListView.get(i).getCategoriaNombre());
         }
@@ -75,23 +76,7 @@ public class CategoriaBean implements Serializable {
     public void setNombresCategoriasListView(List<String> nombresCategoriasListView) {
         this.nombresCategoriasListView = nombresCategoriasListView;
     }
-
-    public Categoria getCategoriaController() {
-        return categoriaController;
-    }
-
-    public void setCategoriaController(Categoria categoriaController) {
-        this.categoriaController = categoriaController;
-    }
-
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
-
+  
     public String getNombre() {
         return nombre;
     }
@@ -115,47 +100,52 @@ public class CategoriaBean implements Serializable {
     public void setDCategoriaView(SmsCategoria DCategoriaView) {
         this.DCategoriaView = DCategoriaView;
     }
-    
-    
 
     //METODOS QUE DEVUELVEN DATOS PARA VISTAS
     public void modificar() {
         //TRAER LA INFORMACION DE LA VISTA Y PASARLA AL PARAMETRO CORRESPODIENTE 
         //DE LA CLASE DEL PAQUETE CONTROLADOR
-        categoriaController.modificarCategoria(categoriaView);
+        catDao.modificarCategoria(categoriaView);
         categoriaView = new SmsCategoria();
-        categoriasListView = categoriaController.cargarCategorias();
+        categoriasListView = catDao.mostrarCategorias();
 
     }
 
     public void registrar() {
         //TRAER LA INFORMACION DE LA VISTA Y PASARLA AL PARAMETRO CORRESPODIENTE 
         //DE LA CLASE DEL PAQUETE CONTROLADOR
-        categoriaController.registrarCategoria(categoriaView);
+        catDao.registrarCategoria(categoriaView);
         categoriaView = new SmsCategoria();
-        categoriasListView = categoriaController.cargarCategorias();
+        categoriasListView = catDao.mostrarCategorias();
 
     }
 
     public void eliminar() {
         //TRAER LA INFORMACION DE LA VISTA Y PASARLA AL PARAMETRO CORRESPODIENTE 
         //DE LA CLASE DEL PAQUETE CONTROLADOR
-        categoriaController.eliminarCategoria(DCategoriaView);
-        if(categoriaView.equals(DCategoriaView)){
-        categoriaView = new SmsCategoria();
-        nombre = "Registrar Categoria";
-        estado = 0;
+        catDao.eliminarCategoria(DCategoriaView);
+        if (categoriaView.equals(DCategoriaView)) {
+            categoriaView = new SmsCategoria();
+            nombre = "Registrar Categoria";
+            estado = 0;
         }
         DCategoriaView = new SmsCategoria();
-        categoriasListView = categoriaController.cargarCategorias();
+        categoriasListView = catDao.mostrarCategorias();
+    }
+
+    //Consultar categoria
+    public List<SmsCategoria> consultarCategoria(SmsCategoria cat) {
+        categoriasListView = new ArrayList<>();
+        categoriasListView = catDao.consultarCategoria(cat);
+        return categoriasListView;
     }
 
     public void filtrar() {
         categoriasListView = new ArrayList<>();
         if (buscar == null) {
-            categoriasListView = categoriaController.cargarCategorias();
+            categoriasListView = catDao.mostrarCategorias();
         } else {
-            categoriasListView = categoriaController.filtrarCategoria(buscar);
+            categoriasListView = catDao.filtrarCategorias(buscar);
         }
     }
 
@@ -167,14 +157,14 @@ public class CategoriaBean implements Serializable {
             modificar();
             estado = 0;
             nombre = "Registrar Categoria";
-        } 
+        }
     }
 
     public void seleccionarCRUD(int i) {
         estado = i;
         if (estado == 1) {
             nombre = "Modificar Categoria";
-        } 
+        }
     }
 
 }

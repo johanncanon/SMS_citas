@@ -24,22 +24,6 @@ public class Permiso {
         permisos = new ArrayList<>();
     }
 
-    public SmsPermisos getPermiso() {
-        return permiso;
-    }
-
-    public void setPermiso(SmsPermisos permiso) {
-        this.permiso = permiso;
-    }
-
-    public List<SmsPermisos> getPermisos() {
-        return permisos;
-    }
-
-    public void setPermisos(List<SmsPermisos> permisos) {
-        this.permisos = permisos;
-    }
-    
     //metodos
     public void registrarPermiso(SmsPermisos p) {
         permiso = p;

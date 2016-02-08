@@ -25,30 +25,8 @@ public class Marca {
         marcas = new ArrayList<>();
 
     }
-    /* ********************** Setters y Getters *****************************/
-
-    public SmsMarca getMarca() {
-        return marca;
-    }
-
-    public void setMarca(SmsMarca marca) {
-        this.marca = marca;
-    }
-
-    public List<SmsMarca> getmMrcas() {
-        IMarcaDao linkDao = new ImpMarcaDao();
-        marcas = linkDao.mostrarMarcas();
-        return marcas;
-    }
-
-    public void setMarcas(List<SmsMarca> marcas) {
-        this.marcas = marcas;
-    }
-
-    /**
-     * ********************** METODOS QUE SE COMUNICAN CON BEAN-MARCAS ********************************
-     * @param marc
-     */
+    
+    
     public void modificarMarca(SmsMarca marc){
         this.marca = marc;
         IMarcaDao linkDao = new ImpMarcaDao();

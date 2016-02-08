@@ -23,17 +23,9 @@ public class Servicio {
     public Servicio() {
     }
 
-    //Getters & Setters
-    public SmsServicios getServicio() {
-        return servicio;
-    }
-
-    public void setServicio(SmsServicios servicio) {
-        this.servicio = servicio;
-    }
-    
+  
     //Metodos
-    
+   
     public void registrarServicio(SmsServicios s){
     servicio = s;    
     IServicioDao servicioDao = new ImpServicioDao();

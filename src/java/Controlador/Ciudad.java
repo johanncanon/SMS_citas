@@ -23,26 +23,6 @@ public class Ciudad {
     private SmsCiudad ciudad;
     private List<SmsCiudad> ciudades;
 
-    public Ciudad() {
-        ciudad = new SmsCiudad();
-    }
-
-    public SmsCiudad getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(SmsCiudad ciudad) {
-        this.ciudad = ciudad;
-    }
-
-    public List<SmsCiudad> getCiudades() {
-        return ciudades;
-    }
-
-    public void setCiudades(List<SmsCiudad> ciudades) {
-        this.ciudades = ciudades;
-    }
-
     //Metodos CRUD
     public void registrarCiudad(SmsCiudad c, SmsPais p) {
         ciudad = c;

@@ -26,22 +26,6 @@ public class Lugar {
     public Lugar() {
     }
 
-    public SmsLugares getLugar() {
-        return lugar;
-    }
-
-    public void setLugar(SmsLugares lugar) {
-        this.lugar = lugar;
-    }
-
-    public List<SmsLugares> getLugares() {
-        return lugares;
-    }
-
-    public void setLugares(List<SmsLugares> lugares) {
-        this.lugares = lugares;
-    }
-
     //Metodos    
     public void registrarLugar(SmsLugares l, SmsCiudad c) {
         lugar = l;

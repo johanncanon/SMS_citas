@@ -68,47 +68,6 @@ public class Reservacion {
 
     }
 
-    //Getters & Setter
-    public SmsReservacion getReservacion() {
-        return reservacion;
-    }
-
-    public void setReservacion(SmsReservacion reservacion) {
-        this.reservacion = reservacion;
-    }
-
-    public List<SmsReservacion> getReservaciones() {
-        return reservaciones;
-    }
-
-    public void setReservaciones(List<SmsReservacion> reservaciones) {
-        this.reservaciones = reservaciones;
-    }
-
-    public SmsAgenda getAgenda() {
-        return agenda;
-    }
-
-    public void setAgenda(SmsAgenda agenda) {
-        this.agenda = agenda;
-    }
-
-    public SmsUsuario getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(SmsUsuario cliente) {
-        this.cliente = cliente;
-    }
-
-    public SmsCalificacion getCalificacion() {
-        return calificacion;
-    }
-
-    public void setCalificacion(SmsCalificacion calificacion) {
-        this.calificacion = calificacion;
-    }
-
     //Metodos    
     public void registrarReservacion(SmsAgenda a, SmsCiudad c, SmsReservacion r, SmsUsuario cliente) {
         reservacion = r;

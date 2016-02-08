@@ -26,15 +26,6 @@ public class Proveedor extends Usuario {
         proveedor = new SmsProveedor();
     }
 
-    public SmsProveedor getProveedor() {
-        return proveedor;
-    }
-
-    public void setProveedor(SmsProveedor proveedor) {
-
-        this.proveedor = proveedor;
-    }
-
     //Metodos de la clase
     public void registrarProveedor(SmsProveedor p, SmsUsuario u) {
         usuario = u;
