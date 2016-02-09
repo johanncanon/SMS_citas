@@ -8,7 +8,7 @@ package DAO;
 import Modelo.SmsAgenda;
 import Modelo.SmsEmpleado;
 import Modelo.SmsUsuario;
-import Modelo.SmsVehiculo;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -95,13 +95,23 @@ public class ImpAgendaDao implements IAgendaDao {
     }
 
     @Override
-    public List<SmsAgenda> consultarAgenda(String FechaInicio, String FechaLlegada, String HoraInicio, String HoraLlegada, SmsVehiculo vehiculo, SmsEmpleado empleado) {
+    public List<SmsAgenda> consultarAgenda(SmsAgenda agenda) {
         Session session = null;
         List<SmsAgenda> agendas = new ArrayList<>();
+        SimpleDateFormat formatDate;
+        SimpleDateFormat formatTime;
+        formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        formatTime = new SimpleDateFormat("HH:mm:ss");
+
+        //Se formatean las fechas y horas
+        String FechaInicio = formatDate.format(agenda.getAgendaFechaInicio());
+        String FechaLlegada = formatDate.format(agenda.getAgendaFechaLlegada());
+        String HoraInicio = formatTime.format(agenda.getAgendaHoraInicio());
+        String HoraLlegada = formatTime.format(agenda.getAgendaHoraLlegada());
 
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculo left join fetch agenda.smsEmpleado as empleado where vehiculo.idVehiculo = '" + vehiculo.getIdVehiculo() + "' and empleado.idEmpleado = '" + empleado.getIdEmpleado() + "' and "
+            Query query = session.createQuery("from SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculo left join fetch agenda.smsEmpleado as empleado where vehiculo.idVehiculo = '" + agenda.getSmsVehiculo().getIdVehiculo() + "' and empleado.idEmpleado = '" + agenda.getSmsEmpleado().getIdEmpleado() + "' and "
                     + "agenda.agendaFechaInicio = '" + FechaInicio + "' and agenda.agendaFechaLlegada = '" + FechaLlegada + "' and agenda.agendaHoraInicio = '" + HoraInicio + "' and "
                     + "agenda.agendaHoraLlegada = '" + HoraLlegada + "'");
             agendas = (List<SmsAgenda>) query.list();
@@ -176,13 +186,23 @@ public class ImpAgendaDao implements IAgendaDao {
     }
 
     @Override
-    public List<SmsAgenda> consultarAgendaSinEmpleado(String FechaInicio, String FechaLlegada, String HoraInicio, String HoraLlegada, SmsVehiculo vehiculo) {
+    public List<SmsAgenda> consultarAgendaSinEmpleado(SmsAgenda agenda) {
         Session session = null;
         List<SmsAgenda> agendas = new ArrayList<>();
+        SimpleDateFormat formatDate;
+        SimpleDateFormat formatTime;
+        formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        formatTime = new SimpleDateFormat("HH:mm:ss");
+
+        //Se formatean las fechas y horas
+        String FechaInicio = formatDate.format(agenda.getAgendaFechaInicio());
+        String FechaLlegada = formatDate.format(agenda.getAgendaFechaLlegada());
+        String HoraInicio = formatTime.format(agenda.getAgendaHoraInicio());
+        String HoraLlegada = formatTime.format(agenda.getAgendaHoraLlegada());
 
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculo where vehiculo.idVehiculo = '" + vehiculo.getIdVehiculo() + "' and "
+            Query query = session.createQuery("from SmsAgenda as agenda left join fetch agenda.smsVehiculo as vehiculo where vehiculo.idVehiculo = '" + agenda.getSmsVehiculo().getIdVehiculo() + "' and "
                     + "agenda.agendaFechaInicio = '" + FechaInicio + "' and agenda.agendaFechaLlegada = '" + FechaLlegada + "' and agenda.agendaHoraInicio = '" + HoraInicio + "' and "
                     + "agenda.agendaHoraLlegada = '" + HoraLlegada + "'");
             agendas = (List<SmsAgenda>) query.list();

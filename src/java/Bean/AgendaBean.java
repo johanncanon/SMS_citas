@@ -7,7 +7,6 @@ package Bean;
 
 import Controlador.Empleado;
 import Controlador.Lugar;
-import Controlador.Reservacion;
 import Controlador.SendEmail;
 import Controlador.Usuario;
 import Controlador.Vehiculo;
@@ -85,7 +84,8 @@ public class AgendaBean {
     private boolean SelecCon;
 
     //Relacion con los controladores
-    Reservacion reservacionController;
+    ReservacionBean reservacionController;
+
     Vehiculo vehiculoController;
     Empleado empleadoController;
     Usuario usuarioController;
@@ -137,7 +137,6 @@ public class AgendaBean {
 
         vehiculoController = new Vehiculo();
         empleadoController = new Empleado();
-        reservacionController = new Reservacion();
         usuarioController = new Usuario();
         emailController = new SendEmail();
         lugarController = new Lugar();
@@ -156,6 +155,9 @@ public class AgendaBean {
         ciuDao = new ImpCiudadDao();
         resDao = new ImpReservacionDao();
         usuDao = new ImpUsuarioDao();
+
+        reservacionController = new ReservacionBean();
+
     }
 
     @PostConstruct
@@ -406,36 +408,27 @@ public class AgendaBean {
     public String registrarAgenda() {
 
         //Registramos los datos de agendamiento
-        agendaView.setSmsVehiculo(vehiculoView);
-        if (empleadoView.getIdEmpleado() != null) {//Validamos si se escogio conductor en al reservacion
-            agendaView.setSmsEmpleado(empleadoView);
+        agendaView.setSmsVehiculo(vehiculoView);//Asignamos el vehiculo a la agenda
+
+        if (empleadoView.getIdEmpleado() != null) {//Validamos si se escogio conductor en la agenda
+            agendaView.setSmsEmpleado(empleadoView); //Si hay conductor escogido lo asignamos a la agenda
         }
         agDao.registrarAgenda(agendaView);//Registramos agenda
-
-        //Consultamos la informacion correspondiente a ciudad y cliente
-        ciudadView = ciuDao.consultarCiudad(ciudadView).get(0);
-        clienteView = usuDao.consultarUsuario(clienteView).get(0);
 
         try {
             Thread.sleep(1500);
         } catch (InterruptedException ex) {
             ex.getMessage();
         }
+        
         //obtenemos los datos completos de la agenda recien registrada
-        if (empleadoView.getIdEmpleado() != null) {
-            agendaView = consultarAgenda(agendaView).get(0);
-        } else {
-            agendaView = consultarAgendaSinEmpleado(agendaView).get(0);
+        if (empleadoView.getIdEmpleado() != null) {//Si se escogio empleado
+            //Registramos la reservacion
+            reservacionController.registrarReservacion(agendaView, ciudadView, reservaView, clienteView);
+        } else { //Si no hay empleado elegido
+            reservacionController.registrarReservacionSinConductor(agendaView, ciudadView, reservaView, clienteView);
         }
-        //asignamos la agenda, el cliente y la ciudad a nuestra reservacion
-        reservaView.setSmsAgenda(agendaView);
-        reservaView.setSmsUsuario(clienteView);
-        reservaView.setSmsCiudad(ciudadView);
-
-        //Registramos la reservacion
-        resDao.registrarReservacion(reservaView);
-        //reservacionController.registrarReservacion(agendaView, ciudadView, reservaView, clienteView);
-
+        
         //Enviamos mensajes al administrador del sistema, el cliente y el conductor
         if (empleadoView.getIdEmpleado() != null) {
             emailController.sendEmailAdministrador(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
@@ -446,7 +439,7 @@ public class AgendaBean {
             emailController.sendEmailClienteWithout(vehiculoView, reservaView, agendaView, clienteView);
         }
 
-        consultarReservacionesSegunUsuario(); //Recargamos las lista que se muestran en las vistas
+        consultarReservacionesSegunUsuario(); //Recargamos las lista de reservaciones que se muestran en las vistas
         addEventoCalendario();
 
         //Limpieza de objetos
@@ -455,7 +448,7 @@ public class AgendaBean {
         agendaView = new SmsAgenda();
         reservaView = new SmsReservacion();
         ciudadView = new SmsCiudad();
-        
+
         vehiculosListView = new ArrayList<>();
         empleadosListView = new ArrayList<>();
         clienteView = new SmsUsuario();
@@ -465,7 +458,7 @@ public class AgendaBean {
         SelecVeh = false;
         SelecCon = false;
 
-        //Retornamos a la vista segun el rol del usuario logueado
+        //seleccion a que vista retornara segun el rol del usuario logueado
         String Ruta = "";
         switch (sesion.getSmsRol().getRolNombre()) {
             case "Administrador Principal":
@@ -481,14 +474,14 @@ public class AgendaBean {
                 break;
         }
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Reservacion Realizada", "");
-        FacesContext.getCurrentInstance().addMessage(null, message);      
+        FacesContext.getCurrentInstance().addMessage(null, message);
         //Dormimos la aplicacion para mostrar los mensajes
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {
             ex.getMessage();
         }
-        return Ruta;
+        return Ruta; //retornamos
     }
 
     public void eliminarAgenda() {
@@ -499,49 +492,6 @@ public class AgendaBean {
         reservaView = new SmsReservacion();
         vehiculoView = new SmsVehiculo();
         empleadoView = new SmsEmpleado();
-    }
-
-    public List<SmsAgenda> consultarAgenda(SmsAgenda a) {
-
-        agendaListView = new ArrayList<>();
-
-        SimpleDateFormat formatDate;
-        SimpleDateFormat formatTime;
-        formatDate = new SimpleDateFormat("yyyy-MM-dd");
-        formatTime = new SimpleDateFormat("HH:mm:ss");
-
-        //Se formatean las fechas y horas
-        String FechaInicio = formatDate.format(a.getAgendaFechaInicio());
-        String FechaLlegada = formatDate.format(a.getAgendaFechaLlegada());
-        String HoraIni = formatTime.format(a.getAgendaHoraInicio());
-        String HoraLlegada = formatTime.format(a.getAgendaHoraLlegada());
-        
-        vehiculoView = a.getSmsVehiculo();
-        empleadoView = a.getSmsEmpleado();
-
-        agendaListView = agDao.consultarAgenda(FechaInicio, FechaLlegada, HoraIni, HoraLlegada, vehiculoView, empleadoView);
-        return agendaListView;
-    }
-
-    public List<SmsAgenda> consultarAgendaSinEmpleado(SmsAgenda a) {
-
-        agendaListView = new ArrayList<>();
-
-        SimpleDateFormat formatDate;
-        SimpleDateFormat formatTime;
-        formatDate = new SimpleDateFormat("yyyy-MM-dd");
-        formatTime = new SimpleDateFormat("HH:mm:ss");
-
-        vehiculoView = a.getSmsVehiculo();
-        
-        //Se formatean las fechas y horas
-        String FechaInicio = formatDate.format(a.getAgendaFechaInicio());
-        String FechaLlegada = formatDate.format(a.getAgendaFechaLlegada());
-        String HoraIni = formatTime.format(a.getAgendaHoraInicio());
-        String HoraLlegada = formatTime.format(a.getAgendaHoraLlegada());
-
-        agendaListView = agDao.consultarAgendaSinEmpleado(FechaInicio, FechaLlegada, HoraIni, HoraLlegada, vehiculoView);
-        return agendaListView;
     }
 
     //Especificos 

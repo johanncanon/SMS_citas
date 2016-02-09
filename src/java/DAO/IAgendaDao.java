@@ -8,7 +8,6 @@ package DAO;
 import Modelo.SmsAgenda;
 import Modelo.SmsEmpleado;
 import Modelo.SmsUsuario;
-import Modelo.SmsVehiculo;
 import java.util.List;
 
 /**
@@ -23,8 +22,8 @@ public interface IAgendaDao {
     public void modificarAgenda(SmsAgenda agenda);
     public void eliminarAgenda(SmsAgenda agenda);
     public List<SmsAgenda> consultarAgendaId(SmsAgenda agenda);
-    public List<SmsAgenda> consultarAgenda(String FechaInicio, String FechaLlegada, String HoraInicio, String HoraLlegada, SmsVehiculo vehiculo, SmsEmpleado empleado); 
-    public List<SmsAgenda> consultarAgendaSinEmpleado(String FechaInicio, String FechaLlegada, String HoraInicio, String HoraLlegada, SmsVehiculo vehiculo); 
+    public List<SmsAgenda> consultarAgenda(SmsAgenda agenda); 
+    public List<SmsAgenda> consultarAgendaSinEmpleado(SmsAgenda agenda); 
     public List<SmsAgenda> mostrarAgendaReservacionCliente(SmsUsuario usuarioID);
     public List<SmsAgenda> mostrarAgendaReservacionConductores(SmsEmpleado conductor);
     }
