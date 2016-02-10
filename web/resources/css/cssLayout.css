@@ -592,7 +592,7 @@ td, th {
     background-image: -webkit-linear-gradient(top, #AD3C3C, #A72626) !important;
     color: #FFFFFF !important;
     text-shadow: none !important;
-        border-radius: 6px !important;
+    border-radius: 6px !important;
 }
 
 .btn-reservas-color:hover{
@@ -622,7 +622,7 @@ td, th {
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;    
     vertical-align: middle;
     margin-right: 1px;
-   
+
 }
 
 .form-control {
@@ -642,4 +642,27 @@ td, th {
     -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.img-altura{
+    max-height: 56px;
+}
+
+.hr-sms{
+    border-color: rgba(220, 220, 220, 0.82) !important;
+}
+
+.link-no-efect{
+    text-decoration: none;
+}
+
+.margin-bottom{
+    margin-bottom: 43px;
+}
+/* EDICION DEL CORE PARA COLOCAR EL PADDING EN LA ETIQUETA TR Y TD QUE NO ESTABA RECONOCIENDO  */
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    padding: 8px !important;
+    line-height: 1.428571429;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
 }
