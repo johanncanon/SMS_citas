@@ -5,7 +5,8 @@
  */
 package Bean;
 
-import Controlador.Referencia;
+import DAO.IReferenciaDao;
+import DAO.ImpReferenciaDao;
 import Modelo.SmsMarca;
 import Modelo.SmsReferencia;
 import java.io.Serializable;
@@ -27,29 +28,35 @@ public class ReferenciaBean implements Serializable {
     private SmsMarca marcaView;
 
     //Relacion con el controlador
-    private Referencia referenciaController;
-
+    MarcaBean marcaController;
     //Variables
     private int estado; //Controla la operacion a realizar
     private String nombre;
     private String buscar;
 
+    //Conexion con el DAO
+    IReferenciaDao referenciaDao;
+
     public ReferenciaBean() {
         DReferenciaView = new SmsReferencia();
         referenciaView = new SmsReferencia();
-        referenciaController = new Referencia();
         referenciasListView = new ArrayList<>();
+       
         nombresReferenciaListView = new ArrayList<>();
         marcaView = new SmsMarca();
 
         buscar = null;
         estado = 0;
         nombre = "Registrar Referencia";
+
+        marcaController = new MarcaBean();
+
+        referenciaDao = new ImpReferenciaDao();
     }
 
     @PostConstruct
     public void init() {
-        referenciasListView = referenciaController.cargarReferencias();
+        referenciasListView = referenciaDao.mostrarReferencias();
     }
 
     //Getters & Setters
@@ -59,15 +66,6 @@ public class ReferenciaBean implements Serializable {
 
     public void setMarcaView(SmsMarca marcaView) {
         this.marcaView = marcaView;
-    }
-
-    public Referencia getReferenciaController() {
-
-        return referenciaController;
-    }
-
-    public void setReferenciaController(Referencia referenciaController) {
-        this.referenciaController = referenciaController;
     }
 
     public SmsReferencia getReferenciaView() {
@@ -88,7 +86,7 @@ public class ReferenciaBean implements Serializable {
 
     public List<String> getNombresReferenciaListView() {
         nombresReferenciaListView = new ArrayList<>();
-        referenciasListView = referenciaController.cargarReferencias();
+        referenciasListView = referenciaDao.mostrarReferencias();
         for (int i = 0; i < referenciasListView.size(); i++) {
             nombresReferenciaListView.add(referenciasListView.get(i).getReferenciaNombre());
         }
@@ -138,47 +136,60 @@ public class ReferenciaBean implements Serializable {
     public void setDReferenciaView(SmsReferencia DReferenciaView) {
         this.DReferenciaView = DReferenciaView;
     }
-    
-    
 
-    /* METODOS DEL BEAN
-     ********************************************************************************/
+    //Metodos
     public void modificar() {
-        referenciaController.modificarReferencia(referenciaView, marcaView);
-        referenciaView = new SmsReferencia();
+
+        //Consultamos la informacion completa de la marca seleccionada
+        marcaView = marcaController.consultarMarca(marcaView).get(0);
+        referenciaView.setSmsMarca(marcaView);//relacionamos la referencia con la marca
+
+        referenciaDao.modificarReferencia(referenciaView);//modificar la referencia
+
+        referenciaView = new SmsReferencia();//limpiamos objetos
         marcaView = new SmsMarca();
-        referenciasListView = referenciaController.cargarReferencias();
+        referenciasListView = referenciaDao.mostrarReferencias();//recargamos lista de referencias
     }
 
     public void eliminar() {
-        referenciaController.eliminarReferencia(DReferenciaView);
-        if(referenciaView.equals(DReferenciaView)){
-        referenciaView = new SmsReferencia();
-        nombre = "Registrar Referencia";
-        estado = 0;
+        //Eliminamos la referencia
+        referenciaDao.eliminarReferencia(DReferenciaView);
+
+        //Verificamos que el objeto a eliminar no este en proceso de edicion
+        if (referenciaView.equals(DReferenciaView)) {
+            //si es asi, elimina el objeto y limpia el objeto que contenia la referencia a eliminar
+            referenciaView = new SmsReferencia();
+            nombre = "Registrar Referencia";
+            estado = 0;
         }
-        DReferenciaView = new SmsReferencia();
-        referenciasListView = referenciaController.cargarReferencias();
+
+        DReferenciaView = new SmsReferencia();//limpiamos objetos
+        referenciasListView = referenciaDao.mostrarReferencias(); //recargamos lista de referencias
     }
 
     public void registrar() {
-        referenciaController.registrarReferencia(referenciaView, marcaView);
-        referenciaView = new SmsReferencia();
+        
+         //Consultamos la informacion completa de la marca seleccionada
+        marcaView = marcaController.consultarMarca(marcaView).get(0);
+        referenciaView.setSmsMarca(marcaView);//relacionamos la referencia con la marca
+
+        referenciaDao.registrarReferencia(referenciaView);//Registramos la referencia
+
+        referenciaView = new SmsReferencia();//Limpiamos objetos
         marcaView = new SmsMarca();
-        referenciasListView = referenciaController.cargarReferencias();
+        referenciasListView = referenciaDao.mostrarReferencias();//recargamos la lista de referencias
     }
 
     public void filtrar() {
         referenciasListView = new ArrayList<>();
         if (buscar == null) {
-            referenciasListView = referenciaController.cargarReferencias();
+            referenciasListView = referenciaDao.mostrarReferencias();
         } else {
-            referenciasListView = referenciaController.filtrarReferencias(buscar);
+            referenciasListView = referenciaDao.filtrarReferencias(buscar);
         }
     }
 
     //Metodos Propios
-
     public void metodo() {
         if (estado == 0) {
             registrar();

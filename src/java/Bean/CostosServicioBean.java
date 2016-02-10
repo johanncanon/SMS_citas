@@ -5,7 +5,13 @@
  */
 package Bean;
 
-import Controlador.Costos;
+
+import DAO.ICategoriaDao;
+import DAO.ICostosServiciosDAO;
+import DAO.IServicioDao;
+import DAO.ImpCategoriaDao;
+import DAO.ImpCostosServiciosDAO;
+import DAO.ImpServicioDao;
 import Modelo.SmsCategoria;
 import Modelo.SmsCostosServicio;
 import Modelo.SmsServicios;
@@ -26,10 +32,12 @@ public class CostosServicioBean {
 
     private SmsCategoria categoriaView;
     private SmsServicios servicioView;
-
-    //Relacion con el controlador
-    private Costos costosController;
-
+  
+    //Conexion con el Dao
+    ICategoriaDao catDao;
+    IServicioDao serDao;
+    ICostosServiciosDAO cosDao;
+    
     //Variables
     private int estado; //Controla la operacion a realizar
     private String nombre;
@@ -43,19 +51,20 @@ public class CostosServicioBean {
 
         categoriaView = new SmsCategoria();
         servicioView = new SmsServicios();
-
-        costosController = new Costos();
-
+    
         buscar = null;
         estado = 0;
 
         nombre = "Registrar Costo Servicio";
+        catDao = new ImpCategoriaDao();
+        serDao = new ImpServicioDao();
+        cosDao = new ImpCostosServiciosDAO();
     }
 
     @PostConstruct
     public void init() {
         costosListView = new ArrayList<>();
-        costosListView = costosController.cargarCostos();
+        costosListView = cosDao.mostrarCostosServicios();
     }
 
     public SmsCostosServicio getCostoView() {
@@ -80,14 +89,6 @@ public class CostosServicioBean {
 
     public void setCostosListView(List<SmsCostosServicio> costosListView) {
         this.costosListView = costosListView;
-    }
-
-    public Costos getCostosController() {
-        return costosController;
-    }
-
-    public void setCostosController(Costos costosController) {
-        this.costosController = costosController;
     }
 
     public int getEstado() {
@@ -132,16 +133,38 @@ public class CostosServicioBean {
 
     //Metodos Crud
     public void registrar() {
-        costosController.registrarCosto(costoView, categoriaView, servicioView);
-        costosListView = costosController.cargarCostos();
+        
+        //Consultamos la informacion completa de la categoria y el servicio elegido
+        categoriaView = catDao.consultarCategoria(categoriaView).get(0);
+        servicioView = serDao.ConsultarServicio(servicioView).get(0);
+
+        //Asignamos la categoria y el servicio a nuestro costo
+        costoView.setSmsCategoria(categoriaView);
+        costoView.setSmsServicios(servicioView);
+
+        //Registramos el cosot
+        cosDao.registrarCostoServicio(costoView);
+        costosListView = cosDao.mostrarCostosServicios();//Recargamos la lista de costos
+        
+        //Limpiamos objetos
         costoView = new SmsCostosServicio();
         categoriaView = new SmsCategoria();
         servicioView = new SmsServicios();
     }
 
     public void modificar() {
-        costosController.modificarCosto(costoView, categoriaView, servicioView);
-        costosListView = costosController.cargarCostos();
+        //Consultamos la informacion completa de la categoria y el servicio elegido
+        categoriaView = catDao.consultarCategoria(categoriaView).get(0);
+        servicioView = serDao.ConsultarServicio(servicioView).get(0);
+
+        //Asignamos la categoria y el servicio a nuestro costo
+        costoView.setSmsCategoria(categoriaView);
+        costoView.setSmsServicios(servicioView);
+
+        cosDao.modificarCostoServicio(costoView);//Modificamos el costo   
+        costosListView = cosDao.mostrarCostosServicios();//Recargamos la lista de costos
+       
+        //Limpiamos objetos
         costoView = new SmsCostosServicio();
         categoriaView = new SmsCategoria();
         servicioView = new SmsServicios();
@@ -150,15 +173,19 @@ public class CostosServicioBean {
     public void filtrar(){
        costosListView = new ArrayList<>();
         if (buscar == null) {
-            costosListView = costosController.cargarCostos();
+            costosListView = cosDao.mostrarCostosServicios();
         } else {
-            costosListView = costosController.filtrarCostos(buscar);
+            costosListView = cosDao.filtrarCostosServicios(buscar);
         }
     }
 
     public void eliminar() {
-        costosController.eliminarCosto(DCostoview);
+        //Eliminamos el costo
+        cosDao.eliminarCostoServicio(DCostoview);
+        
+        //Comprobamos que el costo a eliminar no este en proceso de modificacion
         if (costoView.equals(DCostoview)) {
+            //Si es asi limpiamos los objetos que contenian el costo a modificar
             costoView = new SmsCostosServicio();
             categoriaView = new SmsCategoria();
             servicioView = new SmsServicios();
@@ -166,8 +193,9 @@ public class CostosServicioBean {
 
             nombre = "Registrar Costo Servicio";
         }
+        //Limpiamos los objetos
         DCostoview = new SmsCostosServicio();
-        costosListView = costosController.cargarCostos();
+        costosListView = cosDao.mostrarCostosServicios();//Recargamos la lista de costos
 
     }
 

@@ -5,7 +5,9 @@
  */
 package Bean;
 
-import Controlador.Pais;
+
+import DAO.IPaisDao;
+import DAO.ImpPaisDao;
 import Modelo.SmsPais;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +20,10 @@ public class PaisBean {
     protected SmsPais DPaisView;
     protected List<SmsPais> paisesListView;
     protected List<String> nombrePaisesListView;
-
-    //Relacion con el controlador
-    protected Pais paisController;
-
+    
+    //Conexion con el DAO
+     IPaisDao paisDao = new ImpPaisDao();
+    
     //Variables
     private int estado; //Controla la operacion a realizar
     private String nombre;
@@ -32,7 +34,6 @@ public class PaisBean {
         DPaisView = new SmsPais();
         paisesListView = new ArrayList<>();
         nombrePaisesListView = new ArrayList<>();
-        paisController = new Pais();
         buscar = null;
         estado = 0;
         nombre = "Registrar Pais";
@@ -41,7 +42,7 @@ public class PaisBean {
     @PostConstruct
     public void init() {
         paisesListView = new ArrayList<>();
-        paisesListView = paisController.cargarPaises();
+        paisesListView = paisDao.mostrarPaises();
     }
 
     //Getters & Setters
@@ -63,7 +64,7 @@ public class PaisBean {
 
     public List<String> getNombrePaisesListView() {
         nombrePaisesListView = new ArrayList<>();
-        paisesListView = paisController.cargarPaises();
+        paisesListView = paisDao.mostrarPaises();
         for (int i = 0; i < paisesListView.size(); i++) {
             nombrePaisesListView.add(paisesListView.get(i).getPaisNombre());
         }
@@ -72,14 +73,6 @@ public class PaisBean {
 
     public void setNombrePaisesListView(List<String> nombrePaisesListView) {
         this.nombrePaisesListView = nombrePaisesListView;
-    }
-
-    public Pais getPaisController() {
-        return paisController;
-    }
-
-    public void setPaisController(Pais paisController) {
-        this.paisController = paisController;
     }
 
     public int getEstado() {
@@ -116,35 +109,35 @@ public class PaisBean {
 
     //Metodos que se comunicar con el controlador    
     public void registrar() {
-        paisController.registrarPais(paisView);
-        paisesListView = paisController.cargarPaises();
+        paisDao.registrarPais(paisView);
+        paisesListView = paisDao.mostrarPaises();
         paisView = new SmsPais();
     }
 
     public void modificar() {
-        paisController.modificarPais(paisView);
-        paisesListView = paisController.cargarPaises();
+        paisDao.modificarPais(paisView);
+        paisesListView = paisDao.mostrarPaises();
         paisView = new SmsPais();
     }
 
     public void eliminar() {
-        paisController.eliminarPais(DPaisView);
+        paisDao.eliminarPais(DPaisView);
         if (paisView.equals(DPaisView)) {
             paisView = new SmsPais();
             nombre = "Registrar Pais";
             estado = 0;
         }
 
-        paisesListView = paisController.cargarPaises();
+        paisesListView = paisDao.mostrarPaises();
         DPaisView = new SmsPais();
     }
 
     public void filtrar() {
         paisesListView = new ArrayList<>();
         if (buscar == null) {
-            paisesListView = paisController.cargarPaises();
+            paisesListView = paisDao.mostrarPaises();
         } else {
-            paisesListView = paisController.filtrarPaises(buscar);
+            paisesListView = paisDao.filtrarPais(buscar);
         }
     }
 

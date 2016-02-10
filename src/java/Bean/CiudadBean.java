@@ -5,7 +5,11 @@
  */
 package Bean;
 
-import Controlador.Ciudad;
+
+import DAO.ICiudadDao;
+import DAO.IPaisDao;
+import DAO.ImpCiudadDao;
+import DAO.ImpPaisDao;
 import Modelo.SmsCiudad;
 import Modelo.SmsPais;
 import java.util.ArrayList;
@@ -24,31 +28,34 @@ public class CiudadBean {
     private List<SmsCiudad> ciudadesListView;
     private List<String> nombresCiudadesListView;
     protected SmsPais paisView;
-
-    //Relacion con el controlador
-    private Ciudad ciudadController;
-
+ 
     //Variables
     private int estado; //Controla la operacion a realizar
     private String nombre;
     private String buscar;
 
+    //Conexion con DAO
+    IPaisDao paisDao;
+    ICiudadDao ciudadDao;
+    
     public CiudadBean() {
         ciudadView = new SmsCiudad();
         DCiudadView = new SmsCiudad();
         ciudadesListView = new ArrayList<>();
         nombresCiudadesListView = new ArrayList<>();
-        ciudadController = new Ciudad();
         paisView = new SmsPais();
 
         buscar = null;
         estado = 0;
         nombre = "Registrar Ciudad";
+        
+        paisDao = new ImpPaisDao();
+        ciudadDao = new ImpCiudadDao();
     }
 
     @PostConstruct
     public void init() {
-        ciudadesListView = ciudadController.cargarCiudades();
+        ciudadesListView = ciudadDao.mostrarCiudades();
     }
 
     //Getters & Setters    
@@ -68,14 +75,6 @@ public class CiudadBean {
         this.ciudadesListView = ciudades;
     }
 
-    public Ciudad getCiudadController() {
-        return ciudadController;
-    }
-
-    public void setCiudadController(Ciudad ciudadController) {
-        this.ciudadController = ciudadController;
-    }
-
     public SmsPais getPaisView() {
         return paisView;
     }
@@ -86,7 +85,7 @@ public class CiudadBean {
 
     public List<String> getNombresCiudadesListView() {
         nombresCiudadesListView = new ArrayList<>();
-        ciudadesListView = ciudadController.cargarCiudades();
+        ciudadesListView = ciudadDao.mostrarCiudades();
         for (int i = 0; i < ciudadesListView.size(); i++) {
             nombresCiudadesListView.add(ciudadesListView.get(i).getCiudadNombre());
         }
@@ -150,36 +149,46 @@ public class CiudadBean {
 
     //Definicion Metodos CRUD
     public void registrar() {
-        ciudadController.registrarCiudad(ciudadView, paisView);
+        paisView = paisDao.consultarPais(paisView).get(0);
+        ciudadView.setSmsPais(paisView);
+        ciudadDao.registrarCiudad(ciudadView);
+        
         ciudadView = new SmsCiudad();
         paisView = new SmsPais();
-        ciudadesListView = ciudadController.cargarCiudades();
+        ciudadesListView = ciudadDao.mostrarCiudades();
     }
 
     public void modificar() {
-        ciudadController.modificarCiudad(ciudadView, paisView);
+        paisView = paisDao.consultarPais(paisView).get(0);
+        ciudadView.setSmsPais(paisView);
+        
+        ciudadDao.modificarCiudad(ciudadView);
+        
         ciudadView = new SmsCiudad();
         paisView = new SmsPais();
-        ciudadesListView = ciudadController.cargarCiudades();
+        
+        ciudadesListView = ciudadDao.mostrarCiudades();
     }
 
     public void eliminar() {
-        ciudadController.eliminarCiudad(DCiudadView);
+        ciudadDao.eliminarCiudad(DCiudadView);
+        
         if(ciudadView.equals(DCiudadView)){
         ciudadView = new SmsCiudad();
         nombre = "Registrar Ciudad";
         estado = 0;
         }
+        
         DCiudadView = new SmsCiudad();
-        ciudadesListView = ciudadController.cargarCiudades();
+        ciudadesListView = ciudadDao.mostrarCiudades();
     }
 
     public void filtrar() {
         ciudadesListView = new ArrayList<>();
         if (buscar == null) {
-            ciudadesListView = ciudadController.cargarCiudades();
+            ciudadesListView = ciudadDao.mostrarCiudades();
         } else {
-            ciudadesListView = ciudadController.filtrarCiudades(buscar);
+            ciudadesListView = ciudadDao.filtrarCiudad(buscar);
         }
     }
 }

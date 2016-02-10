@@ -5,7 +5,10 @@
  */
 package Bean;
 
-import Controlador.Lugar;
+import DAO.ICiudadDao;
+import DAO.ILugarDao;
+import DAO.ImpCiudadDao;
+import DAO.ImpLugarDao;
 import Modelo.SmsCiudad;
 import Modelo.SmsLugares;
 import java.util.ArrayList;
@@ -26,8 +29,9 @@ public class LugarBean {
     //Relaciones con otras clases
     private SmsCiudad CiudadView;
 
-    //Controlador
-    private Lugar LugarController;
+    //Conexion con el DAO
+    ICiudadDao ciudadDao;
+    ILugarDao lugarDao;
 
     //Variables
     private int estado; //Controla la operacion a realizar
@@ -40,16 +44,19 @@ public class LugarBean {
         LugaresListView = new ArrayList<>();
         nombresLugaresListView = new ArrayList<>();
         CiudadView = new SmsCiudad();
-        LugarController = new Lugar();
 
         buscar = null;
         estado = 0;
         nombre = "Registrar Lugar";
+
+        ciudadDao = new ImpCiudadDao();
+        lugarDao = new ImpLugarDao();
     }
 
     @PostConstruct
     public void init() {
-        consultar();
+        LugaresListView = new ArrayList<>();
+        LugaresListView = lugarDao.consultarLugares();
     }
 
     public SmsLugares getLugarView() {
@@ -66,14 +73,6 @@ public class LugarBean {
 
     public void setLugaresListView(List<SmsLugares> LugaresListView) {
         this.LugaresListView = LugaresListView;
-    }
-
-    public Lugar getLugarController() {
-        return LugarController;
-    }
-
-    public void setLugarController(Lugar LugarController) {
-        this.LugarController = LugarController;
     }
 
     public SmsCiudad getCiudadView() {
@@ -118,21 +117,31 @@ public class LugarBean {
 
     //Metodos CRUD
     public void registrar() {
-        LugarController.registrarLugar(LugarView, CiudadView);
-        LugaresListView = LugarController.consultarLugares();
+
+        CiudadView = ciudadDao.consultarCiudad(CiudadView).get(0);
+        LugarView.setSmsCiudad(CiudadView);
+        
+        lugarDao.registrarLugar(LugarView);
+        LugaresListView = lugarDao.consultarLugares();
         LugarView = new SmsLugares();
         CiudadView = new SmsCiudad();
     }
 
     public void modificar() {
-        LugarController.modificarLugar(LugarView, CiudadView);
-        LugaresListView = LugarController.consultarLugares();
+
+        CiudadView = ciudadDao.consultarCiudad(CiudadView).get(0);
+        LugarView.setSmsCiudad(CiudadView);
+        
+        lugarDao.modificarLugar(LugarView);
+        LugaresListView = lugarDao.consultarLugares();
+
         LugarView = new SmsLugares();
         CiudadView = new SmsCiudad();
     }
 
     public void eliminar() {
-        LugarController.eliminarLugar(DLugarView);
+        lugarDao.eliminarLugar(DLugarView);
+
         if (LugarView.equals(DLugarView)) {
             LugarView = new SmsLugares();
             CiudadView = new SmsCiudad();
@@ -140,12 +149,7 @@ public class LugarBean {
             estado = 0;
         }
         DLugarView = new SmsLugares();
-        LugaresListView = LugarController.consultarLugares();
-    }
-
-    public void consultar() {
-        LugaresListView = new ArrayList<>();
-        LugaresListView = LugarController.consultarLugares();
+        LugaresListView = lugarDao.consultarLugares();
     }
 
     //Metodos propios
@@ -170,9 +174,15 @@ public class LugarBean {
     public void filtrar() {
         LugaresListView = new ArrayList<>();
         if (buscar == null) {
-            LugaresListView = LugarController.consultarLugares();
+            LugaresListView = lugarDao.consultarLugares();
         } else {
-            LugaresListView = LugarController.filtrarLugares(buscar);
+            LugaresListView = lugarDao.filtrarLugar(buscar);
         }
-    }    
+    }
+
+    public List<SmsLugares> consultarLugaresCiudades(String Ciudad) {
+        LugaresListView = new ArrayList<>();
+        LugaresListView = lugarDao.consultarLugarCiudad(Ciudad); //Relacionamos el lugar con una ciudad
+        return LugaresListView;
+    }
 }

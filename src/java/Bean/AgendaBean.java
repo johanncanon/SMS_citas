@@ -6,7 +6,6 @@
 package Bean;
 
 import Controlador.Empleado;
-import Controlador.Lugar;
 import Controlador.SendEmail;
 import Controlador.Usuario;
 import Controlador.Vehiculo;
@@ -85,12 +84,12 @@ public class AgendaBean {
 
     //Relacion con los controladores
     ReservacionBean reservacionController;
-
+    LugarBean lugarController;    
     Vehiculo vehiculoController;
     Empleado empleadoController;
     Usuario usuarioController;
     SendEmail emailController;
-    Lugar lugarController;
+    
 
     //Sesion  
     private HttpServletRequest httpServletRequest;
@@ -139,7 +138,7 @@ public class AgendaBean {
         empleadoController = new Empleado();
         usuarioController = new Usuario();
         emailController = new SendEmail();
-        lugarController = new Lugar();
+        
 
         SelecVeh = false;
         SelecCon = false;
@@ -157,7 +156,7 @@ public class AgendaBean {
         usuDao = new ImpUsuarioDao();
 
         reservacionController = new ReservacionBean();
-
+        lugarController = new LugarBean();
     }
 
     @PostConstruct

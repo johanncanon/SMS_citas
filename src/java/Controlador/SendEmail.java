@@ -18,6 +18,7 @@ import Modelo.SmsEmpleado;
 import Modelo.SmsReservacion;
 import Modelo.SmsUsuario;
 import Modelo.SmsVehiculo;
+import java.text.SimpleDateFormat;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -37,6 +38,15 @@ public class SendEmail {
     IUsuarioDao usuDao = new ImpUsuarioDao();
     IAgendaDao agDao = new ImpAgendaDao();
 
+    SimpleDateFormat formatDate;
+    SimpleDateFormat formatTime;
+
+    public SendEmail() {
+        formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        formatTime = new SimpleDateFormat("HH:mm:ss");
+
+    }
+
     private void init() {
 
         properties.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -53,6 +63,12 @@ public class SendEmail {
         IUsuarioDao usuDao = new ImpUsuarioDao();
         SmsUsuario cliente = usuDao.consultarUsuario(Cliente).get(0);
 
+        //Se formatean las fechas y horas
+        String FechaInicio = formatDate.format(agenda.getAgendaFechaInicio());
+        String FechaLlegada = formatDate.format(agenda.getAgendaFechaLlegada());
+        String HoraInicio = formatTime.format(agenda.getAgendaHoraInicio());
+        String HoraLlegada = formatTime.format(agenda.getAgendaHoraLlegada());
+
         try {
             MimeMessage message = new MimeMessage(session);
 
@@ -66,7 +82,7 @@ public class SendEmail {
             message.setSubject("SMSRenta informe de su reservacion");
             message.setText("Señor(a) " + cliente.getUsuarioNombre() + ","
                     + "\n"
-                    + "Le confirmamos su reserva para el vehículo " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + agenda.getAgendaFechaLlegada() + ". "
+                    + "Le confirmamos su reserva para el vehículo " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + FechaInicio + " a las " + HoraInicio + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + FechaLlegada + ". "
                     + "Allí lo atenderá el asesor " + empleado.getSmsUsuario().getUsuarioNombre() + ", quien estará disponible y a sus órdenes para su traslado y apoyo en su estadía. "
                     + "El Valor de su servicio es de COP $" + reservacion.getReservacionCosto() + ", la factura será enviada a su correo electrónico en dos días.\n"
                     + "Esperamos que nuestro servicio sea de su total satisfacción y no olvide calificarlo."
@@ -92,6 +108,12 @@ public class SendEmail {
         IUsuarioDao usuDao = new ImpUsuarioDao();
         SmsUsuario cliente = usuDao.consultarUsuario(Cliente).get(0);
 
+        //Se formatean las fechas y horas
+        String FechaInicio = formatDate.format(agenda.getAgendaFechaInicio());
+        String FechaLlegada = formatDate.format(agenda.getAgendaFechaLlegada());
+        String HoraInicio = formatTime.format(agenda.getAgendaHoraInicio());
+        String HoraLlegada = formatTime.format(agenda.getAgendaHoraLlegada());
+
         try {
             MimeMessage message = new MimeMessage(session);
 
@@ -105,7 +127,7 @@ public class SendEmail {
             message.setSubject("SMSRenta informe de su reservacion");
             message.setText("Señor(a) " + cliente.getUsuarioNombre() + ","
                     + "\n"
-                    + "Le confirmamos su reserva para el vehículo " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + agenda.getAgendaFechaLlegada() + ". "
+                    + "Le confirmamos su reserva para el vehículo " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + FechaInicio + " a las " + HoraInicio + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + FechaLlegada + ". "
                     + "Allí lo atenderá un asesor de SMSRenta, quien le entregara su vehiculo y le indicara todo lo relacionado al dia y hora de entrega.\n"
                     + "El Valor de su servicio es de COP $" + reservacion.getReservacionCosto() + ", la factura será enviada a su correo electrónico en dos días.\n"
                     + "Esperamos que nuestro servicio sea de su total satisfacción y no olvide calificarlo."
@@ -128,6 +150,12 @@ public class SendEmail {
     public void sendEmailAdministrador(SmsEmpleado empleado, SmsVehiculo vehiculo, SmsReservacion reservacion, SmsAgenda agenda, SmsUsuario Cliente) {
 
         init();
+        //Se formatean las fechas y horas
+        String FechaInicio = formatDate.format(agenda.getAgendaFechaInicio());
+        String FechaLlegada = formatDate.format(agenda.getAgendaFechaLlegada());
+        String HoraInicio = formatTime.format(agenda.getAgendaHoraInicio());
+        String HoraLlegada = formatTime.format(agenda.getAgendaHoraLlegada());
+
         try {
             MimeMessage message = new MimeMessage(session);
 
@@ -138,10 +166,10 @@ public class SendEmail {
             message.addRecipient(
                     Message.RecipientType.TO,
                     new InternetAddress("operaciones@smsrenta.com"));
-            message.setSubject("Nueva reservacion en el sistema. Reservacion " + reservacion.getIdReservacion() + ", cliente " + Cliente.getUsuarioNombre() + ", fecha de inicio " + agenda.getAgendaFechaInicio() + "");
+            message.setSubject("Nueva reservacion en el sistema. Reservacion " + reservacion.getIdReservacion() + ", cliente " + Cliente.getUsuarioNombre() + ", fecha de inicio " + FechaInicio + "");
             message.setText("Señor(a) Administrador Principal,"
                     + "\n"
-                    + "Se confirmo una reservación para el cliente '" + Cliente.getUsuarioNombre() + "', el vehiculo elegido es " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + agenda.getAgendaFechaLlegada() + ". "
+                    + "Se confirmo una reservación para el cliente '" + Cliente.getUsuarioNombre() + "', el vehiculo elegido es " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + FechaInicio + " a las " + HoraInicio + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + FechaLlegada + ". "
                     + "El asesor elegido es el señor " + empleado.getSmsUsuario().getUsuarioNombre() + " y el Valor de la servicio es de COP $" + reservacion.getReservacionCosto() + "."
                     + "Atentamente,\n"
                     + "SMS Renta");
@@ -162,6 +190,12 @@ public class SendEmail {
     public void sendEmailAdministradorWithout(SmsVehiculo vehiculo, SmsReservacion reservacion, SmsAgenda agenda, SmsUsuario Cliente) {
 
         init();
+        //Se formatean las fechas y horas
+        String FechaInicio = formatDate.format(agenda.getAgendaFechaInicio());
+        String FechaLlegada = formatDate.format(agenda.getAgendaFechaLlegada());
+        String HoraInicio = formatTime.format(agenda.getAgendaHoraInicio());
+        String HoraLlegada = formatTime.format(agenda.getAgendaHoraLlegada());
+
         try {
             MimeMessage message = new MimeMessage(session);
 
@@ -172,10 +206,10 @@ public class SendEmail {
             message.addRecipient(
                     Message.RecipientType.TO,
                     new InternetAddress("operaciones@smsrenta.com"));
-            message.setSubject("Nueva reservacion en el sistema. Reservacion " + reservacion.getIdReservacion() + ", cliente " + Cliente.getUsuarioNombre() + ", fecha de inicio " + agenda.getAgendaFechaInicio() + "");
+            message.setSubject("Nueva reservacion en el sistema. Reservacion " + reservacion.getIdReservacion() + ", cliente " + Cliente.getUsuarioNombre() + ", fecha de inicio " + FechaInicio + "");
             message.setText("Señor(a) Administrador Principal,"
                     + "\n"
-                    + "Se confirmo una reservación para el cliente '" + Cliente.getUsuarioNombre() + "', el vehiculo elegido es " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + agenda.getAgendaFechaLlegada() + ". "
+                    + "Se confirmo una reservación para el cliente '" + Cliente.getUsuarioNombre() + "', el vehiculo elegido es " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + FechaInicio + " a las " + HoraInicio + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + FechaLlegada + ". "
                     + "No hay asesor elegido y el Valor de la servicio es de COP $" + reservacion.getReservacionCosto() + "."
                     + "Atentamente,\n"
                     + "SMS Renta");
@@ -196,6 +230,12 @@ public class SendEmail {
     public void sendEmailConductor(SmsEmpleado empleado, SmsVehiculo vehiculo, SmsReservacion reservacion, SmsAgenda agenda, SmsUsuario Cliente) {
 
         init();
+        //Se formatean las fechas y horas
+        String FechaInicio = formatDate.format(agenda.getAgendaFechaInicio());
+        String FechaLlegada = formatDate.format(agenda.getAgendaFechaLlegada());
+        String HoraInicio = formatTime.format(agenda.getAgendaHoraInicio());
+        String HoraLlegada = formatTime.format(agenda.getAgendaHoraLlegada());
+
         try {
             MimeMessage message = new MimeMessage(session);
 
@@ -206,10 +246,10 @@ public class SendEmail {
             message.addRecipient(
                     Message.RecipientType.TO,
                     new InternetAddress("" + empleado.getSmsUsuario().getUsuarioEmail()));
-            message.setSubject("Nueva Reservacion fecha inicio: " + agenda.getAgendaFechaInicio() + ", hora de inicio " + agenda.getAgendaHoraInicio() + "");
+            message.setSubject("Nueva Reservacion fecha inicio: " + FechaInicio + ", hora de inicio " + HoraInicio + "");
             message.setText("Señor(a) " + empleado.getSmsUsuario().getUsuarioNombre() + ","
                     + "\n"
-                    + "Se confirmo una nueva reservacion para la cual usted fue escogido como asesor, el vehiculo escogido es un(a) " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + agenda.getAgendaFechaInicio() + " a las " + agenda.getAgendaHoraInicio() + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + agenda.getAgendaFechaLlegada() + "."
+                    + "Se confirmo una nueva reservacion para la cual usted fue escogido como asesor, el vehiculo escogido es un(a) " + vehiculo.getSmsReferencia().getSmsMarca().getMarcaNombre() + " " + vehiculo.getSmsReferencia().getReferenciaNombre() + " programada para el día " + FechaInicio + " a las " + HoraInicio + " en " + reservacion.getReservacionLugarLlegada() + " en la ciudad de " + reservacion.getSmsCiudad().getCiudadNombre() + " hasta el día " + FechaLlegada + "."
                     + "Allí lo espera el cliente " + Cliente.getUsuarioNombre() + ", quien requiere del mejor servicio y atencion prestada\n"
                     + "Esperamos que su servicio sea prestado de la mejor forma para garantizar la total satisfaccion del cliente"
                     + "Atentamente,\n"
@@ -246,9 +286,8 @@ public class SendEmail {
             message.setText("Señor(a) " + Cliente.getUsuarioNombre() + ","
                     + "\n"
                     + "Le confirmamos que su registro al sistema SMS Renta fue exitoso, y le damos la bienvenida a nuestra familia. \n"
-                    + "Esperamos que nuestro servicio sea de su total agrado."
-                    + "Atentamente,\n"
-                    + "SMS Renta");
+                    + "Esperamos que nuestro servicio sea de su total agrado.\n"
+                    + "Atentamente, SMS Renta");
 
             Transport t = session.getTransport("smtp");
             t.connect("smtp.gmail.com", (String) properties.get("mail.smtp.user"), "Smsrenta2016");

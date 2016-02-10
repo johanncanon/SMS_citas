@@ -5,7 +5,8 @@
  */
 package Bean;
 
-import Controlador.Servicio;
+import DAO.IServicioDao;
+import DAO.ImpServicioDao;
 import Modelo.SmsServicios;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +24,8 @@ public class ServiciosBean {
     protected List<SmsServicios> serviciosListView;
     protected List<String> nombreServiciosListView;
 
-    //Relacion con el controlador
-    protected Servicio servicioController;
+    //Conexion con el DAO
+    IServicioDao servicioDao;
 
     //Variables
     private int estado; //Controla la operacion a realizar
@@ -32,7 +33,6 @@ public class ServiciosBean {
     private String buscar;
 
     public ServiciosBean() {
-        servicioController = new Servicio();
         servicioView = new SmsServicios();
         serviciosListView = new ArrayList<>();
         nombreServiciosListView = new ArrayList<>();
@@ -40,12 +40,14 @@ public class ServiciosBean {
         buscar = null;
         estado = 0;
         nombre = "Registrar Servicio";
+
+        servicioDao = new ImpServicioDao();
     }
 
     @PostConstruct
     public void init() {
         serviciosListView = new ArrayList<>();
-        serviciosListView = servicioController.cargarServicio();
+        serviciosListView = servicioDao.mostrarServicios();
     }
 
     //Getters & Setters
@@ -65,20 +67,12 @@ public class ServiciosBean {
         this.serviciosListView = serviciosListView;
     }
 
-    public Servicio getServicioController() {
-        return servicioController;
-    }
-
-    public void setServicioController(Servicio servicioController) {
-        this.servicioController = servicioController;
-    }
-
     public List<String> getNombreServiciosListView() {
         nombreServiciosListView = new ArrayList<>();
         serviciosListView = new ArrayList<>();
-        serviciosListView = servicioController.cargarServicio();
+        serviciosListView = servicioDao.mostrarServicios();
         for (int i = 0; i < serviciosListView.size(); i++) {
-            nombreServiciosListView.add(serviciosListView.get(i).getServiciosNombre());        
+            nombreServiciosListView.add(serviciosListView.get(i).getServiciosNombre());
         }
         return nombreServiciosListView;
     }
@@ -141,34 +135,36 @@ public class ServiciosBean {
 
     //Metodos que se comunican con el controlador    
     public void registrar() {
-        servicioController.registrarServicio(servicioView);
+        servicioDao.registrarServicio(servicioView);
         servicioView = new SmsServicios();
-        serviciosListView = servicioController.cargarServicio();
+        serviciosListView = servicioDao.mostrarServicios();
     }
 
     public void modificar() {
-        servicioController.modificarServicio(servicioView);
+        servicioDao.modificarServicio(servicioView);
         servicioView = new SmsServicios();
-        serviciosListView = servicioController.cargarServicio();
+        serviciosListView = servicioDao.mostrarServicios();
     }
 
     public void eliminar() {
-        servicioController.eliminarServicio(DServicioView);
+        servicioDao.eliminarServicio(DServicioView);
+
         if (servicioView.equals(DServicioView)) {
             nombre = "Modificar Servicio";
             estado = 0;
             servicioView = new SmsServicios();
         }
         DServicioView = new SmsServicios();
-        serviciosListView = servicioController.cargarServicio();
+
+        serviciosListView = servicioDao.mostrarServicios();
     }
 
     public void filtrar() {
         serviciosListView = new ArrayList<>();
         if (buscar == null) {
-            serviciosListView = servicioController.cargarServicio();
+            serviciosListView = servicioDao.mostrarServicios();
         } else {
-            serviciosListView = servicioController.filtrarServicio(buscar);
+            serviciosListView = servicioDao.filtrarServicios(buscar);
         }
     }
 

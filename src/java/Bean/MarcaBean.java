@@ -5,7 +5,8 @@
  */
 package Bean;
 
-import Controlador.Marca;
+import DAO.IMarcaDao;
+import DAO.ImpMarcaDao;
 import Modelo.SmsMarca;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,13 +22,13 @@ public class MarcaBean implements Serializable {
     //Objetos de vista
     private SmsMarca marcaView;
     private SmsMarca DMarcaView;
-    private SmsMarca auxMarcaView;
     private List<SmsMarca> marcasListView;
     private List<String> nombresMarcaView;
 
-    //Relacion con el controlador 
-    private Marca marcaController;
-
+        
+    //Conexion con el DAO
+    IMarcaDao marcaDao;
+    
     //Variables
     private int estado; //Controla la operacion a realizar
     private String nombre;
@@ -38,28 +39,20 @@ public class MarcaBean implements Serializable {
         DMarcaView = new SmsMarca();
         marcasListView = new ArrayList<>();
         nombresMarcaView = new ArrayList<>();
-        marcaController = new Marca();
-        auxMarcaView = new SmsMarca();
-
+      
         buscar = "";
         estado = 0;
         nombre = "Registrar Marca";
+        
+        marcaDao = new ImpMarcaDao();
     }
 
     @PostConstruct
     public void init() {
-        marcasListView = marcaController.cargarMarcas();
+        marcasListView = marcaDao.mostrarMarcas();
     }
 
     /* GETTERS Y SETTERS **********************************************************************/
-    public Marca getMarcaController() {
-        return marcaController;
-    }
-
-    public void setMarcaController(Marca marcaController) {
-        this.marcaController = marcaController;
-    }
-
     public SmsMarca getMarcaView() {
         return marcaView;
     }
@@ -78,7 +71,7 @@ public class MarcaBean implements Serializable {
 
     public List<String> getNombresMarcaView() {
         nombresMarcaView = new ArrayList<>();
-        marcasListView = marcaController.cargarMarcas();
+        marcasListView = marcaDao.mostrarMarcas();
         for (int i = 0; i < marcasListView.size(); i++) {
             nombresMarcaView.add(marcasListView.get(i).getMarcaNombre());
         }
@@ -113,14 +106,6 @@ public class MarcaBean implements Serializable {
         this.buscar = buscar;
     }
 
-    public SmsMarca getAuxMarcaView() {
-        return auxMarcaView;
-    }
-
-    public void setAuxMarcaView(SmsMarca auxMarcaView) {
-        this.auxMarcaView = auxMarcaView;
-    }
-
     public SmsMarca getDMarcaView() {
         return DMarcaView;
     }
@@ -128,40 +113,45 @@ public class MarcaBean implements Serializable {
     public void setDMarcaView(SmsMarca DMarcaView) {
         this.DMarcaView = DMarcaView;
     }
-
-    /*+++++++++++++++++++++++++*****************************************************************
-     ****************    CREACION DE METODOS DEL BEAN      *********************************+++++*/
-    public void modificar() {
-        marcaController.modificarMarca(marcaView);
+    
+   //Metodos
+   public void modificar() {
+        marcaDao.modificarMarca(marcaView);
         marcaView = new SmsMarca();
-        marcasListView = marcaController.cargarMarcas();
+        marcasListView = marcaDao.mostrarMarcas();
     }
 
     public void eliminar() {
-        marcaController.eliminarMarca(DMarcaView);
+        marcaDao.eliminarMarca(DMarcaView);
         if (marcaView.equals(DMarcaView)) {
             marcaView = new SmsMarca();
             nombre = "Registrar Marca";
             estado = 0;
         }
         DMarcaView = new SmsMarca();
-        marcasListView = marcaController.cargarMarcas();
+        marcasListView = marcaDao.mostrarMarcas();
     }
 
     public void registrar() {
-        marcaController.registrarMarca(marcaView);
+        marcaDao.registrarMarca(marcaView);
         marcaView = new SmsMarca();
-        marcasListView = marcaController.cargarMarcas();
+        marcasListView = marcaDao.mostrarMarcas();
     }
 
     public void filtrar() {
         marcasListView = new ArrayList<>();
         if (buscar.equals("")) {
-            marcasListView = marcaController.cargarMarcas();
+            marcasListView = marcaDao.mostrarMarcas();
         } else {
-            marcasListView = marcaController.filtrarMarcas(buscar);
+            marcasListView = marcaDao.filtrarMarca(buscar);
             marcaView = new SmsMarca();
         }
+    }
+    
+    public List<SmsMarca> consultarMarca(SmsMarca marca){
+        marcasListView = new ArrayList<>();
+        marcasListView = marcaDao.consultarMarca(marca);
+        return marcasListView;
     }
 
     //Metodos Propios
