@@ -19,12 +19,12 @@
         <Node id="vistas/AdminS/general/Dashboard-Admin-Secundario.xhtml" x="1150" y="1050" zoom="true"/>
         <Node id="vistas/AdminP/proveedores/PProveedores.xhtml" x="276" y="103" zoom="true"/>
         <Node id="vistas/AdminP/servicios/PServicios.xhtml" x="150" y="750" zoom="true"/>
-        <Node id="vistas/AdminP/template-admin-p.xhtml" x="288" y="284" zoom="true"/>
         <Node id="vistas/AdminP/general/Dashboard-Admin-Principal.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="vistas/AdminP/template-admin-p.xhtml" x="288" y="284" zoom="true"/>
         <Node id="login.xhtml" x="1900" y="600" zoom="true"/>
         <Node id="*" x="150" y="150" zoom="true"/>
-        <Node id="vistas/AdminP/estadisticas/PEstadisticas.xhtml" x="650" y="150" zoom="true"/>
         <Node id="vistas/Proveedor/general/estPrueba.xhtml" x="900" y="1050" zoom="true"/>
+        <Node id="vistas/AdminP/estadisticas/PEstadisticas.xhtml" x="650" y="150" zoom="true"/>
         <Node id="vistas/AdminP/vehiculos/PVehiculo.xhtml" x="900" y="900" zoom="true"/>
         <Node id="vistas/AdminP/marcas/PMarca.xhtml" x="1650" y="150" zoom="true"/>
         <Node id="index.xhtml" x="1400" y="300" zoom="true"/>

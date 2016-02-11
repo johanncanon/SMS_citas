@@ -30,6 +30,7 @@ import Modelo.SmsVehiculo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -84,12 +85,11 @@ public class AgendaBean {
 
     //Relacion con los controladores
     ReservacionBean reservacionController;
-    LugarBean lugarController;    
+    LugarBean lugarController;
     Vehiculo vehiculoController;
     Empleado empleadoController;
     Usuario usuarioController;
     SendEmail emailController;
-    
 
     //Sesion  
     private HttpServletRequest httpServletRequest;
@@ -138,7 +138,6 @@ public class AgendaBean {
         empleadoController = new Empleado();
         usuarioController = new Usuario();
         emailController = new SendEmail();
-        
 
         SelecVeh = false;
         SelecCon = false;
@@ -419,7 +418,7 @@ public class AgendaBean {
         } catch (InterruptedException ex) {
             ex.getMessage();
         }
-        
+
         //obtenemos los datos completos de la agenda recien registrada
         if (empleadoView.getIdEmpleado() != null) {//Si se escogio empleado
             //Registramos la reservacion
@@ -427,7 +426,7 @@ public class AgendaBean {
         } else { //Si no hay empleado elegido
             reservacionController.registrarReservacionSinConductor(agendaView, ciudadView, reservaView, clienteView);
         }
-        
+
         //Enviamos mensajes al administrador del sistema, el cliente y el conductor
         if (empleadoView.getIdEmpleado() != null) {
             emailController.sendEmailAdministrador(empleadoView, vehiculoView, reservaView, agendaView, clienteView);
@@ -483,14 +482,42 @@ public class AgendaBean {
         return Ruta; //retornamos
     }
 
-    public void eliminarAgenda() {
-        agDao.eliminarAgenda(agendaView);
-        agendaView = new SmsAgenda();
-        clienteView = new SmsUsuario();
-        ciudadView = new SmsCiudad();
-        reservaView = new SmsReservacion();
-        vehiculoView = new SmsVehiculo();
-        empleadoView = new SmsEmpleado();
+    public String eliminarAgenda() {
+        boolean valor = validarEliminarReservacion(MagendaView);
+        String Ruta = "";
+        if (valor) {
+            agDao.eliminarAgenda(MagendaView);
+
+            MagendaView = new SmsAgenda();
+            MclienteView = new SmsUsuario();
+            MciudadView = new SmsCiudad();
+            MreservaView = new SmsReservacion();
+            MvehiculoView = new SmsVehiculo();
+            MempleadoView = new SmsEmpleado();
+
+            switch (sesion.getSmsRol().getRolNombre()) {
+                case "Administrador Principal":
+                    Ruta = "AdminPPrincipal";
+                    break;
+
+                case "Administrador Secundario":
+                    Ruta = "AdminSGeneral";
+                    break;
+
+                case "Cliente":
+                    Ruta = "ClienteDash";
+                    break;
+            }
+
+        } else {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Imposible cancelar la reservacion", "La reservacion se hara valida en menos de dos horas");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+
+        consultarReservacionesSegunUsuario(); //Recargamos las lista de reservaciones que se muestran en las vistas
+        addEventoCalendario();
+
+        return Ruta;
     }
 
     //Especificos 
@@ -693,4 +720,41 @@ public class AgendaBean {
         return Ruta;
     }
 
+    public boolean validarEliminarReservacion(SmsAgenda agenda) {
+        boolean valido = true;
+
+        SimpleDateFormat formatDate;
+        SimpleDateFormat formatTime;
+        formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        formatTime = new SimpleDateFormat("HH:mm:ss");
+
+        java.util.Date fechaActual = new Date();
+        java.util.Date HoraActual = new Date();
+
+        String FechaInicio = formatDate.format(fechaActual);
+        String HActual = formatTime.format(fechaActual);
+
+        try {
+            HoraActual = formatTime.parse(HActual);
+            fechaActual = formatDate.parse(FechaInicio);
+
+        } catch (ParseException pe) {
+            pe.getMessage();
+        }
+
+        Calendar fechaInicioAgenda = Calendar.getInstance();
+        fechaInicioAgenda.setTime(agenda.getAgendaHoraInicio());
+        fechaInicioAgenda.add(Calendar.HOUR, -1);
+        fechaInicioAgenda.add(Calendar.MINUTE, -59);
+
+        Date FInicioAgenda = fechaInicioAgenda.getTime();
+
+        if (agenda.getAgendaFechaInicio().equals(fechaActual)) {
+            if (FInicioAgenda.before(HoraActual)) {
+                valido = false;
+            }
+        }
+
+        return valido;
+    }
 }

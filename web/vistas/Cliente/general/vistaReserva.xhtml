@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
 
 
@@ -12,225 +13,243 @@
         <ui:define name="content2">
 
             <b:container fluid="true">
-                <b:row>
-                    <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
-                        <!-- Content Header (Page header) -->
+                    <b:row>
+                        <h:form>
+                            <p:growl id="msg" autoUpdate="true" showDetail="true" life="3000"/>
+                            <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                                <!-- Content Header (Page header) -->
 
 
-                        <div class="pad margin no-print">
-                            <div class="callout callout-info" style="margin-bottom: 0!important;">
-                                <h4><i class="fa fa-info"></i> Banner de Validacion de la Reserva!</h4>
-                                Su reserva ha sido exitosa, porfavor verifique los datos ingresados en la reservación
-                                antes de realizar el pago del servicio.
-                            </div>
-                        </div>
-
-                        <!-- Main content -->
-                        <section class="invoice">
-                            <!-- title row -->
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <img class="img-bordered-sm" src="../../../../resources/images/logo-DASH.png" style="" />  
-                                    <h2 class="page-header">
-                                        Datos de la Reservación 
-                                        <small class="pull-right">Fecha: 2/10/2016</small>
-                                    </h2>
-                                </div><!-- /.col -->
-                            </div>
-                            <!-- info row -->
-                            <div class="row invoice-info">
-                                <div class="col-sm-3 invoice-col">
-                                    De:
-                                    <address>
-                                        <strong>SMS Renta.</strong><br></br>
-                                        Calle 4D # 55-10 Piso 3<br></br>
-                                        Bogotá - Colombia 111611<br></br>
-                                        Teléfono:  (57 +1) 406 55 20<br></br>
-                                        Email: <br/>
-                                        edwinrobles <strong>@smsrenta.com</strong>
-                                    </address>
-                                </div><!-- /.col -->
-                                <div class="col-sm-3 invoice-col">
-                                    Para:<br/>
-                                    <address>
-                                        <strong>#{agendaBean.mclienteView.usuarioNombre}</strong><br></br>
-                                        Cc: #{agendaBean.mclienteView.usuarioCc}<br></br>
-                                        Razon Social: #{agendaBean.mclienteView.usuarioRazonSocial}<br></br>
-                                        Teléfono: #{agendaBean.mclienteView.usuarioTelefono}<br></br>
-                                        Email:  #{agendaBean.mclienteView.usuarioEmail}
-                                    </address>
-                                </div><!-- /.col -->
-                                
-                                <div class="col-sm-6 invoice-col">
-                                    <h3>Conductor elegido para Servicio</h3>
-                                    <div class="col-sm-6">
-                                        <address>
-                                            <strong>Nombre: #{agendaBean.mempleadoView.smsUsuario.usuarioNombre}</strong><br></br>
-                                            Cc: #{agendaBean.mempleadoView.smsUsuario.usuarioCc}<br></br>
-                                            Razon Social: #{agendaBean.mempleadoView.smsUsuario.usuarioRazonSocial}<br></br>
-                                            Teléfono: #{agendaBean.mempleadoView.smsUsuario.usuarioTelefono}<br></br>
-                                            Email: #{agendaBean.mempleadoView.smsUsuario.usuarioEmail}
-                                        </address>                                        
+                                <div class="pad margin no-print">
+                                    <div class="callout callout-info" style="margin-bottom: 0!important;">
+                                        <h4>Reserva #{agendaBean.mreservaView.idReservacion}</h4>
+                                        Su reserva ha sido exitosa, porfavor verifique los datos ingresados en la reservación
+                                        antes de realizar el pago del servicio.
                                     </div>
-                                    <div class="col-sm-6">
-                                        <p:graphicImage width="150" height="150" value="#{agendaBean.mempleadoView.smsUsuario.usuarioFotoRuta}" alt="Conductor" class="img-thumbnail img-responsive"/>
-                                        </div>
-                                    
-                                </div><!-- /.col -->
-                            </div>
-
-                            <!-- Table row -->
-
-                            <div class="row">
-                                <div class="col-xs-12 table-responsive" style="margin-top: 20px">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <td></td>
-                                                <th>Ciudad</th>
-                                                <th>Lugar</th>
-                                                <th>Fechas</th>
-                                                <th>Horas</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th>Recogida</th>
-                                                <td>#{agendaBean.mciudadView.ciudadNombre}</td>
-                                                <td>#{agendaBean.mreservaView.reservacionLugarLlegada}</td>
-                                                <td>#{agendaBean.magendaView.agendaFechaInicio}</td>
-                                                <td>#{agendaBean.magendaView.agendaHoraInicio}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Entrega</th>
-                                                <td>#{agendaBean.mciudadView.ciudadNombre}</td>
-                                                <td>#{agendaBean.mreservaView.reservacionLugarDestino}</td>
-                                                <td>#{agendaBean.magendaView.agendaFechaLlegada}</td>
-                                                <td>#{agendaBean.magendaView.agendaHoraLlegada}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Observaciones</th>
-                                                <td>#{agendaBean.mreservaView.reservacionNotas}</td>                                                
-                                            </tr>
-                                            <!--<tr>
-                                                <td>1</td>
-                                                <td>Grown Ups Blue Ray</td>
-                                                <td>422-568-642</td>
-                                                <td>Tousled lomo letterpress</td>
-                                                <td>$25.99</td>
-                                            </tr>-->
-                                        </tbody>
-                                    </table>
-                                </div><!-- /.col -->
-                            </div><!-- /.row -->
-
-                            <div class="row">
-                                <!-- accepted payments column -->
-                                <div class="col-xs-6">
-                                    <h3 class="lead">Método de Pagos:</h3>
-                                    <div class="col-xs-7" style="padding-top: 38px">
-                                        <img src="../../../../resources/images/pago/visa.png" alt="Visa"></img>
-                                        <img src="../../../../resources/images/pago/mastercard.png" alt="Mastercard"></img>
-                                        <img src="../../../../resources/images/pago/american-express.png" alt="American Express"></img>
-                                        <img src="../../../../resources/images/pago/paypal2.png" alt="Paypal" /> 
-
-                                    </div>
-                                    <div class="col-xs-5 ">
-                                        <h6><em>Código QR de Reservación</em></h6>
-                                        <img src="../../../../resources/images/pago/cod-q.png" class="img-bordered-sm" alt="Código QR" style="max-width: 150px ; margin-bottom: 20px"/>                                         
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <p class="text-muted well well-sm no-shadow text-justify" style="margin-top: 10px;">
-                                            <em>                                            
-                                                Aplica condiciones y restricciones referentes a la reservacion, Al momento de realizar 
-                                                cambios en la reservacion como cambio de fechas, horas o lugares de recogida y entrega
-                                                deberá ajustarse a la disponibilidad de los nuevos cambios en los parametros.
-                                            </em>
-                                        </p>
-
-                                    </div>
-                                </div><!-- /.col -->
-                                <div class="col-xs-6">
-                                    <p:graphicImage style="margin-left: 20%; margin-bottom: 10px" width="256" height="256" value="#{agendaBean.mvehiculoView.vehFotoRuta}" alt="Vehiculo" class="img-thumbnail img-responsive"/>
-                                    
-                                    <div class="col-sm-12 invoice-col">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <tr>
-                                                    <th style="width:50%">Marca:</th>
-                                                    <td>#{agendaBean.mvehiculoView.smsReferencia.smsMarca.marcaNombre}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Referencia:</th>
-                                                    <td>#{agendaBean.mvehiculoView.smsReferencia.referenciaNombre}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Placa:</th>
-                                                    <td>#{agendaBean.mvehiculoView.vehPlaca}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Color:</th>
-                                                    <td>#{agendaBean.mvehiculoView.vehColor}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Personas:</th>
-                                                    <td>#{agendaBean.mvehiculoView.vehNumPersonas}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Maletas Grandes:</th>
-                                                    <td>#{agendaBean.mvehiculoView.vehNumMalGrande}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Maletas Pequeñas:</th>
-                                                    <td>#{agendaBean.mvehiculoView.vehNumMalPequeña}</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div><!-- /.col -->
-                                </div><!-- /.col -->
-                                <hr/>
-                                <div class="col-xs-6">
-                                    <p class="lead">Valor a Pagar 2/22/2014</p>
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <tr>
-                                                <th style="width:50%">Subtotal:</th>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <th>IVA (16.3%)</th>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Extras:</th>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Total:</th>
-                                                <td>#{agendaBean.mreservaView.reservacionCosto}</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div><!-- /.col -->
-                            </div><!-- /.row -->
-
-                            <!-- this row will not appear when printing -->
-                            <div class="row no-print">
-                                <div class="col-xs-12">
-                                    <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Imprimir</a>
-                                                                       
-                                    
-                                    <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Pagar Servicio</button>
-                                    <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generar PDF</button>
-                                    <button class="btn btn-danger pull-right" style="margin-right: 5px;"><i class="fa fa-trash"></i> Cancelar Reservacion</button>
-                                
                                 </div>
-                            </div>
-                        </section><!-- /.content -->
 
-                    </b:column>
-                </b:row>
-            </b:container>
+                                <!-- Main content -->
+                                <section class="invoice">
+                                    <!-- title row -->
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <img class="img-bordered-sm" src="../../../../resources/images/logo-DASH.png" style="" />  
+                                            <h2 class="page-header">
+                                                Datos de la Reservación 
+                                            </h2>
+                                        </div><!-- /.col -->
+                                    </div>
+                                    <!-- info row -->
+                                    <div class="row invoice-info">
+                                        <div class="col-sm-3 invoice-col">
+                                            De:
+                                            <address>
+                                                <strong>SMS Renta.</strong><br></br>
+                                                Calle 4D # 55-10 Piso 3<br></br>
+                                                Bogotá - Colombia 111611<br></br>
+                                                Teléfono:  (57 +1) 406 55 20<br></br>
+                                                Email: <br/>
+                                                edwinrobles <strong>@smsrenta.com</strong>
+                                            </address>
+                                        </div><!-- /.col -->
+                                        <div class="col-sm-3 invoice-col">
+                                            Para:<br/>
+                                            <address>
+                                                <strong>#{agendaBean.mclienteView.usuarioNombre}</strong><br></br>
+                                                Cc: #{agendaBean.mclienteView.usuarioCc}<br></br>
+                                                Razon Social: #{agendaBean.mclienteView.usuarioRazonSocial}<br></br>
+                                                Teléfono: #{agendaBean.mclienteView.usuarioTelefono}<br></br>
+                                                Email:  #{agendaBean.mclienteView.usuarioEmail}
+                                            </address>
+                                        </div><!-- /.col -->
+
+                                        <div class="col-sm-6 invoice-col">
+                                            <h3>Conductor elegido para Servicio</h3>
+                                            <div class="col-sm-6">
+                                                <address>
+                                                    <strong>Nombre: #{agendaBean.mempleadoView.smsUsuario.usuarioNombre}</strong><br></br>
+                                                    Cc: #{agendaBean.mempleadoView.smsUsuario.usuarioCc}<br></br>
+                                                    Razon Social: #{agendaBean.mempleadoView.smsUsuario.usuarioRazonSocial}<br></br>
+                                                    Teléfono: #{agendaBean.mempleadoView.smsUsuario.usuarioTelefono}<br></br>
+                                                    Email: #{agendaBean.mempleadoView.smsUsuario.usuarioEmail}
+                                                </address>                                        
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p:graphicImage width="150" height="150" value="#{agendaBean.mempleadoView.smsUsuario.usuarioFotoRuta}" alt="Conductor" class="img-thumbnail img-responsive"/>
+                                            </div>
+
+                                        </div><!-- /.col -->
+                                    </div>
+
+                                    <!-- Table row -->
+
+                                    <div class="row">
+                                        <div class="col-xs-12 table-responsive" style="margin-top: 20px">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <td></td>
+                                                        <th>Ciudad</th>
+                                                        <th>Lugar</th>
+                                                        <th>Fechas</th>
+                                                        <th>Horas</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Recogida</th>
+                                                        <td>#{agendaBean.mciudadView.ciudadNombre}</td>
+                                                        <td>#{agendaBean.mreservaView.reservacionLugarLlegada}</td>
+                                                        <td>#{agendaBean.magendaView.agendaFechaInicio}</td>
+                                                        <td>#{agendaBean.magendaView.agendaHoraInicio}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Entrega</th>
+                                                        <td>#{agendaBean.mciudadView.ciudadNombre}</td>
+                                                        <td>#{agendaBean.mreservaView.reservacionLugarDestino}</td>
+                                                        <td>#{agendaBean.magendaView.agendaFechaLlegada}</td>
+                                                        <td>#{agendaBean.magendaView.agendaHoraLlegada}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Observaciones</th>
+                                                        <td>#{agendaBean.mreservaView.reservacionNotas}</td>                                                
+                                                    </tr>
+                                                    <!--<tr>
+                                                        <td>1</td>
+                                                        <td>Grown Ups Blue Ray</td>
+                                                        <td>422-568-642</td>
+                                                        <td>Tousled lomo letterpress</td>
+                                                        <td>$25.99</td>
+                                                    </tr>-->
+                                                </tbody>
+                                            </table>
+                                        </div><!-- /.col -->
+                                    </div><!-- /.row -->
+
+                                    <div class="row">
+                                        <!-- accepted payments column -->
+                                        <div class="col-xs-6">
+                                            <h3 class="lead">Método de Pagos:</h3>
+                                            <div class="col-xs-7" style="padding-top: 38px">
+                                                <img src="../../../../resources/images/pago/visa.png" alt="Visa"></img>
+                                                <img src="../../../../resources/images/pago/mastercard.png" alt="Mastercard"></img>
+                                                <img src="../../../../resources/images/pago/american-express.png" alt="American Express"></img>
+                                                <img src="../../../../resources/images/pago/paypal2.png" alt="Paypal" /> 
+
+                                            </div>
+                                            <div class="col-xs-5 ">
+                                                <h6><em>Código QR de Reservación</em></h6>
+                                                <img src="../../../../resources/images/pago/cod-q.png" class="img-bordered-sm" alt="Código QR" style="max-width: 150px ; margin-bottom: 20px"/>                                         
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <p class="text-muted well well-sm no-shadow text-justify" style="margin-top: 10px;">
+                                                    <em>                                            
+                                                        Aplica condiciones y restricciones referentes a la reservacion, Al momento de realizar 
+                                                        cambios en la reservacion como cambio de fechas, horas o lugares de recogida y entrega
+                                                        deberá ajustarse a la disponibilidad de los nuevos cambios en los parametros.
+                                                    </em>
+                                                </p>
+
+                                            </div>
+                                        </div><!-- /.col -->
+                                        <div class="col-xs-6">
+                                            <p:graphicImage style="margin-left: 20%; margin-bottom: 10px" width="256" height="256" value="#{agendaBean.mvehiculoView.vehFotoRuta}" alt="Vehiculo" class="img-thumbnail img-responsive"/>
+
+                                            <div class="col-sm-12 invoice-col">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th style="width:50%">Marca:</th>
+                                                            <td>#{agendaBean.mvehiculoView.smsReferencia.smsMarca.marcaNombre}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Referencia:</th>
+                                                            <td>#{agendaBean.mvehiculoView.smsReferencia.referenciaNombre}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Placa:</th>
+                                                            <td>#{agendaBean.mvehiculoView.vehPlaca}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Color:</th>
+                                                            <td>#{agendaBean.mvehiculoView.vehColor}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Personas:</th>
+                                                            <td>#{agendaBean.mvehiculoView.vehNumPersonas}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Maletas Grandes:</th>
+                                                            <td>#{agendaBean.mvehiculoView.vehNumMalGrande}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Maletas Pequeñas:</th>
+                                                            <td>#{agendaBean.mvehiculoView.vehNumMalPequeña}</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div><!-- /.col -->
+                                        </div><!-- /.col -->
+                                        <hr/>
+                                        <div class="col-xs-6">
+                                            <p class="lead">Valor a Pagar</p>
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <tr>
+                                                        <th style="width:50%">Subtotal:</th>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>IVA (16.3%)</th>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Extras:</th>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Total:</th>
+                                                        <td>#{agendaBean.mreservaView.reservacionCosto}</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div><!-- /.col -->
+                                    </div><!-- /.row -->
+
+                                    <!-- this row will not appear when printing -->
+                                    <div class="row no-print">
+                                        <div class="col-xs-12" align="left">
+                                            <h:panelGrid columns="3">
+                                                <p:commandButton type="button" class="btn btn-success pull-right" value="Pagar Reservacion"></p:commandButton>                                 
+                                                <p:commandButton class="btn btn-danger pull-right" action="#{agendaBean.eliminarAgenda()}" onclick="PrimeFaces.monitorDownload(start, stop);" update="@form"  value="Cancelar Reservacion">
+                                                    <p:confirm header="Confirmacion" message="Esta seguro que desea cancelar esta reservación?" icon="ui-icon-alert" /> 
+                                                </p:commandButton>                                 
+                                                <p:commandButton type="button" class="btn btn-primary pull-right" value="Modificar Reservacion"></p:commandButton>                                 
+                                            </h:panelGrid>
+                                            <script type="text/javascript">
+                                                function start() {
+                                                PF('statusDialog').show();
+                                                }
+
+                                                function stop() {
+                                                PF('statusDialog').hide();
+                                                }
+                                            </script>
+                                    <p:dialog modal="true" widgetVar="statusDialog" header="Cancelando reservacion" draggable="false" closable="false" resizable="false">
+                                        <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                                    </p:dialog>
+                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                                <b:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" look="success" iconAwesome="fa fa-check" />
+                                                <b:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" look="danger" iconAwesome="fa fa-close" />
+                                            </p:confirmDialog>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- /.content -->
+                            </b:column>
+                        </h:form>
+                    </b:row>
+                </b:container>
         </ui:define>
     </ui:composition>
 </html>
