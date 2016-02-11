@@ -666,3 +666,18 @@ td, th {
     vertical-align: top;
     border-top: 1px solid #ddd;
 }
+
+.select-pago1{
+    width: 42% !important; 
+    float: left; 
+    display: inline-block ;
+}
+
+.select-pago2{
+    width: 42% !important; 
+    float: left; 
+    margin-left: 35px !important; 
+    display: inline-block;
+    position: relative;
+    top: -9px;
+}
