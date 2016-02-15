@@ -8,13 +8,13 @@
             <column name="idProveedor" />
             <generator class="identity" />
         </id>
-        <many-to-one name="smsUsuario" class="Modelo.SmsUsuario" fetch="select">
+        <many-to-one name="smsUsuario" class="Modelo.SmsUsuario" fetch="join">
             <column name="Proveedor_idUsuario" not-null="true" />
         </many-to-one>
         <property name="proveedorValorGanancia" type="java.lang.Integer">
             <column name="Proveedor_ValorGanancia" />
         </property>
-        <set name="smsVehiculos" table="sms_vehiculo" inverse="true" lazy="true" fetch="join">
+        <set name="smsVehiculos" table="sms_vehiculo" inverse="true" fetch="join">
             <key>
                 <column name="Veh_idProveedor" not-null="true" />
             </key>

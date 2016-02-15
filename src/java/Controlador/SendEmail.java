@@ -57,17 +57,17 @@ public class SendEmail {
         session = Session.getDefaultInstance(properties);
     }
 
-    public void sendEmailCliente(SmsEmpleado empleado, SmsVehiculo vehiculo, SmsReservacion reservacion, SmsAgenda agenda, SmsUsuario Cliente) {
+    public void sendEmailCliente(SmsEmpleado empleado, SmsVehiculo vehiculo, SmsReservacion reservacion, SmsUsuario Cliente) {
 
         init();
         IUsuarioDao usuDao = new ImpUsuarioDao();
         SmsUsuario cliente = usuDao.consultarUsuario(Cliente).get(0);
 
         //Se formatean las fechas y horas
-        String FechaInicio = formatDate.format(agenda.getAgendaFechaInicio());
-        String FechaLlegada = formatDate.format(agenda.getAgendaFechaLlegada());
-        String HoraInicio = formatTime.format(agenda.getAgendaHoraInicio());
-        String HoraLlegada = formatTime.format(agenda.getAgendaHoraLlegada());
+        String FechaInicio = formatDate.format(reservacion.getReservacionFechaInicio());
+        String FechaLlegada = formatDate.format(reservacion.getReservacionFechaLlegada());
+        String HoraInicio = formatTime.format(reservacion.getReservacionHoraInicio());
+        String HoraLlegada = formatTime.format(reservacion.getReservacionHoraLlegada());
 
         try {
             MimeMessage message = new MimeMessage(session);
@@ -102,17 +102,17 @@ public class SendEmail {
         }
     }
 
-    public void sendEmailClienteWithout(SmsVehiculo vehiculo, SmsReservacion reservacion, SmsAgenda agenda, SmsUsuario Cliente) {
+    public void sendEmailClienteWithout(SmsVehiculo vehiculo, SmsReservacion reservacion, SmsUsuario Cliente) {
 
         init();
         IUsuarioDao usuDao = new ImpUsuarioDao();
         SmsUsuario cliente = usuDao.consultarUsuario(Cliente).get(0);
 
         //Se formatean las fechas y horas
-        String FechaInicio = formatDate.format(agenda.getAgendaFechaInicio());
-        String FechaLlegada = formatDate.format(agenda.getAgendaFechaLlegada());
-        String HoraInicio = formatTime.format(agenda.getAgendaHoraInicio());
-        String HoraLlegada = formatTime.format(agenda.getAgendaHoraLlegada());
+        String FechaInicio = formatDate.format(reservacion.getReservacionFechaInicio());
+        String FechaLlegada = formatDate.format(reservacion.getReservacionFechaLlegada());
+        String HoraInicio = formatTime.format(reservacion.getReservacionHoraInicio());
+        String HoraLlegada = formatTime.format(reservacion.getReservacionHoraLlegada());
 
         try {
             MimeMessage message = new MimeMessage(session);
@@ -147,14 +147,14 @@ public class SendEmail {
         }
     }
 
-    public void sendEmailAdministrador(SmsEmpleado empleado, SmsVehiculo vehiculo, SmsReservacion reservacion, SmsAgenda agenda, SmsUsuario Cliente) {
+    public void sendEmailAdministrador(SmsEmpleado empleado, SmsVehiculo vehiculo, SmsReservacion reservacion, SmsUsuario Cliente) {
 
         init();
         //Se formatean las fechas y horas
-        String FechaInicio = formatDate.format(agenda.getAgendaFechaInicio());
-        String FechaLlegada = formatDate.format(agenda.getAgendaFechaLlegada());
-        String HoraInicio = formatTime.format(agenda.getAgendaHoraInicio());
-        String HoraLlegada = formatTime.format(agenda.getAgendaHoraLlegada());
+        String FechaInicio = formatDate.format(reservacion.getReservacionFechaInicio());
+        String FechaLlegada = formatDate.format(reservacion.getReservacionFechaLlegada());
+        String HoraInicio = formatTime.format(reservacion.getReservacionHoraInicio());
+        String HoraLlegada = formatTime.format(reservacion.getReservacionHoraLlegada());
 
         try {
             MimeMessage message = new MimeMessage(session);
@@ -187,14 +187,14 @@ public class SendEmail {
         }
     }
 
-    public void sendEmailAdministradorWithout(SmsVehiculo vehiculo, SmsReservacion reservacion, SmsAgenda agenda, SmsUsuario Cliente) {
+    public void sendEmailAdministradorWithout(SmsVehiculo vehiculo, SmsReservacion reservacion, SmsUsuario Cliente) {
 
         init();
         //Se formatean las fechas y horas
-        String FechaInicio = formatDate.format(agenda.getAgendaFechaInicio());
-        String FechaLlegada = formatDate.format(agenda.getAgendaFechaLlegada());
-        String HoraInicio = formatTime.format(agenda.getAgendaHoraInicio());
-        String HoraLlegada = formatTime.format(agenda.getAgendaHoraLlegada());
+        String FechaInicio = formatDate.format(reservacion.getReservacionFechaInicio());
+        String FechaLlegada = formatDate.format(reservacion.getReservacionFechaLlegada());
+        String HoraInicio = formatTime.format(reservacion.getReservacionHoraInicio());
+        String HoraLlegada = formatTime.format(reservacion.getReservacionHoraLlegada());
 
         try {
             MimeMessage message = new MimeMessage(session);
@@ -227,14 +227,14 @@ public class SendEmail {
         }
     }
 
-    public void sendEmailConductor(SmsEmpleado empleado, SmsVehiculo vehiculo, SmsReservacion reservacion, SmsAgenda agenda, SmsUsuario Cliente) {
+    public void sendEmailConductor(SmsEmpleado empleado, SmsVehiculo vehiculo, SmsReservacion reservacion, SmsUsuario Cliente) {
 
         init();
         //Se formatean las fechas y horas
-        String FechaInicio = formatDate.format(agenda.getAgendaFechaInicio());
-        String FechaLlegada = formatDate.format(agenda.getAgendaFechaLlegada());
-        String HoraInicio = formatTime.format(agenda.getAgendaHoraInicio());
-        String HoraLlegada = formatTime.format(agenda.getAgendaHoraLlegada());
+        String FechaInicio = formatDate.format(reservacion.getReservacionFechaInicio());
+        String FechaLlegada = formatDate.format(reservacion.getReservacionFechaLlegada());
+        String HoraInicio = formatTime.format(reservacion.getReservacionHoraInicio());
+        String HoraLlegada = formatTime.format(reservacion.getReservacionHoraLlegada());
 
         try {
             MimeMessage message = new MimeMessage(session);

@@ -14,25 +14,25 @@
         <property name="ciudadNombre" type="string">
             <column name="Ciudad_nombre" length="50" />
         </property>
-        <set name="smsVehiculos" table="sms_vehiculo" inverse="true" lazy="true" fetch="join">
+        <set name="smsVehiculos" table="sms_vehiculo" inverse="true" fetch="join">
             <key>
                 <column name="Veh_idCiudad" not-null="true" />
             </key>
             <one-to-many class="Modelo.SmsVehiculo" />
         </set>
-        <set name="smsUsuarios" table="sms_usuario" inverse="true" lazy="true" fetch="join">
+        <set name="smsUsuarios" table="sms_usuario" inverse="true" fetch="join">
             <key>
                 <column name="Usuario_ciudad" not-null="true" />
             </key>
             <one-to-many class="Modelo.SmsUsuario" />
         </set>
-        <set name="smsReservacions" table="sms_reservacion" inverse="true" lazy="true" fetch="join">
+        <set name="smsReservacions" table="sms_reservacion" inverse="true" fetch="join">
             <key>
                 <column name="Reservacion_idCiudad" not-null="true" />
             </key>
             <one-to-many class="Modelo.SmsReservacion" />
         </set>
-        <set name="smsLugares" table="sms_lugares" inverse="true" lazy="true" fetch="join">
+        <set name="smsLugares" table="sms_lugares" inverse="true" fetch="join">
             <key>
                 <column name="Lugar_ciudad" not-null="true" />
             </key>

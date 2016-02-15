@@ -18,12 +18,12 @@ import DAO.ImpProveedorDao;
 import DAO.ImpReferenciaDao;
 import DAO.ImpUsuarioDao;
 import DAO.ImpVehiculoDao;
-import Modelo.SmsAgenda;
 import Modelo.SmsCategoria;
 import Modelo.SmsCiudad;
 import Modelo.SmsEstadovehiculo;
 import Modelo.SmsProveedor;
 import Modelo.SmsReferencia;
+import Modelo.SmsReservacion;
 import Modelo.SmsUsuario;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -152,17 +152,17 @@ public class Vehiculo {
         return vehiculos;
     }
 
-    public List<SmsVehiculo> consultarVehiculosDisponible(SmsAgenda a, SmsCiudad c) {
+    public List<SmsVehiculo> consultarVehiculosDisponible(SmsReservacion reserva, SmsCiudad ciudad) {
         vehiculos = new ArrayList<>();
-        String ciudadVeh = c.getCiudadNombre();
-
+        String ciudadVeh = ciudad.getCiudadNombre();
+        
         Calendar calInicio = Calendar.getInstance();
-        calInicio.setTime(a.getAgendaHoraInicio());
+        calInicio.setTime(reserva.getReservacionHoraInicio());
         calInicio.add(Calendar.HOUR, -1);
         calInicio.add(Calendar.MINUTE, -59);
 
         Calendar calLlegada = Calendar.getInstance();
-        calLlegada.setTime(a.getAgendaHoraLlegada());
+        calLlegada.setTime(reserva.getReservacionHoraLlegada());
         calLlegada.add(Calendar.HOUR, 2);
 
         Date hespacioInicio = calInicio.getTime();
@@ -173,10 +173,10 @@ public class Vehiculo {
         formatDate = new SimpleDateFormat("yyyy-MM-dd");
         formatTime = new SimpleDateFormat("HH:mm:ss");
 
-        String FechaInicio = formatDate.format(a.getAgendaFechaInicio());
-        String FechaLlegada = formatDate.format(a.getAgendaFechaLlegada());
-        String HoraInicio = formatTime.format(a.getAgendaHoraInicio());
-        String HoraLlegada = formatTime.format(a.getAgendaHoraLlegada());
+        String FechaInicio = formatDate.format(reserva.getReservacionFechaInicio());
+        String FechaLlegada = formatDate.format(reserva.getReservacionFechaLlegada());
+        String HoraInicio = formatTime.format(reserva.getReservacionHoraInicio());
+        String HoraLlegada = formatTime.format(reserva.getReservacionHoraLlegada());
         String espacioinicio = formatTime.format(hespacioInicio);
         String espacioLlegada = formatTime.format(hespacioLlegada);
 
@@ -199,18 +199,18 @@ public class Vehiculo {
         return vehiculos;
     }
 
-    public List<SmsVehiculo> filtrarVehiculosDisponibles(SmsAgenda a, SmsCiudad c, SmsCategoria cat) {
-        vehiculos = new ArrayList<>();
-        String ciudadVeh = c.getCiudadNombre();
+    public List<SmsVehiculo> filtrarVehiculosDisponibles(SmsReservacion reserva, SmsCategoria cat) {
+        vehiculos = new ArrayList<>();        
         String categoriaVeh = cat.getCategoriaNombre();
+        String ciudadVeh = reserva.getSmsCiudad().getCiudadNombre();
 
         Calendar calInicio = Calendar.getInstance();
-        calInicio.setTime(a.getAgendaHoraInicio());
+        calInicio.setTime(reserva.getReservacionHoraInicio());
         calInicio.add(Calendar.HOUR, -1);
         calInicio.add(Calendar.MINUTE, -59);
 
         Calendar calLlegada = Calendar.getInstance();
-        calLlegada.setTime(a.getAgendaHoraLlegada());
+        calLlegada.setTime(reserva.getReservacionHoraLlegada());
         calLlegada.add(Calendar.HOUR, 2);
 
         Date hespacioInicio = calInicio.getTime();
@@ -220,10 +220,11 @@ public class Vehiculo {
         SimpleDateFormat formatTime;
         formatDate = new SimpleDateFormat("yyyy-MM-dd");
         formatTime = new SimpleDateFormat("HH:mm:ss");
-        String FechaInicio = formatDate.format(a.getAgendaFechaInicio());
-        String FechaLlegada = formatDate.format(a.getAgendaFechaLlegada());
-        String HoraInicio = formatTime.format(a.getAgendaHoraInicio());
-        String HoraLlegada = formatTime.format(a.getAgendaHoraLlegada());
+
+        String FechaInicio = formatDate.format(reserva.getReservacionFechaInicio());
+        String FechaLlegada = formatDate.format(reserva.getReservacionFechaLlegada());
+        String HoraInicio = formatTime.format(reserva.getReservacionHoraInicio());
+        String HoraLlegada = formatTime.format(reserva.getReservacionHoraLlegada());
         String espacioinicio = formatTime.format(hespacioInicio);
         String espacioLlegada = formatTime.format(hespacioLlegada);
 

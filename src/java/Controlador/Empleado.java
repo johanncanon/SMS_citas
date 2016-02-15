@@ -15,6 +15,7 @@ import Modelo.SmsAgenda;
 import Modelo.SmsCiudad;
 import Modelo.SmsEmpleado;
 import Modelo.SmsHojavida;
+import Modelo.SmsReservacion;
 import Modelo.SmsUsuario;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -117,26 +118,27 @@ public class Empleado extends Usuario {
         return empleados;
     }
     
-     public List<SmsEmpleado> consultarEmpleadosDisponibles(SmsAgenda a, SmsCiudad c) {
-        ciudad = c; 
+     public List<SmsEmpleado> consultarEmpleadosDisponibles(SmsReservacion reserva, SmsCiudad ciudad) {
+        
         empleados = new ArrayList<>();
         
         SimpleDateFormat formatDate;
         SimpleDateFormat formatTime;
         formatDate = new SimpleDateFormat("yyyy-MM-dd");
         formatTime = new SimpleDateFormat("HH:mm:ss");
-        String FechaInicio = formatDate.format(a.getAgendaFechaInicio());
-        String FechaLlegada = formatDate.format(a.getAgendaFechaLlegada());
-        String HoraInicio = formatTime.format(a.getAgendaHoraInicio());
-        String HoraLlegada = formatTime.format(a.getAgendaHoraLlegada());
+        
+        String FechaInicio = formatDate.format(reserva.getReservacionFechaInicio());
+        String FechaLlegada = formatDate.format(reserva.getReservacionFechaLlegada());
+        String HoraInicio = formatTime.format(reserva.getReservacionHoraInicio());
+        String HoraLlegada = formatTime.format(reserva.getReservacionHoraLlegada());
         
         Calendar calInicio = Calendar.getInstance();
-        calInicio.setTime(a.getAgendaHoraInicio());
+        calInicio.setTime(reserva.getReservacionHoraInicio());
         calInicio.add(Calendar.HOUR, -1);
         calInicio.add(Calendar.MINUTE, -59);
 
         Calendar calLlegada = Calendar.getInstance();
-        calLlegada.setTime(a.getAgendaHoraLlegada());
+        calLlegada.setTime(reserva.getReservacionHoraLlegada());
         calLlegada.add(Calendar.HOUR, 1);
         calLlegada.add(Calendar.MINUTE, 59);
         

@@ -8,10 +8,10 @@
             <column name="idEmpleado" />
             <generator class="identity" />
         </id>
-        <many-to-one name="smsHojavida" class="Modelo.SmsHojavida" fetch="join">
+        <many-to-one name="smsHojavida" class="Modelo.SmsHojavida" lazy="false" fetch="join">
             <column name="empleado_hojaVida" />
         </many-to-one>
-        <many-to-one name="smsUsuario" class="Modelo.SmsUsuario" fetch="join">
+        <many-to-one name="smsUsuario" class="Modelo.SmsUsuario" lazy="false" fetch="join">
             <column name="empleado_idUsuario" not-null="true" />
         </many-to-one>
     </class>

@@ -25,8 +25,8 @@
 
                                     <h:panelGrid columnClasses="value">
 
-                                        <p:schedule id="schedule" value="#{agendaBean.eventoModelo}" widgetVar="miCalendario">
-                                            <p:ajax event="eventSelect" listener="#{agendaBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                                        <p:schedule id="schedule" value="#{reservacionBean.eventoModelo}" widgetVar="miCalendario">
+                                            <p:ajax event="eventSelect" listener="#{reservacionBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
                                         </p:schedule>
 
                                         <br/>
@@ -36,15 +36,15 @@
                                     <p:dialog widgetVar="eventDialog" header="Detalle del Evento" showEffect="clip" hideEffect="clip">
                                         <h:panelGrid id="eventDetails" columns="2">
                                             <p:outputLabel for="title" value="Reservación:" />
-                                            <p:inputText  id="title" value="#{agendaBean.evento.title}"/>
+                                            <p:inputText  id="title" value="#{reservacionBean.evento.title}"/>
 
                                             <p:outputLabel for="from" value="Desde:" />
-                                            <p:calendar id="from" value="#{agendaBean.evento.startDate}"  pattern="yyyy-MM-dd HH:mm:ss"/>
+                                            <p:calendar id="from" value="#{reservacionBean.evento.startDate}"  pattern="yyyy-MM-dd HH:mm:ss"/>
 
                                             <p:outputLabel for="to" value="Hasta:" />
-                                            <p:calendar id="to"  value="#{agendaBean.evento.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                                            <p:calendar id="to"  value="#{reservacionBean.evento.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 
-                                            <b:commandButton look="danger" style="width: 100%" value="Ver reservacion" action="#{agendaBean.irVistaReserva()}" />
+                                            <b:commandButton look="danger" style="width: 100%" value="Ver reservacion" action="#{reservacionBean.irVistaReserva()}" />
                                         </h:panelGrid>
                                     </p:dialog>    
 
@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="box-body">
                                     <!-- LISTA DE CONDUCTORES -->
-                                    <p:dataTable var="reserva"  value="#{agendaBean.vistasReserva}" rows="5"
+                                    <p:dataTable var="reserva"  value="#{reservacionBean.listaReservaciones}" rows="5"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15" emptyMessage="Conductores no registrados">
@@ -114,7 +114,7 @@
                                 </div>
                                 <div class="box-body">
                                     <!-- CARUSEL DE VEHICULOS -->
-                                    <p:dataTable var="reserva"  value="#{agendaBean.vistasReserva}" rows="5"
+                                    <p:dataTable var="reserva"  value="#{reservacionBean.listaReservaciones}" rows="5"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15" emptyMessage="Vehiculos no registrados">

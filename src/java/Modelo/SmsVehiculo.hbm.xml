@@ -8,16 +8,16 @@
             <column name="idVehiculo" />
             <generator class="identity" />
         </id>
-        <many-to-one name="smsCategoria" class="Modelo.SmsCategoria" fetch="join">
+        <many-to-one name="smsCategoria" class="Modelo.SmsCategoria" lazy="false" fetch="join">
             <column name="Veh_categoria" not-null="true" />
         </many-to-one>
-        <many-to-one name="smsCiudad" class="Modelo.SmsCiudad" lazy="false" fetch="select">
+        <many-to-one name="smsCiudad" class="Modelo.SmsCiudad" lazy="false" fetch="join">
             <column name="Veh_idCiudad" not-null="true" />
         </many-to-one>
-        <many-to-one name="smsProveedor" class="Modelo.SmsProveedor" lazy="false" fetch="select">
+        <many-to-one name="smsProveedor" class="Modelo.SmsProveedor" lazy="false" fetch="join">
             <column name="Veh_idProveedor" not-null="true" />
         </many-to-one>
-        <many-to-one name="smsReferencia" class="Modelo.SmsReferencia" lazy="false" fetch="select">
+        <many-to-one name="smsReferencia" class="Modelo.SmsReferencia" lazy="false" fetch="join">
             <column name="Veh_idReferencia" not-null="true" />
         </many-to-one>
         <property name="vehPlaca" type="string">
@@ -44,13 +44,13 @@
         <property name="vehFotoRuta" type="string">
             <column name="veh_foto_ruta" length="65535" />
         </property>
-        <set name="smsAgendas" table="sms_agenda" inverse="true" lazy="true" fetch="join">
+        <set name="smsReservas" table="sms_reservacion" inverse="true" fetch="join">
             <key>
-                <column name="Agenda_idVehiculo" not-null="true" />
+                <column name="Reservacion_idVehiculo" not-null="true" />
             </key>
-            <one-to-many class="Modelo.SmsAgenda" />
+            <one-to-many class="Modelo.SmsReservacion" />
         </set>
-        <set name="smsEstadovehiculos" table="sms_estadovehiculo" inverse="true" lazy="true" fetch="join">
+        <set name="smsEstadovehiculos" table="sms_estadovehiculo" inverse="true" fetch="join">
             <key>
                 <column name="SMS_Vehiculo_idVehiculo" not-null="true" />
             </key>

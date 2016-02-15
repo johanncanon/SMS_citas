@@ -195,6 +195,27 @@ public class ClienteBean implements Serializable {
         return "Login";
         
     }
+    
+    public void registrarClienteAdmin() {
+        //asignamos un rol al usuario
+        rolView.setRolNombre("Cliente");
+
+        //asignamos al usuario la imagen de perfil default
+        clienteView.setUsuarioFotoRuta(fileController.getPathDefaultUsuario());
+        clienteView.setUsuarioFotoNombre(fileController.getNameDefaultUsuario());
+
+        //registramos el usuario y recargamos la lista de clientes
+        clienteController.registrarUsuario(clienteView, ciudadView, rolView);
+        
+        //Actualizamos la lista de clientes registrador en el sistema
+        clientesListView = clienteController.consultarClientes();
+                
+        emailController.sendEmailBienvenida(clienteView);//enviamos correo de bienvenida
+        //limpiamos objetos
+        clienteView = new SmsUsuario();
+        ciudadView = new SmsCiudad();
+        rolView = new SmsRol();
+    }
 
     public String modificar() {
 

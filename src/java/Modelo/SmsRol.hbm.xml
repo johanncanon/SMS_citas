@@ -11,13 +11,13 @@
         <property name="rolNombre" type="string">
             <column name="Rol_nombre" length="45" />
         </property>
-        <set name="smsUsuarios" table="sms_usuario" inverse="true" lazy="true" fetch="join">
+        <set name="smsUsuarios" table="sms_usuario" inverse="true" fetch="join">
             <key>
                 <column name="Usuario_Rol" not-null="true" />
             </key>
             <one-to-many class="Modelo.SmsUsuario" />
         </set>
-        <set name="smsPermisoses" table="sms_rol_permisos" inverse="false" lazy="true" fetch="join">
+        <set name="smsPermisoses" table="sms_rol_permisos" inverse="false" fetch="join">
             <key>
                 <column name="SMS_Rol_idRol" not-null="true" />
             </key>

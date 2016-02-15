@@ -32,7 +32,6 @@ public class EstadoVehiculo {
 
     public void registrarEstVeh(SmsEstadovehiculo estV) {
         estVehiculo = estV;
-
         //Obtenemos fecha actual en la cual se registra el estado del vehiculo
         java.util.Date fecha = new Date();
         estVehiculo.setFechaEstadoVehiculo(fecha);

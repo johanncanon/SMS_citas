@@ -6,9 +6,9 @@
 package DAO;
 
 import Modelo.SmsAgenda;
+import Modelo.SmsEmpleado;
 import Modelo.SmsReservacion;
 import Modelo.SmsUsuario;
-import Modelo.SmsVistaReserva;
 import java.util.List;
 
 /**
@@ -22,6 +22,10 @@ public interface IReservacionDao {
     public void registrarReservacion(SmsReservacion reservacion);
     public void modificarReservacion(SmsReservacion reservacion);
     public void eliminarReservacion(SmsReservacion reservacion); 
-    public List<SmsReservacion> consultarReservacionAgenda(SmsAgenda agenda);
+    public List<SmsReservacion> consultarReservacionId(SmsReservacion reserva);
+    public List<SmsReservacion> consultarReserva(SmsReservacion reserva); 
+    public List<SmsReservacion> consultarReservacionSinEmpleado(SmsReservacion reserva); 
+    public List<SmsReservacion> mostrarReservacionCliente(SmsUsuario usuario);
+    public List<SmsReservacion> mostrarReservacionConductores(SmsEmpleado conductor);
     
 }

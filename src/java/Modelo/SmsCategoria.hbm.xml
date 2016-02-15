@@ -14,13 +14,13 @@
         <property name="categoriaDescripcion" type="string">
             <column name="Categoria_descripcion" />
         </property>
-        <set name="smsCostosServicios" table="sms_costos_servicio" inverse="true" lazy="true" fetch="join">
+        <set name="smsCostosServicios" table="sms_costos_servicio" inverse="true" fetch="join">
             <key>
                 <column name="SMS_Categoria_idCategoria" not-null="true" />
             </key>
             <one-to-many class="Modelo.SmsCostosServicio" />
         </set>
-        <set name="smsVehiculos" table="sms_vehiculo" inverse="true" lazy="true" fetch="join">
+        <set name="smsVehiculos" table="sms_vehiculo" inverse="true" fetch="join">
             <key>
                 <column name="Veh_categoria" not-null="true" />
             </key>

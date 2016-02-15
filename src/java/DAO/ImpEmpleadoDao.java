@@ -118,30 +118,30 @@ public class ImpEmpleadoDao implements IEmpleadoDao {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Query query = session.createQuery("select empleado from SmsEmpleado as empleado " +
                                               "where " +
-                                              "(empleado.smsUsuario.smsCiudad.ciudadNombre = '" + ciudad + "' and empleado.idEmpleado not in (select ag.smsEmpleado.idEmpleado from SmsAgenda as ag)) or " +
+                                              "(empleado.smsUsuario.smsCiudad.ciudadNombre = '" + ciudad + "' and empleado.idEmpleado not in (select rs.smsEmpleado.idEmpleado from SmsReservacion as rs)) or " +
                                               "(empleado.smsUsuario.smsCiudad.ciudadNombre = '" + ciudad + "' and " +
                                                 "(" +
-                                                    "('" + fechaInicio + "' = '" + fechaLlegada + "' and empleado.idEmpleado in(select ag.smsEmpleado.idEmpleado from SmsAgenda as ag) and " +
+                                                    "('" + fechaInicio + "' = '" + fechaLlegada + "' and empleado.idEmpleado in(select rs.smsEmpleado.idEmpleado from SmsReservacion as rs) and " +
                                                         "(" +
-                                                           "('" + espacioLlegada + "' < all (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsEmpleado = empleado.idEmpleado and ag.agendaFechaInicio = '" + fechaInicio + "')) or " +
-                                                           "('" + espacioInicio + "' > all (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsEmpleado = empleado.idEmpleado and ag.agendaFechaInicio = '" + fechaInicio + "')) or " +
+                                                           "('" + espacioLlegada + "' < all (select rs.reservacionHoraInicio from SmsReservacion as rs where rs.smsEmpleado.idEmpleado = empleado.idEmpleado and rs.reservacionFechaInicio = '" + fechaInicio + "')) or " +
+                                                           "('" + espacioInicio + "' > all (select rs.reservacionHoraLlegada from SmsReservacion as rs where rs.smsEmpleado.idEmpleado = empleado.idEmpleado and rs.reservacionFechaInicio = '" + fechaInicio + "')) or " +
                                                            "(" +
-                                                                   "(not exists (from SmsAgenda as ag where ag.smsEmpleado = empleado.idEmpleado and ((ag.agendaHoraInicio >= '"+horaInicio+"' and (ag.agendaHoraLlegada > '"+horaLlegada+"' or ag.agendaHoraLlegada < '"+horaLlegada+"')) or (ag.agendaHoraLlegada >= '"+horaInicio+"')))) and " +
+                                                                   "(not exists (from SmsReservacion as rs where rs.smsEmpleado.idEmpleado = empleado.idEmpleado and ((rs.reservacionHoraInicio >= '"+horaInicio+"' and (rs.reservacionHoraLlegada > '"+horaLlegada+"' or rs.reservacionHoraLlegada < '"+horaLlegada+"')) or (rs.reservacionHoraLlegada >= '"+horaInicio+"')))) and " +
                                                                     "(" +
-                                                                        "('" + espacioLlegada + "' < all(select ag.agendaHoraInicio from SmsAgenda as ag where ag.agendaHoraInicio > '" + horaLlegada + "' and ag.smsEmpleado = empleado.idEmpleado and ag.agendaFechaInicio = '" + fechaInicio + "')) and " +
-                                                                        "('" + espacioInicio + "' > all (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.agendaHoraLlegada < '" + horaInicio + "' and ag.smsEmpleado = empleado.idEmpleado and ag.agendaFechaLlegada = '" + fechaInicio + "'))" +
+                                                                        "('" + espacioLlegada + "' < all(select rs.reservacionHoraInicio from SmsReservacion as rs where rs.reservacionHoraInicio > '" + horaLlegada + "' and rs.smsEmpleado.idEmpleado = empleado.idEmpleado and rs.reservacionFechaInicio = '" + fechaInicio + "')) and " +
+                                                                        "('" + espacioInicio + "' > all (select rs.reservacionHoraLlegada from SmsReservacion as rs where rs.reservacionHoraLlegada < '" + horaInicio + "' and rs.smsEmpleado.idEmpleado = empleado.idEmpleado and rs.reservacionFechaLlegada = '" + fechaInicio + "'))" +
                                                                     ")" +
                                                            ")" +
                                                         ")" +
                                                     ")" +
                                                     "or" +
-                                                    "('" + fechaInicio + "' <> '" + fechaLlegada + "' and empleado.idEmpleado in(select ag.smsEmpleado.idEmpleado from SmsAgenda as ag) and " +
-                                                        "('" + espacioInicio + "' > all (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsEmpleado = empleado.idEmpleado and ag.agendaFechaInicio = '" + fechaInicio + "')) and " +
-                                                        "('" + espacioLlegada + "' < all (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsEmpleado = empleado.idEmpleado and ag.agendaFechaLlegada = '" + fechaLlegada + "')) and " +
-                                                        "('" + espacioInicio + "' > all (select ag.agendaHoraLlegada from SmsAgenda as ag where ag.smsEmpleado = empleado.idEmpleado and ag.agendaFechaLlegada = '" + fechaInicio + "')) and " +
-                                                        "('" + espacioLlegada + "' < all (select ag.agendaHoraInicio from SmsAgenda as ag where ag.smsEmpleado = empleado.idEmpleado and ag.agendaFechaInicio = '" + fechaLlegada + "')) and " +
-                                                        "(not exists((select ag from SmsAgenda as ag where ag.agendaFechaInicio > '" + fechaInicio + "' and ag.agendaFechaLlegada < '" + fechaLlegada + "' and ag.smsEmpleado = empleado.idEmpleado) or (select ag from SmsAgenda as ag where ag.agendaFechaInicio = '" + fechaInicio + "' and ag.agendaFechaLlegada = '" + fechaLlegada + "' and ag.smsEmpleado = empleado.idEmpleado))) " +
-                                                        "or (not exists(select ag from SmsAgenda as ag where ag.agendaFechaLlegada >= '" + fechaInicio + "'  and ag.smsEmpleado = empleado.idEmpleado))" +
+                                                    "('" + fechaInicio + "' <> '" + fechaLlegada + "' and empleado.idEmpleado in(select rs.smsEmpleado.idEmpleado from SmsReservacion as rs) and " +
+                                                        "('" + espacioInicio + "' > all (select rs.reservacionHoraLlegada from SmsReservacion as rs where rs.smsEmpleado = empleado.idEmpleado and rs.reservacionFechaInicio = '" + fechaInicio + "')) and " +
+                                                        "('" + espacioLlegada + "' < all (select rs.reservacionHoraInicio from SmsReservacion as rs where rs.smsEmpleado = empleado.idEmpleado and rs.reservacionFechaLlegada = '" + fechaLlegada + "')) and " +
+                                                        "('" + espacioInicio + "' > all (select rs.reservacionHoraLlegada from SmsReservacion as rs where rs.smsEmpleado = empleado.idEmpleado and rs.reservacionFechaLlegada = '" + fechaInicio + "')) and " +
+                                                        "('" + espacioLlegada + "' < all (select rs.reservacionHoraInicio from SmsReservacion as rs where rs.smsEmpleado = empleado.idEmpleado and rs.reservacionFechaInicio = '" + fechaLlegada + "')) and " +
+                                                        "(not exists((select rs from SmsReservacion as rs where rs.reservacionFechaInicio > '" + fechaInicio + "' and rs.reservacionFechaLlegada < '" + fechaLlegada + "' and rs.smsEmpleado.idEmpleado = empleado.idEmpleado) or (select rs from SmsReservacion as rs where rs.reservacionFechaInicio = '" + fechaInicio + "' and rs.reservacionFechaLlegada = '" + fechaLlegada + "' and rs.smsEmpleado.idEmpleado = empleado.idEmpleado))) " +
+                                                        "or (not exists(select rs from SmsReservacion as rs where rs.reservacionFechaLlegada >= '" + fechaInicio + "'  and rs.smsEmpleado.idEmpleado = empleado.idEmpleado))" +
                                                     ")" +
                                                 ")" +
                                             ") group by empleado.idEmpleado");

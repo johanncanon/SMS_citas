@@ -8,9 +8,6 @@
             <column name="idReservacion" />
             <generator class="identity" />
         </id>
-        <many-to-one name="smsAgenda" class="Modelo.SmsAgenda" fetch="join">
-            <column name="Reservacion_idAgenda" not-null="true" />
-        </many-to-one>
         <many-to-one name="smsCiudad" class="Modelo.SmsCiudad" fetch="join">
             <column name="Reservacion_idCiudad" not-null="true" />
         </many-to-one>
@@ -29,7 +26,25 @@
         <property name="reservacionCosto" type="java.lang.Integer">
             <column name="Reservacion_costo" />
         </property>
-        <set name="smsCalificacions" table="sms_calificacion" inverse="true" lazy="true" fetch="join">
+        <many-to-one name="smsVehiculo" class="Modelo.SmsVehiculo" fetch="join">
+            <column name="Reservacion_idVehiculo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="smsEmpleado" class="Modelo.SmsEmpleado" fetch="join">
+            <column name="Reservacion_idConductor"/>
+        </many-to-one>   
+        <property name="reservacionFechaInicio" type="date">
+            <column name="Reservacion_fechaInicio" length="0" />
+        </property>
+        <property name="reservacionFechaLlegada" type="date">
+            <column name="Reservacion_fechaLlegada" length="0" />
+        </property>
+        <property name="reservacionHoraInicio" type="time">
+            <column name="Reservacion_horaInicio" length="0" />
+        </property>
+        <property name="reservacionHoraLlegada" type="time">
+            <column name="Reservacion_horaLlegada" length="0" />
+        </property>        
+        <set name="smsCalificacions" table="sms_calificacion" inverse="true" fetch="join">
             <key>
                 <column name="Calificacion_idReservacion" not-null="true" />
             </key>

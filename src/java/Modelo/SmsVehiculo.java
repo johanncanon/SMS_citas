@@ -23,12 +23,11 @@ public class SmsVehiculo  implements java.io.Serializable {
      private Integer vehNumMalPequeña;
      private String vehFotoNombre;
      private String vehFotoRuta;
-     private Set<SmsAgenda> smsAgendas = new HashSet<SmsAgenda>(0);
+     private Set<SmsReservacion> smsReservas = new HashSet<SmsReservacion>(0);
      private Set<SmsEstadovehiculo> smsEstadovehiculos = new HashSet<SmsEstadovehiculo>(0);
      
     public SmsVehiculo() {
     }
-
 	
     public SmsVehiculo(SmsCategoria smsCategoria, SmsCiudad smsCiudad, SmsProveedor smsProveedor, SmsReferencia smsReferencia) {
         this.smsCategoria = smsCategoria;
@@ -36,7 +35,7 @@ public class SmsVehiculo  implements java.io.Serializable {
         this.smsProveedor = smsProveedor;
         this.smsReferencia = smsReferencia;
     }
-    public SmsVehiculo(SmsCategoria smsCategoria, SmsCiudad smsCiudad, SmsProveedor smsProveedor, SmsReferencia smsReferencia, String vehPlaca, String vehModelo, String vehColor, Integer vehNumPersonas, Integer vehNumMalGrande, Integer vehNumMalPequeña, String vehFotoNombre, String vehFotoRuta, Set<SmsAgenda> smsAgendas, Set<SmsEstadovehiculo> smsEstadovehiculos) {
+    public SmsVehiculo(SmsCategoria smsCategoria, SmsCiudad smsCiudad, SmsProveedor smsProveedor, SmsReferencia smsReferencia, String vehPlaca, String vehModelo, String vehColor, Integer vehNumPersonas, Integer vehNumMalGrande, Integer vehNumMalPequeña, String vehFotoNombre, String vehFotoRuta, Set<SmsReservacion> smsReservas, Set<SmsEstadovehiculo> smsEstadovehiculos) {
        this.smsCategoria = smsCategoria;
        this.smsCiudad = smsCiudad;
        this.smsProveedor = smsProveedor;
@@ -49,7 +48,7 @@ public class SmsVehiculo  implements java.io.Serializable {
        this.vehNumMalPequeña = vehNumMalPequeña;
        this.vehFotoNombre = vehFotoNombre;
        this.vehFotoRuta = vehFotoRuta;
-       this.smsAgendas = smsAgendas;
+       this.smsReservas = smsReservas;
        this.smsEstadovehiculos = smsEstadovehiculos;
     }
    
@@ -144,13 +143,15 @@ public class SmsVehiculo  implements java.io.Serializable {
     public void setVehFotoRuta(String vehFotoRuta) {
         this.vehFotoRuta = vehFotoRuta;
     }
-    public Set<SmsAgenda> getSmsAgendas() {
-        return this.smsAgendas;
+
+    public Set<SmsReservacion> getSmsReservas() {
+        return smsReservas;
     }
-    
-    public void setSmsAgendas(Set<SmsAgenda> smsAgendas) {
-        this.smsAgendas = smsAgendas;
+
+    public void setSmsReservas(Set<SmsReservacion> smsReservas) {
+        this.smsReservas = smsReservas;
     }
+       
     public Set<SmsEstadovehiculo> getSmsEstadovehiculos() {
         return this.smsEstadovehiculos;
     }
