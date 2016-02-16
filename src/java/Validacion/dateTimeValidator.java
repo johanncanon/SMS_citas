@@ -51,8 +51,8 @@ public class dateTimeValidator implements Validator {
         Servicio = (String) component.getAttributes().get("servicio");
         fechaInicio = sdf.format((Date) component.getAttributes().get("fechaInicio"));
         fechaEntrega = sdf.format((Date) component.getAttributes().get("fechaEntrega"));
-        horaInicio = sdft.format((Date) component.getAttributes().get("horaInicio"));
-        horaEntrega = sdft.format((Date) value);
+        horaInicio = ((String) component.getAttributes().get("horaInicio")+ ":" + component.getAttributes().get("minutosInicio"));
+        horaEntrega = ((String) component.getAttributes().get("horaEntrega")+ ":" + value );
 
         try {
             horaActual = sdft.format(hora);

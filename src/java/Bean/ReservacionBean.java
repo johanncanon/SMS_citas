@@ -72,15 +72,16 @@ public class ReservacionBean {
     private SmsCiudad MciudadView;
     private SmsUsuario MclienteView;
     private SmsUsuario MConductorView;
-            
 
     private SmsCostosServicio costoServicioView;
     private SmsServicios servicioView;
-    
+
     private SmsUsuario sesion; //objeto donde guardaremos los datos del usuario logueado
 
     private String HoraInicio;
     private String HoraEntrega;
+    private String MinutosInicio;
+    private String MinutosEntrega;
 
     private List<SmsVehiculo> vehiculosListView;
     private List<SmsEmpleado> empleadosListView;
@@ -123,7 +124,7 @@ public class ReservacionBean {
         categoriaView = new SmsCategoria();
         ciudadView = new SmsCiudad();
         clienteView = new SmsUsuario();
-        
+
         costoServicioView = new SmsCostosServicio();
         servicioView = new SmsServicios();
 
@@ -162,7 +163,7 @@ public class ReservacionBean {
         lugarController = new LugarBean();
 
     }
-    
+
     @PostConstruct
     public void init() {
         //Obtenemos la informacion de sesion del usuario autentificado 
@@ -389,8 +390,22 @@ public class ReservacionBean {
     public void setMConductorView(SmsUsuario MConductorView) {
         this.MConductorView = MConductorView;
     }
-    
-    
+
+    public String getMinutosInicio() {
+        return MinutosInicio;
+    }
+
+    public void setMinutosInicio(String MinutosInicio) {
+        this.MinutosInicio = MinutosInicio;
+    }
+
+    public String getMinutosEntrega() {
+        return MinutosEntrega;
+    }
+
+    public void setMinutosEntrega(String MinutosEntrega) {
+        this.MinutosEntrega = MinutosEntrega;
+    }
 
     //Metodos    
     //CRUD
@@ -402,14 +417,15 @@ public class ReservacionBean {
             reservaView.setSmsEmpleado(empleadoView); //Si hay conductor escogido lo asignamos a la reservacion
         }
         ciudadView = ciuDao.consultarCiudad(ciudadView).get(0);
-        clienteView = usuDao.consultarUsuario(clienteView).get(0);
-        
+        if (sesion.getSmsRol().getIdRol() != 3) {
+            clienteView = usuDao.consultarUsuario(clienteView).get(0);
+        }
         reservaView.setSmsCiudad(ciudadView);
         reservaView.setSmsUsuario(clienteView);
-        
+
         //Registro
-        resDao.registrarReservacion(reservaView); 
-               
+        resDao.registrarReservacion(reservaView);
+
         //Enviamos mensajes al administrador del sistema, el cliente y el conductor
         if (empleadoView.getIdEmpleado() != null) {
             emailController.sendEmailAdministrador(empleadoView, vehiculoView, reservaView, clienteView);
@@ -437,6 +453,11 @@ public class ReservacionBean {
         //Habilitamos la seleccion de vehiculos y conductores
         SelecVeh = false;
         SelecCon = false;
+
+        HoraInicio = "";
+        HoraEntrega = "";
+        MinutosEntrega = "";
+        MinutosInicio = "";
 
         //seleccion a que vista retornara segun el rol del usuario logueado
         String Ruta = "";
@@ -510,6 +531,14 @@ public class ReservacionBean {
         } else {
             switch (event.getNewStep()) {
                 case "Vehiculo":
+                    SimpleDateFormat sdft = new SimpleDateFormat("HH:mm:ss");
+                    try {
+                        reservaView.setReservacionHoraInicio(sdft.parse(HoraInicio + ":" + MinutosInicio));
+                        reservaView.setReservacionHoraLlegada(sdft.parse(HoraEntrega + ":" + MinutosEntrega));
+                    } catch (ParseException pe) {
+                        pe.getMessage();
+                    }
+
                     if (resDao.mostrarReservaciones().isEmpty()) {
                         vehiculosListView = new ArrayList<>();
                         vehiculosListView = vehiculoController.consultarVehiculosCiudad(ciudadView);
@@ -673,17 +702,16 @@ public class ReservacionBean {
         String Ruta = "";
         MreservaView.setIdReservacion(Integer.parseInt(evento.getTitle()));
         MreservaView = resDao.consultarReservacionId(MreservaView).get(0);
-        
-        if(MreservaView.getSmsEmpleado() != null){
+
+        if (MreservaView.getSmsEmpleado() != null) {
             MempleadoView = MreservaView.getSmsEmpleado();
             MConductorView = usuDao.consultarUsuario(MempleadoView.getSmsUsuario()).get(0);
         }
-        
+
         MvehiculoView = MreservaView.getSmsVehiculo();
         MclienteView = MreservaView.getSmsUsuario();
         MciudadView = MreservaView.getSmsCiudad();
-        
-        
+
         switch (sesion.getSmsRol().getRolNombre()) {
             case "Administrador Principal":
                 Ruta = "VistaReservaAdminP";
