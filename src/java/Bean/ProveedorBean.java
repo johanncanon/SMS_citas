@@ -5,8 +5,8 @@
  */
 package Bean;
 
-import Controlador.MD5;
-import Controlador.Upload;
+import Funciones.MD5;
+import Funciones.Upload;
 import Controlador.Proveedor;
 import Modelo.SmsCiudad;
 import Modelo.SmsProveedor;

@@ -5,9 +5,10 @@
  */
 package Bean;
 
-import Controlador.Upload;
+import Funciones.Upload;
 import Controlador.Empleado;
-import Controlador.HojaVida;
+import DAO.IHojaVidaDao;
+import DAO.ImpHojaVidaDao;
 import Modelo.SmsCiudad;
 import Modelo.SmsEmpleado;
 import Modelo.SmsHojavida;
@@ -44,7 +45,6 @@ public class EmpleadoBean implements Serializable {
 
     //Relacion con el controlador
     protected Empleado empleadoController;
-    protected HojaVida hojaVidaController;
     protected Upload fileController;
 
     //Variables
@@ -79,8 +79,7 @@ public class EmpleadoBean implements Serializable {
 
         fileController = new Upload();
         empleadoController = new Empleado();
-        hojaVidaController = new HojaVida();
-
+      
         buscar = null;
         habilitarEditarSesion = false;       
         estado = 0;
@@ -164,14 +163,6 @@ public class EmpleadoBean implements Serializable {
 
     public void setEmpleadoController(Empleado empleadoController) {
         this.empleadoController = empleadoController;
-    }
-
-    public HojaVida getHojaVidaController() {
-        return hojaVidaController;
-    }
-
-    public void setHojaVidaController(HojaVida hojaVidaController) {
-        this.hojaVidaController = hojaVidaController;
     }
 
     public Upload getFileController() {
@@ -303,7 +294,8 @@ public class EmpleadoBean implements Serializable {
         hojavidaView.setHojaVidaNombre(fileController.getNameDefaultHojasVida());
         hojavidaView.setHojaVidaRuta(fileController.getPathDefaultHojasVida());
         }
-        hojaVidaController.registrarHojaVida(hojavidaView);
+        
+        registrarHojaVida(hojavidaView);
         empleadoController.registrarUsuario(usuarioView, ciudadView, rolView);
         empleadoController.registrarEmpleado(usuarioView, hojavidaView);
 
@@ -369,6 +361,11 @@ public class EmpleadoBean implements Serializable {
         } else {
             empleadosListView = empleadoController.filtrarEmpleados(buscar);
         }
+    }
+    
+    public void registrarHojaVida(SmsHojavida h){
+        IHojaVidaDao hojaDao = new ImpHojaVidaDao();
+        hojaDao.registrarHojaVida(h);
     }
 
     //Metodos propios
@@ -484,7 +481,7 @@ public class EmpleadoBean implements Serializable {
                     estadoArchivo = "Hoja de vida actualizada con exito";
                 }
 
-                hojaVidaController.registrarHojaVida(hojavidaView);
+                registrarHojaVida(hojavidaView);
                 registroHojaVida = true;
             }
 

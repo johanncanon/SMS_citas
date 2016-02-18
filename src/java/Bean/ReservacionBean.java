@@ -6,10 +6,8 @@
 package Bean;
 
 import Controlador.Empleado;
-import Controlador.SendEmail;
+import Funciones.SendEmail;
 import Controlador.Usuario;
-import Controlador.Vehiculo;
-import DAO.IAgendaDao;
 import Modelo.SmsReservacion;
 import DAO.ICiudadDao;
 import DAO.ICostosServiciosDAO;
@@ -17,7 +15,6 @@ import DAO.IReservacionDao;
 import DAO.IServicioDao;
 import DAO.IUsuarioDao;
 import DAO.IVehiculoDao;
-import DAO.ImpAgendaDao;
 import DAO.ImpCiudadDao;
 import DAO.ImpCostosServiciosDAO;
 import DAO.ImpReservacionDao;
@@ -32,6 +29,7 @@ import Modelo.SmsLugares;
 import Modelo.SmsServicios;
 import Modelo.SmsUsuario;
 import Modelo.SmsVehiculo;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -54,7 +52,7 @@ import org.primefaces.model.ScheduleModel;
  *
  * @author Desarrollo_Planit
  */
-public class ReservacionBean {
+public class ReservacionBean implements Serializable{
 
     private List<SmsReservacion> reservacionesListView;
 
@@ -95,7 +93,7 @@ public class ReservacionBean {
 
     //Relacion con los controladores
     LugarBean lugarController;
-    Vehiculo vehiculoController;
+    VehiculoBean vehiculoController;
     Empleado empleadoController;
     Usuario usuarioController;
     SendEmail emailController;
@@ -141,7 +139,7 @@ public class ReservacionBean {
         LugaresListView = new ArrayList<>();
         nombresLugaresListView = new ArrayList<>();
 
-        vehiculoController = new Vehiculo();
+        vehiculoController = new VehiculoBean();
         empleadoController = new Empleado();
         usuarioController = new Usuario();
         emailController = new SendEmail();

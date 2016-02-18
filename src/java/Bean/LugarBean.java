@@ -11,6 +11,7 @@ import DAO.ImpCiudadDao;
 import DAO.ImpLugarDao;
 import Modelo.SmsCiudad;
 import Modelo.SmsLugares;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -19,7 +20,7 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class LugarBean {
+public class LugarBean implements Serializable {
 
     //Objetos necesarios en vista
     private SmsLugares LugarView;

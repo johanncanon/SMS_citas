@@ -12,6 +12,7 @@ import DAO.ImpCiudadDao;
 import DAO.ImpPaisDao;
 import Modelo.SmsCiudad;
 import Modelo.SmsPais;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -20,7 +21,7 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class CiudadBean {
+public class CiudadBean implements Serializable {
 
     //Objetos de vista
     private SmsCiudad ciudadView;

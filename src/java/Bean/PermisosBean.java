@@ -5,8 +5,11 @@
  */
 package Bean;
 
-import Controlador.Permiso;
+
+import DAO.IPermisosDao;
+import DAO.ImpPermisosDao;
 import Modelo.SmsPermisos;
+import Modelo.SmsRol;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,29 +27,30 @@ public class PermisosBean implements Serializable {
     private SmsPermisos DPermisoView;
     private List<String> nombresPermisosListView;
 
-    //relacion con el controlador
-    Permiso permisoController;
-
     //Variables
     private int estado; //Controla la operacion a realizar
     private String nombre;
     private String buscar;
+
+    //Dao
+    IPermisosDao permisoDao;
 
     public PermisosBean() {
         permisoView = new SmsPermisos();
         DPermisoView = new SmsPermisos();
         permisosListView = new ArrayList<>();
         nombresPermisosListView = new ArrayList<>();
-        permisoController = new Permiso();
-
+       
         buscar = null;
         estado = 0;
         nombre = "Registrar Permiso";
+
+        permisoDao = new ImpPermisosDao();
     }
 
     @PostConstruct
     public void init() {
-        permisosListView = permisoController.cargarPermisos();
+        permisosListView = permisoDao.mostrarPermisos();
     }
 
     public List<SmsPermisos> getPermisosListView() {
@@ -67,7 +71,7 @@ public class PermisosBean implements Serializable {
 
     public List<String> getNombresPermisosListView() {
         nombresPermisosListView = new ArrayList<>();
-        permisosListView = permisoController.cargarPermisos();
+        permisosListView = permisoDao.mostrarPermisos();
         for (int i = 0; i < permisosListView.size(); i++) {
             nombresPermisosListView.add(permisosListView.get(i).getPermisosNombre());
         }
@@ -76,14 +80,6 @@ public class PermisosBean implements Serializable {
 
     public void setNombresPermisosListView(List<String> nombresPermisosListView) {
         this.nombresPermisosListView = nombresPermisosListView;
-    }
-
-    public Permiso getPermisoController() {
-        return permisoController;
-    }
-
-    public void setPermisoController(Permiso permisoController) {
-        this.permisoController = permisoController;
     }
 
     public int getEstado() {
@@ -118,40 +114,59 @@ public class PermisosBean implements Serializable {
         this.DPermisoView = DPermisoView;
     }
 
-    //Definicion de metodos CRUD    
+    //Definicion de metodos CRUD  
     public void registrar() {
-        permisoController.registrarPermiso(permisoView);
-        permisoView = new SmsPermisos();
-        permisosListView = permisoController.cargarPermisos();
+
+        permisoDao.registrarPermiso(permisoView);
+        permisosListView = permisoDao.mostrarPermisos();
+
     }
 
     public void modificar() {
-        permisoController.modificarPermiso(permisoView);
-        permisoView = new SmsPermisos();
-        permisosListView = permisoController.cargarPermisos();
+
+        permisoDao.modificarPermiso(permisoView);
+        permisosListView = permisoDao.mostrarPermisos();
+
     }
 
     public void eliminar() {
-        permisoController.eliminarPermiso(DPermisoView);
+        permisoDao.eliminarPermiso(DPermisoView);
         if (permisoView.equals(DPermisoView)) {
             permisoView = new SmsPermisos();
             estado = 0;
-            nombre = "Registrar Permiso";        
+            nombre = "Registrar Permiso";
         }
         DPermisoView = new SmsPermisos();
-        permisosListView = permisoController.cargarPermisos();
+        permisosListView = permisoDao.mostrarPermisos();
     }
 
     public void filtrar() {
         permisosListView = new ArrayList<>();
         if (buscar == null) {
-            permisosListView = permisoController.cargarPermisos();
+            permisosListView = permisoDao.mostrarPermisos();
         } else {
-            permisosListView = permisoController.filtrarPermiso(buscar);
+            permisosListView = filtrarPermiso(buscar);
         }
     }
 
+    public String validarPermiso(SmsRol r, SmsPermisos p) {
+        String permiso = null;
+        for (SmsPermisos per : r.getSmsPermisoses()) {
+            if (per.getPermisosNombre().equalsIgnoreCase(p.getPermisosNombre())) {
+                permiso = per.getPermisosNombre();
+            }
+        }
+        return permiso;
+    }
+
+    public List<SmsPermisos> filtrarPermiso(String valor) {
+        permisosListView = new ArrayList<>();
+        permisosListView = permisoDao.filtrarPermiso(valor);
+        return permisosListView;
+    }
+
     //Metodos propios
+
     public void seleccionarCrud(int i) {
         estado = i;
         if (estado == 1) {

@@ -8,6 +8,7 @@ package Bean;
 import DAO.IServicioDao;
 import DAO.ImpServicioDao;
 import Modelo.SmsServicios;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -16,7 +17,7 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class ServiciosBean {
+public class ServiciosBean implements Serializable{
 
     //Objetos necesarios
     protected SmsServicios servicioView;

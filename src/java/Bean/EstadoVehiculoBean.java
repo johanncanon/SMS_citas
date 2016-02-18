@@ -8,9 +8,12 @@ package Bean;
 import Modelo.SmsEstadovehiculo;
 import java.util.List;
 import javax.inject.Named;
-import Controlador.EstadoVehiculo;
 import DAO.IEstadoVehiculoDao;
 import DAO.ImpEstadoVehiculoDao;
+import Modelo.SmsVehiculo;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -18,23 +21,19 @@ import DAO.ImpEstadoVehiculoDao;
  */
 @Named(value = "estadoVehiculoBean")
 
-public class EstadoVehiculoBean {
+public class EstadoVehiculoBean implements Serializable{
 
     private SmsEstadovehiculo estVehView;
-    private EstadoVehiculo estadoVehiculo;
     private List<SmsEstadovehiculo> estVehiculosView;
 
-    /**
-     * Creates a new instance of EstadoVehiculoBean
-     */
+    IEstadoVehiculoDao estVehDao;
+
     public EstadoVehiculoBean() {
         estVehView = new SmsEstadovehiculo();
-        estadoVehiculo = new EstadoVehiculo();
+        estVehDao = new ImpEstadoVehiculoDao();
     }
 
-    /**
-     * *************************************
-     */
+    //Getter y setters
     public SmsEstadovehiculo getEstVehView() {
         return estVehView;
     }
@@ -53,30 +52,29 @@ public class EstadoVehiculoBean {
         this.estVehiculosView = estVehiculosView;
     }
 
-    public EstadoVehiculo getEstadoVehiculo() {
-        return estadoVehiculo;
+    //Metodos
+    public void registrarEstVeh(SmsEstadovehiculo estV) {
+        estVehView = estV;
+        //Obtenemos fecha actual en la cual se registra el estado del vehiculo
+        java.util.Date fecha = new Date();
+        estVehView.setFechaEstadoVehiculo(fecha);
+        estVehDao.registrarEstadoVehiculo(estVehView);
     }
 
-    public void setEstadoVehiculo(EstadoVehiculo estadoVehiculo) {
-        this.estadoVehiculo = estadoVehiculo;
+    public void modificarEstVeh(SmsEstadovehiculo estV) {
+        estVehView = estV;
+        estVehDao.modificarEstadoVehiculo(estVehView);
     }
 
-    /**
-     * ************************************
-     */
-    public void registrar() {
-        estadoVehiculo.registrarEstVeh(estVehView);
-        estVehView = new SmsEstadovehiculo();
+    public void eliminarEstVeh(SmsEstadovehiculo estV) {
+        estVehView = estV;
+        estVehDao.eliminarEstadoVehiculo(estVehView);
     }
 
-    public void modificar() {
-        estadoVehiculo.modificarEstVeh(estVehView);
-        estVehView = new SmsEstadovehiculo();
-    }
-
-    public void eliminar() {
-        estadoVehiculo.eliminarEstVeh(estVehView);
-        estVehView = new SmsEstadovehiculo();
+    public List<SmsEstadovehiculo> consultarEstado(SmsVehiculo v) {
+        estVehiculosView = new ArrayList<>();
+        estVehiculosView = estVehDao.consultarEstadoVehiculo(v);
+        return estVehiculosView;
     }
 
 }

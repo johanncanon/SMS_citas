@@ -5,11 +5,13 @@
  */
 package Bean;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Desarrollo_Planit
  */
-public class PathBean {
+public class PathBean implements Serializable {
 
     public PathBean() {
 

@@ -5,11 +5,13 @@
  */
 package Bean;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Desarrollo_Planit
  */
-public class CalificacionBean {
+public class CalificacionBean implements Serializable {
 
     /**
      * Creates a new instance of CalificacionBean

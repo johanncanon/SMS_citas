@@ -5,10 +5,13 @@
  */
 package Bean;
 
-import Controlador.Permiso;
-import Controlador.Rol;
+import DAO.IPermisosDao;
+import DAO.IRolDao;
+import DAO.ImpPermisosDao;
+import DAO.ImpRolDao;
 import Modelo.SmsPermisos;
 import Modelo.SmsRol;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -17,7 +20,7 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class RolBean {
+public class RolBean implements Serializable{
 
     //Instancia de objetos necesarios
     protected List<SmsRol> rolesListView;
@@ -27,8 +30,11 @@ public class RolBean {
     protected List<SmsPermisos> permisosListView;
 
     //Relacion con el controlador
-    protected Rol rolController;
-    protected Permiso permisoController;
+    PermisosBean permisoController;
+
+    //Dao
+    IPermisosDao permisoDao;
+    IRolDao rolDao;
 
     //Variables
     private int estado; //Controla la operacion a realizar
@@ -39,17 +45,20 @@ public class RolBean {
         rolView = new SmsRol();
         DRolView = new SmsRol();
         rolesListView = new ArrayList<>();
-        rolController = new Rol();
-        permisoController = new Permiso();
+        
+        permisoController = new PermisosBean();
         permisosSeleccionados = new ArrayList<>();
         buscar = null;
         estado = 0;
         nombre = "Registrar Rol";
+
+        permisoDao = new ImpPermisosDao();
+        rolDao = new ImpRolDao();
     }
 
     @PostConstruct
     public void init() {
-        rolesListView = rolController.cargarRoles();
+        rolesListView = rolDao.mostrarRoles();
     }
 
     //Getters & Setters
@@ -69,14 +78,6 @@ public class RolBean {
         this.rolView = rolView;
     }
 
-    public Rol getRolController() {
-        return rolController;
-    }
-
-    public void setRolController(Rol rolController) {
-        this.rolController = rolController;
-    }
-
     public List<String> getPermisosSeleccionados() {
         return permisosSeleccionados;
     }
@@ -91,14 +92,6 @@ public class RolBean {
 
     public void setPermisosListView(List<SmsPermisos> permisosListView) {
         this.permisosListView = permisosListView;
-    }
-
-    public Permiso getPermisoController() {
-        return permisoController;
-    }
-
-    public void setPermisoController(Permiso permisoController) {
-        this.permisoController = permisoController;
     }
 
     public int getEstado() {
@@ -132,52 +125,50 @@ public class RolBean {
     public void setDRolView(SmsRol DRolView) {
         this.DRolView = DRolView;
     }
+ 
 
     //Definicion de motodos CRUD    
-    public void registrar() {
-        asignarPermiso();
-        rolController.RegistrarRol(rolView);
+    public void registrar() {        
+        rolDao.registrarRol(rolView);
         rolView = new SmsRol();
         permisosSeleccionados.clear();
-        rolesListView = rolController.cargarRoles();
+        rolesListView = rolDao.mostrarRoles();
     }
 
     public void modificar() {
-
-        rolController.modificarRol(rolView);
+        rolDao.modificarRol(rolView);
         rolView = new SmsRol();
-        rolesListView = rolController.cargarRoles();
+        rolesListView = rolDao.mostrarRoles();
         permisosSeleccionados.clear();
     }
 
     public void eliminar() {
-        rolController.eliminarRol(DRolView);
+        rolDao.eliminarRol(DRolView);
         if (rolView.equals(DRolView)) {
             rolView = new SmsRol();
             estado = 0;
             nombre = "Registrar Rol";
         }
         DRolView = new SmsRol();
-        rolesListView = rolController.cargarRoles();
-        permisosSeleccionados.clear();
+        rolesListView = rolDao.mostrarRoles();        
     }
 
     public void filtrar() {
         rolesListView = new ArrayList<>();
         if (buscar == null) {
-            rolesListView = rolController.cargarRoles();
+            rolesListView = rolDao.mostrarRoles();
         } else {
-            rolesListView = rolController.filtrarRol(buscar);
+            rolesListView = filtrarRol(buscar);
         }
     }
+    
+     public List<SmsRol> filtrarRol(String valor) {
+        rolesListView = new ArrayList<>();
+        rolesListView = rolDao.filtrarRol(valor);
+        return rolesListView;
 
-    //Definicion de metodos para asignacion de permisos a un rol
-    public void asignarPermiso() {
-        permisosListView = new ArrayList<>();
-        for (int i = 0; i < permisosSeleccionados.size(); i++) {
-            rolView.getSmsPermisoses().add(permisoController.consultarPermiso(permisosSeleccionados.get(i)).get(0));
-        }
     }
+   
 
     //Metodos propios
     public void seleccionarCrud(int i) {
@@ -185,8 +176,8 @@ public class RolBean {
         permisosSeleccionados.clear();
         if (estado == 1) {
             nombre = "Modificar Rol";
-            List<SmsPermisos> permisos = permisoController.cargarPermisos();
-            List<SmsRol> rolPermisos = rolController.consultarRol(rolView);
+            List<SmsPermisos> permisos = permisoDao.mostrarPermisos();
+            List<SmsRol> rolPermisos = rolDao.consultarRol(rolView);
             String valor;
             for (int b = 0; b < permisos.size(); b++) {
                 valor = permisoController.validarPermiso(rolPermisos.get(0), permisos.get(b));
@@ -194,7 +185,6 @@ public class RolBean {
                     permisosSeleccionados.add(valor);
                 }
             }
-
         }
     }
 

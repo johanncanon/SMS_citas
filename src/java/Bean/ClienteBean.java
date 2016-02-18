@@ -5,10 +5,10 @@
  */
 package Bean;
 
-import Controlador.Upload;
+import Funciones.Upload;
 import Controlador.Cliente;
-import Controlador.MD5;
-import Controlador.SendEmail;
+import Funciones.MD5;
+import Funciones.SendEmail;
 import Modelo.SmsAgenda;
 import Modelo.SmsCiudad;
 import Modelo.SmsRol;
@@ -93,14 +93,6 @@ public class ClienteBean implements Serializable {
         this.clientesListView = clientesListView;
     }
 
-    public Cliente getClienteController() {
-        return clienteController;
-    }
-
-    public void setClienteController(Cliente clienteController) {
-        this.clienteController = clienteController;
-    }
-
     public SmsCiudad getCiudadView() {
         return ciudadView;
     }
@@ -115,14 +107,6 @@ public class ClienteBean implements Serializable {
 
     public void setRolView(SmsRol rolView) {
         this.rolView = rolView;
-    }
-
-    public Upload getFileController() {
-        return fileController;
-    }
-
-    public void setFileController(Upload fileController) {
-        this.fileController = fileController;
     }
 
     public String getBuscar() {

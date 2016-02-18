@@ -38,7 +38,7 @@
                                     <div class=" table-responsive">                                
                                         <h:panelGrid id="seccionDatosVehiculo" columns="4" style="width: 100%; padding: 12px">                                     
                                             <p:outputLabel value="Referencia: " />
-                                            <b:selectOneMenu id="referencia"  required="true" value="#{vehiculoBean.refenciaView.referenciaNombre}" style="width: 100%">
+                                            <b:selectOneMenu id="referencia"  required="true" value="#{vehiculoBean.referenciaView.referenciaNombre}" style="width: 100%">
                                                 <f:selectItem itemLabel="Seleccionar Referencia" itemValue="" noSelectionOption="true" />
                                                 <f:selectItems value="#{referenciaBean.nombresReferenciaListView}" />
                                             </b:selectOneMenu>
@@ -131,7 +131,7 @@
                                         </h:panelGrid>
 
                                     </div><hr/>
-                                    <p:commandButton id="BTVehiculo" class="btn btn-block btn-danger"  value="#{vehiculoBean.nombre}" update=":formA:msg :formA:seccionDatosVehiculo :formA:seccionEstadoVehiculo :formA:BTVehiculo :formB:TEstadoFoto :formB:fileIdPhoto :formC:DTVehiculos" action="#{vehiculoBean.metodo()}"/>
+                                    <p:commandButton id="BTVehiculo" class="btn btn-block btn-danger"  value="#{vehiculoBean.nombre}" update=":formA:msg :formA:seccionDatosVehiculo :formA:seccionEstadoVehiculo :formA:BTVehiculo :formB:TEstadoFoto :formB:fileIdPhoto :formC:DTVehiculos" action="#{vehiculoBean.registrar()}"/>
                                 </div>
                             </div>
                         </b:column>  

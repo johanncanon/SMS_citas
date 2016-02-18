@@ -9,11 +9,12 @@ package Bean;
 import DAO.IPaisDao;
 import DAO.ImpPaisDao;
 import Modelo.SmsPais;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 
-public class PaisBean {
+public class PaisBean implements Serializable{
 
     //Objetos de vista
     protected SmsPais paisView;

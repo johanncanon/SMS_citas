@@ -45,23 +45,7 @@
 
                                                 </h:panelGrid>
                                             </p:column>
-                                        </p:row>
-
-                                        <p:row>
-                                            <p:column>
-                                                <h4>Asignación de Permisos</h4>
-                                                <h:panelGrid id="seccionAsignacion" style="width: 100%">
-                                                    <p:row>
-                                                        <p:column colspan="2">
-                                                            <p:selectManyCheckbox value="#{rolBean.permisosSeleccionados}" layout="grid" id="permisos" style="width: 100%" columns="2">
-                                                                <f:selectItems value="#{permisosBean.nombresPermisosListView}"  />
-                                                            </p:selectManyCheckbox>
-                                                        </p:column>
-                                                    </p:row>                                                    
-                                                </h:panelGrid><hr/>
-                                                <p:commandButton value="#{rolBean.nombre}" update="msg formularioRoles DTRoles" class="btn btn-block btn-danger" action="#{rolBean.metodo()}"/>
-                                            </p:column>
-                                        </p:row>
+                                        </p:row>                                       
                                     </h:panelGrid>
                                 </div>
                             </div>
@@ -89,7 +73,7 @@
 
                                         <p:column style="width: 35px">
                                             <p:commandLink style="color: white" class="fa fa-trash btn btn-block btn-danger" process="@this" update="@form" action="#{rolBean.eliminar()}" title="Eliminar">
-                                                <f:setPropertyActionListener value="#{rol}" target="#{rolBean.rolView}"/>
+                                                <f:setPropertyActionListener value="#{rol}" target="#{rolBean.DRolView}"/>
                                                 <p:confirm header="Confirmacion" message="Esta seguro que desea eliminar este rol?" icon="ui-icon-alert" /> 
                                             </p:commandLink>
                                         </p:column>  
@@ -100,56 +84,7 @@
                                     </p:confirmDialog>
                                 </div>
                             </div>
-                        </b:column>
-
-                        <b:column col-lg="6" col-md="6" col-sm="12" col-xs="12">
-                            <div class="box box-danger">
-                                <div class="box-header with-border">
-                                    <i class="fa fa-2x fa-user-times"/>
-                                    <h4 class="box-title">Permisos</h4>
-                                </div>
-                                <div class="box-body">
-                                    <h:panelGrid id="seccionPermisos" columns="2" cellpadding="5" style="width: 100%">                                       
-
-                                        <p:outputLabel value="Nombre del permiso: "/>
-                                        <b:inputText placeholder="Registro, consulta, modificación,..." value="#{permisosBean.permisoView.permisosNombre}"></b:inputText>                                        
-                                        <p:outputLabel value="Descripción: "/>
-                                        <p:inputTextarea placeholder="Descripción de los limites del permiso" style="width: 100%" value="#{permisosBean.permisoView.permisosDescripcion}" rows="3"></p:inputTextarea>
-
-                                    </h:panelGrid><hr/>
-                                    <p:commandButton id="BTPermisos" class="btn btn-block btn-danger" action="#{permisosBean.metodo()}" value="#{permisosBean.nombre}" update="msg seccionPermisos seccionAsignacion BTPermisos DTPermisos"></p:commandButton>     
-                                </div>
-                            </div>
-                        </b:column>
-
-                        <b:column col-lg="6" col-md="6" col-sm="12" col-xs="12">
-                            <div class="box box-primary">
-                                <div class="box-header with-border">
-                                    <i class="fa fa-2x fa-list-ul"/>
-                                    <h4 class="box-title">Lista de permisos</h4>
-                                </div>
-                                <div class="box-body">
-                                    <b:inputText placeholder="Buscar" value="#{permisosBean.buscar}" style="width: 100%">
-                                        <p:ajax event="keyup" listener="#{permisosBean.filtrar()}"  process="@this" update="DTPermisos"/>
-                                    </b:inputText>    
-                                    <p:dataTable emptyMessage="Permisos no registrados" id="DTPermisos" var="permiso" value="#{permisosBean.permisosListView}">
-                                        <p:column headerText="Permiso">
-                                            <p:outputLabel value="#{permiso.permisosNombre}"/>
-                                        </p:column>
-                                        <p:column headerText="Descripción">
-                                            <p:outputLabel value="#{permiso.permisosDescripcion}"/>
-                                        </p:column>
-                                        
-                                    </p:dataTable>
-                                    
-                                </div>
-                            </div>
-                        </b:column>
-
-
-
-
-
+                        </b:column>                       
                     </h:form>
                 </b:row>
             </b:container>

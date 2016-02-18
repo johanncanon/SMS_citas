@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Funciones.MD5;
 import DAO.ICiudadDao;
 import DAO.IRolDao;
 import DAO.IUsuarioDao;

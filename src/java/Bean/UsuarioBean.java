@@ -6,13 +6,10 @@
 package Bean;
 
 import Controlador.Empleado;
-import Controlador.HojaVida;
-import Controlador.MD5;
-import Controlador.Upload;
+import Funciones.MD5;
+import Funciones.Upload;
 import Controlador.Usuario;
-import DAO.IRolDao;
 import DAO.IUsuarioDao;
-import DAO.ImpRolDao;
 import DAO.ImpUsuarioDao;
 import Modelo.SmsCiudad;
 import Modelo.SmsEmpleado;
@@ -31,7 +28,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
-import sun.font.TrueTypeFont;
 
 /**
  *
@@ -57,7 +53,6 @@ public class UsuarioBean implements Serializable {
     //Relacion con el controlador
     protected Usuario usuarioController;
     protected Upload fileController;
-    protected HojaVida hojaVidaController;
     protected Empleado empleadoController;
 
     //Contexto
@@ -91,8 +86,7 @@ public class UsuarioBean implements Serializable {
         fileController = new Upload();
         usuarioController = new Usuario();
         empleadoController = new Empleado();
-        hojaVidaController = new HojaVida();
-    
+        
         Usuario = new SmsUsuario();
         ciudadUsuario = new SmsCiudad();
                
@@ -474,26 +468,5 @@ public class UsuarioBean implements Serializable {
         }
     }
 
-    //Subida de archivos
-    public void uploadDoc(FileUploadEvent e) throws IOException {
-        try {
-            UploadedFile uploadedDoc = e.getFile();
-            String destination;
-
-            HashMap<String, String> map = fileController.getMapPathHojasVida();
-            destination = map.get("path");
-            if (null != uploadedDoc) {
-                fileController.uploadFile(IOUtils.toByteArray(uploadedDoc.getInputstream()), uploadedDoc.getFileName(), destination);
-                hojavidaView.setHojaVidaNombre(uploadedDoc.getFileName());
-                hojavidaView.setHojaVidaRuta(map.get("url") + uploadedDoc.getFileName());
-                estadoArchivo = "Hoja de vida actualizada con exito";
-
-                hojaVidaController.registrarHojaVida(hojavidaView);
-            }
-
-            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su Hoja de vida (" + uploadedDoc.getFileName() + ")  se ha guardado con exito.", ""));
-        } catch (Exception ex) {
-            ex.getMessage();
-        }
-    }
+    
 }

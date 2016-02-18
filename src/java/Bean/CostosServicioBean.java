@@ -15,6 +15,7 @@ import DAO.ImpServicioDao;
 import Modelo.SmsCategoria;
 import Modelo.SmsCostosServicio;
 import Modelo.SmsServicios;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -23,7 +24,7 @@ import javax.annotation.PostConstruct;
  *
  * @author CristianCamilo
  */
-public class CostosServicioBean {
+public class CostosServicioBean implements Serializable {
 
     //Objetos necesarios ne vista
     private SmsCostosServicio costoView;

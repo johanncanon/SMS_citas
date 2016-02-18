@@ -5,21 +5,32 @@
  */
 package Bean;
 
-import Controlador.Upload;
-import Controlador.EstadoVehiculo;
-import Controlador.Usuario;
-import Controlador.Vehiculo;
+import Funciones.Upload;
+import DAO.ICategoriaDao;
+import DAO.ICiudadDao;
+import DAO.IProveedorDao;
+import DAO.IReferenciaDao;
+import DAO.IUsuarioDao;
 import DAO.IVehiculoDao;
+import DAO.ImpCategoriaDao;
+import DAO.ImpCiudadDao;
+import DAO.ImpProveedorDao;
+import DAO.ImpReferenciaDao;
+import DAO.ImpUsuarioDao;
 import DAO.ImpVehiculoDao;
 import Modelo.SmsCategoria;
 import Modelo.SmsCiudad;
 import Modelo.SmsEstadovehiculo;
 import Modelo.SmsProveedor;
 import Modelo.SmsReferencia;
+import Modelo.SmsReservacion;
 import Modelo.SmsUsuario;
 import Modelo.SmsVehiculo;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -41,63 +52,70 @@ public class VehiculoBean {
     private SmsCategoria categoriaView;
     private SmsCiudad ciudadView;
     private SmsProveedor proveedorView;
-    private SmsReferencia refenciaView;
+    private SmsReferencia referenciaView;
     private SmsEstadovehiculo estadoVehiculoView;
 
     private SmsVehiculo MvehiculoView;
     private SmsCategoria McategoriaView;
     private SmsCiudad MciudadView;
     private SmsProveedor MproveedorView;
-    private SmsReferencia MrefenciaView;
+    private SmsReferencia MreferenciaView;
     private SmsEstadovehiculo MestadoVehiculoView;
     private SmsUsuario MusuarioView;
 
-    //Relacion con el controlador
-    protected Vehiculo vehiculoController;
-    protected Upload fileController;
-    protected EstadoVehiculo estadoVehiculoController;
-    protected Usuario usuarioController;
-
-    //Variables
-    private int estado; //Controla la operacion a realizar
+    //Relacion con el controlador   
+    Upload fileController;
+    EstadoVehiculoBean estadoVehiculoController;
+    
+    //Variables   
     private String nombre;
     private String buscar;
     private String modEstadoArchivo;
     private String estadoArchivo;
     private UploadedFile archivo;
-    
-    IVehiculoDao vehDao;
 
-    public VehiculoBean() {
-        vehiculoController = new Vehiculo();
+    //Conexion con el DAO
+    ICategoriaDao cateDao;
+    IProveedorDao provDao;
+    ICiudadDao ciuDao;
+    IReferenciaDao refDao;
+    IVehiculoDao vehDao;
+    IUsuarioDao usuDao;
+    
+    public VehiculoBean() {       
         vehiculoView = new SmsVehiculo();
         DVehiculoView = new SmsVehiculo();
         categoriaView = new SmsCategoria();
         ciudadView = new SmsCiudad();
         proveedorView = new SmsProveedor();
-        refenciaView = new SmsReferencia();
+        referenciaView = new SmsReferencia();
         estadoVehiculoView = new SmsEstadovehiculo();
 
         MvehiculoView = new SmsVehiculo();
         McategoriaView = new SmsCategoria();
         MciudadView = new SmsCiudad();
         MproveedorView = new SmsProveedor();
-        MrefenciaView = new SmsReferencia();
+        MreferenciaView = new SmsReferencia();
         MestadoVehiculoView = new SmsEstadovehiculo();
         MusuarioView = new SmsUsuario();
 
-        estadoVehiculoController = new EstadoVehiculo();
+        estadoVehiculoController = new EstadoVehiculoBean();
         fileController = new Upload();
         usuarioView = new SmsUsuario();
-        usuarioController = new Usuario();
-
+       
         buscar = null;
-        estado = 0;
+        
+        cateDao = new ImpCategoriaDao();
+        provDao = new ImpProveedorDao();
+        ciuDao = new ImpCiudadDao();
+        refDao = new ImpReferenciaDao();
+        vehDao = new ImpVehiculoDao();
+        usuDao = new ImpUsuarioDao();
 
         nombre = "Registrar Vehiculo";
         modEstadoArchivo = "Foto sin subir";
         estadoArchivo = "Foto sin subir";
-        
+
         vehDao = new ImpVehiculoDao();
     }
 
@@ -131,12 +149,12 @@ public class VehiculoBean {
         this.proveedorView = proveedorView;
     }
 
-    public SmsReferencia getRefenciaView() {
-        return refenciaView;
+    public SmsReferencia getReferenciaView() {
+        return referenciaView;
     }
 
-    public void setRefenciaView(SmsReferencia refenciaView) {
-        this.refenciaView = refenciaView;
+    public void setReferenciaView(SmsReferencia referenciaView) {
+        this.referenciaView = referenciaView;
     }
 
     public SmsEstadovehiculo getEstadoVehiculoView() {
@@ -259,12 +277,12 @@ public class VehiculoBean {
         this.MproveedorView = MproveedorView;
     }
 
-    public SmsReferencia getMrefenciaView() {
-        return MrefenciaView;
+    public SmsReferencia getMreferenciaView() {
+        return MreferenciaView;
     }
 
-    public void setMrefenciaView(SmsReferencia MrefenciaView) {
-        this.MrefenciaView = MrefenciaView;
+    public void setMrefenciaView(SmsReferencia MreferenciaView) {
+        this.MreferenciaView = MreferenciaView;
     }
 
     public SmsEstadovehiculo getMestadoVehiculoView() {
@@ -293,11 +311,29 @@ public class VehiculoBean {
             vehiculoView.setVehFotoNombre("Default.png");
         }
 
-        //Registramos el vehiculo
-        vehiculoController.registrarVehiculo(proveedorView, categoriaView, usuarioView, ciudadView, refenciaView, vehiculoView);
+        usuarioView = usuDao.consultarUsuario(usuarioView).get(0);
 
+        //Consulta categoria      
+        categoriaView = cateDao.consultarCategoria(categoriaView).get(0);
+        vehiculoView.setSmsCategoria(categoriaView);//Reasigna Categoria
+
+        //Consulta proveedor        
+        proveedorView = provDao.consultarProveedorUsuario(usuarioView).get(0);
+        vehiculoView.setSmsProveedor(proveedorView);//Reasigna Proveedor
+
+        //Consulta ciudad        
+        ciudadView = ciuDao.consultarCiudad(ciudadView).get(0);
+        vehiculoView.setSmsCiudad(ciudadView);//Reasigna Ciudad
+
+        //Consulta referencia        
+        referenciaView = refDao.consultarReferencias(referenciaView).get(0);
+        vehiculoView.setSmsReferencia(referenciaView);//Reasigna Referencia
+
+        //Registramos el vehiculo
+        vehDao.registrarVehiculo(vehiculoView);//Registra el Vehiculo
+        
         //consultamos el vehiculo recien registrado
-        vehiculoView = vehiculoController.consultarVehiculo(vehiculoView).get(0);
+        vehiculoView = vehDao.consultarVehiculo(vehiculoView).get(0);
         estadoVehiculoView.setSmsVehiculo(vehiculoView); //relacionamos el vehiculo con los valores asignados en la seccion de estado
 
         estadoVehiculoController.registrarEstVeh(estadoVehiculoView);//registramos el estado
@@ -306,7 +342,7 @@ public class VehiculoBean {
         estadoArchivo = "Foto sin subir";
 
         //limpiamos objetos
-        refenciaView = new SmsReferencia();
+        referenciaView = new SmsReferencia();
         categoriaView = new SmsCategoria();
         proveedorView = new SmsProveedor();
         ciudadView = new SmsCiudad();
@@ -320,18 +356,35 @@ public class VehiculoBean {
 
     public String modificar() {
         //Ejecutamos la modificacion del vehiculo
-        vehiculoController.modificarVehiculo(MproveedorView, McategoriaView, MusuarioView, MciudadView, MrefenciaView, MvehiculoView);
+        MusuarioView = usuDao.consultarUsuario(MusuarioView).get(0);
 
-        //Consultamos el vehiculo recien registrado
-        //MvehiculoView = vehiculoController.consultarVehiculo(MvehiculoView).get(0);
+        //Consulta categoria      
+        McategoriaView = cateDao.consultarCategoria(McategoriaView).get(0);
+        MvehiculoView.setSmsCategoria(McategoriaView);//Reasigna Categoria
+
+        //Consulta proveedor        
+        MproveedorView = provDao.consultarProveedorUsuario(MusuarioView).get(0);
+        MvehiculoView.setSmsProveedor(MproveedorView);//Reasigna Proveedor
+
+        //Consulta ciudad        
+        MciudadView = ciuDao.consultarCiudad(MciudadView).get(0);
+        MvehiculoView.setSmsCiudad(MciudadView);//Reasigna Ciudad
+
+        //Consulta referencia        
+        MreferenciaView = refDao.consultarReferencias(MreferenciaView).get(0);
+        MvehiculoView.setSmsReferencia(referenciaView);//Reasigna Referencia
+        
+        vehDao.modificarVehiculo(MvehiculoView);//Se modifica el vehiculo
+        
+        //Consultamos el vehiculo recien modificado
+        MvehiculoView = vehDao.consultarVehiculo(MvehiculoView).get(0);
         MestadoVehiculoView.setSmsVehiculo(MvehiculoView); //Relacionamos el estado de vehiculo con el vehiculo.
-
         estadoVehiculoController.registrarEstVeh(MestadoVehiculoView);//Registramos el estado del vehiculo
 
         //Reiniciamos valores para las variables llamadas desde las vista
         modEstadoArchivo = "Foto sin subir";
 
-        MrefenciaView = new SmsReferencia();
+        MreferenciaView = new SmsReferencia();
         McategoriaView = new SmsCategoria();
         MproveedorView = new SmsProveedor();
         MciudadView = new SmsCiudad();
@@ -340,23 +393,23 @@ public class VehiculoBean {
         MestadoVehiculoView = new SmsEstadovehiculo();
 
         //Actualizamos la lista que muestra los vehiculos registrados en el sistema
-        vehiculosListView = vehiculoController.cargarVehiculos();
+        vehiculosListView = vehDao.mostrarVehiculo();
         return "AdminPVehiculos";
     }
 
     public void eliminar() {
         //Eliminamos el vehiculo seleccionado
-        vehiculoController.eliminarVehiculo(DVehiculoView);
+        vehDao.eliminarVehiculo(DVehiculoView);
         DVehiculoView = new SmsVehiculo();//Limpiamos el objeto que contenia el vehiculo a eliminar
         //Recargamos la lista de vehiculos
         vehiculosListView = vehDao.mostrarVehiculo();
     }
-    
+
     //Metodos propios
     public String irModificarVehiculo() {
         //Asignamos a cada componente su correspondiente valor extraido del vehiculo seleccionado
         MciudadView = MvehiculoView.getSmsCiudad();
-        MrefenciaView = MvehiculoView.getSmsReferencia();
+        MreferenciaView = MvehiculoView.getSmsReferencia();
         McategoriaView = MvehiculoView.getSmsCategoria();
         MproveedorView = MvehiculoView.getSmsProveedor();
         MusuarioView = MproveedorView.getSmsUsuario();
@@ -379,7 +432,7 @@ public class VehiculoBean {
         McategoriaView = new SmsCategoria();
         MciudadView = new SmsCiudad();
         MproveedorView = new SmsProveedor();
-        MrefenciaView = new SmsReferencia();
+        MreferenciaView = new SmsReferencia();
         MestadoVehiculoView = new SmsEstadovehiculo();
         MusuarioView = new SmsUsuario();
 
@@ -409,5 +462,87 @@ public class VehiculoBean {
         } catch (Exception ex) {
             ex.getMessage();
         }
+    }       
+      
+
+    public List<SmsVehiculo> consultarVehiculosDisponible(SmsReservacion reserva, SmsCiudad ciudad) {
+        vehiculosListView = new ArrayList<>();
+        String ciudadVeh = ciudad.getCiudadNombre();
+        
+        Calendar calInicio = Calendar.getInstance();
+        calInicio.setTime(reserva.getReservacionHoraInicio());
+        calInicio.add(Calendar.HOUR, -1);
+        calInicio.add(Calendar.MINUTE, -59);
+
+        Calendar calLlegada = Calendar.getInstance();
+        calLlegada.setTime(reserva.getReservacionHoraLlegada());
+        calLlegada.add(Calendar.HOUR, 2);
+
+        Date hespacioInicio = calInicio.getTime();
+        Date hespacioLlegada = calLlegada.getTime();
+
+        SimpleDateFormat formatDate;
+        SimpleDateFormat formatTime;
+        formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        formatTime = new SimpleDateFormat("HH:mm:ss");
+
+        String FechaInicio = formatDate.format(reserva.getReservacionFechaInicio());
+        String FechaLlegada = formatDate.format(reserva.getReservacionFechaLlegada());
+        String HoraInicio = formatTime.format(reserva.getReservacionHoraInicio());
+        String HoraLlegada = formatTime.format(reserva.getReservacionHoraLlegada());
+        String espacioinicio = formatTime.format(hespacioInicio);
+        String espacioLlegada = formatTime.format(hespacioLlegada);
+
+        vehiculosListView = vehDao.consultarVehiculosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudadVeh, espacioinicio, espacioLlegada);
+        return vehiculosListView;
+    }
+
+    public List<SmsVehiculo> consultarVehiculosCiudad(SmsCiudad c) {
+        vehiculosListView = new ArrayList<>();
+        ciudadView = c;
+        vehiculosListView = vehDao.consultarVehiculosCiudad(ciudadView);
+        return vehiculosListView;
+    }
+
+    public List<SmsVehiculo> filtrarVehiculosCiudad(SmsCiudad c, SmsCategoria cat) {
+        vehiculosListView = new ArrayList<>();
+        ciudadView = c;
+        String categoriaVeh = cat.getCategoriaNombre();
+        vehiculosListView = vehDao.filtrarVehiculosCiudad(ciudadView, categoriaVeh);
+        return vehiculosListView;
+    }
+
+    public List<SmsVehiculo> filtrarVehiculosDisponibles(SmsReservacion reserva, SmsCategoria cat) {
+        vehiculosListView = new ArrayList<>();        
+        String categoriaVeh = cat.getCategoriaNombre();
+        String ciudadVeh = reserva.getSmsCiudad().getCiudadNombre();
+
+        Calendar calInicio = Calendar.getInstance();
+        calInicio.setTime(reserva.getReservacionHoraInicio());
+        calInicio.add(Calendar.HOUR, -1);
+        calInicio.add(Calendar.MINUTE, -59);
+
+        Calendar calLlegada = Calendar.getInstance();
+        calLlegada.setTime(reserva.getReservacionHoraLlegada());
+        calLlegada.add(Calendar.HOUR, 2);
+
+        Date hespacioInicio = calInicio.getTime();
+        Date hespacioLlegada = calLlegada.getTime();
+
+        SimpleDateFormat formatDate;
+        SimpleDateFormat formatTime;
+        formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        formatTime = new SimpleDateFormat("HH:mm:ss");
+
+        String FechaInicio = formatDate.format(reserva.getReservacionFechaInicio());
+        String FechaLlegada = formatDate.format(reserva.getReservacionFechaLlegada());
+        String HoraInicio = formatTime.format(reserva.getReservacionHoraInicio());
+        String HoraLlegada = formatTime.format(reserva.getReservacionHoraLlegada());
+        String espacioinicio = formatTime.format(hespacioInicio);
+        String espacioLlegada = formatTime.format(hespacioLlegada);
+
+        
+        vehiculosListView = vehDao.filtrarVehiculosDisponibles(FechaInicio, FechaLlegada, HoraInicio, HoraLlegada, ciudadVeh, categoriaVeh, espacioinicio, espacioLlegada);
+        return vehiculosListView;
     }
 }
