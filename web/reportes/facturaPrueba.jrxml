@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eaf369fb-1ca3-41ea-8a32-b6d1a5fa5a6a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     sms_reservacion.`idReservacion` AS sms_reservacion_idReservacion,
+     sms_reservacion.`Reservacion_lugar_llegada` AS sms_reservacion_Reservacion_lugar_llegada,
+     sms_reservacion.`Reservacion_lugar_destino` AS sms_reservacion_Reservacion_lugar_destino,
+     sms_reservacion.`Reservacion_notas` AS sms_reservacion_Reservacion_notas,
+     sms_reservacion.`Reservacion_idCliente` AS sms_reservacion_Reservacion_idCliente,
+     sms_reservacion.`Reservacion_idCiudad` AS sms_reservacion_Reservacion_idCiudad,
+     sms_reservacion.`Reservacion_Costo` AS sms_reservacion_Reservacion_Costo,
+     sms_reservacion.`Reservacion_idVehiculo` AS sms_reservacion_Reservacion_idVehiculo,
+     sms_reservacion.`Reservacion_idConductor` AS sms_reservacion_Reservacion_idConductor,
+     sms_reservacion.`Reservacion_fechaInicio` AS sms_reservacion_Reservacion_fechaInicio,
+     sms_reservacion.`Reservacion_fechaLlegada` AS sms_reservacion_Reservacion_fechaLlegada,
+     sms_reservacion.`Reservacion_horaInicio` AS sms_reservacion_Reservacion_horaInicio,
+     sms_reservacion.`Reservacion_horaLlegada` AS sms_reservacion_Reservacion_horaLlegada
+FROM
+     `sms_reservacion` sms_reservacion]]>
+	</queryString>
+	<field name="sms_reservacion_idReservacion" class="java.lang.Integer"/>
+	<field name="sms_reservacion_Reservacion_lugar_llegada" class="java.lang.String"/>
+	<field name="sms_reservacion_Reservacion_lugar_destino" class="java.lang.String"/>
+	<field name="sms_reservacion_Reservacion_notas" class="java.lang.String"/>
+	<field name="sms_reservacion_Reservacion_idCliente" class="java.lang.Integer"/>
+	<field name="sms_reservacion_Reservacion_idCiudad" class="java.lang.Integer"/>
+	<field name="sms_reservacion_Reservacion_Costo" class="java.lang.Integer"/>
+	<field name="sms_reservacion_Reservacion_idVehiculo" class="java.lang.Integer"/>
+	<field name="sms_reservacion_Reservacion_idConductor" class="java.lang.Integer"/>
+	<field name="sms_reservacion_Reservacion_fechaInicio" class="java.sql.Date"/>
+	<field name="sms_reservacion_Reservacion_fechaLlegada" class="java.sql.Date"/>
+	<field name="sms_reservacion_Reservacion_horaInicio" class="java.sql.Time"/>
+	<field name="sms_reservacion_Reservacion_horaLlegada" class="java.sql.Time"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="164" height="126" uuid="5949202e-5a55-4421-8394-fb2e3e758392"/>
+				<imageExpression><![CDATA["coffee.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="244" y="0" width="294" height="62" uuid="f42110ab-d3b9-49f6-89e1-12773ea843dd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Myriad Pro" size="36" isBold="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[reporte Prueba13]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="303" y="62" width="196" height="22" uuid="1d1bb4d3-9d65-4dff-a9ce-fb33ec8c3711"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Coffee SubTitle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="84" width="383" height="20" uuid="bf04572d-fad6-4fd8-93d5-0d38f6f158dc"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[texto de relleno]]></text>
+			</staticText>
+			<image>
+				<reportElement x="633" y="-73" width="219" height="209" uuid="2a95fc82-3d89-4635-a0aa-fa058a8557b6"/>
+				<imageExpression><![CDATA["coffee_stain.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="fd5d9e6a-6201-448d-b112-1a7e3706006a"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="61" height="15" forecolor="#736343" uuid="99b6e3fc-b84e-4413-95e5-ec2a5289e3bd"/>
+				<text><![CDATA[sms_reservacion_idReservacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="61" y="0" width="61" height="15" forecolor="#736343" uuid="fee0dfa0-2498-4f17-a0ff-7febb330baa8"/>
+				<text><![CDATA[sms_reservacion_Reservacion_lugar_llegada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="122" y="0" width="61" height="15" forecolor="#736343" uuid="34f7a6b9-7e1c-496c-8d8f-b3ab9d35ec1f"/>
+				<text><![CDATA[sms_reservacion_Reservacion_lugar_destino]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="183" y="0" width="61" height="15" forecolor="#736343" uuid="26974b96-0cea-4439-8d50-8a67de8ed6c6"/>
+				<text><![CDATA[sms_reservacion_Reservacion_notas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="244" y="0" width="61" height="15" forecolor="#736343" uuid="ca65e523-fa83-4b79-a0be-55dbb4b1fe80"/>
+				<text><![CDATA[sms_reservacion_Reservacion_idCliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="305" y="0" width="61" height="15" forecolor="#736343" uuid="1ffa44a2-3cb8-45bc-9b6f-20e10eae23b3"/>
+				<text><![CDATA[sms_reservacion_Reservacion_idCiudad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="366" y="0" width="61" height="15" forecolor="#736343" uuid="3e5e4755-b5f0-4dfe-b9c6-6c232332cebe"/>
+				<text><![CDATA[sms_reservacion_Reservacion_Costo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="427" y="0" width="61" height="15" forecolor="#736343" uuid="978e0cc5-5658-4aa2-bb0f-7334d65d0adb"/>
+				<text><![CDATA[sms_reservacion_Reservacion_idVehiculo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="488" y="0" width="61" height="15" forecolor="#736343" uuid="a75c0e09-1ad9-4638-88ec-57f228b53483"/>
+				<text><![CDATA[sms_reservacion_Reservacion_idConductor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="549" y="0" width="61" height="15" forecolor="#736343" uuid="dfe69752-346f-4ee6-95ec-d8134a94ac12"/>
+				<text><![CDATA[sms_reservacion_Reservacion_fechaInicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="610" y="0" width="61" height="15" forecolor="#736343" uuid="58c552dd-b6f5-4ddf-a936-239c2d88c80d"/>
+				<text><![CDATA[sms_reservacion_Reservacion_fechaLlegada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="671" y="0" width="61" height="15" forecolor="#736343" uuid="e638f804-68de-4c22-945a-9e1c286ae1ba"/>
+				<text><![CDATA[sms_reservacion_Reservacion_horaInicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="732" y="0" width="61" height="15" forecolor="#736343" uuid="b2762bf9-b8a2-448d-a1cc-95ca13f10205"/>
+				<text><![CDATA[sms_reservacion_Reservacion_horaLlegada]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="1a4aae34-ed91-4efd-aced-0d4858e433e9"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="0" y="0" width="61" height="15" uuid="6bf7c5c9-8dbe-4da5-b23b-ba873e70278f"/>
+					<textFieldExpression><![CDATA[$F{sms_reservacion_idReservacion}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="61" y="0" width="61" height="15" uuid="d2c3d578-b86d-42af-997f-f34dd8bb01be"/>
+					<textFieldExpression><![CDATA[$F{sms_reservacion_Reservacion_lugar_llegada}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="122" y="0" width="61" height="15" uuid="5e46fbe9-9afc-4602-ad19-a7a8af86b557"/>
+					<textFieldExpression><![CDATA[$F{sms_reservacion_Reservacion_lugar_destino}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="183" y="0" width="61" height="15" uuid="c4435cea-635b-42d2-a233-c135af5cef2c"/>
+					<textFieldExpression><![CDATA[$F{sms_reservacion_Reservacion_notas}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="244" y="0" width="61" height="15" uuid="d97a09bb-c964-4dbd-b017-b56b1c9d2e85"/>
+					<textFieldExpression><![CDATA[$F{sms_reservacion_Reservacion_idCliente}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="305" y="0" width="61" height="15" uuid="900b83b3-935e-40ac-8b6f-56dd23c25835"/>
+					<textFieldExpression><![CDATA[$F{sms_reservacion_Reservacion_idCiudad}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="366" y="0" width="61" height="15" uuid="0091ee67-a5e0-4699-a65b-b22f57e3f7c5"/>
+					<textFieldExpression><![CDATA[$F{sms_reservacion_Reservacion_Costo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="427" y="0" width="61" height="15" uuid="c5995c94-4b09-480b-8025-3b095051b0e7"/>
+					<textFieldExpression><![CDATA[$F{sms_reservacion_Reservacion_idVehiculo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="488" y="0" width="61" height="15" uuid="3a6a012b-ea23-401c-bf54-9e7a155ffe9f"/>
+					<textFieldExpression><![CDATA[$F{sms_reservacion_Reservacion_idConductor}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="549" y="0" width="61" height="15" uuid="4d759649-dea3-4095-ace3-4202cd56c3ce"/>
+					<textFieldExpression><![CDATA[$F{sms_reservacion_Reservacion_fechaInicio}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="610" y="0" width="61" height="15" uuid="52b520e1-3ac2-4946-ad1d-9cade54e3bd3"/>
+					<textFieldExpression><![CDATA[$F{sms_reservacion_Reservacion_fechaLlegada}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="671" y="0" width="61" height="15" uuid="e9708d04-2b4e-4cfc-b672-e2eadd8998b1"/>
+					<textFieldExpression><![CDATA[$F{sms_reservacion_Reservacion_horaInicio}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="732" y="0" width="61" height="15" uuid="556ba70f-a2c5-4e2d-bef6-057ad0e1f1e0"/>
+					<textFieldExpression><![CDATA[$F{sms_reservacion_Reservacion_horaLlegada}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="bc6f95a7-a439-4165-a5a5-87ce03dc9660"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="180" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="8599448e-b1fb-4008-9238-8a25c14a6d13"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343" uuid="60bd3e5f-8019-4b8b-b859-e94b4bed713b"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343" uuid="65e15e84-6ec8-4523-8ccd-7cd275576737"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="00264a4d-d7ae-4a00-b51b-f07a54ce3416"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
