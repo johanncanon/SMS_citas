@@ -5,6 +5,8 @@
  */
 package Bean;
 
+import DAO.IReservacionDao;
+import DAO.ImpReservacionDao;
 import Funciones.Conector_BD;
 import Modelo.SmsReservacion;
 import java.io.File;
@@ -51,17 +53,18 @@ public class reportePruebaBean {
 
 //        TRAEL METODO DE CONECCION A BASE DE EDATOS
         Conector_BD coneccion = new Conector_BD();
-
-        
+        IReservacionDao resDao = new ImpReservacionDao();
+               
+        reservacion = resDao.mostrarReservaciones().get(0);
         Map parametros = new HashMap();
-        parametros.put("ID Reporte Prueba: ", reservacion.getIdReservacion());
+        parametros.put("IdReservacion", reservacion.getIdReservacion());
 
 //        CREACINO DE ARCHIVO CON LA CALSE FILE
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reportes/facturaPrueba.jasper"));
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("reportes/report1.jasper"));
 
         
 //        SE TRAE LA CLASE QUE CREA EL METODO  QUE JACE EL REPORTE O FACTURA
-        try {
+       
 
             JasperPrint jp = JasperFillManager.fillReport(jasper.getPath(), parametros, coneccion.getConexion());
 
@@ -79,9 +82,7 @@ public class reportePruebaBean {
             stream.close();
             FacesContext.getCurrentInstance().responseComplete();
 
-        } catch (JRException ex) {
-            ex.printStackTrace();
-        }
+        
 
     }
 
