@@ -67,11 +67,12 @@ public class reportePruebaBean {
 
 //        ( jasper.getPath(), parametros, coneccion.getConexion() );
 //        POR MEDIO DEL NAVEGDOR SE MANDA LA ORDEN PRA CREAR EL PDF
+            
             HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
             response.addHeader("Content-disposition", "attachment; filename=reportePrueba_1.pdf");
             ServletOutputStream stream = response.getOutputStream();
 
-//                
+//            CREACION DE PDF
             JasperExportManager.exportReportToPdfStream(jp, stream);
 
             stream.flush();
