@@ -48,36 +48,36 @@ public class reportePruebaBean {
 
 //    Metodo para exportar la informacion en PDF
     public void exportarPDF() throws JRException, IOException {
-//        TRAEL METODO DE CONECCION A BASE DE EDATOS
 
+//        TRAEL METODO DE CONECCION A BASE DE EDATOS
         Conector_BD coneccion = new Conector_BD();
 
+        
         Map parametros = new HashMap();
         parametros.put("ID Reporte Prueba: ", reservacion.getIdReservacion());
 
 //        CREACINO DE ARCHIVO CON LA CALSE FILE
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reportes/facturaPrueba.jasper"));
 
+        
 //        SE TRAE LA CLASE QUE CREA EL METODO  QUE JACE EL REPORTE O FACTURA
         try {
 
             JasperPrint jp = JasperFillManager.fillReport(jasper.getPath(), parametros, coneccion.getConexion());
-        
+
 //        ( jasper.getPath(), parametros, coneccion.getConexion() );
-
-
 //        POR MEDIO DEL NAVEGDOR SE MANDA LA ORDEN PRA CREAR EL PDF
-        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        response.addHeader("Content-disposition", "attachment; filename=reportePrueba_1.pdf");
-        ServletOutputStream stream = response.getOutputStream();
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.addHeader("Content-disposition", "attachment; filename=reportePrueba_1.pdf");
+            ServletOutputStream stream = response.getOutputStream();
 
 //                
-        JasperExportManager.exportReportToPdfStream(jp, stream);
+            JasperExportManager.exportReportToPdfStream(jp, stream);
 
-        stream.flush();
-        stream.close();
-        FacesContext.getCurrentInstance().responseComplete();
-        
+            stream.flush();
+            stream.close();
+            FacesContext.getCurrentInstance().responseComplete();
+
         } catch (JRException ex) {
             ex.printStackTrace();
         }
