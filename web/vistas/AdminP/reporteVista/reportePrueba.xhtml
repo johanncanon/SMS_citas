@@ -13,11 +13,57 @@
 
         <ui:define name="content">
 
-            <h1>}
+            <h1>
                 JSF + Jasper Reports Exports
             </h1>
             <h:form>
-                <h:commandButton value="Exportar PDF" actionListener="#{reportePruebaBean.exportarPDF()}"/>
+
+                <br/>
+                <br/>
+
+                <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
+                    <h:commandButton value="Exportar PDF" actionListener="#{reservacionBean.exportarPDF()}"/>
+                <br/>
+
+                    <br/>
+
+                    <div class="box box-success">
+                        <div class="box-header with-border">
+                            <i class="fa fa-2x fa-list"/>
+                            <h4 class="box-title">Lista de Reservaciones</h4>
+                        </div>
+
+                        <div class="box-body">
+<!--                            <b:inputText placeholder="Buscar" value="#{categoriaBean.buscar}" style="width: 100%">
+                                <p:ajax event="keyup" listener="#{categoriaBean.filtrar()}"  process="@this" update="DTCategoria"/>
+                            </b:inputText>   -->
+                            
+                            <p:dataTable id="DTCategoria" var="ReporteReserva" value="#{reservacionBean.reservacionesListView}" 
+                                         rows="5"
+                                         paginator="true"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15" emptyMessage="reservaciones no registrados">
+                                <p:column headerText="ID Reservas">
+                                    <h:outputText value="#{ReporteReserva.idReservacion}" />
+                                </p:column>
+
+                                <p:column headerText="Marca Vehiculo de Reserva">
+                                    <h:outputText value="#{ReporteReserva.smsVehiculo.smsReferencia.smsMarca.marcaNombre}" />
+                                </p:column>
+                                <p:column style="width: 35px">
+                                    <p:commandLink ajax="false" class="fa fa-download btn btn-block btn-success"  style="color: white; padding: 5px"  
+                                                   process="@this"  action="#{reservacionBean.exportarPDF()}" title="Exportar PDF">
+                                        <f:setPropertyActionListener value="#{ReporteReserva}" target="#{reservacionBean.seleccionarReporte}"/>                                       
+                                    </p:commandLink>
+                                </p:column>
+
+
+                            </p:dataTable>
+
+
+                        </div>
+                    </div>
+                </b:column>
 
             </h:form>
 

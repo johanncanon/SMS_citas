@@ -21,6 +21,7 @@ import DAO.ImpReservacionDao;
 import DAO.ImpServicioDao;
 import DAO.ImpUsuarioDao;
 import DAO.ImpVehiculoDao;
+import Funciones.Conector_BD;
 import Modelo.SmsCategoria;
 import Modelo.SmsCiudad;
 import Modelo.SmsCostosServicio;
@@ -29,6 +30,8 @@ import Modelo.SmsLugares;
 import Modelo.SmsServicios;
 import Modelo.SmsUsuario;
 import Modelo.SmsVehiculo;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,11 +39,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
@@ -52,7 +63,7 @@ import org.primefaces.model.ScheduleModel;
  *
  * @author Desarrollo_Planit
  */
-public class ReservacionBean implements Serializable{
+public class ReservacionBean implements Serializable {
 
     private List<SmsReservacion> reservacionesListView;
 
@@ -114,6 +125,10 @@ public class ReservacionBean implements Serializable{
     protected IReservacionDao resDao;
     protected IUsuarioDao usuDao;
 
+//    VARIABLE PARA HACER REPORTE
+    private SmsReservacion reservacion;
+    private SmsReservacion seleccionarReporte;
+
     public ReservacionBean() {
 
         vehiculoView = new SmsVehiculo();
@@ -160,6 +175,9 @@ public class ReservacionBean implements Serializable{
 
         lugarController = new LugarBean();
 
+//        VARIABLE PARA HACER REPORTE DE PDF
+        reservacion = new SmsReservacion();
+        seleccionarReporte = new SmsReservacion();
     }
 
     @PostConstruct
@@ -318,6 +336,10 @@ public class ReservacionBean implements Serializable{
     }
 
     public List<SmsReservacion> getReservacionesListView() {
+
+        IReservacionDao reservaDAO = new ImpReservacionDao();
+        reservacionesListView = reservaDAO.mostrarReservaciones();
+
         return reservacionesListView;
     }
 
@@ -955,6 +977,61 @@ public class ReservacionBean implements Serializable{
                 break;
         }
         return costo;
+    }
+
+    /*
+     METODOS GET Y SET DEL REPORTE ********************************************************************
+     */
+    public SmsReservacion getReservacion() {
+        return reservacion;
+    }
+
+    public void setReservacion(SmsReservacion reservacion) {
+        this.reservacion = reservacion;
+    }
+
+//   METODO QUE DEFINE EL REPORTE ESPECIFICO PARA EL METODO QUE EXPORTA EL PDF
+    public SmsReservacion getSeleccionarReporte() {
+        return seleccionarReporte;
+    }
+
+    public void setSeleccionarReporte(SmsReservacion seleccionarReporte) {
+        this.seleccionarReporte = seleccionarReporte;
+    }
+
+    /*
+     METODOS GET Y SET DEL REPORTE ********************************************************************
+     */
+    //    Metodo para exportar la informacion en PDF
+    public void exportarPDF() throws JRException, IOException {
+
+//        TRAEL METODO DE CONECCION A BASE DE EDATOS
+        Conector_BD coneccion = new Conector_BD();
+        Map parametros = new HashMap();
+        parametros.put("idReserva", seleccionarReporte.getIdReservacion());
+
+//        CREACINO DE ARCHIVO CON LA CALSE FILE
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("reportes/facturaVenta_SMS.jasper"));
+
+//        SE TRAE LA CLASE QUE CREA EL METODO  QUE JACE EL REPORTE O FACTURA
+        JasperPrint jp = JasperFillManager.fillReport(jasper.getPath(), parametros, coneccion.getConexion());
+
+
+//        POR MEDIO DEL NAVEGDOR SE MANDA LA ORDEN PRA CREAR EL PDF
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=reporte_ " + seleccionarReporte.getIdReservacion() + ".pdf");
+        ServletOutputStream stream = response.getOutputStream();
+
+//        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+//        response.addHeader("Content-disposition", "attachment; filename=reportePrueba_3.pdf");
+//        ServletOutputStream stream = response.getOutputStream();
+//            CREACION DE PDF
+        JasperExportManager.exportReportToPdfStream(jp, stream);
+
+        stream.flush();
+        stream.close();
+        FacesContext.getCurrentInstance().responseComplete();
+
     }
 
 }

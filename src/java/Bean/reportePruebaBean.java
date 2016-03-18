@@ -57,10 +57,10 @@ public class reportePruebaBean {
                
         reservacion = resDao.mostrarReservaciones().get(0);
         Map parametros = new HashMap();
-        parametros.put("IdReservacion", reservacion.getIdReservacion());
+        parametros.put("idReservacion ", reservacion.getIdReservacion());
 
 //        CREACINO DE ARCHIVO CON LA CALSE FILE
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("reportes/report1.jasper"));
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("reportes/repor_Prueba2.jasper"));
 
         
 //        SE TRAE LA CLASE QUE CREA EL METODO  QUE JACE EL REPORTE O FACTURA
