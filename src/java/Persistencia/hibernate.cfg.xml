@@ -4,11 +4,12 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/smsrenta</property>
-    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.url">jdbc:mysql://192.168.0.253:3306/smsrenta</property>
+    <property name="hibernate.connection.username">smsrenta</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
+    <property name="hibernate.connection.password">renta</property>
     <mapping resource="Modelo/SmsVehiculo.hbm.xml"/>
     <mapping resource="Modelo/SmsUsuario.hbm.xml"/>
     <mapping resource="Modelo/SmsCiudad.hbm.xml"/>

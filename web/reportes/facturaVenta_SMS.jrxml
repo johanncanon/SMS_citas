@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4889350c-185c-4ef9-aa28-df703810dc07">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="217"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -175,7 +175,14 @@ WHERE
 	<title>
 		<band height="68" splitType="Stretch">
 			<staticText>
-				<reportElement style="Title" x="475" y="10" width="82" height="16" uuid="2b7ee3e2-477b-4b93-9481-04e70ff2240d"/>
+				<reportElement style="Title" x="473" y="10" width="82" height="16" uuid="2b7ee3e2-477b-4b93-9481-04e70ff2240d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true" pdfFontName="Times-Roman"/>
 				</textElement>
@@ -184,11 +191,11 @@ WHERE
 			<staticText>
 				<reportElement style="SubTitle" x="484" y="26" width="59" height="22" forecolor="#F86115" backcolor="#FFFFFF" uuid="f6d9a084-7d1b-4542-8ae1-6c35c9259119"/>
 				<box leftPadding="0" rightPadding="0">
-					<pen lineWidth="0.25" lineStyle="Solid" lineColor="#736343"/>
-					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#736343"/>
-					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#736343"/>
-					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#736343"/>
-					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#736343"/>
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font fontName="Arial" size="13" isBold="true" pdfFontName="Times-Roman"/>
